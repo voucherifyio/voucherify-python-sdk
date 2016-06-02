@@ -1,2 +1,2 @@
 from voucherify.client import Client
-from voucherify.utils import calculatePrice, calculatePrice
+import voucherify.utils as utils

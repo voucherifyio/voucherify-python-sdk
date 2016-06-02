@@ -32,6 +32,24 @@ pprint.pprint(result)
 Get voucher
 '''
 
+pprint.pprint('=== Get voucher ===')
+voucher = client.get(voucher['code'])
+pprint.pprint(voucher)
+
 '''
-Validate voucher
+Utils
 '''
+
+pprint.pprint('=== Calculate Discount Amount and Price after discount===')
+
+unit_price = 83.45
+items_count = 13
+base_price = unit_price * items_count
+
+discount = voucherify.utils.calculate_discount(base_price, voucher, unit_price)
+new_price = voucherify.utils.calculate_price(base_price, voucher, unit_price)
+pprint.pprint(unit_price)
+pprint.pprint(items_count)
+pprint.pprint(base_price)
+pprint.pprint(new_price)
+pprint.pprint(discount)
