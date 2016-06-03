@@ -23,17 +23,17 @@ Full documentation is located at [voucherify.readme.io](https://voucherify.readm
 #### Configure through a non-global API object
 
 ```python
-import voucherify
+from voucherify import Client as voucherifyClient
 
-voucherifyClient = voucherify.client(
-    application_id="YOUR-APPLICATION-ID-OBTAINED-FROM-CONFIGURATION",
-    client_secret_key="YOUR-CLIENT-SECRET-KEY-OBTAINED-FROM-CONFIGURATION"
+voucherify = voucherifyClient(
+    application_id="c70a6f00-cf91-4756-9df5-47628850002b",
+    client_secret_key="3266b9f8-e246-4f79-bdf0-833929b1380c"
 )
 ```
 
 #### Listing vouchers
 
-`voucherifyClient.list(filter)`
+`voucherify.list(filter)`
 
 Filter parameters:
 
@@ -46,7 +46,13 @@ Filter parameters:
 
 Example:
 ```python
-voucherifyClient.list({limit: 10, skip: 20, category: "API Test"})
+filter_params = {
+  "limit": 10,
+  "skip": 20,
+  "category": "API Test"
+}
+
+vouchers_list = voucherify.list(filter_params)
 ```
 
 Result:
@@ -99,7 +105,7 @@ Result:
 
 Example:
 ```python
-voucherifyClient.get('v1GiJYuuS')
+voucher = voucherify.get("Testing7fjWdr")
 ```
 
 Result:
@@ -129,40 +135,77 @@ Result:
 ```
 #### Creating a voucher
 
-`voucherifyClient.create(voucher)`
+`voucherify.create(voucher)`
 
 Example:
 
 ```python
-voucherifyClient.create({
-    discount: {
-        type: 'AMOUNT',
-        amount_off: 1000 // 10.00
+payload = {
+    "discount": {
+        "type": "AMOUNT",
+        "amount_off": 1000  # 10.00
     },
-    category: 'Test',
-    start_date: '2016-01-01T00:00:00Z'
-    expiration_date: '2016-12-31T23:59:59Z'
-})
+    "category": "API Test",
+    "start_date": "2016-01-01T00:00:00Z",
+    "expiration_date": "2016-12-31T23:59:59Z"
+}
+
+new_voucher = voucherify.create(payload)
+```
+
+Result:
+
+```json
+{
+    "code": "JxiJaV",
+    "campaign": null,
+    "category": "API Test",
+    "discount": {
+        "type": "AMOUNT",
+        "amount_off": 1000
+    },
+    "start_date": "2016-01-01T00:00:00Z",
+    "expiration_date": "2016-12-31T23:59:59Z",
+    "redemption": {
+        "quantity": 1,
+        "redeemed_quantity": 0,
+        "redemption_entries": []
+    },
+    "active": true,
+    "additional_info": null,
+    "metadata": null
+}
 ```
 
 #### Disabling a voucher
 
-`voucherifyClient.disable(voucher_code)`
+`voucherify.disable(voucher_code)`
 
 Example:
 
 ```python
-voucherifyClient.disable('v1GiJYuuS')
+result = voucherify.disable("JxiJaV")
+```
+
+Result:
+
+```text
+True|None
 ```
 
 #### Enabling a voucher
 
-`voucherifyClient.enable(voucher_code)`
+`voucherify.enable(voucher_code)`
 
 Example:
 
 ```python
-voucherifyClient.enable('v1GiJYuuS')
+result = voucherify.enable("JxiJaV")
+```
+
+Result:
+```text
+True|None
 ```
 
 #### Getting voucher redemption
@@ -171,7 +214,7 @@ voucherifyClient.enable('v1GiJYuuS')
 
 Example:
 ```python
-voucherifyClient.redemption('v1GiJYuuS')
+result = voucherify.redemption("Testing7fjWdr")
 ```
 
 Result:
@@ -192,24 +235,35 @@ Result:
 
 #### Publishing voucher
 
-`voucherifyClient.publish(campaign_name)`
-
-`voucherifyClient.publish(params)`
-
 This method selects a voucher that is suitable for publication, adds a publish entry and returns the voucher.
 A voucher is suitable for publication when it's active and has not been published more times than the redemption limit.
+
+##### Publish using campaign name
+
+`voucherify.publish(campaign_name)`
 
 Example:
 
 ```python
-voucherifyClient.publish({
-    campaign: 'First Ride',
-    channel: 'Email',
-    customer: 'donny.roll@mail.com'
-})
+result = voucherify.publish("First Ride")
 ```
 
-Positive result:
+##### Publish using params
+
+`voucherify.publish(params)`
+
+Example:
+
+```python
+payload = {
+    "campaign": "First Ride",
+    "channel": "Email",
+    "customer": "donny.roll@mail.com"
+}
+result = voucherify.publish(payload)
+```
+
+Result *(for both)*:
 
 ```json
 {
@@ -240,7 +294,7 @@ Positive result:
 }
 ```
 
-Possible error:
+Error:
 
 ```json
 {
@@ -251,13 +305,13 @@ Possible error:
 
 #### Redeeming voucher
 
-`voucherifyClient.redeem(voucher_code, tracking_id|customer_profile*)`
+`voucherify.redeem(voucher_code, tracking_id|customer_profile*)`
 
 ##### 1. Just by code
 
 Example:
 ```python
-voucherifyClient.redeem('v1GiJYuuS')
+result = voucherify.redeem("Testing7fjWdr")
 ```
 
 Result (voucher details after redemption):
@@ -301,6 +355,7 @@ Result (voucher details after redemption):
 ```
 
 Error:
+
 ```json
 {
   "code": 400,
@@ -313,11 +368,14 @@ Error:
 
 You can provide a tracking id (e.g. your customer's login or a generated id) to the voucher redemption request.
 
+Example:
+
 ```python
-voucherifyClient.redeem('v1GiJYuuS', 'alice.morgan')
+result = voucherify.redeem("Testing7fjWdr", "alice.morgan")
 ```
 
 Result:
+
 ```json
 {
     "id": "r_yRmanaA6EgSE9uDYvMQ5Evfp",
@@ -366,26 +424,31 @@ Result:
 
 You can record a detailed customer profile consisting of an `id` (obligatory), `name`, `email`, `description` and a `metadata` section that can include any data you wish.
 
+Example:
+
 ```python
-voucherifyClient.redeem({
-    voucher: "v1GiJYuuS",
-    customer: {
-        id: "alice.morgan",
-        name: "Alice Morgan",
-        email: "alice@morgan.com",
-        description: "",
-        metadata: {
-            locale: "en-GB",
-            shoeSize: 5,
-            favourite_brands: ["Armani", "L’Autre Chose", "Vicini"]
-        }
+customer = {
+    "id": "alice.morgan",
+    "name": "Alice Morgan",
+    "email": "alice@morgan.com",
+    "description": "",
+    "metadata": {
+        "locale": "en-GB",
+        "shoeSize": 5,
+        "favourite_brands": ["Armani", "L'Autre Chose", "Vicini"]
     }
-})
+}
+payload = {
+    "voucher": "v1GiJYuuS",
+    "customer": customer
+}
+voucherify.redeem(payload)
 ```
 
 ### Listing redemptions
 
-Use `voucherify.redemptions(filter)` to get a filtered list of redemptions.
+UseUse `redemptions` to get a filtered list of redemptions.
+
 Filter parameters:
 
 - limit (default: 100)
@@ -395,33 +458,34 @@ Filter parameters:
 - result - Success | Failure-NotExist | Failure-Inactive
 - customer
 
-Example - 1000 successful redemptions from April 2016:
-
-```python
-voucherifyClient.redemptions({
-    limit: 1000,
-    page: 0,
-    start_date: "2016-04-01T00:00:00",
-    end_date: "2016-04-30T23:59:59",
-    result: "Success"
-})
-```
-
-#### Rollback a redemption
-
-Use `voucherify.rollback(redemption_id, tracking_id*, reason*)` to revert a redemption.
-It will create a rollback entry in `redemption.redemption_entries` and give 1 redemption back to the pool
-(decrease `redeemed_quantity` by 1).
-
-Possible errors are:
-- 404 - Resource not found - if voucher with given `redemption_id` doesn't exist
-- 400 - Already rolled back - if redemption with given `redemption_id` has been rolled back already
-- 400 - Invalid redemption id - when trying to rollback a rollback.
+`voucherify.redemptions(filter)`
 
 Example:
 
 ```python
-voucherifyClient.rollback('r_irOQWUTAjthQwnkn5JQM1V6N', 'alice.morgan')
+filter_params = {
+    "limit": 1000,
+    "page": 0,
+    "start_date": "2016-04-01T00:00:00",
+    "end_date": "2016-04-30T23:59:59",
+    "result": "Success"
+}
+
+redemptions = voucherify.redemptions(filter_params)
+```
+
+#### Rollback a redemption
+
+Use `rollback` to revert a redemption.
+It will create a rollback entry in `redemption.redemption_entries` and give 1 redemption back to the pool
+(decrease `redeemed_quantity` by 1).
+
+`voucherify.rollback(redemption_id, reason*)`
+
+Example:
+
+```python
+result = voucherify.rollback("r_irOQWUTAjthQwnkn5JQM1V6N", "alice.morgan")
 ```
 
 Result:
@@ -477,19 +541,53 @@ Result:
 }
 ```
 
+Possible errors are:
+- 404 - Resource not found - if voucher with given `redemption_id` doesn't exist
+- 400 - Already rolled back - if redemption with given `redemption_id` has been rolled back already
+- 400 - Invalid redemption id - when trying to rollback a rollback.
 
 ### Utils
 
-#### Usage
-
-```
-from voucherify import utils
-```
+Use our set of utils to calculate a price after discount or discount amount.
 
 #### Available methods
 
-- `utils.calculatePrice(basePrice, voucher)`
-- `utils.calculateDiscount(basePrice, voucher)`
+- `utils.calculatePrice(basePrice, voucher, unit_price)` - Calculate discount amount
+- `utils.calculateDiscount(basePrice, voucher, unit_price)` - Calculate new price after discount
+
+#### Example
+
+```Python
+from voucherify import utils
+
+# Example voucher object.
+# You can use `get` method from API to get correct voucher dictionary shape.
+voucher = {
+  "code": "Testing7fjWdr",
+  "discount": {
+    "type": "AMOUNT",
+    "amount_off": 1080  # 10.80
+  },
+  "category": "API Test",
+  "start_date": "2016-01-01T00:00:00Z",
+  "expiration_date": "2016-12-31T23:59:59Z"
+}
+
+# Price of one item
+unit_price = 83.45
+
+# Number of items
+items_count = 13
+
+# Total price
+base_price = unit_price * items_count
+
+# Calculate discount amount
+discount = utils.calculate_discount(base_price, voucher, unit_price)
+
+# Calculate new price after discount
+new_price = utils.calculate_price(base_price, voucher, unit_price)
+```
 
 ### Changelog
 
