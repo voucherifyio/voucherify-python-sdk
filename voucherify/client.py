@@ -1,6 +1,5 @@
 import requests
 import json
-import pprint
 
 try:
     from urllib.parse import urlencode, quote
@@ -142,8 +141,13 @@ class Client(object):
             method='POST'
         )
 
-    def publish(self, campaign_name):
-        path = '/vouchers/publish?' + urlencode({'campaign': campaign_name})
+    def publish(self, campaign_name=""):
+        path = '/vouchers/publish'
+
+        if campaign_name and isinstance(campaign_name, dict):
+            path = path + '?' + urlencode(campaign_name)
+        else:
+            path = path + '?' + urlencode({'campaign': campaign_name})
 
         return self.request(
             path,

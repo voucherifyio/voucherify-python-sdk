@@ -13,7 +13,7 @@ voucherify = voucherifyClient(
 
 tracking_id = "PythonTestUser"
 voucher = {
-    "code": "PythonTestVoucher",
+    "code": "PythonVoucherTest",
     "discount": {
         "type": "AMOUNT",
         "amount_off": 12436
@@ -66,7 +66,7 @@ pprint.pprint(result)
 Enable Voucher
 """
 pprint.pprint("=== Enable Voucher ===")
-result = voucherify.disable(voucher["code"])
+result = voucherify.enable(voucher["code"])
 pprint.pprint(result)
 
 """
@@ -74,6 +74,7 @@ Redeem Voucher
 """
 pprint.pprint("=== Redeem Voucher ===")
 result = voucherify.redeem(voucher["code"])
+redemption_id = result['id']
 pprint.pprint(result)
 
 pprint.pprint("=== Redeem Voucher with Tracking ID ===")
@@ -124,8 +125,6 @@ pprint.pprint(len(redemptions_list))
 Rollback Voucher
 """
 pprint.pprint("=== Rollback Redemption ===")
-pprint.pprint(result)
-redemption_id = ""
 rollback_reason = "Wrong Customer"
 result = voucherify.rollback(redemption_id, rollback_reason)
 pprint.pprint(result)
@@ -133,8 +132,17 @@ pprint.pprint(result)
 """
 Publish Voucher
 """
-pprint.pprint("=== Publish Campaign ===")
+pprint.pprint("=== Publish Campaign with Campaign Name ===")
 result = voucherify.publish("PythonTestCampaignName")
+pprint.pprint(result)
+
+pprint.pprint("=== Publish Campaign with Campaign Details ===")
+payload = {
+    "campaign": "PythonTestCampaignName",
+    "channel": "Email",
+    "customer": "donny.roll@mail.com"
+}
+result = voucherify.publish(payload)
 pprint.pprint(result)
 
 """
