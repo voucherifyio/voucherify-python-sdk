@@ -1,5 +1,6 @@
 import requests
 import json
+import pprint
 
 try:
     from urllib.parse import urlencode, quote
@@ -35,8 +36,14 @@ class Client(object):
         except requests.HTTPError as e:
             response = json.loads(e.read())
 
-        if 'json' in response.headers['content-type']:
+        if response.headers.get('content-type') and 'json' in response.headers['content-type']:
             result = response.json()
+        elif response.status_code == 200:
+            result = {
+                "data": response.text,
+                "reason": response.reason,
+                "status": response.status_code
+            }
         else:
             raise VoucherifyError('Content-Type of API response is not in a JSON format')
 
@@ -73,18 +80,22 @@ class Client(object):
     def enable(self, code):
         path = '/vouchers/' + quote(code) + '/enable'
 
-        return self.request(
+        result = self.request(
             path,
             method='POST'
         )
+
+        return result['status'] == 200
 
     def disable(self, code):
         path = '/vouchers/' + quote(code) + '/disable'
 
-        return self.request(
+        result = self.request(
             path,
             method='POST'
         )
+
+        return result['status'] == 200
 
     def redemption(self, code):
         path = '/vouchers/' + quote(code) + '/redemption'
@@ -104,7 +115,7 @@ class Client(object):
     def redeem(self, code, tracking_id=None):
         context = {}
 
-        if code and isinstance(code, dict) and code.get('error'):
+        if code and isinstance(code, dict):
             context = code
             code = context['voucher']
             del context['voucher']
