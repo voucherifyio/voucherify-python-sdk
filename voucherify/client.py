@@ -1,6 +1,5 @@
 import requests
 import json
-import re
 
 try:
     from urllib.parse import urlencode, quote
@@ -9,11 +8,12 @@ except ImportError:
     from urllib import quote
 
 ENDPOINT_URL = 'https://api.voucherify.io/v1'
+TIMEOUT = 30 * 1000
 
 
 class Client(object):
     def __init__(self, application_id, client_secret_key):
-        self.timeout = 30 * 1000
+        self.timeout = TIMEOUT
         self.headers = {
             'X-App-Id': application_id,
             'X-App-Token': client_secret_key,
@@ -23,7 +23,7 @@ class Client(object):
 
     def request(self, path, method='GET', **kwargs):
         try:
-            url = join_url(ENDPOINT_URL, path)
+            url = ENDPOINT_URL + path
 
             response = requests.request(
                 method=method,
@@ -54,7 +54,7 @@ class Client(object):
         )
 
     def get(self, code):
-        path = join_url('/vouchers/', quote(code))
+        path = '/vouchers/' + quote(code)
 
         return self.request(
             path
@@ -62,7 +62,7 @@ class Client(object):
 
     def create(self, voucher):
         code = voucher.get('code', '')
-        path = join_url('/vouchers/', quote(code))
+        path = '/vouchers/' + quote(code)
 
         return self.request(
             path,
@@ -71,7 +71,7 @@ class Client(object):
         )
 
     def enable(self, code):
-        path = join_url('/vouchers/', quote(code), '/enable')
+        path = '/vouchers/' + quote(code) + '/enable'
 
         return self.request(
             path,
@@ -79,7 +79,7 @@ class Client(object):
         )
 
     def disable(self, code):
-        path = join_url('/vouchers/', quote(code), '/disable')
+        path = '/vouchers/' + quote(code) + '/disable'
 
         return self.request(
             path,
@@ -87,7 +87,7 @@ class Client(object):
         )
 
     def redemption(self, code):
-        path = join_url('/vouchers/', quote(code), '/redemption')
+        path = '/vouchers/' + quote(code) + '/redemption'
 
         return self.request(
             path
@@ -109,10 +109,10 @@ class Client(object):
             code = context['voucher']
             del context['voucher']
 
-        path = join_url('/vouchers/', quote(code), '/redemption')
+        path = '/vouchers/' + quote(code) + '/redemption'
 
         if tracking_id:
-            join_url_params(path, {'tracking_id': tracking_id})
+            path = path + '?' + urlencode({'tracking_id': tracking_id})
 
         return self.request(
             path,
@@ -121,10 +121,10 @@ class Client(object):
         )
 
     def rollback(self, redemption_id, reason=None):
-        path = join_url('/redemptions/', redemption_id, '/rollback')
+        path = '/redemptions/' + redemption_id + '/rollback'
 
         if reason:
-            join_url_params(path, {'reason': reason})
+            path = path + '?' + urlencode({'reason': reason})
 
         return self.request(
             path,
@@ -132,7 +132,7 @@ class Client(object):
         )
 
     def publish(self, campaign_name):
-        path = join_url_params('/vouchers/publish', {'campaign': campaign_name})
+        path = '/vouchers/publish?' + urlencode({'campaign': campaign_name})
 
         return self.request(
             path,
@@ -156,11 +156,4 @@ class VoucherifyError(Exception):
         Exception.__init__(self, self.message)
 
 
-def join_url(url, *paths):
-    for path in paths:
-        url = re.sub(r'/?$', re.sub(r'^/?', '/', path), url)
-    return url
-
-
-def join_url_params(url, params):
-    return url + '?' + urlencode(params)
+__all__ = ['Client']
