@@ -189,8 +189,23 @@ result = voucherify.disable("JxiJaV")
 
 Result:
 
-```text
-True|None
+**This method does not return result when succeed**
+
+Error:
+
+```json
+{
+  "code": 404,
+  "message": "Resource not found",
+  "details": "Cannot find Voucher with code: <voucher_code>"
+}
+```
+
+```json
+{
+    "statusCode": 400,
+    "error": "Bad Request"
+}
 ```
 
 #### Enabling a voucher
@@ -204,8 +219,24 @@ result = voucherify.enable("JxiJaV")
 ```
 
 Result:
-```text
-True|None
+
+**This method does not return result when succeed**
+
+Error:
+
+```json
+{
+  "code": 404,
+  "message": "Resource not found",
+  "details": "Cannot find Voucher with code: <voucher_code>"
+}
+```
+
+```json
+{
+    "statusCode": 400,
+    "error": "Bad Request"
+}
 ```
 
 #### Getting voucher redemption

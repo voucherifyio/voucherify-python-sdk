@@ -62,11 +62,19 @@ pprint.pprint("=== Disable Voucher ===")
 result = voucherify.disable(voucher["code"])
 pprint.pprint(result)
 
+pprint.pprint("=== Disable not existing Voucher ===")
+result = voucherify.disable("TotallyRandomVoucher")
+pprint.pprint(result)
+
 """
 Enable Voucher
 """
 pprint.pprint("=== Enable Voucher ===")
 result = voucherify.enable(voucher["code"])
+pprint.pprint(result)
+
+pprint.pprint("=== Disable not existing Voucher ===")
+result = voucherify.enable("TotallyRandomVoucher")
 pprint.pprint(result)
 
 """

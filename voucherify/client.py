@@ -1,3 +1,4 @@
+import pprint
 import requests
 import json
 
@@ -22,6 +23,8 @@ class Client(object):
         }
 
     def request(self, path, method='GET', **kwargs):
+        result = ""
+
         try:
             url = ENDPOINT_URL + path
 
@@ -32,21 +35,15 @@ class Client(object):
                 timeout=self.timeout,
                 **kwargs
             )
-        except requests.HTTPError as e:
+        except requests.ConnectionError or requests.HTTPError as e:
             response = json.loads(e.read())
 
         if response.headers.get('content-type') and 'json' in response.headers['content-type']:
             result = response.json()
-        elif response.status_code == 200:
-            result = {
-                "data": response.text,
-                "reason": response.reason,
-                "status": response.status_code
-            }
         else:
-            raise VoucherifyError('Content-Type of API response is not in a JSON format')
+            result = response.text
 
-        if result and isinstance(result, dict) and result.get('error'):
+        if isinstance(result, dict) and result.get('error'):
             raise VoucherifyError(result)
 
         return result
@@ -79,22 +76,18 @@ class Client(object):
     def enable(self, code):
         path = '/vouchers/' + quote(code) + '/enable'
 
-        result = self.request(
+        return self.request(
             path,
             method='POST'
         )
-
-        return result['status'] == 200
 
     def disable(self, code):
         path = '/vouchers/' + quote(code) + '/disable'
 
-        result = self.request(
+        return self.request(
             path,
             method='POST'
         )
-
-        return result['status'] == 200
 
     def redemption(self, code):
         path = '/vouchers/' + quote(code) + '/redemption'
