@@ -23,8 +23,6 @@ class Client(object):
         }
 
     def request(self, path, method='GET', **kwargs):
-        result = ""
-
         try:
             url = ENDPOINT_URL + path
 
@@ -35,8 +33,10 @@ class Client(object):
                 timeout=self.timeout,
                 **kwargs
             )
-        except requests.ConnectionError or requests.HTTPError as e:
+        except requests.HTTPError as e:
             response = json.loads(e.read())
+        except requests.ConnectionError as e:
+            raise VoucherifyError(e)
 
         if response.headers.get('content-type') and 'json' in response.headers['content-type']:
             result = response.json()
@@ -138,13 +138,14 @@ class Client(object):
         path = '/vouchers/publish'
 
         if campaign_name and isinstance(campaign_name, dict):
-            path = path + '?' + urlencode(campaign_name)
+            payload = campaign_name
         else:
-            path = path + '?' + urlencode({'campaign': campaign_name})
+            payload = {'campaign': campaign_name}
 
         return self.request(
             path,
-            method='POST'
+            method='POST',
+            data=json.dumps(payload)
         )
 
 
