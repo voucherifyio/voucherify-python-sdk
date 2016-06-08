@@ -468,7 +468,7 @@ Example:
 
 ```python
 customer = {
-    "sourec_id": "alice.morgan",
+    "source_id": "alice.morgan",
     "name": "Alice Morgan",
     "email": "alice@morgan.com",
     "description": "",
@@ -636,7 +636,9 @@ new_price = utils.calculate_price(base_price, voucher, unit_price)
 
 ### Changelog
 
+- **2016-06-08** - `1.0.0` - Release version
 - **2016-05-31** - `0.1.0` - First version:
   - Authentication
   - Voucher informations: *get*, *usage*
   - Voucher operations: *use*
+  - Utils
