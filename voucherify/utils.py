@@ -1,5 +1,3 @@
-import pprint
-
 def round_money(value):
     if value is None or value < 0:
         raise Exception('Invalid value, amount should be a number and higher than zero.')
