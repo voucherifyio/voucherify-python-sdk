@@ -91,7 +91,7 @@ pprint.pprint(result)
 
 pprint.pprint("=== Redeem Voucher with Customer Info ===")
 customer = {
-    "id": "alice.morgan",
+    "source_id": "alice.morgan",
     "name": "Alice Morgan",
     "email": "alice@morgan.com",
     "description": "",
