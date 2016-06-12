@@ -69,7 +69,7 @@ class Customer(VoucherifyRequest):
         )
 
     def update(self, customer):
-        path = '/customers/'
+        path = '/customers/' + quote(customer.get('id'))
 
         return self.request(
             path,
