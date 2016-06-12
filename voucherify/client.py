@@ -11,7 +11,7 @@ ENDPOINT_URL = 'https://api.voucherify.io/v1'
 TIMEOUT = 30 * 1000
 
 
-class Client(object):
+class VoucherifyRequest(object):
     def __init__(self, application_id, client_secret_key):
         self.timeout = TIMEOUT
         self.headers = {
@@ -46,6 +46,11 @@ class Client(object):
             raise VoucherifyError(result)
 
         return result
+
+
+class Client(VoucherifyRequest):
+    def __init__(self, *args, **kwargs):
+        super(Client, self).__init__(*args, **kwargs)
 
     def list(self, query):
         path = '/vouchers/'
