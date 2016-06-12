@@ -48,9 +48,48 @@ class VoucherifyRequest(object):
         return result
 
 
+class Customer(VoucherifyRequest):
+    def __init__(self, *args, **kwargs):
+        super(Customer, self).__init__(*args, **kwargs)
+
+    def create(self, customer):
+        path = '/customers/'
+
+        return self.request(
+            path,
+            data=json.dumps(customer),
+            method='POST'
+        )
+
+    def fetch(self, customer_id):
+        path = '/customers/' + quote(customer_id)
+
+        return self.request(
+            path
+        )
+
+    def update(self, customer):
+        path = '/customers/'
+
+        return self.request(
+            path,
+            data=json.dumps(customer),
+            method='PUT'
+        )
+
+    def delete(self, customer_id):
+        path = '/customers/' + quote(customer_id)
+
+        return self.request(
+            path,
+            method='DELETE'
+        )
+
+
 class Client(VoucherifyRequest):
     def __init__(self, *args, **kwargs):
         super(Client, self).__init__(*args, **kwargs)
+        self.customer = Customer(*args, **kwargs)
 
     def list(self, query):
         path = '/vouchers/'
