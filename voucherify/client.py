@@ -61,7 +61,7 @@ class Customer(VoucherifyRequest):
             method='POST'
         )
 
-    def fetch(self, customer_id):
+    def get(self, customer_id):
         path = '/customers/' + quote(customer_id)
 
         return self.request(

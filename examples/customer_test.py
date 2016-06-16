@@ -29,7 +29,7 @@ pprint.pprint(result)
 """
 Fetch Customer
 """
-result = voucherify.customer.fetch(result.get("id"))
+result = voucherify.customer.get(result.get("id"))
 pprint.pprint("--- Fetch ---")
 pprint.pprint(result)
 
