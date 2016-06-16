@@ -525,7 +525,7 @@ It will create a rollback entry in `redemption.redemption_entries` and give 1 re
 Example:
 
 ```python
-result = voucherify.rollback("r_irOQWUTAjthQwnkn5JQM1V6N", "alice.morgan")
+result = voucherify.rollback("r_irOQWUTAjthQwnkn5JQM1V6N", "john.doe")
 ```
 
 Result:
@@ -590,6 +590,101 @@ Possible errors are:
 - 404 - Resource not found - if voucher with given `redemption_id` doesn't exist
 - 400 - Already rolled back - if redemption with given `redemption_id` has been rolled back already
 - 400 - Invalid redemption id - when trying to rollback a rollback.
+
+
+#### Create customer
+
+Example:
+
+```python
+payload = {
+    "name": "John Doe",
+    "email": "john@email.com",
+    "description": "Sample description of customer",
+    "metadata": {
+        "lang": "en"
+    }
+}
+
+result = voucherify.customer.create(payload)
+```
+
+Result:
+```json
+{
+    "id": "cust_WGG615E92dhOHz7PV9Vo9gk9",
+    "created_at": "2016-06-12T15:52:49Z",
+    "description": "Sample description of customer",
+    "email": "john@email.com",
+    "metadata": {
+        "lang": "en"
+    },
+    "name": "John Doe",
+    "object": "customer"
+}
+```
+
+#### Fetch customer
+
+Example:
+
+```python
+result = voucherify.customer.fetch("cust_gVYAaioitMz3GO6HSKFLf7Or")
+```
+
+Result:
+```json
+{
+    "id": "cust_gVYAaioitMz3GO6HSKFLf7Or",
+    "created_at": "2016-06-12T16:03:36Z",
+    "description": "Sample description of customer",
+    "email": "john@email.com",
+    "metadata": {
+        "lang": "en"
+    },
+    "name": "John Doe",
+    "object": "customer"
+ }
+```
+
+#### Update customer
+
+Example:
+
+```python
+payload = {
+    "id": "cust_gVYAaioitMz3GO6HSKFLf7Or",
+    "description": "Updated description for given customer ID"
+}
+
+result = voucherify.customer.update(payload)
+```
+
+Result:
+```json
+{
+    "id": "cust_gVYAaioitMz3GO6HSKFLf7Or",
+    "created_at": "2016-06-12T16:03:36Z",
+    "description": "Updated description for given customer ID",
+    "email": "john@email.com",
+    "metadata": {
+        "lang": "en"
+    },
+    "name": "John Doe",
+    "object": "customer"
+ }
+```
+
+#### Delete customer
+
+Example:
+
+```python
+result = voucherify.customer.delete("cust_gVYAaioitMz3GO6HSKFLf7Or")
+```
+
+Result:
+`Result is an empty body`
 
 ### Utils
 
