@@ -27,7 +27,7 @@ pprint.pprint("--- Create ---")
 pprint.pprint(result)
 
 """
-Fetch Customer
+Get Customer
 """
 result = voucherify.customer.get(result.get("id"))
 pprint.pprint("--- Fetch ---")
