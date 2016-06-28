@@ -61,6 +61,7 @@ Result:
      "code": "9mYBpIk",
      "campaign": null,
      "category": "API Test",
+     "type": "DISCOUNT_VOUCHER",
      "discount": {
        "type": "AMOUNT",
        "amount_off": 400
@@ -80,9 +81,9 @@ Result:
        "code": "AzTsIH",
        "campaign": null,
        "category": "API Test",
-       "discount": {
-        "type": "AMOUNT",
-        "amount_off": 400
+       "type": "GIFT_VOUCHER",
+       "gift": {
+         "amount": 5000
        },
        "start_date": "2016-03-01T10:00:00Z",
        "expiration_date": null,
@@ -113,6 +114,7 @@ Result:
 {
     "code": "v1GiJYuuS",
     "campaign": "vip",
+    "type": "DISCOUNT_VOUCHER",
     "discount": {
         "percent_off": 10.0,
         "type": "PERCENT"
@@ -142,6 +144,7 @@ Example:
 
 ```python
 payload = {
+    "type": "DISCOUNT_VOUCHER",
     "discount": {
         "type": "AMOUNT",
         "amount_off": 1000  # 10.00
@@ -161,6 +164,7 @@ Result:
     "code": "JxiJaV",
     "campaign": null,
     "category": "API Test",
+    "type": "DISCOUNT_VOUCHER",
     "discount": {
         "type": "AMOUNT",
         "amount_off": 1000
@@ -303,6 +307,7 @@ Result *(for both)*:
    "code": "FR-zT-u9I7zG",
    "campaign": "First Ride",
    "category": null,
+   "type": "DISCOUNT_VOUCHER",
    "discount": {
       "type": "PERCENT",
       "amount_off": 50
@@ -359,6 +364,7 @@ Result (voucher details after redemption):
     "voucher": {
         "code": "v1GiJYuuS",
         "campaign": "vip",
+        "type": "DISCOUNT_VOUCHER",
         "discount": {
             "percent_off": 10.0,
             "type": "PERCENT"
@@ -422,6 +428,7 @@ Result:
     "voucher": {
         "code": "v1GiJYuuS",
         "campaign": "vip",
+        "type": "DISCOUNT_VOUCHER",
         "discount": {
             "percent_off": 10.0,
             "type": "PERCENT"
@@ -485,6 +492,31 @@ payload = {
 voucherify.redeem(payload)
 ```
 
+##### 4. With customer id
+
+If you already created a customer profile in Voucherify's database, whether it was implicitly by providing it to the `redeem` function or explicitly by invoking the [`customer.create`](#create-customer) method, you can identify your customer in following redemptions by a generated id (starting with `cust_`). 
+
+```python
+voucherify.redeem({
+        voucher: "v1GiJYuuS",
+        customer: {
+            id: "cust_C9qJ3xKgZFqkpMw7b21MF2ow"
+        })
+```
+
+##### 5. With order amount
+
+Redeeming a gift voucher requires to pass an amount that you wish to withdraw from the voucher.
+Order amount have to be expressed in cents, as an integer. For example $22.50 should be provided as 2250:    
+
+```python
+voucherify.redeem({
+        voucher: "91Ft4U",
+        order: {
+            amount: 2250
+        })
+```
+
 ### Listing redemptions
 
 Use `redemptions` to get a filtered list of redemptions.
@@ -540,6 +572,7 @@ Result:
     "voucher": {
         "code": "v1GiJYuuS",
         "campaign": "vip",
+        "type": "DISCOUNT_VOUCHER",
         "discount": {
             "percent_off": 10.0,
             "type": "PERCENT"
@@ -731,6 +764,7 @@ new_price = utils.calculate_price(base_price, voucher, unit_price)
 
 ### Changelog
 
+- **2016-06-23** - `1.2.1` - Gift vouchers
 - **2016-06-16** - `1.2.0` - Unified naming convention
 - **2016-06-16** - `1.1.0` - Added customer methods
 - **2016-06-08** - `1.0.0` - Release version

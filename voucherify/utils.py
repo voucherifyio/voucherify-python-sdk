@@ -22,6 +22,9 @@ def validate_unit_discount(discount=None):
 def calculate_price(base_price, voucher, unit_price):
     e = 100
 
+    if not 'discount' in voucher:
+        raise Exception('Unsupported voucher type.')
+    
     if voucher['discount']['type'] == 'PERCENT':
         discount = voucher['discount']['percent_off']
         validate_percent_discount(discount)
@@ -41,12 +44,15 @@ def calculate_price(base_price, voucher, unit_price):
         return round_money(new_price if new_price > 0 else 0)
 
     else:
-        raise Exception('Unsupported voucher type.')
+        raise Exception('Unsupported discount type.')
 
 
 def calculate_discount(base_price, voucher, unit_price):
     e = 100
 
+    if not 'discount' in voucher:
+        raise Exception('Unsupported voucher type.')
+    
     if voucher['discount']['type'] == 'PERCENT':
         discount = voucher['discount']['percent_off']
         validate_percent_discount(discount)
@@ -65,7 +71,7 @@ def calculate_discount(base_price, voucher, unit_price):
         return round_money(base_price if price_discount > base_price else price_discount)
 
     else:
-        raise Exception('Unsupported voucher type.')
+        raise Exception('Unsupported discount type.')
 
 
 __all__ = ['calculate_price', 'calculate_discount']
