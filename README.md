@@ -182,6 +182,31 @@ Result:
 }
 ```
 
+#### Updating a voucher
+
+You can change some properties of a voucher that has been already created:
+- category
+- start date
+- expiration date
+- active
+- additinal info
+- metadata
+
+Other fields than listed above won't be modified. Even if provided they will be silently skipped.
+
+Use `voucherify.update(voucher_update)` to update a voucher.
+
+```python
+voucher_update = {
+  "code": "Summer-2016",
+  "category": "Season",
+  "start_date": "2016-07-01T00:00:00Z",
+  "expiration_date": "2016-08-31T23:59:59Z",
+}
+
+updated_voucher = voucherify.update(voucher_update)
+```
+
 #### Disabling a voucher
 
 `voucherify.disable(voucher_code)`
@@ -764,6 +789,7 @@ new_price = utils.calculate_price(base_price, voucher, unit_price)
 
 ### Changelog
 
+- **2016-07-18** - `1.3.0` - Update voucher
 - **2016-06-23** - `1.2.1` - Gift vouchers
 - **2016-06-16** - `1.2.0` - Unified naming convention
 - **2016-06-16** - `1.1.0` - Added customer methods
