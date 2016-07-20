@@ -140,10 +140,23 @@ Result:
 
 `voucherify.create(voucher)`
 
+You can create a voucher with a specified code or let Voucherify generate one.
+By default a generated code is a 8 characters long alphanumeric string, however,
+you can define how to create the random code passing a `code_config` dict:
+- `length` - Number of characters in a generated code (excluding prefix and postfix).
+- `charset` - Characters that can appear in the code.
+- `prefix` - A text appended before the code.
+- `postfix` - A text appended after the code.
+- `pattern` - A pattern for codes where hashes (#) will be replaced with random characters. Overrides `length`.
+
 Example:
 
 ```python
 payload = {
+    "code_cofig": {
+        "charset": "01234567890",
+        "pattern": "TEST-#####"
+    },
     "type": "DISCOUNT_VOUCHER",
     "discount": {
         "type": "AMOUNT",
