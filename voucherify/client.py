@@ -115,6 +115,15 @@ class Client(VoucherifyRequest):
             data=json.dumps(voucher),
             method='POST'
         )
+        
+    def update(self, voucher_update):
+        path = '/vouchers/' + quote(voucher_update.get("code"))
+
+        return self.request(
+            path,
+            data=json.dumps(voucher_update),
+            method='PUT'
+        )
 
     def enable(self, code):
         path = '/vouchers/' + quote(code) + '/enable'
