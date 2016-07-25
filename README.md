@@ -153,7 +153,7 @@ Example:
 
 ```python
 payload = {
-    "code_cofig": {
+    "code_config": {
         "charset": "01234567890",
         "pattern": "TEST-#####"
     },
