@@ -802,6 +802,7 @@ new_price = utils.calculate_price(base_price, voucher, unit_price)
 
 ### Changelog
 
+- **2016-07-18** - `1.4.0` - Voucher code pattern
 - **2016-07-18** - `1.3.0` - Update voucher
 - **2016-06-23** - `1.2.1` - Gift vouchers
 - **2016-06-16** - `1.2.0` - Unified naming convention
