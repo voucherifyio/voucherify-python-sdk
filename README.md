@@ -545,6 +545,7 @@ voucherify.redeem({
 ##### 5. With order amount
 
 Redeeming a gift voucher requires to pass an amount that you wish to withdraw from the voucher.
+The same applies to vouchers with validation rules on order's total amount.
 Order amount have to be expressed in cents, as an integer. For example $22.50 should be provided as 2250:    
 
 ```python
@@ -552,6 +553,22 @@ voucherify.redeem({
         voucher: "91Ft4U",
         order: {
             amount: 2250
+        })
+```
+
+##### 6. With order items
+
+Vouchers with validation rules regarding products or SKUs require to pass `order.items`.
+Items are a list of objects consisting of `product_id`, `sku_id` and `quantity`.
+
+```python
+voucherify.redeem({
+        voucher: "91Ft4U",
+        order: {
+            items: [
+                { product_id: "prod_ELvEXqF4qzB7Rs", sku_id: "sku_GoXSOI4FwJZafb", quantity: 1 },
+                { product_id: "prod_wye1naw5JO5dh3", sku_id: "sku_U3rHSlfOCGUnbo", quantity: 2 }
+            ]
         })
 ```
 
