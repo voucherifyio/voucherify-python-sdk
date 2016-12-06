@@ -21,7 +21,11 @@ def validate_unit_discount(discount=None):
 
 def calculate_price(base_price, voucher, unit_price):
     e = 100
-
+    
+    if 'gift' in voucher:
+        discount = min(voucher['gift']['balance'] / e, base_price)
+        return round_money(base_price - discount)       
+    
     if not 'discount' in voucher:
         raise Exception('Unsupported voucher type.')
     
@@ -49,7 +53,11 @@ def calculate_price(base_price, voucher, unit_price):
 
 def calculate_discount(base_price, voucher, unit_price):
     e = 100
-
+    
+    if 'gift' in voucher: 
+        discount = min(voucher['gift']['balance'] / e, base_price)
+        return round_money(discount)
+    
     if not 'discount' in voucher:
         raise Exception('Unsupported voucher type.')
     

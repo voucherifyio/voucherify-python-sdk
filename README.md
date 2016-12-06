@@ -95,7 +95,8 @@ Result:
     "category": "API Test",
     "type": "GIFT_VOUCHER",
     "gift": {
-        "amount": 5000
+         "amount": 10000,
+         "balance": 5000
     },
     "start_date": "2016-03-01T10:00:00Z",
     "expiration_date": null,
@@ -600,9 +601,9 @@ voucherify.redeem({
 
 ##### 5. With order amount
 
-Redeeming a gift voucher requires to pass an amount that you wish to withdraw from the voucher.
-The same applies to vouchers with validation rules on order's total amount.
-Order amount have to be expressed in cents, as an integer. For example $22.50 should be provided as 2250:    
+Redeeming a gift voucher requires passing order amount. The same applies to vouchers with validation rules on order's total amount.  
+Order amount have to be expressed in cents, as an integer. For example $22.50 should be provided as 2250.
+Gift voucher balance will be used to cover the order amount entirely or partially.
 
 ```python
 voucherify.redeem({
@@ -875,6 +876,7 @@ new_price = utils.calculate_price(base_price, voucher, unit_price)
 
 ### Changelog
 
+- **2016-12-02** - `1.4.2` - Support gift vouchers in utils
 - **2016-10-04** - `1.4.1` - Publish update
 - **2016-07-18** - `1.4.0` - Voucher code pattern
 - **2016-07-18** - `1.3.0` - Update voucher
