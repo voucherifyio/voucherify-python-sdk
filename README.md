@@ -58,46 +58,65 @@ vouchers_list = voucherify.list(filter_params)
 Result:
 ```json
 [{
-     "code": "9mYBpIk",
-     "campaign": null,
-     "category": "API Test",
-     "type": "DISCOUNT_VOUCHER",
-     "discount": {
-       "type": "AMOUNT",
-       "amount_off": 400
-     },
-     "start_date": "2016-03-01T12:00:00Z",
-     "expiration_date": null,
-     "redemption": {
-       "quantity": 1,
-       "redeemed_quantity": 0,
-       "redemption_entries": []
-     },
-     "active": true,
-     "additional_info": null,
-     "metadata": null
-   },
-   {
-       "code": "AzTsIH",
-       "campaign": null,
-       "category": "API Test",
-       "type": "GIFT_VOUCHER",
-       "gift": {
-         "amount": 5000
-       },
-       "start_date": "2016-03-01T10:00:00Z",
-       "expiration_date": null,
-       "redemption": {
+    "code": "9mYBpIk",
+    "campaign": null,
+    "category": "API Test",
+    "type": "DISCOUNT_VOUCHER",
+    "discount": {
+        "type": "AMOUNT",
+        "amount_off": 400
+    },
+    "start_date": "2016-03-01T12:00:00Z",
+    "expiration_date": null,
+    "publish": {
+        "object": "list",
+        "count": 1,
+        "data_ref": "entries",
+        "entries": [{
+            "channel": "Email",
+            "published_at": "2016-04-10T12:00:00Z",
+            "customer": "alice.morgan@mail.com",
+            "customer_id": "cust_1fnSUBno3iimKTPNDCkjg4xV"
+        }]
+    },
+    "redemption": {
+        "object": "list",
         "quantity": 1,
+        "data_ref": "redemption_entries",
         "redeemed_quantity": 0,
         "redemption_entries": []
-       },
-       "active": true,
-       "additional_info": null,
-       "metadata": null
-   },
-   ...
-]
+    },
+    "active": true,
+    "additional_info": null,
+    "metadata": null
+},{
+    "code": "AzTsIH",
+    "campaign": null,
+    "category": "API Test",
+    "type": "GIFT_VOUCHER",
+    "gift": {
+        "amount": 5000
+    },
+    "start_date": "2016-03-01T10:00:00Z",
+    "expiration_date": null,
+    "publish": {
+        "object": "list",
+        "count": 0,
+        "data_ref": "entries",
+        "entries": []
+    },
+    "redemption": {
+        "object": "list",
+        "quantity": 1,
+        "data_ref": "redemption_entries",
+        "redeemed_quantity": 0,
+        "redeemed_amount": 0,
+        "redemption_entries": []
+    },
+    "active": true,
+    "additional_info": null,
+    "metadata": null
+}]
 ```
 
 #### Getting voucher details
@@ -120,18 +139,29 @@ Result:
         "type": "PERCENT"
     },
     "expiration_date": "2016-12-31T23:59:59Z",
+    "publish": {
+        "object": "list",
+        "count": 1,
+        "data_ref": "entries",
+        "entries": [{
+            "channel": "Email",
+            "published_at": "2016-04-10T12:00:00Z",
+            "customer": "alice.morgan@mail.com",
+            "customer_id": "cust_1fnSUBno3iimKTPNDCkjg4xV"
+        }]
+    },
     "redemption": {
-        "quantity": 3,
-        "redeemed_quantity": 1,
-        "redemption_entries": [
-            {
-                "id": "r_gQzOnTwmhn2nTLwW4sZslNKY",
-                "object": "redemption",
-                "date": "2016-04-24T06:03:35Z",
-                "customer_id": "GENERATED-CUSTOMER-ID",
-                "tracking_id": "GENERATED-OR-PROVIDED-TRACKING-ID"
-            }
-        ]
+        "object": "list",
+        "quantity": 1,
+        "data_ref": "redemption_entries",
+        "redeemed_quantity": 0,
+        "redemption_entries": [{
+            "id": "r_gQzOnTwmhn2nTLwW4sZslNKY",
+            "object": "redemption",
+            "date": "2016-04-24T06:03:35Z",
+            "customer_id": "GENERATED-CUSTOMER-ID",
+            "tracking_id": "GENERATED-OR-PROVIDED-TRACKING-ID"
+        }]
     },
     "additional_info": ""
 }
@@ -184,8 +214,16 @@ Result:
     },
     "start_date": "2016-01-01T00:00:00Z",
     "expiration_date": "2016-12-31T23:59:59Z",
+    "publish": {
+        "object": "list",
+        "count": 0,
+        "data_ref": "entries",
+        "entries": []
+    },
     "redemption": {
-        "quantity": 1,
+        "object": "list",
+        "quantity": 0,
+        "data_ref": "redemption_entries",
         "redeemed_quantity": 0,
         "redemption_entries": []
     },
@@ -294,7 +332,9 @@ result = voucherify.redemption("Testing7fjWdr")
 Result:
 ```json
 {
+    "object": "list",
     "quantity": 3,
+    "data_ref": "redemption_entries",
     "redeemed_quantity": 1,
     "redemption_entries": [
         {
@@ -327,11 +367,22 @@ result = voucherify.publish("First Ride")
 
 `voucherify.publish(params)`
 
-Example:
+Using campaign name:
 
 ```python
 payload = {
     "campaign": "First Ride",
+    "channel": "SDK Test",
+    "customer": "donny.roll@mail.com"
+}
+result = voucherify.publish(payload)
+```
+
+Using voucher code:
+
+```python
+payload = {
+    "voucher": "FR-zT-u9I7zG",
     "channel": "Email",
     "customer": "donny.roll@mail.com"
 }
@@ -342,31 +393,36 @@ Result *(for both)*:
 
 ```json
 {
-   "code": "FR-zT-u9I7zG",
-   "campaign": "First Ride",
-   "category": null,
-   "type": "DISCOUNT_VOUCHER",
-   "discount": {
-      "type": "PERCENT",
-      "amount_off": 50
-   },
-   "start_date": "2015-01-01T00:00:00Z",
-   "expiration_date": "2016-12-31T23:59:59Z",
-   "publish": {
-        "count": 1,
+    "code": "FR-zT-u9I7zG",
+    "campaign": "First Ride",
+    "category": null,
+    "type": "DISCOUNT_VOUCHER",
+    "discount": {
+        "type": "PERCENT",
+        "amount_off": 50
+    },
+    "start_date": "2015-01-01T00:00:00Z",
+    "expiration_date": "2016-12-31T23:59:59Z",
+    "publish": {
+        "object": "list",
+        "count": 0,
+        "data_ref": "entries",
         "entries": [{
             "channel": "Email",
             "customer": "donny.roll@mail.com",
+            "customer_id": "cust_84LPwcHJ1jVEpxV1uF9nLLBB",
             "published_at": "2016-01-22T09:25:07Z"
         }]
-   },
-   "redemption": {
-      "quantity": 1,
-      "redeemed_quantity": 0,
-      "redemption_entries": []
-   },
-   "active": true,
-   "additional_info": null
+    },
+    "redemption": {
+        "object": "list",
+        "quantity": 0,
+        "data_ref": "redemption_entries",
+        "redeemed_quantity": 0,
+        "redemption_entries": []
+    },
+    "active": true,
+    "additional_info": null
 }
 ```
 
@@ -819,6 +875,7 @@ new_price = utils.calculate_price(base_price, voucher, unit_price)
 
 ### Changelog
 
+- **2016-10-04** - `1.4.1` - Publish update
 - **2016-07-18** - `1.4.0` - Voucher code pattern
 - **2016-07-18** - `1.3.0` - Update voucher
 - **2016-06-23** - `1.2.1` - Gift vouchers
