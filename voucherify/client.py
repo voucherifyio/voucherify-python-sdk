@@ -1,5 +1,6 @@
 import requests
 import json
+import warnings
 
 try:
     from urllib.parse import urlencode, quote
@@ -47,49 +48,9 @@ class VoucherifyRequest(object):
 
         return result
 
-
-class Customer(VoucherifyRequest):
+class Vouchers(VoucherifyRequest):
     def __init__(self, *args, **kwargs):
-        super(Customer, self).__init__(*args, **kwargs)
-
-    def create(self, customer):
-        path = '/customers/'
-
-        return self.request(
-            path,
-            data=json.dumps(customer),
-            method='POST'
-        )
-
-    def get(self, customer_id):
-        path = '/customers/' + quote(customer_id)
-
-        return self.request(
-            path
-        )
-
-    def update(self, customer):
-        path = '/customers/' + quote(customer.get('id'))
-
-        return self.request(
-            path,
-            data=json.dumps(customer),
-            method='PUT'
-        )
-
-    def delete(self, customer_id):
-        path = '/customers/' + quote(customer_id)
-
-        return self.request(
-            path,
-            method='DELETE'
-        )
-
-
-class Client(VoucherifyRequest):
-    def __init__(self, *args, **kwargs):
-        super(Client, self).__init__(*args, **kwargs)
-        self.customer = Customer(*args, **kwargs)
+        super(Vouchers, self).__init__(*args, **kwargs)
 
     def list(self, query):
         path = '/vouchers/'
@@ -140,6 +101,75 @@ class Client(VoucherifyRequest):
             path,
             method='POST'
         )
+
+
+class Customer(VoucherifyRequest):
+    def __init__(self, *args, **kwargs):
+        super(Customer, self).__init__(*args, **kwargs)
+
+    def create(self, customer):
+        path = '/customers/'
+
+        return self.request(
+            path,
+            data=json.dumps(customer),
+            method='POST'
+        )
+
+    def get(self, customer_id):
+        path = '/customers/' + quote(customer_id)
+
+        return self.request(
+            path
+        )
+
+    def update(self, customer):
+        path = '/customers/' + quote(customer.get('id'))
+
+        return self.request(
+            path,
+            data=json.dumps(customer),
+            method='PUT'
+        )
+
+    def delete(self, customer_id):
+        path = '/customers/' + quote(customer_id)
+
+        return self.request(
+            path,
+            method='DELETE'
+        )
+
+
+class Client(VoucherifyRequest):
+    def __init__(self, *args, **kwargs):
+        super(Client, self).__init__(*args, **kwargs)
+        self.customer = Customer(*args, **kwargs)
+        self.vouchers = Vouchers(*args, **kwargs)
+
+    def list(self, query):
+        deprecated("vouchers.list")
+        return self.vouchers.list(query)
+
+    def get(self, code):
+        deprecated("vouchers.get")
+        return self.vouchers.get(code)
+
+    def create(self, voucher):
+        deprecated("vouchers.create")
+        return self.vouchers.create(voucher)
+        
+    def update(self, voucher_update):
+        deprecated("vouchers.update")
+        return self.vouchers.update(voucher_update)
+
+    def enable(self, code):
+        deprecated("vouchers.enable")
+        return self.vouchers.enable(code)
+
+    def disable(self, code):
+        deprecated("vouchers.disable")
+        return self.vouchers.disable(code)
 
     def redemption(self, code):
         path = '/vouchers/' + quote(code) + '/redemption'
@@ -218,3 +248,7 @@ class VoucherifyError(Exception):
 
 
 __all__ = ['Client']
+
+
+def deprecated(methodToUse):
+    warnings.warn('deprecated, in the future please use {0}'.format(methodToUse), DeprecationWarning, stacklevel=2)
