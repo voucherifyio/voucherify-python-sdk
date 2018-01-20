@@ -47,6 +47,7 @@ class VoucherifyRequest(object):
 
         return result
 
+
 class Vouchers(VoucherifyRequest):
     def __init__(self, *args, **kwargs):
         super(Vouchers, self).__init__(*args, **kwargs)
