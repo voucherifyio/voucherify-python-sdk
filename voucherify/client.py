@@ -103,6 +103,56 @@ class Vouchers(VoucherifyRequest):
         )
 
 
+class Redemptions(VoucherifyRequest):
+    def __init__(self, *args, **kwargs):
+        super(Redemptions, self).__init__(*args, **kwargs)
+
+    def redeem(self, code, tracking_id=None):
+        context = {}
+
+        if code and isinstance(code, dict):
+            context = code
+            code = context['voucher']
+            del context['voucher']
+
+        path = '/vouchers/' + quote(code) + '/redemption'
+
+        if tracking_id:
+            path = path + '?' + urlencode({'tracking_id': tracking_id})
+
+        return self.request(
+            path,
+            method='POST',
+            data=json.dumps(context),
+        )
+
+    def getForVoucher(self, code):
+        path = '/vouchers/' + quote(code) + '/redemption'
+
+        return self.request(
+            path
+        )
+
+    def list(self, query):
+        path = '/redemptions'
+
+        return self.request(
+            path,
+            params=query
+        )
+    
+    def rollback(self, redemption_id, reason=None):
+        path = '/redemptions/' + redemption_id + '/rollback'
+
+        if reason:
+            path = path + '?' + urlencode({'reason': reason})
+
+        return self.request(
+            path,
+            method='POST'
+        )
+
+
 class Customer(VoucherifyRequest):
     def __init__(self, *args, **kwargs):
         super(Customer, self).__init__(*args, **kwargs)
@@ -146,75 +196,47 @@ class Client(VoucherifyRequest):
         super(Client, self).__init__(*args, **kwargs)
         self.customer = Customer(*args, **kwargs)
         self.vouchers = Vouchers(*args, **kwargs)
+        self.redemptions = Redemptions(*args, **kwargs)
 
     def list(self, query):
-        deprecated("vouchers.list")
+        deprecated('vouchers.list')
         return self.vouchers.list(query)
 
     def get(self, code):
-        deprecated("vouchers.get")
+        deprecated('vouchers.get')
         return self.vouchers.get(code)
 
     def create(self, voucher):
-        deprecated("vouchers.create")
+        deprecated('vouchers.create')
         return self.vouchers.create(voucher)
         
     def update(self, voucher_update):
-        deprecated("vouchers.update")
+        deprecated('vouchers.update')
         return self.vouchers.update(voucher_update)
 
     def enable(self, code):
-        deprecated("vouchers.enable")
+        deprecated('vouchers.enable')
         return self.vouchers.enable(code)
 
     def disable(self, code):
-        deprecated("vouchers.disable")
+        deprecated('vouchers.disable')
         return self.vouchers.disable(code)
 
     def redemption(self, code):
-        path = '/vouchers/' + quote(code) + '/redemption'
+        deprecated('redemptions.getForVoucher')
+        return self.redemptions.getForVoucher(code)
 
-        return self.request(
-            path
-        )
-
-    def redemptions(self, query):
-        path = '/redemptions'
-
-        return self.request(
-            path,
-            params=query
-        )
+    def listRedemptions(self, query):
+        deprecated('redemptions.list (this method was previously \'redemptions\')')
+        return self.redemptions.list(query)
 
     def redeem(self, code, tracking_id=None):
-        context = {}
-
-        if code and isinstance(code, dict):
-            context = code
-            code = context['voucher']
-            del context['voucher']
-
-        path = '/vouchers/' + quote(code) + '/redemption'
-
-        if tracking_id:
-            path = path + '?' + urlencode({'tracking_id': tracking_id})
-
-        return self.request(
-            path,
-            method='POST',
-            data=json.dumps(context),
-        )
+        deprecated('redemptions.redeem')
+        return self.redemptions.redeem(code, tracking_id)
 
     def rollback(self, redemption_id, reason=None):
-        path = '/redemptions/' + redemption_id + '/rollback'
-
-        if reason:
-            path = path + '?' + urlencode({'reason': reason})
-
-        return self.request(
-            path,
-            method='POST'
-        )
+        deprecated('redemptions.rollback')
+        return self.redemptions.rollback(redemption_id, reason)
 
     def publish(self, campaign_name=""):
         path = '/vouchers/publish'

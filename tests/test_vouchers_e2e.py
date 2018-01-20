@@ -7,7 +7,6 @@ voucherify = voucherifyClient(
     client_secret_key="3266b9f8-e246-4f79-bdf0-833929b1380c"
 )
 
-tracking_id = 'PythonTestUser'
 testVoucher = {
     "code": "PythonVoucherTest",
     "discount": {

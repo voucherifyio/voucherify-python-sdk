@@ -120,14 +120,14 @@ Redemptions List
 """
 pprint.pprint("=== Redemptions Voucher ===")
 filter_params = {
-    "limit": 1000,
+    "limit": 1,
     "page": 0,
-    "start_date": "2015-01-01T00:00:00Z",
-    "end_date": "2016-12-31T23:59:59Z",
-    "result": "Success"
+    "[created_at][before]": "2016-12-31T23:59:59Z",
+    "[created_at][after]": "2015-01-01T00:00:00Z",
+    "result": "SUCCESS"
 }
-redemptions_list = voucherify.redemptions(filter_params)
-pprint.pprint(len(redemptions_list))
+redemptions_list = voucherify.listRedemptions(filter_params)
+pprint.pprint(redemptions_list)
 
 """
 Rollback Voucher
