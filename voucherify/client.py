@@ -1,6 +1,5 @@
 import requests
 import json
-import warnings
 
 try:
     from urllib.parse import urlencode, quote
@@ -152,6 +151,7 @@ class Redemptions(VoucherifyRequest):
             method='POST'
         )
 
+
 class Distributions(VoucherifyRequest):
     def __init__(self, *args, **kwargs):
         super(Distributions, self).__init__(*args, **kwargs)
@@ -165,9 +165,10 @@ class Distributions(VoucherifyRequest):
             data=json.dumps(params)
         )
 
-class Customer(VoucherifyRequest):
+
+class Customers(VoucherifyRequest):
     def __init__(self, *args, **kwargs):
-        super(Customer, self).__init__(*args, **kwargs)
+        super(Customers, self).__init__(*args, **kwargs)
 
     def create(self, customer):
         path = '/customers/'
@@ -206,7 +207,7 @@ class Customer(VoucherifyRequest):
 class Client(VoucherifyRequest):
     def __init__(self, *args, **kwargs):
         super(Client, self).__init__(*args, **kwargs)
-        self.customer = Customer(*args, **kwargs)
+        self.customers = Customers(*args, **kwargs)
         self.vouchers = Vouchers(*args, **kwargs)
         self.redemptions = Redemptions(*args, **kwargs)
         self.distributions = Distributions(*args, **kwargs)
@@ -229,7 +230,3 @@ class VoucherifyError(Exception):
 
 
 __all__ = ['Client']
-
-
-def deprecated(methodToUse):
-    warnings.warn('deprecated, in the future please use {0}'.format(methodToUse), DeprecationWarning, stacklevel=2)

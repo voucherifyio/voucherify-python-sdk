@@ -1,22 +1,10 @@
-import argparse
 import pprint
+from example_utils import getArgs, waitForInput
 
 from voucherify import Client as voucherifyClient
 from voucherify import utils
 
-parser = argparse.ArgumentParser()
-parser.add_argument("--wait", action="store_true", help="if set, the program will wait after every example")
-args = parser.parse_args()
-
-
-def waitForInput():
-    if not args.wait:
-        return
-    try:
-        input('Press Enter to continue...')
-    except SyntaxError:
-        pass
-
+args = getArgs()
 
 """
 Initialization
@@ -50,7 +38,7 @@ pprint.pprint("=== Create voucher ===")
 new_voucher = voucherify.vouchers.create(voucher)
 pprint.pprint(new_voucher)
 
-waitForInput()
+waitForInput(args.wait)
 
 """
 Get voucher
@@ -59,7 +47,7 @@ pprint.pprint("=== Get voucher ===")
 voucher = voucherify.vouchers.get(voucher["code"])
 pprint.pprint(voucher)
 
-waitForInput()
+waitForInput(args.wait)
 
 """
 List vouchers from category
@@ -73,7 +61,7 @@ filter_params = {
 vouchers_list = voucherify.vouchers.list(filter_params)
 pprint.pprint(vouchers_list)
 
-waitForInput()
+waitForInput(args.wait)
 
 """
 Disable Voucher
@@ -82,13 +70,13 @@ pprint.pprint("=== Disable Voucher ===")
 result = voucherify.vouchers.disable(voucher["code"])
 pprint.pprint(result)
 
-waitForInput()
+waitForInput(args.wait)
 
 pprint.pprint("=== Disable not existing Voucher ===")
 result = voucherify.vouchers.disable("TotallyRandomVoucher")
 pprint.pprint(result)
 
-waitForInput()
+waitForInput(args.wait)
 
 """
 Enable Voucher
@@ -97,13 +85,13 @@ pprint.pprint("=== Enable Voucher ===")
 result = voucherify.vouchers.enable(voucher["code"])
 pprint.pprint(result)
 
-waitForInput()
+waitForInput(args.wait)
 
 pprint.pprint("=== Disable not existing Voucher ===")
 result = voucherify.vouchers.enable("TotallyRandomVoucher")
 pprint.pprint(result)
 
-waitForInput()
+waitForInput(args.wait)
 
 """
 Redeem Voucher
@@ -113,13 +101,13 @@ result = voucherify.redemptions.redeem(voucher["code"])
 redemption_id = result['id']
 pprint.pprint(result)
 
-waitForInput()
+waitForInput(args.wait)
 
 pprint.pprint("=== Redeem Voucher with Tracking ID ===")
 result = voucherify.redemptions.redeem(voucher["code"], tracking_id)
 pprint.pprint(result)
 
-waitForInput()
+waitForInput(args.wait)
 
 pprint.pprint("=== Redeem Voucher with Customer Info ===")
 customer = {
@@ -140,7 +128,7 @@ payload = {
 result = voucherify.redemptions.redeem(payload)
 pprint.pprint(result)
 
-waitForInput()
+waitForInput(args.wait)
 
 """
 Redemption Voucher
@@ -149,7 +137,7 @@ pprint.pprint("=== Redemption Voucher ===")
 redemptions_voucher_list = voucherify.redemptions.getForVoucher(voucher["code"])
 pprint.pprint(redemptions_voucher_list)
 
-waitForInput()
+waitForInput(args.wait)
 
 """
 Redemptions List
@@ -165,7 +153,7 @@ filter_params = {
 redemptions_list = voucherify.redemptions.list(filter_params)
 pprint.pprint(redemptions_list)
 
-waitForInput()
+waitForInput(args.wait)
 
 """
 Rollback Voucher
@@ -175,7 +163,7 @@ rollback_reason = "Wrong Customer"
 result = voucherify.redemptions.rollback(redemption_id, rollback_reason)
 pprint.pprint(result)
 
-waitForInput()
+waitForInput(args.wait)
 
 """
 Publish Voucher
@@ -188,7 +176,7 @@ payload = {
 result = voucherify.distributions.publish(payload)
 pprint.pprint(result)
 
-waitForInput()
+waitForInput(args.wait)
 
 """
 Utils
