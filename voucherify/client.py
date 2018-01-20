@@ -152,6 +152,18 @@ class Redemptions(VoucherifyRequest):
             method='POST'
         )
 
+class Distributions(VoucherifyRequest):
+    def __init__(self, *args, **kwargs):
+        super(Distributions, self).__init__(*args, **kwargs)
+
+    def publish(self, params):
+        path = '/vouchers/publish'
+
+        return self.request(
+            path,
+            method='POST',
+            data=json.dumps(params)
+        )
 
 class Customer(VoucherifyRequest):
     def __init__(self, *args, **kwargs):
@@ -197,6 +209,7 @@ class Client(VoucherifyRequest):
         self.customer = Customer(*args, **kwargs)
         self.vouchers = Vouchers(*args, **kwargs)
         self.redemptions = Redemptions(*args, **kwargs)
+        self.distributions = Distributions(*args, **kwargs)
 
     def list(self, query):
         deprecated('vouchers.list')
@@ -237,20 +250,6 @@ class Client(VoucherifyRequest):
     def rollback(self, redemption_id, reason=None):
         deprecated('redemptions.rollback')
         return self.redemptions.rollback(redemption_id, reason)
-
-    def publish(self, campaign_name=""):
-        path = '/vouchers/publish'
-
-        if campaign_name and isinstance(campaign_name, dict):
-            payload = campaign_name
-        else:
-            payload = {'campaign': campaign_name}
-
-        return self.request(
-            path,
-            method='POST',
-            data=json.dumps(payload)
-        )
 
 
 class VoucherifyError(Exception):

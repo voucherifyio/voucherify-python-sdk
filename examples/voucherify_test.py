@@ -140,17 +140,12 @@ pprint.pprint(result)
 """
 Publish Voucher
 """
-pprint.pprint("=== Publish Campaign with Campaign Name ===")
-result = voucherify.publish("PythonTestCampaignName")
-pprint.pprint(result)
-
-pprint.pprint("=== Publish Campaign with Campaign Details ===")
+pprint.pprint("=== Publish Voucher with customer details and channel ===")
 payload = {
-    "campaign": "PythonTestCampaignName",
     "channel": "Email",
     "customer": "donny.roll@mail.com"
 }
-result = voucherify.publish(payload)
+result = voucherify.distributions.publish(payload)
 pprint.pprint(result)
 
 """
