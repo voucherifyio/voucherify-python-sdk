@@ -1,4 +1,3 @@
-import warnings
 from voucherify import Client as voucherifyClient
 
 voucherify = voucherifyClient(
@@ -32,14 +31,3 @@ def test_publishVoucher():
     result = voucherify.distributions.publish(params)
     assert result.get('active') is True
     assert result.get('type') == 'DISCOUNT_VOUCHER'
-
-
-def checkDeprecationWarnings(deprecatedMethod, expectedWarningsCount=1):
-    with warnings.catch_warnings(record=True) as warningList:
-        # Cause all warnings to always be triggered.
-        warnings.simplefilter("always")
-        # Trigger a warning.
-        deprecatedMethod()
-        # Verify some things
-        assert len(warningList) == expectedWarningsCount
-        assert len(filter(lambda item: issubclass(item.category, DeprecationWarning), warningList)) == expectedWarningsCount

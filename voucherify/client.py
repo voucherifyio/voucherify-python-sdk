@@ -211,46 +211,6 @@ class Client(VoucherifyRequest):
         self.redemptions = Redemptions(*args, **kwargs)
         self.distributions = Distributions(*args, **kwargs)
 
-    def list(self, query):
-        deprecated('vouchers.list')
-        return self.vouchers.list(query)
-
-    def get(self, code):
-        deprecated('vouchers.get')
-        return self.vouchers.get(code)
-
-    def create(self, voucher):
-        deprecated('vouchers.create')
-        return self.vouchers.create(voucher)
-        
-    def update(self, voucher_update):
-        deprecated('vouchers.update')
-        return self.vouchers.update(voucher_update)
-
-    def enable(self, code):
-        deprecated('vouchers.enable')
-        return self.vouchers.enable(code)
-
-    def disable(self, code):
-        deprecated('vouchers.disable')
-        return self.vouchers.disable(code)
-
-    def redemption(self, code):
-        deprecated('redemptions.getForVoucher')
-        return self.redemptions.getForVoucher(code)
-
-    def listRedemptions(self, query):
-        deprecated('redemptions.list (this method was previously \'redemptions\')')
-        return self.redemptions.list(query)
-
-    def redeem(self, code, tracking_id=None):
-        deprecated('redemptions.redeem')
-        return self.redemptions.redeem(code, tracking_id)
-
-    def rollback(self, redemption_id, reason=None):
-        deprecated('redemptions.rollback')
-        return self.redemptions.rollback(redemption_id, reason)
-
 
 class VoucherifyError(Exception):
     def __init__(self, result):

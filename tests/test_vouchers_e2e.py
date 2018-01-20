@@ -1,4 +1,3 @@
-import warnings
 import datetime
 from voucherify import Client as voucherifyClient
 
@@ -79,40 +78,3 @@ def test_disableEnableVoucherThatDoesntExist(voucherifyInstance=voucherify.vouch
         assert result.get('code') == 404
     testEnable()
     testDisable()
-
-
-def test_deprecated_createExistingVoucher():
-    checkDeprecationWarnings(lambda: test_createExistingVoucher(voucherify))
-
-
-def test_deprecated_updateVoucher():
-    checkDeprecationWarnings(lambda: test_updateVoucher(voucherify))
-
-
-def test_deprecated_getVoucher():
-    checkDeprecationWarnings(lambda: test_getVoucher(voucherify))
-
-
-def test_deprecated_listVouchersFromCategory():
-    checkDeprecationWarnings(lambda: test_listVouchersFromCategory(voucherify))
-
-
-def test_deprecated_disableEnableActiveVoucher():
-    expectedWarnings = 5
-    checkDeprecationWarnings(lambda: test_disableEnableActiveVoucher(voucherify), expectedWarnings)
-
-
-def test_deprecated_disableEnableVoucherThatDoesntExist():
-    expectedWarnings = 2
-    checkDeprecationWarnings(lambda: test_disableEnableVoucherThatDoesntExist(voucherify), expectedWarnings)
-
-
-def checkDeprecationWarnings(deprecatedMethod, expectedWarningsCount=1):
-    with warnings.catch_warnings(record=True) as warningList:
-        # Cause all warnings to always be triggered.
-        warnings.simplefilter("always")
-        # Trigger a warning.
-        deprecatedMethod()
-        # Verify some things
-        assert len(warningList) == expectedWarningsCount
-        assert len(filter(lambda item: issubclass(item.category, DeprecationWarning), warningList)) == expectedWarningsCount

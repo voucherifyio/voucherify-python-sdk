@@ -1,4 +1,3 @@
-import warnings
 from voucherify import Client as voucherifyClient
 
 voucherify = voucherifyClient(
@@ -82,41 +81,5 @@ def test_voucherRedemptionRollback(voucherifyInstance=voucherify.redemptions):
     redemptionId = redemption.get('id')
     reason = 'just testing'
     rollbackResult = voucherifyInstance.rollback(redemptionId, reason)
-    assert rollbackResult.get('redemption') == redemptionId
     assert rollbackResult.get('result') == 'SUCCESS'
     assert rollbackResult.get('reason') == reason
-
-
-def test_deprecated_redeemVoucher():
-    checkDeprecationWarnings(lambda: test_redeemVoucher(voucherify))
-
-
-def test_deprecated_redeemVoucherWithTrackingId():
-    checkDeprecationWarnings(lambda: test_redeemVoucherWithTrackingId(voucherify))
-
-
-def test_deprecated_redeemVoucherWithCustomerInfo(voucherifyInstance=voucherify.redemptions):
-    checkDeprecationWarnings(lambda: test_redeemVoucherWithCustomerInfo(voucherify))
-
-
-def test_deprecated_redemption():
-    checkDeprecationWarnings(lambda: test_getVoucherRedemption(voucherify.redemption))
-
-
-def test_deprecated_listRedemptions():
-    checkDeprecationWarnings(lambda: test_listVoucherRedemptions(voucherify.listRedemptions))
-
-
-def test_deprecated_redemptionRollback():
-    checkDeprecationWarnings(lambda: test_voucherRedemptionRollback(voucherify), 2)
-
-
-def checkDeprecationWarnings(deprecatedMethod, expectedWarningsCount=1):
-    with warnings.catch_warnings(record=True) as warningList:
-        # Cause all warnings to always be triggered.
-        warnings.simplefilter("always")
-        # Trigger a warning.
-        deprecatedMethod()
-        # Verify some things
-        assert len(warningList) == expectedWarningsCount
-        assert len(filter(lambda item: issubclass(item.category, DeprecationWarning), warningList)) == expectedWarningsCount
