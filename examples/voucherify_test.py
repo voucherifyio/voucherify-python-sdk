@@ -1,7 +1,22 @@
+import argparse
 import pprint
 
 from voucherify import Client as voucherifyClient
 from voucherify import utils
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--wait", action="store_true", help="if set, the program will wait after every example")
+args = parser.parse_args()
+
+
+def waitForInput():
+    if not args.wait:
+        return
+    try:
+        input('Press Enter to continue...')
+    except SyntaxError:
+        pass
+
 
 """
 Initialization
@@ -32,62 +47,79 @@ voucher = {
 Create voucher
 """
 pprint.pprint("=== Create voucher ===")
-new_voucher = voucherify.create(voucher)
+new_voucher = voucherify.vouchers.create(voucher)
 pprint.pprint(new_voucher)
+
+waitForInput()
 
 """
 Get voucher
 """
 pprint.pprint("=== Get voucher ===")
-voucher = voucherify.get(voucher["code"])
+voucher = voucherify.vouchers.get(voucher["code"])
 pprint.pprint(voucher)
+
+waitForInput()
 
 """
 List vouchers from category
 """
 pprint.pprint("=== List vouchers from category ===")
-pprint.pprint(voucher)
 filter_params = {
     "limit": 10,
     "skip": 20,
-    "category": "PythonTest"
+    "category": "PythonTestCategory"
 }
-vouchers_list = voucherify.list(filter_params)
+vouchers_list = voucherify.vouchers.list(filter_params)
 pprint.pprint(vouchers_list)
+
+waitForInput()
 
 """
 Disable Voucher
 """
 pprint.pprint("=== Disable Voucher ===")
-result = voucherify.disable(voucher["code"])
+result = voucherify.vouchers.disable(voucher["code"])
 pprint.pprint(result)
 
+waitForInput()
+
 pprint.pprint("=== Disable not existing Voucher ===")
-result = voucherify.disable("TotallyRandomVoucher")
+result = voucherify.vouchers.disable("TotallyRandomVoucher")
 pprint.pprint(result)
+
+waitForInput()
 
 """
 Enable Voucher
 """
 pprint.pprint("=== Enable Voucher ===")
-result = voucherify.enable(voucher["code"])
+result = voucherify.vouchers.enable(voucher["code"])
 pprint.pprint(result)
 
+waitForInput()
+
 pprint.pprint("=== Disable not existing Voucher ===")
-result = voucherify.enable("TotallyRandomVoucher")
+result = voucherify.vouchers.enable("TotallyRandomVoucher")
 pprint.pprint(result)
+
+waitForInput()
 
 """
 Redeem Voucher
 """
 pprint.pprint("=== Redeem Voucher ===")
-result = voucherify.redeem(voucher["code"])
+result = voucherify.redemptions.redeem(voucher["code"])
 redemption_id = result['id']
 pprint.pprint(result)
 
+waitForInput()
+
 pprint.pprint("=== Redeem Voucher with Tracking ID ===")
-result = voucherify.redeem(voucher["code"], tracking_id)
+result = voucherify.redemptions.redeem(voucher["code"], tracking_id)
 pprint.pprint(result)
+
+waitForInput()
 
 pprint.pprint("=== Redeem Voucher with Customer Info ===")
 customer = {
@@ -105,15 +137,19 @@ payload = {
     "voucher": voucher['code'],
     "customer": customer
 }
-result = voucherify.redeem(payload)
+result = voucherify.redemptions.redeem(payload)
 pprint.pprint(result)
+
+waitForInput()
 
 """
 Redemption Voucher
 """
 pprint.pprint("=== Redemption Voucher ===")
-redemptions_voucher_list = voucherify.redemption(voucher["code"])
+redemptions_voucher_list = voucherify.redemptions.getForVoucher(voucher["code"])
 pprint.pprint(redemptions_voucher_list)
+
+waitForInput()
 
 """
 Redemptions List
@@ -126,16 +162,20 @@ filter_params = {
     "[created_at][after]": "2015-01-01T00:00:00Z",
     "result": "SUCCESS"
 }
-redemptions_list = voucherify.listRedemptions(filter_params)
+redemptions_list = voucherify.redemptions.list(filter_params)
 pprint.pprint(redemptions_list)
+
+waitForInput()
 
 """
 Rollback Voucher
 """
 pprint.pprint("=== Rollback Redemption ===")
 rollback_reason = "Wrong Customer"
-result = voucherify.rollback(redemption_id, rollback_reason)
+result = voucherify.redemptions.rollback(redemption_id, rollback_reason)
 pprint.pprint(result)
+
+waitForInput()
 
 """
 Publish Voucher
@@ -147,6 +187,8 @@ payload = {
 }
 result = voucherify.distributions.publish(payload)
 pprint.pprint(result)
+
+waitForInput()
 
 """
 Utils
