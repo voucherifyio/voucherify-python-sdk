@@ -22,7 +22,7 @@ def validate_unit_discount(discount=None):
 def calculate_price(base_price, voucher, unit_price):
     e = 100
     
-    if 'gift' in voucher:
+    if 'gift' in voucher and voucher['gift'] is not None:
         discount = min(voucher['gift']['balance'] / e, base_price)
         return round_money(base_price - discount)       
     
@@ -54,7 +54,7 @@ def calculate_price(base_price, voucher, unit_price):
 def calculate_discount(base_price, voucher, unit_price):
     e = 100
     
-    if 'gift' in voucher: 
+    if 'gift' in voucher and voucher['gift'] is not None: 
         discount = min(voucher['gift']['balance'] / e, base_price)
         return round_money(discount)
     
