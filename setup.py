@@ -4,7 +4,7 @@ from setuptools import setup
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'voucherify'))
 
-__version__ = '1.4.2'
+__version__ = '2.0.0'
 __pypi_username__ = 'voucherify'
 __pypi_packagename__ = 'voucherify'
 __github_username__ = 'voucherifyio'

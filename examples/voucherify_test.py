@@ -1,7 +1,10 @@
 import pprint
+from example_utils import getArgs, waitForInput
 
 from voucherify import Client as voucherifyClient
 from voucherify import utils
+
+args = getArgs()
 
 """
 Initialization
@@ -32,62 +35,79 @@ voucher = {
 Create voucher
 """
 pprint.pprint("=== Create voucher ===")
-new_voucher = voucherify.create(voucher)
+new_voucher = voucherify.vouchers.create(voucher)
 pprint.pprint(new_voucher)
+
+waitForInput(args.wait)
 
 """
 Get voucher
 """
 pprint.pprint("=== Get voucher ===")
-voucher = voucherify.get(voucher["code"])
+voucher = voucherify.vouchers.get(voucher["code"])
 pprint.pprint(voucher)
+
+waitForInput(args.wait)
 
 """
 List vouchers from category
 """
 pprint.pprint("=== List vouchers from category ===")
-pprint.pprint(voucher)
 filter_params = {
     "limit": 10,
     "skip": 20,
-    "category": "PythonTest"
+    "category": "PythonTestCategory"
 }
-vouchers_list = voucherify.list(filter_params)
+vouchers_list = voucherify.vouchers.list(filter_params)
 pprint.pprint(vouchers_list)
+
+waitForInput(args.wait)
 
 """
 Disable Voucher
 """
 pprint.pprint("=== Disable Voucher ===")
-result = voucherify.disable(voucher["code"])
+result = voucherify.vouchers.disable(voucher["code"])
 pprint.pprint(result)
 
+waitForInput(args.wait)
+
 pprint.pprint("=== Disable not existing Voucher ===")
-result = voucherify.disable("TotallyRandomVoucher")
+result = voucherify.vouchers.disable("TotallyRandomVoucher")
 pprint.pprint(result)
+
+waitForInput(args.wait)
 
 """
 Enable Voucher
 """
 pprint.pprint("=== Enable Voucher ===")
-result = voucherify.enable(voucher["code"])
+result = voucherify.vouchers.enable(voucher["code"])
 pprint.pprint(result)
 
+waitForInput(args.wait)
+
 pprint.pprint("=== Disable not existing Voucher ===")
-result = voucherify.enable("TotallyRandomVoucher")
+result = voucherify.vouchers.enable("TotallyRandomVoucher")
 pprint.pprint(result)
+
+waitForInput(args.wait)
 
 """
 Redeem Voucher
 """
 pprint.pprint("=== Redeem Voucher ===")
-result = voucherify.redeem(voucher["code"])
+result = voucherify.redemptions.redeem(voucher["code"])
 redemption_id = result['id']
 pprint.pprint(result)
 
+waitForInput(args.wait)
+
 pprint.pprint("=== Redeem Voucher with Tracking ID ===")
-result = voucherify.redeem(voucher["code"], tracking_id)
+result = voucherify.redemptions.redeem(voucher["code"], tracking_id)
 pprint.pprint(result)
+
+waitForInput(args.wait)
 
 pprint.pprint("=== Redeem Voucher with Customer Info ===")
 customer = {
@@ -105,53 +125,58 @@ payload = {
     "voucher": voucher['code'],
     "customer": customer
 }
-result = voucherify.redeem(payload)
+result = voucherify.redemptions.redeem(payload)
 pprint.pprint(result)
+
+waitForInput(args.wait)
 
 """
 Redemption Voucher
 """
 pprint.pprint("=== Redemption Voucher ===")
-redemptions_voucher_list = voucherify.redemption(voucher["code"])
+redemptions_voucher_list = voucherify.redemptions.getForVoucher(voucher["code"])
 pprint.pprint(redemptions_voucher_list)
+
+waitForInput(args.wait)
 
 """
 Redemptions List
 """
 pprint.pprint("=== Redemptions Voucher ===")
 filter_params = {
-    "limit": 1000,
+    "limit": 1,
     "page": 0,
-    "start_date": "2015-01-01T00:00:00Z",
-    "end_date": "2016-12-31T23:59:59Z",
-    "result": "Success"
+    "[created_at][before]": "2016-12-31T23:59:59Z",
+    "[created_at][after]": "2015-01-01T00:00:00Z",
+    "result": "SUCCESS"
 }
-redemptions_list = voucherify.redemptions(filter_params)
-pprint.pprint(len(redemptions_list))
+redemptions_list = voucherify.redemptions.list(filter_params)
+pprint.pprint(redemptions_list)
+
+waitForInput(args.wait)
 
 """
 Rollback Voucher
 """
 pprint.pprint("=== Rollback Redemption ===")
 rollback_reason = "Wrong Customer"
-result = voucherify.rollback(redemption_id, rollback_reason)
+result = voucherify.redemptions.rollback(redemption_id, rollback_reason)
 pprint.pprint(result)
+
+waitForInput(args.wait)
 
 """
 Publish Voucher
 """
-pprint.pprint("=== Publish Campaign with Campaign Name ===")
-result = voucherify.publish("PythonTestCampaignName")
-pprint.pprint(result)
-
-pprint.pprint("=== Publish Campaign with Campaign Details ===")
+pprint.pprint("=== Publish Voucher with customer details and channel ===")
 payload = {
-    "campaign": "PythonTestCampaignName",
     "channel": "Email",
     "customer": "donny.roll@mail.com"
 }
-result = voucherify.publish(payload)
+result = voucherify.distributions.publish(payload)
 pprint.pprint(result)
+
+waitForInput(args.wait)
 
 """
 Utils

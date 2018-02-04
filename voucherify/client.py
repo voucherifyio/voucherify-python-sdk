@@ -48,48 +48,9 @@ class VoucherifyRequest(object):
         return result
 
 
-class Customer(VoucherifyRequest):
+class Vouchers(VoucherifyRequest):
     def __init__(self, *args, **kwargs):
-        super(Customer, self).__init__(*args, **kwargs)
-
-    def create(self, customer):
-        path = '/customers/'
-
-        return self.request(
-            path,
-            data=json.dumps(customer),
-            method='POST'
-        )
-
-    def get(self, customer_id):
-        path = '/customers/' + quote(customer_id)
-
-        return self.request(
-            path
-        )
-
-    def update(self, customer):
-        path = '/customers/' + quote(customer.get('id'))
-
-        return self.request(
-            path,
-            data=json.dumps(customer),
-            method='PUT'
-        )
-
-    def delete(self, customer_id):
-        path = '/customers/' + quote(customer_id)
-
-        return self.request(
-            path,
-            method='DELETE'
-        )
-
-
-class Client(VoucherifyRequest):
-    def __init__(self, *args, **kwargs):
-        super(Client, self).__init__(*args, **kwargs)
-        self.customer = Customer(*args, **kwargs)
+        super(Vouchers, self).__init__(*args, **kwargs)
 
     def list(self, query):
         path = '/vouchers/'
@@ -141,20 +102,10 @@ class Client(VoucherifyRequest):
             method='POST'
         )
 
-    def redemption(self, code):
-        path = '/vouchers/' + quote(code) + '/redemption'
 
-        return self.request(
-            path
-        )
-
-    def redemptions(self, query):
-        path = '/redemptions'
-
-        return self.request(
-            path,
-            params=query
-        )
+class Redemptions(VoucherifyRequest):
+    def __init__(self, *args, **kwargs):
+        super(Redemptions, self).__init__(*args, **kwargs)
 
     def redeem(self, code, tracking_id=None):
         context = {}
@@ -175,6 +126,21 @@ class Client(VoucherifyRequest):
             data=json.dumps(context),
         )
 
+    def getForVoucher(self, code):
+        path = '/vouchers/' + quote(code) + '/redemption'
+
+        return self.request(
+            path
+        )
+
+    def list(self, query):
+        path = '/redemptions'
+
+        return self.request(
+            path,
+            params=query
+        )
+    
     def rollback(self, redemption_id, reason=None):
         path = '/redemptions/' + redemption_id + '/rollback'
 
@@ -186,19 +152,66 @@ class Client(VoucherifyRequest):
             method='POST'
         )
 
-    def publish(self, campaign_name=""):
-        path = '/vouchers/publish'
 
-        if campaign_name and isinstance(campaign_name, dict):
-            payload = campaign_name
-        else:
-            payload = {'campaign': campaign_name}
+class Distributions(VoucherifyRequest):
+    def __init__(self, *args, **kwargs):
+        super(Distributions, self).__init__(*args, **kwargs)
+
+    def publish(self, params):
+        path = '/vouchers/publish'
 
         return self.request(
             path,
             method='POST',
-            data=json.dumps(payload)
+            data=json.dumps(params)
         )
+
+
+class Customers(VoucherifyRequest):
+    def __init__(self, *args, **kwargs):
+        super(Customers, self).__init__(*args, **kwargs)
+
+    def create(self, customer):
+        path = '/customers/'
+
+        return self.request(
+            path,
+            data=json.dumps(customer),
+            method='POST'
+        )
+
+    def get(self, customer_id):
+        path = '/customers/' + quote(customer_id)
+
+        return self.request(
+            path
+        )
+
+    def update(self, customer):
+        path = '/customers/' + quote(customer.get('id'))
+
+        return self.request(
+            path,
+            data=json.dumps(customer),
+            method='PUT'
+        )
+
+    def delete(self, customer_id):
+        path = '/customers/' + quote(customer_id)
+
+        return self.request(
+            path,
+            method='DELETE'
+        )
+
+
+class Client(VoucherifyRequest):
+    def __init__(self, *args, **kwargs):
+        super(Client, self).__init__(*args, **kwargs)
+        self.customers = Customers(*args, **kwargs)
+        self.vouchers = Vouchers(*args, **kwargs)
+        self.redemptions = Redemptions(*args, **kwargs)
+        self.distributions = Distributions(*args, **kwargs)
 
 
 class VoucherifyError(Exception):

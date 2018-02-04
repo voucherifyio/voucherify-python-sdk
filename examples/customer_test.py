@@ -1,6 +1,9 @@
 import pprint
+from example_utils import getArgs, waitForInput
 
 from voucherify import Client as voucherifyClient
+
+args = getArgs()
 
 """
 Initialization
@@ -22,16 +25,22 @@ payload = {
     }
 }
 
-result = voucherify.customer.create(payload)
+result = voucherify.customers.create(payload)
 pprint.pprint("--- Create ---")
 pprint.pprint(result)
+
+
+waitForInput(args.wait)
+
 
 """
 Get Customer
 """
-result = voucherify.customer.get(result.get("id"))
-pprint.pprint("--- Fetch ---")
+result = voucherify.customers.get(result.get("id"))
+pprint.pprint("--- Get customer ---")
 pprint.pprint(result)
+
+waitForInput(args.wait)
 
 """
 Update Customer
@@ -39,13 +48,15 @@ Update Customer
 payload = result
 payload['description'] = "Sample description of customer with changes"
 
-result = voucherify.customer.update(payload)
+result = voucherify.customers.update(payload)
 pprint.pprint("--- Update ---")
 pprint.pprint(result)
+
+waitForInput(args.wait)
 
 """
 Delete Customer
 """
-result = voucherify.customer.delete(result["id"])
-pprint.pprint("--- Delete ---")
+result = voucherify.customers.delete(result["id"])
+result = pprint.pprint("--- Delete ---")
 pprint.pprint(result)
