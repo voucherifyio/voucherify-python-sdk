@@ -22,8 +22,8 @@ def test_shouldCalculateAmountPriceDiscount():
     }
     discount = utils.calculate_discount(base_price, voucher, unit_price)
     price = utils.calculate_price(base_price, voucher, unit_price)
-    assert discount == 124
-    assert price == 960.85
+    assert discount == 124.36
+    assert price == 960.49
 
 def test_shouldCalculateAmountDiscountWhenGiftIsNone():
     voucher = {
@@ -44,5 +44,5 @@ def test_shouldCalculateAmountDiscountWhenGiftIsNone():
     }
     discount = utils.calculate_discount(base_price, voucher, unit_price)
     price = utils.calculate_price(base_price, voucher, unit_price)
-    assert discount == 124
-    assert price == 960.85
+    assert discount == 124.36
+    assert price == 960.49

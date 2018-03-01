@@ -1,3 +1,5 @@
+from __future__ import division
+
 def round_money(value):
     if value is None or value < 0:
         raise Exception('Invalid value, amount should be a number and higher than zero.')
@@ -24,7 +26,7 @@ def calculate_price(base_price, voucher, unit_price):
     
     if getattr(voucher, 'gift', None) is not None:
         discount = min(voucher['gift']['balance'] / e, base_price)
-        return round_money(base_price - discount)       
+        return round_money(base_price - discount)
     
     if 'discount' not in voucher:
         raise Exception('Unsupported voucher type.')
