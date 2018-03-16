@@ -1,4 +1,5 @@
 from voucherify import Client as voucherifyClient
+import time
 
 voucherify = voucherifyClient(
     application_id="c70a6f00-cf91-4756-9df5-47628850002b",
@@ -76,10 +77,12 @@ def test_listVoucherRedemptions(testedMethod=voucherify.redemptions.list):
     assert redemptionsList.get('data_ref') == 'redemptions'
     assert isinstance(redemptionsList.get('redemptions'), list)
 
+
 def test_voucherRedemptionRollback(voucherifyInstance=voucherify.redemptions):
     redemption = voucherifyInstance.redeem(testVoucher.get('code'))
     redemptionId = redemption.get('id')
     reason = 'just testing'
+    time.sleep(1)  # wait for redemption THIS IS FLAKY AND HACKY but for now will have to do
     rollbackResult = voucherifyInstance.rollback(redemptionId, reason)
     assert rollbackResult.get('result') == 'SUCCESS'
     assert rollbackResult.get('reason') == reason
