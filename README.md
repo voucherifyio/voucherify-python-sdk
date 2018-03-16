@@ -177,6 +177,25 @@ from voucherify import utils
 
 Bug reports and pull requests are welcome through [GitHub Issues](https://github.com/voucherifyio/voucherify-python-sdk/issues).
 
+## Development
+
+### Required dependencies
+
+- [pipenv](https://github.com/pypa/pipenv#installation) 
+- [pyenv](https://github.com/pyenv/pyenv-installer)
+- python (sic!)
+
+### Workflow
+
+After checking out configure the application using `make configure`.
+This will install supported python versions using `pyenv` and make them globally available.
+
+Install dependencies using `pipenv install`
+
+You are ready to go!
+
+`make test` will run tests against supported python versions. 
+
 ## Changelog
 
 - **2018-01-20** - `2.0.0`
