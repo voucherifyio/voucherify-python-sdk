@@ -196,6 +196,13 @@ You are ready to go!
 
 `make test` will run tests against supported python versions. 
 
+### Tests Configuration
+
+Take a look at `tests/config.example.json` and copy it as `tests/config.json`.
+This file holds your voucherify application id and secret - this can be found in the settings section of your voucherify account.
+
+Additionally, some of the tests need a campaign to work on, make sure you have a campaign matching your configured name in voucherify.
+
 ## Changelog
 
 - **2018-01-20** - `2.0.0`

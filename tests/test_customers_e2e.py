@@ -1,12 +1,6 @@
-from voucherify import Client as voucherifyClient
+from testUtils import getConfiguredClient
 
-"""
-Initialization
-"""
-voucherify = voucherifyClient(
-    application_id="c70a6f00-cf91-4756-9df5-47628850002b",
-    client_secret_key="3266b9f8-e246-4f79-bdf0-833929b1380c"
-)
+voucherify = getConfiguredClient()
 
 
 def test_customerCRUD():

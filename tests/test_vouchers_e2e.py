@@ -1,10 +1,7 @@
 import datetime
-from voucherify import Client as voucherifyClient
+from testUtils import getConfiguredClient
 
-voucherify = voucherifyClient(
-    application_id="c70a6f00-cf91-4756-9df5-47628850002b",
-    client_secret_key="3266b9f8-e246-4f79-bdf0-833929b1380c"
-)
+voucherify = getConfiguredClient()
 
 testVoucher = {
     "code": "PythonVoucherTest",
@@ -46,7 +43,7 @@ def test_listVouchersFromCategory(voucherifyInstance=voucherify.vouchers):
         "limit": 1,
         "category": "PythonTestCategory"
     }
-    vouchers = voucherifyInstance.list(filter_params)
+    vouchers = voucherifyInstance.list(filter_params).get('vouchers')
     assert len(vouchers) == 1
     voucher = vouchers[0]
     assert voucher.get('code') == testVoucher.get('code')

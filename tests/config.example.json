@@ -1,0 +1,7 @@
+{
+  "campaignName": "PythonSdkTestCampaign",
+  "voucherify": {
+    "applicationId": "from voucherify project settings",
+    "secret": "from voucherify project settings"
+  }
+}
