@@ -1,9 +1,16 @@
 from voucherify import Client as voucherifyClient
-import json
 import os
-base_dir = os.path.dirname(__file__)
-with open(os.path.join(base_dir, 'config.json'), 'r') as f:
-    config = json.load(f)
+
+from dotenv import load_dotenv
+load_dotenv()
+
+config = {
+    "campaignName": os.getenv('CAMPAIGN_NAME'),
+    "voucherify": {
+        "applicationId": os.getenv('VOUCHERIFY_APP_ID'),
+        "secret": os.getenv('VOUCHERIFY_SECRET')
+    }
+}
 
 client = voucherifyClient(
         application_id=config['voucherify']['applicationId'],

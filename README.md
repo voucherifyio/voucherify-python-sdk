@@ -198,10 +198,8 @@ You are ready to go!
 
 ### Tests Configuration
 
-Take a look at `tests/config.example.json` and copy it as `tests/config.json`.
-This file holds your voucherify application id and secret - this can be found in the settings section of your voucherify account.
-
-Additionally, some of the tests need a campaign to work on, make sure you have a campaign matching your configured name in voucherify.
+During tests some environment variables are needed. Consult the `.env.template` file to see what they are.
+Copy that file to `.env` file at the root of the repository and set the variables for the smoothest experience. (They can also be set regularly in your environment)
 
 ## Changelog
 
