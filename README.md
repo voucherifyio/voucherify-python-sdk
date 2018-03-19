@@ -56,6 +56,7 @@ Methods are provided within `client.vouchers.*` namespace.
 - [Create Voucher](#create-voucher)
 - [Get Voucher](#get-voucher)
 - [Update Voucher](#update-voucher)
+- [Delete Voucher](#delete-voucher)
 - [List Vouchers](#list-vouchers)
 - [Enable Voucher](#enable-voucher)
 - [Disable Voucher](#disable-voucher)
@@ -73,6 +74,11 @@ client.vouchers.get(code)
 #### [Update Voucher]
 ```python
 client.vouchers.update(voucher)
+```
+#### [Delete Voucher]
+```python
+client.vouchers.delete(code)
+client.vouchers.delete(code, {"force": True})
 ```
 #### [List Vouchers]
 ```python
@@ -227,6 +233,7 @@ Copy that file to `.env` file at the root of the repository and set the variable
 [Create Voucher]: https://docs.voucherify.io/reference?utm_source=github&utm_medium=sdk&utm_campaign=acq#create-voucher
 [Get Voucher]: https://docs.voucherify.io/reference?utm_source=github&utm_medium=sdk&utm_campaign=acq#vouchers-get
 [Update Voucher]: https://docs.voucherify.io/reference?utm_source=github&utm_medium=sdk&utm_campaign=acq#update-voucher
+[Delete Voucher]: https://docs.voucherify.io/reference?utm_source=github&utm_medium=sdk&utm_campaign=acq#delete-voucher
 [List Vouchers]: https://docs.voucherify.io/reference?utm_source=github&utm_medium=sdk&utm_campaign=acq#list-vouchers
 [Enable Voucher]: https://docs.voucherify.io/reference?utm_source=github&utm_medium=sdk&utm_campaign=acq#enable-voucher
 [Disable Voucher]: https://docs.voucherify.io/reference?utm_source=github&utm_medium=sdk&utm_campaign=acq#disable-voucher

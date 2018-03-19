@@ -1,5 +1,5 @@
 import datetime
-from testUtils import getConfiguredClient
+from testUtils import getConfiguredClient, getConfig
 
 voucherify = getConfiguredClient()
 
@@ -75,3 +75,16 @@ def test_disableEnableVoucherThatDoesntExist(voucherifyInstance=voucherify.vouch
         assert result.get('code') == 404
     testEnable()
     testDisable()
+
+
+def test_deleteVoucher():
+    voucherParams = {
+        "campaign": getConfig()['campaignName'],
+        "channel": "Email",
+        "customer": "donny.roll@mail.com"
+    }
+    voucher = voucherify.distributions.publish(voucherParams).get('voucher')
+    assert voucher.get('active') is True
+    voucherify.vouchers.delete(voucher.get('code'))
+    result = voucherify.vouchers.get(voucher.get('code'))
+    assert result.get('code') == 404

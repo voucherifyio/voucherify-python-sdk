@@ -76,6 +76,15 @@ class Vouchers(VoucherifyRequest):
             data=json.dumps(voucher),
             method='POST'
         )
+
+    def delete(self, code, params={}):
+        path = '/vouchers/' + quote(code)
+
+        return self.request(
+             path,
+             method='DELETE',
+             params=params
+        )
         
     def update(self, voucher_update):
         path = '/vouchers/' + quote(voucher_update.get("code"))
