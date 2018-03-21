@@ -9,7 +9,8 @@ config = {
     "voucherify": {
         "applicationId": os.getenv('VOUCHERIFY_APP_ID'),
         "secret": os.getenv('VOUCHERIFY_SECRET')
-    }
+    },
+    "voucherifyTestGiftVoucher": os.getenv('VOUCHERIFY_TEST_GIFT_VOUCHER')
 }
 
 client = voucherifyClient(

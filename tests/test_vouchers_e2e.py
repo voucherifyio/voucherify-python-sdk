@@ -1,5 +1,5 @@
 import datetime
-from testUtils import getConfiguredClient
+from testUtils import getConfiguredClient, getConfig
 
 voucherify = getConfiguredClient()
 
@@ -75,3 +75,15 @@ def test_disableEnableVoucherThatDoesntExist(voucherifyInstance=voucherify.vouch
         assert result.get('code') == 404
     testEnable()
     testDisable()
+
+
+def test_addBalanceToGiftVoucher():
+    giftCode = getConfig()['voucherifyTestGiftVoucher']
+    giftVoucher = voucherify.vouchers.get(giftCode)
+    initialGift = giftVoucher.get('gift')
+    assert giftVoucher.get('type') == 'GIFT_VOUCHER'
+    additionalAmount = 10
+    voucherify.vouchers.balance.create(giftCode, {"amount": additionalAmount})
+    rebalancedVoucherGift = voucherify.vouchers.get(giftCode).get('gift')
+    assert initialGift.get('amount') + additionalAmount == rebalancedVoucherGift.get('amount')
+    assert initialGift.get('balance') + additionalAmount == rebalancedVoucherGift.get('balance')

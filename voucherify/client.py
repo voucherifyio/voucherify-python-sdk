@@ -48,9 +48,24 @@ class VoucherifyRequest(object):
         return result
 
 
+class Balance(VoucherifyRequest):
+    def __init__(self, *args, **kwargs):
+        super(Balance, self).__init__(*args, **kwargs)
+
+    def create(self, code, balance):
+        path = '/vouchers/' + quote(code) + '/balance'
+
+        return self.request(
+            path,
+            method='POST',
+            data=json.dumps(balance)
+        )
+
+
 class Vouchers(VoucherifyRequest):
     def __init__(self, *args, **kwargs):
         super(Vouchers, self).__init__(*args, **kwargs)
+        self.balance = Balance(*args, **kwargs)
 
     def list(self, query):
         path = '/vouchers/'
