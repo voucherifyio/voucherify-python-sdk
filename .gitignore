@@ -63,3 +63,6 @@ target/
 
 # Jetbrains work directory
 .idea
+
+.vscode
+.env

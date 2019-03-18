@@ -1,6 +1,7 @@
 from voucherify.client import Client
 import voucherify.utils as utils
 
+from voucherify.api_client import CustomClient
 from voucherify.api_client import ApiClient
 
 import voucherify.balance 
