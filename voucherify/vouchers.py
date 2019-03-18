@@ -1,5 +1,9 @@
-from urllib.parse import quote
-
+try:
+    from urllib.parse import urlencode, quote
+except ImportError:
+    from urllib import urlencode
+    from urllib import quote
+	
 class Vouchers:
 	def __init__(self, client):
 		self.client = client
