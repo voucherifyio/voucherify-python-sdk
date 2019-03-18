@@ -1,3 +1,4 @@
+import sys
 import requests
 from voucherify.balance import Balance
 from voucherify.campaigns import Campaigns
@@ -16,13 +17,14 @@ from voucherify.vouchers import Vouchers
 TIMEOUT = 1000
 ROOT_URL = 'https://api.voucherify.io/v1'
 
+# TODO: also include current SDK version
 class CustomClient:
 	def __init__(self, application_id: str, client_secret_key: str, root_url=ROOT_URL):
 		self.timeout = TIMEOUT
 		self.headers = {
 			'X-App-Id': application_id,
 			'X-App-Token': client_secret_key,
-			'X-Voucherify-Channel': 'Python-SDK',
+			'X-Voucherify-Channel': 'Python-{}.{}.{}-SDK'.format(sys.version_info.major, sys.version_info.minor, sys.version_info.micro),
 			'Content-Type': 'application/json'
 		}
 		self.root_url = root_url
