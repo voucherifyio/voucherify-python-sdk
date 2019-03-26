@@ -8,6 +8,8 @@ from voucherify.events import Events
 from voucherify.exports import Exports
 from voucherify.orders import Orders
 from voucherify.products import Products
+from voucherify.promotions import Promotions
+from voucherify.promotion_tiers import PromotionTiers
 from voucherify.redemptions import Redemptions
 from voucherify.segments import Segments
 from voucherify.validation_rules import ValidationRules
@@ -57,12 +59,17 @@ class ApiClient(CustomClient):
 		self.balance = Balance(self)
 		self.campaigns = Campaigns(self)
 		self.customers = Customers(self)
-		self.distributions = Distributions(self)
+		self.distributions = Distributions(self, exports_namespace=client_config['exports_namespace'])
 		self.events = Events(self)
 		self.exports = Exports(self)
 		self.orders = Orders(self)
 		self.products = Products(self)
-		self.redemptions = Redemptions(self)
+		self.promotions = Promotions(
+			self,
+			campaigns_namespace=client_config['campaigns_namespace'],
+			promotion_tiers_namespace=client_config['promotion_tiers_namespace'])
+		self.promotion_tiers = PromotionTiers(self)
+		self.redemptions = Redemptions(self, promotions_namespace=client_config['promotions_namespace'])
 		self.segments = Segments(self)
 		self.validation_rules = ValidationRules(self)
 		self.validations = Validations(self, promotions_namespace=client_config['promotions_namespace'])
@@ -80,6 +87,9 @@ if __name__ == '__main__':
 		'application_id': os.getenv('VOUCHERIFY_APP_ID'),
 		'client_secret_key': os.getenv('VOUCHERIFY_CLIENT_SECRET_KEY'),
 		'promotions_namespace': os.getenv('PROMOTIONS_NAMESPACE'),
+		'exports_namespace': os.getenv('EXPORTS_NAMESPACE'),
+		'campaigns_namespace': os.getenv('CAMPAIGNS_NAMESPACE'),
+		'promotion_tiers_namespace': os.getenv('PROMOTION_TIERS_NAMESPACE'),
 		'root_url': ROOT_URL
 	}
 	client = ApiClient(client_config)
