@@ -4,7 +4,7 @@ unit_price = 83.45
 items_count = 13
 base_price = unit_price * items_count
 
-def test_shouldCalculateAmountPriceDiscount():
+# test shouldCalculateAmountPriceDiscount
     voucher = {
         "code": "PythonVoucherTest",
         "discount": {
@@ -25,7 +25,7 @@ def test_shouldCalculateAmountPriceDiscount():
     assert discount == 124.36
     assert price == 960.49
 
-def test_shouldCalculateAmountDiscountWhenGiftIsNone():
+    # test shouldCalculateAmountDiscountWhenGiftIsNone
     voucher = {
         "code": "PythonVoucherTest",
         "discount": {

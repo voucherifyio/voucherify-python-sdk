@@ -5,29 +5,12 @@ voucherify = voucherifyClient(
     client_secret_key="3266b9f8-e246-4f79-bdf0-833929b1380c"
 )
 
-tracking_id = 'PythonTestUser'
-testVoucher = {
-    "code": "PythonVoucherTest",
-    "discount": {
-        "type": "AMOUNT",
-        "amount_off": 12436
-    },
-    "category": "PythonTestCategory",
-    "start_date": "2016-01-01T00:00:00Z",
-    "expiration_date": None,
-    "redemption": {
-        "quantity": None,
-        "redeemed_quantity": 0
-    },
-    "active": True
-}
-
-
-def test_publishVoucher():
     params = {
-        "channel": "Email",
-        "customer": "donny.roll@mail.com"
+        "customer": {
+            "source_id": "donny.roll@mail.com"
+        },
+        "campaign": "Predefined Gift Cards"
     }
     result = voucherify.distributions.publish(params)
-    assert result.get('active') is True
-    assert result.get('type') == 'DISCOUNT_VOUCHER'
+    assert result.get('voucher').get('active') is True
+    assert result.get('voucher').get('type') == 'GIFT_VOUCHER'
