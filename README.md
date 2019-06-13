@@ -43,6 +43,20 @@ client = voucherifyClient(
 )
 ```
 
+### API Endpoint
+
+Optionally, you can add `api_endpoint` to the client options if you want to use Voucherify running in a specific region.
+
+```python
+from voucherify import Client as voucherifyClient
+
+client = voucherifyClient(
+    application_id='YOUR-APPLICATION-ID',
+    client_secret_key='YOUR-CLIENT-SECRET-KEY',
+    api_endpoint='https://<region>.api.voucherify.io'
+)
+```
+
 ## API
 
 This SDK is consistent with restful API Voucherify provides.
@@ -179,6 +193,7 @@ Bug reports and pull requests are welcome through [GitHub Issues](https://github
 
 ## Changelog
 
+- **2019-06-19** - `2.1.0` Added support for custom API endpoint, that allows to connect to projects created in specific Voucherify region.
 - **2018-01-20** - `2.0.0`
   - Moved vouchers related methods to `client.vouchers.*` namespace
   - Moved redemptions related methods to `client.redemptions.*` namespace
