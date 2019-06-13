@@ -43,6 +43,20 @@ client = voucherifyClient(
 )
 ```
 
+### API Endpoint
+
+Optionally, you can specify the API endpoint if needed:
+
+```python
+from voucherify import Client as voucherifyClient
+
+client = voucherifyClient(
+    application_id='YOUR-APPLICATION-ID',
+    client_secret_key='YOUR-CLIENT-SECRET-KEY',
+    api_endpoint='https://<clusterId>.api.voucherify.io/v1'
+)
+```
+
 ## API
 
 This SDK is consistent with restful API Voucherify provides.
