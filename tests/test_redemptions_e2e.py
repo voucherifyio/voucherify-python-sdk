@@ -1,4 +1,5 @@
 from voucherify import Client as voucherifyClient
+import time
 
 voucherify = voucherifyClient(
     application_id="c70a6f00-cf91-4756-9df5-47628850002b",
@@ -44,8 +45,7 @@ def test_redeemVoucherWithCustomerInfo(voucherifyInstance=voucherify.redemptions
         "description": "",
         "metadata": {
             "locale": "en-GB",
-            "shoeSize": 5,
-            "favourite_brands": ["Armani", "L'Autre Chose", "Vicini"]
+            "shoeSize": 5
         }
     }
     payload = {
@@ -67,7 +67,7 @@ def test_getVoucherRedemption(testedMethod=voucherify.redemptions.getForVoucher)
 def test_listVoucherRedemptions(testedMethod=voucherify.redemptions.list):
     filter_params = {
         "limit": 1,
-        "page": 0,
+        "page": 1,
         "[created_at][before]": "2016-12-31T23:59:59Z",
         "[created_at][after]": "2015-01-01T00:00:00Z",
         "result": "SUCCESS"
@@ -80,6 +80,8 @@ def test_voucherRedemptionRollback(voucherifyInstance=voucherify.redemptions):
     redemption = voucherifyInstance.redeem(testVoucher.get('code'))
     redemptionId = redemption.get('id')
     reason = 'just testing'
+
+    time.sleep(1)
     rollbackResult = voucherifyInstance.rollback(redemptionId, reason)
     assert rollbackResult.get('result') == 'SUCCESS'
     assert rollbackResult.get('reason') == reason

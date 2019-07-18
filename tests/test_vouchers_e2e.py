@@ -47,8 +47,8 @@ def test_listVouchersFromCategory(voucherifyInstance=voucherify.vouchers):
         "category": "PythonTestCategory"
     }
     vouchers = voucherifyInstance.list(filter_params)
-    assert len(vouchers) == 1
-    voucher = vouchers[0]
+    assert len(vouchers.get('vouchers')) == 1
+    voucher = vouchers.get('vouchers')[0]
     assert voucher.get('code') == testVoucher.get('code')
 
 
