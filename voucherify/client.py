@@ -7,13 +7,14 @@ except ImportError:
     from urllib import urlencode
     from urllib import quote
 
-ENDPOINT_URL = 'https://api.voucherify.io/v1'
+ENDPOINT_URL = 'https://api.voucherify.io'
 TIMEOUT = 30 * 1000
 
 
 class VoucherifyRequest(object):
-    def __init__(self, application_id, client_secret_key):
+    def __init__(self, application_id, client_secret_key, api_endpoint=None):
         self.timeout = TIMEOUT
+        self.url = (api_endpoint if api_endpoint else ENDPOINT_URL) + "/v1"
         self.headers = {
             'X-App-Id': application_id,
             'X-App-Token': client_secret_key,
@@ -23,7 +24,7 @@ class VoucherifyRequest(object):
 
     def request(self, path, method='GET', **kwargs):
         try:
-            url = ENDPOINT_URL + path
+            url = self.url + path
 
             response = requests.request(
                 method=method,
@@ -76,7 +77,7 @@ class Vouchers(VoucherifyRequest):
             data=json.dumps(voucher),
             method='POST'
         )
-        
+
     def update(self, voucher_update):
         path = '/vouchers/' + quote(voucher_update.get("code"))
 
@@ -140,7 +141,7 @@ class Redemptions(VoucherifyRequest):
             path,
             params=query
         )
-    
+
     def rollback(self, redemption_id, reason=None):
         path = '/redemptions/' + redemption_id + '/rollback'
 
