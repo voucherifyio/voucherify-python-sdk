@@ -8,12 +8,12 @@ except ImportError:
     from urllib import quote
 
 ENDPOINT_URL = 'https://api.voucherify.io'
-TIMEOUT = 30 * 1000
+TIMEOUT = 30
 
 
 class VoucherifyRequest(object):
-    def __init__(self, application_id, client_secret_key, api_endpoint=None):
-        self.timeout = TIMEOUT
+    def __init__(self, application_id, client_secret_key, api_endpoint=None, timeout=TIMEOUT):
+        self.timeout = timeout
         self.url = (api_endpoint if api_endpoint else ENDPOINT_URL) + "/v1"
         self.headers = {
             'X-App-Id': application_id,
