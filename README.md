@@ -46,6 +46,7 @@ client = voucherifyClient(
 ### API Endpoint
 
 Optionally, you can add `api_endpoint` to the client options if you want to use Voucherify running in a specific region.
+Optionally, you can add `timeout` to specify request's timeout in seconds. Default value is set to 3 minutes.
 
 ```python
 from voucherify import Client as voucherifyClient
@@ -53,7 +54,8 @@ from voucherify import Client as voucherifyClient
 client = voucherifyClient(
     application_id='YOUR-APPLICATION-ID',
     client_secret_key='YOUR-CLIENT-SECRET-KEY',
-    api_endpoint='https://<region>.api.voucherify.io'
+    api_endpoint='https://<region>.api.voucherify.io',
+    timeout=180
 )
 ```
 
@@ -111,6 +113,17 @@ Methods are provided within `client.distributions.*` namespace.
 #### [Publish Voucher]
 ```python
 client.distributions.publish(params)
+```
+
+---
+### Validations API
+Methods are provided within `client.validations.*` namespace.
+
+- [Validate Voucher](#validate-voucher)
+
+#### [Validate Voucher]
+```python
+client.validations.validateVoucher(code, params)
 ```
 
 ---
@@ -193,6 +206,11 @@ Bug reports and pull requests are welcome through [GitHub Issues](https://github
 
 ## Changelog
 
+- **2021-05-20** - `2.2.0`
+  - Added `client.validations*` member
+  - Added method `validateVoucher` to `client.validations`
+  - Changed default timeout from  500 minutes to 3 minutes. Made timeout configurable
+  - Bugfix: Fixed raising exception when response json contains property "error"
 - **2019-06-19** - `2.1.0` Added support for custom API endpoint, that allows to connect to projects created in specific Voucherify region.
 - **2018-01-20** - `2.0.0`
   - Moved vouchers related methods to `client.vouchers.*` namespace
@@ -223,6 +241,8 @@ Bug reports and pull requests are welcome through [GitHub Issues](https://github
 [Disable Voucher]: https://docs.voucherify.io/reference?utm_source=github&utm_medium=sdk&utm_campaign=acq#disable-voucher
 
 [Publish Voucher]: https://docs.voucherify.io/reference?utm_source=github&utm_medium=sdk&utm_campaign=acq#create-publication
+
+[Validate Voucher]: https://docs.voucherify.io/reference?utm_source=github&utm_medium=sdk&utm_campaign=acq#validate-voucher
 
 [Redeem Voucher]: https://docs.voucherify.io/reference?utm_source=github&utm_medium=sdk&utm_campaign=acq#redeem-voucher
 [List Redemptions]: https://docs.voucherify.io/reference?utm_source=github&utm_medium=sdk&utm_campaign=acq#list-redemptions

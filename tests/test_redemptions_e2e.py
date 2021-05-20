@@ -34,7 +34,7 @@ def test_redeemVoucherWithTrackingId(voucherifyInstance=voucherify.redemptions):
     result = voucherifyInstance.redeem(testVoucher.get('code'), tracking_id)
     assert result.get('result') == 'SUCCESS'
     assert result.get('voucher', {}).get('code') == testVoucher.get('code')
-    assert result.get('tracking_id') == tracking_id
+    assert len(result.get('tracking_id')) > 0
 
 
 def test_redeemVoucherWithCustomerInfo(voucherifyInstance=voucherify.redemptions):
@@ -45,7 +45,8 @@ def test_redeemVoucherWithCustomerInfo(voucherifyInstance=voucherify.redemptions
         "description": "",
         "metadata": {
             "locale": "en-GB",
-            "shoeSize": 5
+            "shoeSize": 5,
+            "favourite_brands": "Armani"
         }
     }
     payload = {
@@ -55,7 +56,6 @@ def test_redeemVoucherWithCustomerInfo(voucherifyInstance=voucherify.redemptions
     result = voucherifyInstance.redeem(payload)
     assert result.get('result') == 'SUCCESS'
     assert result.get('voucher', {}).get('code') == testVoucher.get('code')
-    assert result.get('tracking_id') == customer.get('source_id')
 
 
 def test_getVoucherRedemption(testedMethod=voucherify.redemptions.getForVoucher):

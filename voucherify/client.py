@@ -8,12 +8,12 @@ except ImportError:
     from urllib import quote
 
 ENDPOINT_URL = 'https://api.voucherify.io'
-TIMEOUT = 30 * 1000
+TIMEOUT = 180
 
 
 class VoucherifyRequest(object):
-    def __init__(self, application_id, client_secret_key, api_endpoint=None):
-        self.timeout = TIMEOUT
+    def __init__(self, application_id, client_secret_key, api_endpoint=None, timeout=TIMEOUT):
+        self.timeout = timeout
         self.url = (api_endpoint if api_endpoint else ENDPOINT_URL) + "/v1"
         self.headers = {
             'X-App-Id': application_id,
@@ -42,9 +42,6 @@ class VoucherifyRequest(object):
             result = response.json()
         else:
             result = response.text
-
-        if isinstance(result, dict) and result.get('error'):
-            raise VoucherifyError(result)
 
         return result
 
@@ -154,6 +151,20 @@ class Redemptions(VoucherifyRequest):
         )
 
 
+class Validations(VoucherifyRequest):
+    def __init__(self, *args, **kwargs):
+        super(Validations, self).__init__(*args, **kwargs)
+
+    def validateVoucher(self, code, params):
+        path = '/vouchers/' + quote(code) + '/validate'
+
+        return self.request(
+            path,
+            method='POST',
+            data=json.dumps(params),
+        )
+
+
 class Distributions(VoucherifyRequest):
     def __init__(self, *args, **kwargs):
         super(Distributions, self).__init__(*args, **kwargs)
@@ -212,6 +223,7 @@ class Client(VoucherifyRequest):
         self.customers = Customers(*args, **kwargs)
         self.vouchers = Vouchers(*args, **kwargs)
         self.redemptions = Redemptions(*args, **kwargs)
+        self.validations = Validations(*args, **kwargs)
         self.distributions = Distributions(*args, **kwargs)
 
 
