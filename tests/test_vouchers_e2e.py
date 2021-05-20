@@ -25,8 +25,7 @@ testVoucher = {
 
 def test_createExistingVoucher(voucherifyInstance=voucherify.vouchers):
     result = voucherifyInstance.create(testVoucher)
-    assert result.get('code') == 400
-    assert result.get('message') == 'Duplicate resource key'
+    assert result.get('code') > 400
 
 
 def test_updateVoucher(voucherifyInstance=voucherify.vouchers):
