@@ -206,6 +206,8 @@ Bug reports and pull requests are welcome through [GitHub Issues](https://github
 
 ## Changelog
 
+- **2021-05-26** - `2.2.1`
+  - Upload new version to pypi.org. No changes compared to `2.2.0`
 - **2021-05-20** - `2.2.0`
   - Added `client.validations*` member
   - Added method `validateVoucher` to `client.validations`
