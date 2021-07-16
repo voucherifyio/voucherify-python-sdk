@@ -217,6 +217,26 @@ class Customers(VoucherifyRequest):
         )
 
 
+class AsyncActions(VoucherifyRequest):
+    def __init__(self, *args, **kwargs):
+        super(AsyncActions, self).__init__(*args, **kwargs)
+
+    def list(self, query):
+        path = '/async-actions/'
+
+        return self.request(
+            path,
+            params=query
+        )
+
+    def get(self, id):
+        path = '/async-actions/' + quote(id)
+
+        return self.request(
+            path
+        )
+
+
 class Client(VoucherifyRequest):
     def __init__(self, *args, **kwargs):
         super(Client, self).__init__(*args, **kwargs)
@@ -225,6 +245,7 @@ class Client(VoucherifyRequest):
         self.redemptions = Redemptions(*args, **kwargs)
         self.validations = Validations(*args, **kwargs)
         self.distributions = Distributions(*args, **kwargs)
+        self.asyncActions = AsyncActions(*args, **kwargs)
 
 
 class VoucherifyError(Exception):
