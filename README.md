@@ -75,6 +75,7 @@ Methods are provided within `client.vouchers.*` namespace.
 - [List Vouchers](#list-vouchers)
 - [Enable Voucher](#enable-voucher)
 - [Disable Voucher](#disable-voucher)
+- [Release Validation Session](#release-validation-session)
 
 #### [Create Voucher]
 ```python
@@ -102,6 +103,10 @@ client.vouchers.enable(code)
 ```python
 client.vouchers.disable(code)
 ```
+#### [Release Validation Session]
+```python
+client.vouchers.releaseValidationSession(code, sessionKey)
+```
 
 ---
 
@@ -120,10 +125,15 @@ client.distributions.publish(params)
 Methods are provided within `client.validations.*` namespace.
 
 - [Validate Voucher](#validate-voucher)
+- [Validate Stackable](#validate-stackable)
 
 #### [Validate Voucher]
 ```python
 client.validations.validateVoucher(code, params)
+```
+#### [Validate Stackable]
+```python
+client.validations.validateStackable(params)
 ```
 
 ---
@@ -132,6 +142,7 @@ client.validations.validateVoucher(code, params)
 Methods are provided within `client.redemptions.*` namespace.
 
 - [Redeem Voucher](#redeem-voucher)
+- [Redeem Stackable](#redeem-stackable)
 - [List Redemptions](#list-redemptions)
 - [Get Voucher's Redemptions](#get-vouchers-redemptions)
 - [Rollback Redemption](#rollback-redemption)
@@ -139,6 +150,10 @@ Methods are provided within `client.redemptions.*` namespace.
 #### [Redeem Voucher]
 ```python
 client.redemptions.redeem(code, tracking_id)
+```
+#### [Redeem Stackable]
+```python
+client.redemptions.redeemStackable(params)
 ```
 #### [List Redemptions]
 ```python
@@ -206,6 +221,10 @@ Bug reports and pull requests are welcome through [GitHub Issues](https://github
 
 ## Changelog
 
+- **2022-04-06** - `2.2.2`
+  - Added `client.vouchers.releaseValidationSession` method
+  - Added `client.redemptions.redeemStackable` method
+  - Added `client.validations.validateStackable` method
 - **2021-05-26** - `2.2.1`
   - Upload new version to pypi.org. No changes compared to `2.2.0`
 - **2021-05-20** - `2.2.0`
@@ -241,12 +260,15 @@ Bug reports and pull requests are welcome through [GitHub Issues](https://github
 [List Vouchers]: https://docs.voucherify.io/reference?utm_source=github&utm_medium=sdk&utm_campaign=acq#list-vouchers
 [Enable Voucher]: https://docs.voucherify.io/reference?utm_source=github&utm_medium=sdk&utm_campaign=acq#enable-voucher
 [Disable Voucher]: https://docs.voucherify.io/reference?utm_source=github&utm_medium=sdk&utm_campaign=acq#disable-voucher
+[Release Validation Session]: https://docs.voucherify.io/reference/release-validation-session
 
 [Publish Voucher]: https://docs.voucherify.io/reference?utm_source=github&utm_medium=sdk&utm_campaign=acq#create-publication
 
 [Validate Voucher]: https://docs.voucherify.io/reference?utm_source=github&utm_medium=sdk&utm_campaign=acq#validate-voucher
+[Validate Stackable]: https://docs.voucherify.io/reference/validate-stacked-discounts-1
 
 [Redeem Voucher]: https://docs.voucherify.io/reference?utm_source=github&utm_medium=sdk&utm_campaign=acq#redeem-voucher
+[Redeem Stackable]: https://docs.voucherify.io/reference/redeem-stacked-discounts
 [List Redemptions]: https://docs.voucherify.io/reference?utm_source=github&utm_medium=sdk&utm_campaign=acq#list-redemptions
 [Get Voucher's Redemptions]: https://docs.voucherify.io/reference?utm_source=github&utm_medium=sdk&utm_campaign=acq#vouchers-redemptions
 [Rollback Redemption]: https://docs.voucherify.io/reference?utm_source=github&utm_medium=sdk&utm_campaign=acq#rollback-redemption
