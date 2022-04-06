@@ -100,6 +100,14 @@ class Vouchers(VoucherifyRequest):
             method='POST'
         )
 
+    def releaseValidationSession(self, code, sessionKey):
+        path = '/vouchers/' + quote(code) + '/sessions/' + quote(sessionKey)
+
+        return self.request(
+            path,
+            method='DELETE'
+        )
+
 
 class Redemptions(VoucherifyRequest):
     def __init__(self, *args, **kwargs):
@@ -122,6 +130,15 @@ class Redemptions(VoucherifyRequest):
             path,
             method='POST',
             data=json.dumps(context),
+        )
+
+    def redeemStackable(self, params):
+        path = '/redemptions'
+        
+        return self.request(
+            path,
+            method='POST',
+            data=json.dumps(params)
         )
 
     def getForVoucher(self, code):
@@ -162,6 +179,15 @@ class Validations(VoucherifyRequest):
             path,
             method='POST',
             data=json.dumps(params),
+        )
+
+    def validateStackable(self, params):
+        path = '/validations'
+
+        return self.request(
+            path,
+            method='POST',
+            data=json.dumps(params)
         )
 
 
