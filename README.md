@@ -219,6 +219,11 @@ from voucherify import utils
 
 Bug reports and pull requests are welcome through [GitHub Issues](https://github.com/voucherifyio/voucherify-python-sdk/issues).
 
+### Setup development environment
+
+- pip install -r requirements/dev.txt
+- Setup `.env` file according to `.env.template`
+
 ## Changelog
 
 - **2022-04-06** - `2.2.2`
