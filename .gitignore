@@ -44,6 +44,10 @@ nosetests.xml
 coverage.xml
 *,cover
 .hypothesis/
+venv/
+.venv/
+.python-version
+.pytest_cache
 
 # Translations
 *.mo
@@ -61,5 +65,13 @@ target/
 #Ipython Notebook
 .ipynb_checkpoints
 
-# Jetbrains work directory
-.idea
+#Other
+/.github/
+/.openapi-generator/
+/test/
+/.gitlab-ci.yml
+/.openapi-generator-ignore
+/.travis.yml
+/git_push.sh
+/.env
+/.idea

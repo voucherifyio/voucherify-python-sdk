@@ -1,0 +1,34 @@
+## Deprecated changelog
+
+- **2022-04-06** - `2.2.2`
+    - Added `client.vouchers.releaseValidationSession` method
+    - Added `client.redemptions.redeemStackable` method
+    - Added `client.validations.validateStackable` method
+- **2021-05-26** - `2.2.1`
+    - Upload new version to pypi.org. No changes compared to `2.2.0`
+- **2021-05-20** - `2.2.0`
+    - Added `client.validations*` member
+    - Added method `validateVoucher` to `client.validations`
+    - Changed default timeout from  500 minutes to 3 minutes. Made timeout configurable
+    - Bugfix: Fixed raising exception when response json contains property "error"
+- **2019-06-19** - `2.1.0` Added support for custom API endpoint, that allows to connect to projects created in specific Voucherify region.
+- **2018-01-20** - `2.0.0`
+    - Moved vouchers related methods to `client.vouchers.*` namespace
+    - Moved redemptions related methods to `client.redemptions.*` namespace
+    - Moved distributions related methods to `client.distributions.*` namespace
+    - Renamed `client.customer.*` to `client.customers.*`
+    - Removed outdated `client.distributions.publish(campaignName)` method interface
+    - Fixed utils methods to accept vouchers with `None` gift
+- **2016-12-02** - `1.4.2` - Support gift vouchers in utils
+- **2016-10-04** - `1.4.1` - Publish update
+- **2016-07-18** - `1.4.0` - Voucher code pattern
+- **2016-07-18** - `1.3.0` - Update voucher
+- **2016-06-23** - `1.2.1` - Gift vouchers
+- **2016-06-16** - `1.2.0` - Unified naming convention
+- **2016-06-16** - `1.1.0` - Added customer methods
+- **2016-06-08** - `1.0.0` - Release version
+- **2016-05-31** - `0.1.0` - First version:
+    - Authentication
+    - Voucher informations: *get*, *usage*
+    - Voucher operations: *use*
+    - Utils
