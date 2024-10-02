@@ -36,6 +36,7 @@ from voucherify.models.campaigns_vouchers_create_request_body import CampaignsVo
 from voucherify.models.campaigns_vouchers_create_response_body import CampaignsVouchersCreateResponseBody
 from voucherify.models.parameter_campaign_type import ParameterCampaignType
 from voucherify.models.parameter_expand_list_campaigns import ParameterExpandListCampaigns
+from voucherify.models.parameter_filters_list_campaigns import ParameterFiltersListCampaigns
 from voucherify.models.parameter_order_list_campaigns import ParameterOrderListCampaigns
 
 from voucherify.api_client import ApiClient, RequestSerialized
@@ -2579,6 +2580,7 @@ class CampaignsApi:
         campaign_type: Annotated[Optional[ParameterCampaignType], Field(description="This attribute allows filtering by campaign type.")] = None,
         expand: Annotated[Optional[ParameterExpandListCampaigns], Field(description="Include an expanded categories object in the response.")] = None,
         order: Annotated[Optional[ParameterOrderListCampaigns], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
+        filters: Annotated[Optional[ParameterFiltersListCampaigns], Field(description="Filters the results by campaign status or whether the campaign is a referral campaign.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2606,6 +2608,8 @@ class CampaignsApi:
         :type expand: ParameterExpandListCampaigns
         :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListCampaigns
+        :param filters: Filters the results by campaign status or whether the campaign is a referral campaign.
+        :type filters: ParameterFiltersListCampaigns
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2634,6 +2638,7 @@ class CampaignsApi:
             campaign_type=campaign_type,
             expand=expand,
             order=order,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2662,6 +2667,7 @@ class CampaignsApi:
         campaign_type: Annotated[Optional[ParameterCampaignType], Field(description="This attribute allows filtering by campaign type.")] = None,
         expand: Annotated[Optional[ParameterExpandListCampaigns], Field(description="Include an expanded categories object in the response.")] = None,
         order: Annotated[Optional[ParameterOrderListCampaigns], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
+        filters: Annotated[Optional[ParameterFiltersListCampaigns], Field(description="Filters the results by campaign status or whether the campaign is a referral campaign.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2689,6 +2695,8 @@ class CampaignsApi:
         :type expand: ParameterExpandListCampaigns
         :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListCampaigns
+        :param filters: Filters the results by campaign status or whether the campaign is a referral campaign.
+        :type filters: ParameterFiltersListCampaigns
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2717,6 +2725,7 @@ class CampaignsApi:
             campaign_type=campaign_type,
             expand=expand,
             order=order,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2745,6 +2754,7 @@ class CampaignsApi:
         campaign_type: Annotated[Optional[ParameterCampaignType], Field(description="This attribute allows filtering by campaign type.")] = None,
         expand: Annotated[Optional[ParameterExpandListCampaigns], Field(description="Include an expanded categories object in the response.")] = None,
         order: Annotated[Optional[ParameterOrderListCampaigns], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
+        filters: Annotated[Optional[ParameterFiltersListCampaigns], Field(description="Filters the results by campaign status or whether the campaign is a referral campaign.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2772,6 +2782,8 @@ class CampaignsApi:
         :type expand: ParameterExpandListCampaigns
         :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListCampaigns
+        :param filters: Filters the results by campaign status or whether the campaign is a referral campaign.
+        :type filters: ParameterFiltersListCampaigns
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2800,6 +2812,7 @@ class CampaignsApi:
             campaign_type=campaign_type,
             expand=expand,
             order=order,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2823,6 +2836,7 @@ class CampaignsApi:
         campaign_type,
         expand,
         order,
+        filters,
         _request_auth,
         _content_type,
         _headers,
@@ -2862,6 +2876,10 @@ class CampaignsApi:
         if order is not None:
             
             _query_params.append(('order', order.value))
+            
+        if filters is not None:
+            
+            _query_params.append(('filters', filters))
             
         # process the header parameters
         # process the form parameters

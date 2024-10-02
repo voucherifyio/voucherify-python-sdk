@@ -38,7 +38,6 @@ class ParameterFiltersListRedemptions(BaseModel):
     """
     ParameterFiltersListRedemptions
     """ # noqa: E501
-    junction: Optional[Junction] = None
     voucher_code: Optional[ParameterFiltersListRedemptionsVoucherCode] = None
     related_object_id: Optional[ParameterFiltersListRedemptionsRelatedObjectId] = None
     related_object_parent_id: Optional[ParameterFiltersListRedemptionsRelatedObjectParentId] = None
@@ -49,7 +48,8 @@ class ParameterFiltersListRedemptions(BaseModel):
     customer_id: Optional[ParameterFiltersListRedemptionsCustomerId] = None
     campaign_name: Optional[ParameterFiltersListRedemptionsCampaignName] = None
     user_login: Optional[ParameterFiltersListRedemptionsUserLogin] = None
-    __properties: ClassVar[List[str]] = ["junction", "voucher_code", "related_object_id", "related_object_parent_id", "parent_redemption_id", "failure_code", "result", "object", "customer_id", "campaign_name", "user_login"]
+    junction: Optional[Junction] = None
+    __properties: ClassVar[List[str]] = ["voucher_code", "related_object_id", "related_object_parent_id", "parent_redemption_id", "failure_code", "result", "object", "customer_id", "campaign_name", "user_login", "junction"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -182,7 +182,6 @@ class ParameterFiltersListRedemptions(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "junction": obj.get("junction"),
             "voucher_code": ParameterFiltersListRedemptionsVoucherCode.from_dict(obj["voucher_code"]) if obj.get("voucher_code") is not None else None,
             "related_object_id": ParameterFiltersListRedemptionsRelatedObjectId.from_dict(obj["related_object_id"]) if obj.get("related_object_id") is not None else None,
             "related_object_parent_id": ParameterFiltersListRedemptionsRelatedObjectParentId.from_dict(obj["related_object_parent_id"]) if obj.get("related_object_parent_id") is not None else None,
@@ -192,7 +191,8 @@ class ParameterFiltersListRedemptions(BaseModel):
             "object": ParameterFiltersListRedemptionsObject.from_dict(obj["object"]) if obj.get("object") is not None else None,
             "customer_id": ParameterFiltersListRedemptionsCustomerId.from_dict(obj["customer_id"]) if obj.get("customer_id") is not None else None,
             "campaign_name": ParameterFiltersListRedemptionsCampaignName.from_dict(obj["campaign_name"]) if obj.get("campaign_name") is not None else None,
-            "user_login": ParameterFiltersListRedemptionsUserLogin.from_dict(obj["user_login"]) if obj.get("user_login") is not None else None
+            "user_login": ParameterFiltersListRedemptionsUserLogin.from_dict(obj["user_login"]) if obj.get("user_login") is not None else None,
+            "junction": obj.get("junction")
         })
         return _obj
 

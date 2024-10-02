@@ -5,7 +5,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**junction** | [**Junction**](Junction.md) |  | [optional] 
 **voucher_code** | [**ParameterFiltersListRedemptionsVoucherCode**](ParameterFiltersListRedemptionsVoucherCode.md) |  | [optional] 
 **related_object_id** | [**ParameterFiltersListRedemptionsRelatedObjectId**](ParameterFiltersListRedemptionsRelatedObjectId.md) |  | [optional] 
 **related_object_parent_id** | [**ParameterFiltersListRedemptionsRelatedObjectParentId**](ParameterFiltersListRedemptionsRelatedObjectParentId.md) |  | [optional] 
@@ -16,6 +15,7 @@ Name | Type | Description | Notes
 **customer_id** | [**ParameterFiltersListRedemptionsCustomerId**](ParameterFiltersListRedemptionsCustomerId.md) |  | [optional] 
 **campaign_name** | [**ParameterFiltersListRedemptionsCampaignName**](ParameterFiltersListRedemptionsCampaignName.md) |  | [optional] 
 **user_login** | [**ParameterFiltersListRedemptionsUserLogin**](ParameterFiltersListRedemptionsUserLogin.md) |  | [optional] 
+**junction** | [**Junction**](Junction.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

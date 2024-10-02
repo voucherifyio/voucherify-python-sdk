@@ -13,8 +13,6 @@
 
 * `LOYALTY_PROGRAM` (value: `'LOYALTY_PROGRAM'`)
 
-* `LUCKY_DRAW` (value: `'LUCKY_DRAW'`)
-
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

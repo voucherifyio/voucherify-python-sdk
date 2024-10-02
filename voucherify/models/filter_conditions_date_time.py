@@ -18,9 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from voucherify.models.filter_conditions_date_time_conditions import FilterConditionsDateTimeConditions
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,8 +28,13 @@ class FilterConditionsDateTime(BaseModel):
     """
     Data filters used to narrow down the data records to be returned in the result.
     """ # noqa: E501
-    conditions: Optional[FilterConditionsDateTimeConditions] = None
-    __properties: ClassVar[List[str]] = ["conditions"]
+    after: Optional[datetime] = Field(default=None, description="Value is after this date. The value for this parameter is shown in the ISO 8601 format.", alias="$after")
+    before: Optional[datetime] = Field(default=None, description="Value is before this date. The value for this parameter is shown in the ISO 8601 format.", alias="$before")
+    has_value: Optional[StrictStr] = Field(default=None, description="Value is NOT null. The value for this parameter is an empty string.", alias="$has_value")
+    is_unknown: Optional[StrictStr] = Field(default=None, description="Value is null. The value for this parameter is an empty string.", alias="$is_unknown")
+    more_than: Optional[StrictInt] = Field(default=None, description="Value is more days ago before the current date and time, e.g. more than `10` days ago.")
+    less_than: Optional[StrictInt] = Field(default=None, description="Value is less days before the current date and time, e.g. less than `10` days ago.")
+    __properties: ClassVar[List[str]] = ["$after", "$before", "$has_value", "$is_unknown", "more_than", "less_than"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -70,13 +75,35 @@ class FilterConditionsDateTime(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of conditions
-        if self.conditions:
-            _dict['conditions'] = self.conditions.to_dict()
-        # set to None if conditions (nullable) is None
+        # set to None if after (nullable) is None
         # and model_fields_set contains the field
-        if self.conditions is None and "conditions" in self.model_fields_set:
-            _dict['conditions'] = None
+        if self.after is None and "after" in self.model_fields_set:
+            _dict['$after'] = None
+
+        # set to None if before (nullable) is None
+        # and model_fields_set contains the field
+        if self.before is None and "before" in self.model_fields_set:
+            _dict['$before'] = None
+
+        # set to None if has_value (nullable) is None
+        # and model_fields_set contains the field
+        if self.has_value is None and "has_value" in self.model_fields_set:
+            _dict['$has_value'] = None
+
+        # set to None if is_unknown (nullable) is None
+        # and model_fields_set contains the field
+        if self.is_unknown is None and "is_unknown" in self.model_fields_set:
+            _dict['$is_unknown'] = None
+
+        # set to None if more_than (nullable) is None
+        # and model_fields_set contains the field
+        if self.more_than is None and "more_than" in self.model_fields_set:
+            _dict['more_than'] = None
+
+        # set to None if less_than (nullable) is None
+        # and model_fields_set contains the field
+        if self.less_than is None and "less_than" in self.model_fields_set:
+            _dict['less_than'] = None
 
         return _dict
 
@@ -90,7 +117,12 @@ class FilterConditionsDateTime(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "conditions": FilterConditionsDateTimeConditions.from_dict(obj["conditions"]) if obj.get("conditions") is not None else None
+            "$after": obj.get("$after"),
+            "$before": obj.get("$before"),
+            "$has_value": obj.get("$has_value"),
+            "$is_unknown": obj.get("$is_unknown"),
+            "more_than": obj.get("more_than"),
+            "less_than": obj.get("less_than")
         })
         return _obj
 

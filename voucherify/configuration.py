@@ -430,6 +430,24 @@ conf = voucherify.Configuration(
                     'X-Client-Application-Id',
                 ),
             }
+        if 'X-Management-Id' in self.api_key:
+            auth['X-Management-Id'] = {
+                'type': 'api_key',
+                'in': 'header',
+                'key': 'X-Management-Id',
+                'value': self.get_api_key_with_prefix(
+                    'X-Management-Id',
+                ),
+            }
+        if 'X-Management-Token' in self.api_key:
+            auth['X-Management-Token'] = {
+                'type': 'api_key',
+                'in': 'header',
+                'key': 'X-Management-Token',
+                'value': self.get_api_key_with_prefix(
+                    'X-Management-Token',
+                ),
+            }
         return auth
 
     def to_debug_report(self):

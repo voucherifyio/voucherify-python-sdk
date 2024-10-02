@@ -57,8 +57,8 @@ class CustomerRedeemable(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['LOYALTY_PROGRAM', 'GIFT_VOUCHERS', 'DISCOUNT_COUPONS', 'PROMOTION', 'REFERRAL_PROGRAM', 'LUCKY_DRAW']):
-            raise ValueError("must be one of enum values ('LOYALTY_PROGRAM', 'GIFT_VOUCHERS', 'DISCOUNT_COUPONS', 'PROMOTION', 'REFERRAL_PROGRAM', 'LUCKY_DRAW')")
+        if value not in set(['LOYALTY_PROGRAM', 'GIFT_VOUCHERS', 'DISCOUNT_COUPONS', 'PROMOTION', 'REFERRAL_PROGRAM']):
+            raise ValueError("must be one of enum values ('LOYALTY_PROGRAM', 'GIFT_VOUCHERS', 'DISCOUNT_COUPONS', 'PROMOTION', 'REFERRAL_PROGRAM')")
         return value
 
     @field_validator('voucher_type')
@@ -67,8 +67,8 @@ class CustomerRedeemable(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['GIFT_VOUCHER', 'DISCOUNT_VOUCHER', 'LOYALTY_CARD', 'LUCKY_DRAW_CODE']):
-            raise ValueError("must be one of enum values ('GIFT_VOUCHER', 'DISCOUNT_VOUCHER', 'LOYALTY_CARD', 'LUCKY_DRAW_CODE')")
+        if value not in set(['GIFT_VOUCHER', 'DISCOUNT_VOUCHER', 'LOYALTY_CARD']):
+            raise ValueError("must be one of enum values ('GIFT_VOUCHER', 'DISCOUNT_VOUCHER', 'LOYALTY_CARD')")
         return value
 
     model_config = ConfigDict(
