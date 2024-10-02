@@ -5,8 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**junction** | [**Junction**](Junction.md) |  | [optional] 
 **id** | [**ParameterFiltersListCustomerRedeemablesId**](ParameterFiltersListCustomerRedeemablesId.md) |  | [optional] 
-**created_at** | [**ParameterFiltersListCustomerRedeemablesCreatedAt**](ParameterFiltersListCustomerRedeemablesCreatedAt.md) |  | [optional] 
+**created_at** | [**FilterConditionsDateTime**](FilterConditionsDateTime.md) |  | [optional] 
 **redeemable_id** | [**ParameterFiltersListCustomerRedeemablesRedeemableId**](ParameterFiltersListCustomerRedeemablesRedeemableId.md) |  | [optional] 
 **redeemable_object** | [**ParameterFiltersListCustomerRedeemablesRedeemableObject**](ParameterFiltersListCustomerRedeemablesRedeemableObject.md) |  | [optional] 
 **holder_role** | [**ParameterFiltersListCustomerRedeemablesHolderRole**](ParameterFiltersListCustomerRedeemablesHolderRole.md) |  | [optional] 

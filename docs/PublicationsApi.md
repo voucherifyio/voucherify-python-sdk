@@ -210,6 +210,7 @@ Retrieve a list of publications. To return a **particular** publication, you can
 
 ```python
 import voucherify
+from voucherify.models.parameter_filters_list_publications import ParameterFiltersListPublications
 from voucherify.models.parameter_order_list_publications import ParameterOrderListPublications
 from voucherify.models.parameter_result_list_publications import ParameterResultListPublications
 from voucherify.models.parameter_voucher_type_list_publications import ParameterVoucherTypeListPublications
@@ -253,7 +254,7 @@ with voucherify.ApiClient(configuration) as api_client:
     result = voucherify.ParameterResultListPublications() # ParameterResultListPublications | Filters by a publication result. (optional)
     voucher_type = voucherify.ParameterVoucherTypeListPublications() # ParameterVoucherTypeListPublications | Filters by a voucher type. (optional)
     is_referral_code = True # bool | This filter works only for the true option. If set to true, the query returns only publications of codes from referral campaigns.  (optional)
-    filters = 'filters_example' # str | Allows for combining the filters mentioned in the endpoint description. (optional)
+    filters = voucherify.ParameterFiltersListPublications() # ParameterFiltersListPublications | Filter conditions. (optional)
     source_id = 'source_id_example' # str | Using this endpoint with a particular publication source_id, which was sent with the original request to create a publication, returns in the response, exactly the same code published initially because the code was assigned to the given publication. As a result, you can use this endpoint as a reference and return a code that was assigned in a publication by using a particular source_id. (optional)
 
     try:
@@ -281,7 +282,7 @@ Name | Type | Description  | Notes
  **result** | [**ParameterResultListPublications**](.md)| Filters by a publication result. | [optional] 
  **voucher_type** | [**ParameterVoucherTypeListPublications**](.md)| Filters by a voucher type. | [optional] 
  **is_referral_code** | **bool**| This filter works only for the true option. If set to true, the query returns only publications of codes from referral campaigns.  | [optional] 
- **filters** | **str**| Allows for combining the filters mentioned in the endpoint description. | [optional] 
+ **filters** | [**ParameterFiltersListPublications**](.md)| Filter conditions. | [optional] 
  **source_id** | **str**| Using this endpoint with a particular publication source_id, which was sent with the original request to create a publication, returns in the response, exactly the same code published initially because the code was assigned to the given publication. As a result, you can use this endpoint as a reference and return a code that was assigned in a publication by using a particular source_id. | [optional] 
 
 ### Return type

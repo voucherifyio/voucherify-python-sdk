@@ -5,6 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**junction** | [**Junction**](Junction.md) |  | [optional] 
 **voucher_code** | [**ParameterFiltersListRedemptionsVoucherCode**](ParameterFiltersListRedemptionsVoucherCode.md) |  | [optional] 
 **related_object_id** | [**ParameterFiltersListRedemptionsRelatedObjectId**](ParameterFiltersListRedemptionsRelatedObjectId.md) |  | [optional] 
 **related_object_parent_id** | [**ParameterFiltersListRedemptionsRelatedObjectParentId**](ParameterFiltersListRedemptionsRelatedObjectParentId.md) |  | [optional] 

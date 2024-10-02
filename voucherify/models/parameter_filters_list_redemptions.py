@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
+from voucherify.models.junction import Junction
 from voucherify.models.parameter_filters_list_redemptions_campaign_name import ParameterFiltersListRedemptionsCampaignName
 from voucherify.models.parameter_filters_list_redemptions_customer_id import ParameterFiltersListRedemptionsCustomerId
 from voucherify.models.parameter_filters_list_redemptions_failure_code import ParameterFiltersListRedemptionsFailureCode
@@ -37,6 +38,7 @@ class ParameterFiltersListRedemptions(BaseModel):
     """
     ParameterFiltersListRedemptions
     """ # noqa: E501
+    junction: Optional[Junction] = None
     voucher_code: Optional[ParameterFiltersListRedemptionsVoucherCode] = None
     related_object_id: Optional[ParameterFiltersListRedemptionsRelatedObjectId] = None
     related_object_parent_id: Optional[ParameterFiltersListRedemptionsRelatedObjectParentId] = None
@@ -47,7 +49,7 @@ class ParameterFiltersListRedemptions(BaseModel):
     customer_id: Optional[ParameterFiltersListRedemptionsCustomerId] = None
     campaign_name: Optional[ParameterFiltersListRedemptionsCampaignName] = None
     user_login: Optional[ParameterFiltersListRedemptionsUserLogin] = None
-    __properties: ClassVar[List[str]] = ["voucher_code", "related_object_id", "related_object_parent_id", "parent_redemption_id", "failure_code", "result", "object", "customer_id", "campaign_name", "user_login"]
+    __properties: ClassVar[List[str]] = ["junction", "voucher_code", "related_object_id", "related_object_parent_id", "parent_redemption_id", "failure_code", "result", "object", "customer_id", "campaign_name", "user_login"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -180,6 +182,7 @@ class ParameterFiltersListRedemptions(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "junction": obj.get("junction"),
             "voucher_code": ParameterFiltersListRedemptionsVoucherCode.from_dict(obj["voucher_code"]) if obj.get("voucher_code") is not None else None,
             "related_object_id": ParameterFiltersListRedemptionsRelatedObjectId.from_dict(obj["related_object_id"]) if obj.get("related_object_id") is not None else None,
             "related_object_parent_id": ParameterFiltersListRedemptionsRelatedObjectParentId.from_dict(obj["related_object_parent_id"]) if obj.get("related_object_parent_id") is not None else None,

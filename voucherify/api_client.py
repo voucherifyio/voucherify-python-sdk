@@ -88,13 +88,13 @@ class ApiClient:
         self.rest_client = rest.RESTClientObject(configuration)
         self.default_headers = {
             "X-Voucherify-Channel": "Python-SDK",
-            "User-Agent": "OpenAPI-Python-SDK/3.0.0"
+            "User-Agent": "OpenAPI-Python-SDK/4.0.0"
         }
         if header_name is not None:
             self.default_headers[header_name] = header_value
         self.cookie = cookie
         # Set default User-Agent.
-        self.user_agent = 'OpenAPI-Python-SDK/3.0.0'
+        self.user_agent = 'OpenAPI-Python-SDK/4.0.0'
         self.client_side_validation = configuration.client_side_validation
 
     def __enter__(self):
@@ -501,41 +501,25 @@ class ApiClient:
         return new_params
 
     def parameters_to_url_query(self, params, collection_formats):
-        """Get parameters as list of tuples, formatting collections.
-
-        :param params: Parameters as dict or list of two-tuples
-        :param dict collection_formats: Parameter collection formats
-        :return: URL query string (e.g. a=Hello%20World&b=123)
-        """
         new_params: List[Tuple[str, str]] = []
+
         if collection_formats is None:
             collection_formats = {}
-        for k, v in params.items() if isinstance(params, dict) else params:
-            if isinstance(v, bool):
-                v = str(v).lower()
-            if isinstance(v, (int, float)):
-                v = str(v)
-            if isinstance(v, dict):
-                v = json.dumps(v)
 
-            if k in collection_formats:
-                collection_format = collection_formats[k]
-                if collection_format == 'multi':
-                    new_params.extend((k, str(value)) for value in v)
-                else:
-                    if collection_format == 'ssv':
-                        delimiter = ' '
-                    elif collection_format == 'tsv':
-                        delimiter = '\t'
-                    elif collection_format == 'pipes':
-                        delimiter = '|'
-                    else:  # csv is the default
-                        delimiter = ','
-                    new_params.append(
-                        (k, delimiter.join(quote(str(value)) for value in v))
-                    )
+        def flatten_key_value(prefix, value):
+            if isinstance(value, bool):
+                value = str(value).lower()
+            if isinstance(value, (int, float)):
+                value = str(value)
+
+            if isinstance(value, dict):
+                for k, v in value.items():
+                    flatten_key_value(f"{prefix}[{k}]", v)
             else:
-                new_params.append((k, quote(str(v))))
+                new_params.append((prefix, quote(str(value))))
+
+        for k, v in params.items() if isinstance(params, dict) else params:
+            flatten_key_value(k, v)
 
         return "&".join(["=".join(map(str, item)) for item in new_params])
 

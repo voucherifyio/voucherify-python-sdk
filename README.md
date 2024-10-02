@@ -103,6 +103,11 @@ Remember that this SDK is auto generated (except of the tests) so changes made h
 
 ## 📅 Changelog
 
+- **2024-10-01** - `4.0.0`
+    - Fix object parsing in query. For example filters while listing redemptions.
+    - !!! BREAKING CHANGES !!!
+        - `listPublications` parameter `filters` have changed - now uses `ParameterFiltersListPublications` instead of `String`
+        - `ParameterFiltersListRedemptions` and `ParameterFiltersListCustomerRedeemables` have been updated
 - **2024-09-18** - `3.0.0`
     -  The new version of the SDK includes coverage for all the most commonly used Voucherify endpoints and supports typed models.
 
@@ -502,6 +507,8 @@ Class | Method | HTTP request | Description
  - [ExportsGetResponseBodyResult](docs/ExportsGetResponseBodyResult.md)
  - [ExportsListResponseBody](docs/ExportsListResponseBody.md)
  - [FieldConditions](docs/FieldConditions.md)
+ - [FilterConditionsDateTime](docs/FilterConditionsDateTime.md)
+ - [FilterConditionsDateTimeConditions](docs/FilterConditionsDateTimeConditions.md)
  - [FilterConditionsString](docs/FilterConditionsString.md)
  - [FiltersCondition](docs/FiltersCondition.md)
  - [Gift](docs/Gift.md)
@@ -797,8 +804,6 @@ Class | Method | HTTP request | Description
  - [ParameterFiltersListCustomerRedeemablesCampaignId](docs/ParameterFiltersListCustomerRedeemablesCampaignId.md)
  - [ParameterFiltersListCustomerRedeemablesCampaignType](docs/ParameterFiltersListCustomerRedeemablesCampaignType.md)
  - [ParameterFiltersListCustomerRedeemablesCampaignTypeConditions](docs/ParameterFiltersListCustomerRedeemablesCampaignTypeConditions.md)
- - [ParameterFiltersListCustomerRedeemablesCreatedAt](docs/ParameterFiltersListCustomerRedeemablesCreatedAt.md)
- - [ParameterFiltersListCustomerRedeemablesCreatedAtConditions](docs/ParameterFiltersListCustomerRedeemablesCreatedAtConditions.md)
  - [ParameterFiltersListCustomerRedeemablesHolderRole](docs/ParameterFiltersListCustomerRedeemablesHolderRole.md)
  - [ParameterFiltersListCustomerRedeemablesHolderRoleConditions](docs/ParameterFiltersListCustomerRedeemablesHolderRoleConditions.md)
  - [ParameterFiltersListCustomerRedeemablesId](docs/ParameterFiltersListCustomerRedeemablesId.md)
@@ -807,6 +812,16 @@ Class | Method | HTTP request | Description
  - [ParameterFiltersListCustomerRedeemablesRedeemableObjectConditions](docs/ParameterFiltersListCustomerRedeemablesRedeemableObjectConditions.md)
  - [ParameterFiltersListCustomerRedeemablesVoucherType](docs/ParameterFiltersListCustomerRedeemablesVoucherType.md)
  - [ParameterFiltersListCustomerRedeemablesVoucherTypeConditions](docs/ParameterFiltersListCustomerRedeemablesVoucherTypeConditions.md)
+ - [ParameterFiltersListPublications](docs/ParameterFiltersListPublications.md)
+ - [ParameterFiltersListPublicationsCampaignName](docs/ParameterFiltersListPublicationsCampaignName.md)
+ - [ParameterFiltersListPublicationsCustomerId](docs/ParameterFiltersListPublicationsCustomerId.md)
+ - [ParameterFiltersListPublicationsFailureCode](docs/ParameterFiltersListPublicationsFailureCode.md)
+ - [ParameterFiltersListPublicationsIsReferralCode](docs/ParameterFiltersListPublicationsIsReferralCode.md)
+ - [ParameterFiltersListPublicationsParentObjectId](docs/ParameterFiltersListPublicationsParentObjectId.md)
+ - [ParameterFiltersListPublicationsRelatedObjectId](docs/ParameterFiltersListPublicationsRelatedObjectId.md)
+ - [ParameterFiltersListPublicationsResult](docs/ParameterFiltersListPublicationsResult.md)
+ - [ParameterFiltersListPublicationsSourceId](docs/ParameterFiltersListPublicationsSourceId.md)
+ - [ParameterFiltersListPublicationsVoucherType](docs/ParameterFiltersListPublicationsVoucherType.md)
  - [ParameterFiltersListRedemptions](docs/ParameterFiltersListRedemptions.md)
  - [ParameterFiltersListRedemptionsCampaignName](docs/ParameterFiltersListRedemptionsCampaignName.md)
  - [ParameterFiltersListRedemptionsCustomerId](docs/ParameterFiltersListRedemptionsCustomerId.md)
