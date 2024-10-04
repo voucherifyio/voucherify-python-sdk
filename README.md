@@ -102,12 +102,68 @@ Read more about how to Contribute to Voucherify Python SDK by visiting main repo
 Remember that this SDK is auto generated (except of the tests) so changes made here will be overwritten by generator.
 
 ## 📅 Changelog
-
-- **2024-10-01** - `4.0.0`
+- **2024-10-02** - `4.0.0`
     - Fix object parsing in query. For example filters while listing redemptions.
     - !!! BREAKING CHANGES !!!
         - `listPublications` parameter `filters` have changed - now uses `ParameterFiltersListPublications` instead of `String`
         - `ParameterFiltersListRedemptions` and `ParameterFiltersListCustomerRedeemables` have been updated
+        - enum `LUCKY_DRAW`, `LUCKY_DRAW_CODE`, `VOUCHER_LUCKY_DRAW_CODE`, `CAMPAIGN_LUCKY_DRAW` have been deleted from everywhere and no longer supported
+        - CampaignsUpdateRequestBody - properties `activity_duration_after_publishing`, `join_once`, `auto_join`, `type`, `winners_count`, `unique_winners_per_draw`, `unique_winners` have been deleted and no longer supported
+        - `FilterConditionsDateTimeConditions` model has been renamed to `FilterConditionsDateTime`
+        - FilterConditionsDateTime - `conditions` property has been divided on `after`, `before`, `has_value`, `is_unknown`, `more_than`, `less_than` properties
+        - `junction` property is deleted is no longer supported in models: 
+            - `ParameterFiltersListCustomerRedeemablesCampaignId`, 
+            - `ParamaterFiltersListCuomsterRedeemablesCampaignType`,
+            - `ParameterFiltersListCustomerRedeemablesHolderRole`, 
+            - `ParameterFiltersListCuomsterRedeemablesId`, 
+            - `ParameterFiltersListCuomsterRedeemablesRedeemableId`, 
+            - `ParameterFiltersListCustomerRedeemablesVoucherType`, 
+            - `ParameterFiltersListCustomerRedeemablesCreatedAt`, 
+            - `ParameterFiltersListCustomerRedeemablesRedeemableObject`, 
+            - `ParameterFiltersListRedemptionsCampaignName`, 
+            - `ParameterFiltersListRedemptionsCustomerId`, 
+            - `ParameterFiltersListRedemptionsFailureCode`, 
+            - `ParameterFiltersListRedemptionsObject`, 
+            - `ParameterFiltersListRedemptionsParentRedemptionId`
+            - `ParameterFiltersListRedemptionsRelatedObjectId`
+            - `ParameterFiltersListRedemptionsRelatedObjectParentId`
+            - `ParameterFiltersListRedemptionsResult`
+            - `ParameterFiltersListRedemptionsUserLogin`
+            - `ParameterFiltersListRedemptionsVoucherCode`
+
+
+  - Added support:
+    - /management/v1/projects/users/invite, post - Invite Users
+    - /management/v1/projects/{projectId}/users, get - Get Project
+    - /management/v1/projects/{projectId}/users, post - Create Project
+    - /management/v1/projects/{projectId}/users/{userId}, get - Get User
+    - /management/v1/projects/{projectId}/users/{userId}, put - Update User
+    - /management/v1/projects/{projectId}/users/{userId}, delete - Unassign User
+    - /management/v1/projects/{projectId}/metadata-schemas, post - Create Metadata Schema
+    - /management/v1/projects/{projectId}/metadata-schemas, get - List Metadata Schemas
+    - /management/v1/projects/{projectId}/metadata-schemas/{metadataSchemaId}, get - Get Metadata Schema
+    - /management/v1/projects/{projectId}/metadata-schemas/{metadataSchemaId}, put - Update Metadata Schema
+    - /management/v1/projects/{projectId}/metadata-schemas/{metadataSchemaId}, delete - Delete Metadata Schema
+    - /management/v1/projects/{projectId}/custom-event-schemas, post - Create Custom Event Schema
+    - /management/v1/projects/{projectId}/custom-event-schemas, get - List Custom Event Schema
+    - /management/v1/projects/{projectId}/custom-event-schemas/{customEventSchemaId}, get - Get Custom Event Schema
+    - /management/v1/projects/{projectId}/custom-event-schemas/{customEventSchemaId}, put - Update Custom Event Schema
+    - /management/v1/projects/{projectId}/custom-event-schemas/{customEventSchemaId}, delete - Delete Custom Event Schema
+    - /management/v1/projects/{projectId}/stacking-rules, post - Create Stacking Rules
+    - /management/v1/projects/{projectId}/stacking-rules, get - List Stacking Rules
+    - /management/v1/projects/{projectId}/stacking-rules/{stackingRulesId}, get - Get Stacking Rules
+    - /management/v1/projects/{projectId}/stacking-rules/{stackingRulesId}, put - Update Stacking Rules
+    - /management/v1/projects/{projectId}/stacking-rules/{stackingRulesId}, delete - Delete Stacking Rules
+    - /management/v1/projects/{projectId}/webhooks, post - Create Webhook
+    - /management/v1/projects/{projectId}/webhooks, get - List Webhooks
+    - /management/v1/projects/{projectId}/webhooks/{webhookId}, get - Get Webhook
+    - /management/v1/projects/{projectId}/webhooks/{webhookId}, put - Update Webhook
+    - /management/v1/projects/{projectId}/webhooks/{webhookId}, delete - Delete Webhook
+    - /management/v1/projects/{projectId}/branding, post - Create Brand
+    - /management/v1/projects/{projectId}/branding, get - List Brands
+    - /management/v1/projects/{projectId}/branding/{brandingId}, get - Get Brand
+    - /management/v1/projects/{projectId}/branding/{brandingId}, put - Update Brand
+    - /management/v1/projects/{projectId}/branding/{brandingId}, delete - Delete Brand
 - **2024-09-18** - `3.0.0`
     -  The new version of the SDK includes coverage for all the most commonly used Voucherify endpoints and supports typed models.
 
