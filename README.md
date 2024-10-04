@@ -111,6 +111,7 @@ Remember that this SDK is auto generated (except of the tests) so changes made h
         - CampaignsUpdateRequestBody - properties `activity_duration_after_publishing`, `join_once`, `auto_join`, `type`, `winners_count`, `unique_winners_per_draw`, `unique_winners` have been deleted and no longer supported
         - `FilterConditionsDateTimeConditions` model has been renamed to `FilterConditionsDateTime`
         - FilterConditionsDateTime - `conditions` property has been divided on `after`, `before`, `has_value`, `is_unknown`, `more_than`, `less_than` properties
+        ParamterFiltersListCustomerRedeemables - model name of `createdAt` has been renamed from `FilterConditionsDateTime` to `ParameterFiltersListCustomerRedeemablesCreatedAt`
         - `junction` property is deleted is no longer supported in models: 
             - `ParameterFiltersListCustomerRedeemablesCampaignId`, 
             - `ParamaterFiltersListCuomsterRedeemablesCampaignType`,
