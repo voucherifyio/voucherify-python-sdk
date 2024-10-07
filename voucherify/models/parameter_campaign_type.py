@@ -32,7 +32,6 @@ class ParameterCampaignType(str, Enum):
     REFERRAL_PROGRAM = 'REFERRAL_PROGRAM'
     DISCOUNT_COUPONS = 'DISCOUNT_COUPONS'
     LOYALTY_PROGRAM = 'LOYALTY_PROGRAM'
-    LUCKY_DRAW = 'LUCKY_DRAW'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

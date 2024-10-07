@@ -21,7 +21,6 @@ import json
 from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
 from voucherify.models.filter_conditions_string import FilterConditionsString
-from voucherify.models.junction import Junction
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,8 +29,7 @@ class ParameterFiltersListRedemptionsFailureCode(BaseModel):
     Failure code, i.e. quantity_exceeded.
     """ # noqa: E501
     conditions: Optional[FilterConditionsString] = None
-    junction: Optional[Junction] = None
-    __properties: ClassVar[List[str]] = ["conditions", "junction"]
+    __properties: ClassVar[List[str]] = ["conditions"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -87,8 +85,7 @@ class ParameterFiltersListRedemptionsFailureCode(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "conditions": FilterConditionsString.from_dict(obj["conditions"]) if obj.get("conditions") is not None else None,
-            "junction": obj.get("junction")
+            "conditions": FilterConditionsString.from_dict(obj["conditions"]) if obj.get("conditions") is not None else None
         })
         return _obj
 

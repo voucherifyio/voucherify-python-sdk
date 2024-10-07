@@ -45,13 +45,13 @@ class LoyaltiesCreateCampaignRequestBody(BaseModel):
     validity_day_of_week: Optional[List[StrictInt]] = Field(default=None, description="Integer array corresponding to the particular days of the week in which the voucher is valid.  - `0` Sunday - `1` Monday - `2` Tuesday - `3` Wednesday - `4` Thursday - `5` Friday - `6` Saturday")
     validity_hours: Optional[ValidityHours] = None
     activity_duration_after_publishing: Optional[StrictStr] = Field(default=None, description="Defines the amount of time the vouchers will be active after publishing. The value is shown in the ISO 8601 format. For example, a voucher with the value of P24D will be valid for a duration of 24 days.")
-    validation_rules: Optional[Annotated[List[StrictStr], Field(max_length=1)]] = Field(default=None, description="Array containing the ID of the validation rule associated with the promotion tier.")
     category_id: Optional[StrictStr] = Field(default=None, description="Unique category ID that this campaign belongs to. Either pass this parameter OR the `category`.")
     category: Optional[StrictStr] = Field(default=None, description="The category assigned to the campaign. Either pass this parameter OR the `category_id`.")
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the campaign. A set of key/value pairs that you can attach to a campaign object. It can be useful for storing additional information about the campaign in a structured format.")
+    validation_rules: Optional[Annotated[List[StrictStr], Field(max_length=1)]] = Field(default=None, description="Array containing the ID of the validation rule associated with the promotion tier.")
     campaign_type: Optional[StrictStr] = Field(default='LOYALTY_PROGRAM', description="Type of campaign.")
     voucher: Optional[CampaignLoyaltyVoucher] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "type", "join_once", "auto_join", "use_voucher_metadata_schema", "vouchers_count", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "activity_duration_after_publishing", "validation_rules", "category_id", "category", "metadata", "campaign_type", "voucher"]
+    __properties: ClassVar[List[str]] = ["name", "description", "type", "join_once", "auto_join", "use_voucher_metadata_schema", "vouchers_count", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "activity_duration_after_publishing", "category_id", "category", "metadata", "validation_rules", "campaign_type", "voucher"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -182,11 +182,6 @@ class LoyaltiesCreateCampaignRequestBody(BaseModel):
         if self.activity_duration_after_publishing is None and "activity_duration_after_publishing" in self.model_fields_set:
             _dict['activity_duration_after_publishing'] = None
 
-        # set to None if validation_rules (nullable) is None
-        # and model_fields_set contains the field
-        if self.validation_rules is None and "validation_rules" in self.model_fields_set:
-            _dict['validation_rules'] = None
-
         # set to None if category_id (nullable) is None
         # and model_fields_set contains the field
         if self.category_id is None and "category_id" in self.model_fields_set:
@@ -201,6 +196,11 @@ class LoyaltiesCreateCampaignRequestBody(BaseModel):
         # and model_fields_set contains the field
         if self.metadata is None and "metadata" in self.model_fields_set:
             _dict['metadata'] = None
+
+        # set to None if validation_rules (nullable) is None
+        # and model_fields_set contains the field
+        if self.validation_rules is None and "validation_rules" in self.model_fields_set:
+            _dict['validation_rules'] = None
 
         # set to None if campaign_type (nullable) is None
         # and model_fields_set contains the field
@@ -232,10 +232,10 @@ class LoyaltiesCreateCampaignRequestBody(BaseModel):
             "validity_day_of_week": obj.get("validity_day_of_week"),
             "validity_hours": ValidityHours.from_dict(obj["validity_hours"]) if obj.get("validity_hours") is not None else None,
             "activity_duration_after_publishing": obj.get("activity_duration_after_publishing"),
-            "validation_rules": obj.get("validation_rules"),
             "category_id": obj.get("category_id"),
             "category": obj.get("category"),
             "metadata": obj.get("metadata"),
+            "validation_rules": obj.get("validation_rules"),
             "campaign_type": obj.get("campaign_type") if obj.get("campaign_type") is not None else 'LOYALTY_PROGRAM',
             "voucher": CampaignLoyaltyVoucher.from_dict(obj["voucher"]) if obj.get("voucher") is not None else None
         })
