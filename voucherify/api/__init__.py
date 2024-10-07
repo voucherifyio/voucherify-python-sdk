@@ -9,8 +9,10 @@ from voucherify.api.client_side_api import ClientSideApi
 from voucherify.api.customers_api import CustomersApi
 from voucherify.api.events_api import EventsApi
 from voucherify.api.exports_api import ExportsApi
+from voucherify.api.locations_api import LocationsApi
 from voucherify.api.loyalties_api import LoyaltiesApi
 from voucherify.api.management_api import ManagementApi
+from voucherify.api.metadata_schemas_api import MetadataSchemasApi
 from voucherify.api.orders_api import OrdersApi
 from voucherify.api.product_collections_api import ProductCollectionsApi
 from voucherify.api.products_api import ProductsApi

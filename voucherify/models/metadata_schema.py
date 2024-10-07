@@ -24,9 +24,9 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class ManagementProjectsMetadataSchemasGetResponseBody(BaseModel):
+class MetadataSchema(BaseModel):
     """
-    Response body schema for **GET** `management/v1/projects/{projectId}/metadata-schemas/{metadataSchemaId}`.
+    Object representing a metadata schema.
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the metadata schema.")
     related_object: Optional[StrictStr] = Field(default=None, description="The resource type. You can define custom metadata schemas, which have a custom `\"related_object\"` resource type. The standard metadata schemas are: `\"campaign\"`, `\"customer\"`, `\"earning_rule\"`, `\"loyalty_tier\"`, `\"order\"`, `\"order_item\"`, `\"product\"`, `\"promotion_tier\"`, `\"publication\"`, `\"redemption\"`, `\"reward\"`, `\"voucher\"`.")
@@ -55,7 +55,7 @@ class ManagementProjectsMetadataSchemasGetResponseBody(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of ManagementProjectsMetadataSchemasGetResponseBody from a JSON string"""
+        """Create an instance of MetadataSchema from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -115,7 +115,7 @@ class ManagementProjectsMetadataSchemasGetResponseBody(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ManagementProjectsMetadataSchemasGetResponseBody from a dict"""
+        """Create an instance of MetadataSchema from a dict"""
         if obj is None:
             return None
 

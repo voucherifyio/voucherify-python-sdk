@@ -1,6 +1,6 @@
-# ManagementProjectsMetadataSchemasGetResponseBody
+# MetadataSchemasGetResponseBody
 
-Response body schema for **GET** `management/v1/projects/{projectId}/metadata-schemas/{metadataSchemaId}`.
+Response body schema for **GET** `/v1/metadata-schemas/{resource}`.
 
 ## Properties
 
