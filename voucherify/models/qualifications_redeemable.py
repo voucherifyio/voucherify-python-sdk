@@ -22,7 +22,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from voucherify.models.applicable_to_result_list import ApplicableToResultList
-from voucherify.models.category import Category
+from voucherify.models.category_with_stacking_rules_type import CategoryWithStackingRulesType
 from voucherify.models.inapplicable_to_result_list import InapplicableToResultList
 from voucherify.models.order_calculated import OrderCalculated
 from voucherify.models.qualifications_redeemable_base import QualificationsRedeemableBase
@@ -44,7 +44,7 @@ class QualificationsRedeemable(BaseModel):
     applicable_to: Optional[ApplicableToResultList] = None
     inapplicable_to: Optional[InapplicableToResultList] = None
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the product. A set of key/value pairs that you can attach to a product object. It can be useful for storing additional information about the product in a structured format.")
-    categories: Optional[List[Category]] = Field(default=None, description="List of category information.")
+    categories: Optional[List[CategoryWithStackingRulesType]] = Field(default=None, description="List of category information.")
     banner: Optional[StrictStr] = Field(default=None, description="Name of the earning rule. This is displayed as a header for the earning rule in the Dashboard.")
     name: Optional[StrictStr] = Field(default=None, description="Name of the redeemable.")
     campaign_name: Optional[StrictStr] = Field(default=None, description="Name of the campaign associated to the redeemable. This field is available only if object is not `campaign`")
@@ -207,7 +207,7 @@ class QualificationsRedeemable(BaseModel):
             "applicable_to": ApplicableToResultList.from_dict(obj["applicable_to"]) if obj.get("applicable_to") is not None else None,
             "inapplicable_to": InapplicableToResultList.from_dict(obj["inapplicable_to"]) if obj.get("inapplicable_to") is not None else None,
             "metadata": obj.get("metadata"),
-            "categories": [Category.from_dict(_item) for _item in obj["categories"]] if obj.get("categories") is not None else None,
+            "categories": [CategoryWithStackingRulesType.from_dict(_item) for _item in obj["categories"]] if obj.get("categories") is not None else None,
             "banner": obj.get("banner"),
             "name": obj.get("name"),
             "campaign_name": obj.get("campaign_name"),

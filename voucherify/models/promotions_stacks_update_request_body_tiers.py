@@ -28,7 +28,7 @@ class PromotionsStacksUpdateRequestBodyTiers(BaseModel):
     Contains the tier configuration. A promotion stack can include up to 30 tiers.
     """ # noqa: E501
     ids: Optional[List[StrictStr]] = Field(default=None, description="Contains the list of tiers in a pre-defined sequence.")
-    hierarchy_mode: Optional[StrictStr] = Field(default='MANUAL', description="Category hierarchy.")
+    hierarchy_mode: Optional[StrictStr] = Field(default='MANUAL', description="Category hierarchy. Categories with lower hierarchy are processed before categories with higher hierarchy value.")
     __properties: ClassVar[List[str]] = ["ids", "hierarchy_mode"]
 
     @field_validator('hierarchy_mode')

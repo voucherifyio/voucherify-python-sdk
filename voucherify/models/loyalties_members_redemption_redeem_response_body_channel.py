@@ -27,8 +27,8 @@ class LoyaltiesMembersRedemptionRedeemResponseBodyChannel(BaseModel):
     """
     Defines the details of the channel through which the redemption was issued.
     """ # noqa: E501
-    channel_id: Optional[StrictStr] = Field(default=None, description="Unique channel ID of the user performing the redemption. This is either a user ID from a user using the Voucherify Dashboard or an X-APP-Id of a user using the API.")
-    channel_type: Optional[StrictStr] = Field(default=None, description="The source of the channel for the redemption. A `USER` corresponds to the Voucherify Dashboard and an `API` corresponds to the API.")
+    channel_id: Optional[StrictStr] = Field(default=None, description="Unique channel ID of the user performing the redemption. This is either a user ID from a user using the Voucherify Dashboard or an X-APP-Id of a user using the API. For `AUTO_REDEEM`, it is the reward assignment ID.")
+    channel_type: Optional[StrictStr] = Field(default=None, description="The source of the channel for the redemption. A `USER` corresponds to the Voucherify Dashboard, `API` corresponds to the API, and `AUTO_REDEEM` corresponds to a loyalty campaign reward that has been redeemed automatically.")
     __properties: ClassVar[List[str]] = ["channel_id", "channel_type"]
 
     @field_validator('channel_type')
@@ -37,8 +37,8 @@ class LoyaltiesMembersRedemptionRedeemResponseBodyChannel(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['USER', 'API']):
-            raise ValueError("must be one of enum values ('USER', 'API')")
+        if value not in set(['USER', 'API', 'AUTO_REDEEM']):
+            raise ValueError("must be one of enum values ('USER', 'API', 'AUTO_REDEEM')")
         return value
 
     model_config = ConfigDict(

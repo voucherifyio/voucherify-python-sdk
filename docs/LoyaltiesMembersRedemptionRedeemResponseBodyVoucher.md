@@ -33,7 +33,7 @@ Name | Type | Description | Notes
 **object** | **str** | The type of the object represented by JSON. Default is &#x60;voucher&#x60;. | [optional] [default to 'voucher']
 **publish** | [**LoyaltiesMembersRedemptionRedeemResponseBodyVoucherPublish**](LoyaltiesMembersRedemptionRedeemResponseBodyVoucherPublish.md) |  | [optional] 
 **redemption** | [**LoyaltiesMembersRedemptionRedeemResponseBodyVoucherRedemption**](LoyaltiesMembersRedemptionRedeemResponseBodyVoucherRedemption.md) |  | [optional] 
-**categories** | [**List[Category]**](Category.md) | Contains details about the category. | [optional] 
+**categories** | **List[object]** | Always returns an empty array. | [optional] 
 **validation_rules_assignments** | [**ValidationRulesAssignmentsList**](ValidationRulesAssignmentsList.md) |  | [optional] 
 **holder** | [**SimpleCustomer**](SimpleCustomer.md) |  | [optional] 
 

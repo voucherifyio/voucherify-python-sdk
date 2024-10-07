@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
+from voucherify.models.junction import Junction
 from voucherify.models.parameter_filters_list_redemptions_campaign_name import ParameterFiltersListRedemptionsCampaignName
 from voucherify.models.parameter_filters_list_redemptions_customer_id import ParameterFiltersListRedemptionsCustomerId
 from voucherify.models.parameter_filters_list_redemptions_failure_code import ParameterFiltersListRedemptionsFailureCode
@@ -47,7 +48,8 @@ class ParameterFiltersListRedemptions(BaseModel):
     customer_id: Optional[ParameterFiltersListRedemptionsCustomerId] = None
     campaign_name: Optional[ParameterFiltersListRedemptionsCampaignName] = None
     user_login: Optional[ParameterFiltersListRedemptionsUserLogin] = None
-    __properties: ClassVar[List[str]] = ["voucher_code", "related_object_id", "related_object_parent_id", "parent_redemption_id", "failure_code", "result", "object", "customer_id", "campaign_name", "user_login"]
+    junction: Optional[Junction] = None
+    __properties: ClassVar[List[str]] = ["voucher_code", "related_object_id", "related_object_parent_id", "parent_redemption_id", "failure_code", "result", "object", "customer_id", "campaign_name", "user_login", "junction"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -189,7 +191,8 @@ class ParameterFiltersListRedemptions(BaseModel):
             "object": ParameterFiltersListRedemptionsObject.from_dict(obj["object"]) if obj.get("object") is not None else None,
             "customer_id": ParameterFiltersListRedemptionsCustomerId.from_dict(obj["customer_id"]) if obj.get("customer_id") is not None else None,
             "campaign_name": ParameterFiltersListRedemptionsCampaignName.from_dict(obj["campaign_name"]) if obj.get("campaign_name") is not None else None,
-            "user_login": ParameterFiltersListRedemptionsUserLogin.from_dict(obj["user_login"]) if obj.get("user_login") is not None else None
+            "user_login": ParameterFiltersListRedemptionsUserLogin.from_dict(obj["user_login"]) if obj.get("user_login") is not None else None,
+            "junction": obj.get("junction")
         })
         return _obj
 

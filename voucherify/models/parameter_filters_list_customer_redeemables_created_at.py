@@ -20,8 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
-from voucherify.models.junction import Junction
-from voucherify.models.parameter_filters_list_customer_redeemables_created_at_conditions import ParameterFiltersListCustomerRedeemablesCreatedAtConditions
+from voucherify.models.filter_conditions_date_time import FilterConditionsDateTime
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -29,9 +28,8 @@ class ParameterFiltersListCustomerRedeemablesCreatedAt(BaseModel):
     """
     Timestamp representing the date and time when the customer redeemable was created. The value is shown in the ISO 8601 format.
     """ # noqa: E501
-    conditions: Optional[ParameterFiltersListCustomerRedeemablesCreatedAtConditions] = None
-    junction: Optional[Junction] = None
-    __properties: ClassVar[List[str]] = ["conditions", "junction"]
+    conditions: Optional[FilterConditionsDateTime] = None
+    __properties: ClassVar[List[str]] = ["conditions"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -75,11 +73,6 @@ class ParameterFiltersListCustomerRedeemablesCreatedAt(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of conditions
         if self.conditions:
             _dict['conditions'] = self.conditions.to_dict()
-        # set to None if conditions (nullable) is None
-        # and model_fields_set contains the field
-        if self.conditions is None and "conditions" in self.model_fields_set:
-            _dict['conditions'] = None
-
         return _dict
 
     @classmethod
@@ -92,8 +85,7 @@ class ParameterFiltersListCustomerRedeemablesCreatedAt(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "conditions": ParameterFiltersListCustomerRedeemablesCreatedAtConditions.from_dict(obj["conditions"]) if obj.get("conditions") is not None else None,
-            "junction": obj.get("junction")
+            "conditions": FilterConditionsDateTime.from_dict(obj["conditions"]) if obj.get("conditions") is not None else None
         })
         return _obj
 

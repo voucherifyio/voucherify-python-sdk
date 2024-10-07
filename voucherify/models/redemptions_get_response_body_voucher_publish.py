@@ -29,7 +29,7 @@ class RedemptionsGetResponseBodyVoucherPublish(BaseModel):
     """ # noqa: E501
     object: Optional[StrictStr] = Field(default='list', description="The type of the object represented is by default `list`. To get this list, you need to make a call to the endpoint returned in the `url` attribute.")
     count: Optional[StrictInt] = Field(default=None, description="Publication events counter.")
-    url: Optional[StrictStr] = Field(default=None, description="The endpoint where this list of publications can be accessed using a GET method. `/v1/vouchers/{voucher_code}/publications`")
+    url: Optional[StrictStr] = Field(default=None, description="The endpoint where this list of publications can be accessed using a **GET** method. `/v1/vouchers/{voucher_code}/publications`")
     __properties: ClassVar[List[str]] = ["object", "count", "url"]
 
     model_config = ConfigDict(
