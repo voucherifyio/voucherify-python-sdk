@@ -60,6 +60,7 @@ class CampaignsCreateResponseBody(BaseModel):
     category: Optional[StrictStr] = Field(default=None, description="Unique category name.")
     creation_status: Optional[StrictStr] = Field(default=None, description="Indicates the status of the campaign creation.")
     vouchers_generation_status: Optional[StrictStr] = Field(default=None, description="Indicates the status of the campaign's voucher generation.")
+    readonly: Optional[StrictBool] = Field(default=None, description="Indicates whether the campaign can be only read by a restricted user in the Areas and Stores enterprise feature. It is returned only to restricted users; this field is not returned for users with other roles.")
     protected: Optional[StrictBool] = Field(default=None, description="Indicates whether the resource can be deleted.")
     category_id: Optional[StrictStr] = Field(default=None, description="Unique category ID that this campaign belongs to.")
     categories: Optional[List[Category]] = Field(default=None, description="Contains details about the category.")
@@ -69,7 +70,7 @@ class CampaignsCreateResponseBody(BaseModel):
     promotion: Optional[PromotionTiersList] = None
     validation_rules_assignments: Optional[ValidationRulesAssignmentsList] = None
     access_settings_assignments: Optional[AccessSettingsCampaignAssignmentsList] = None
-    __properties: ClassVar[List[str]] = ["id", "name", "description", "campaign_type", "type", "voucher", "auto_join", "join_once", "use_voucher_metadata_schema", "validity_timeframe", "validity_day_of_week", "validity_hours", "activity_duration_after_publishing", "vouchers_count", "start_date", "expiration_date", "active", "metadata", "created_at", "updated_at", "category", "creation_status", "vouchers_generation_status", "protected", "category_id", "categories", "object", "referral_program", "loyalty_tiers_expiration", "promotion", "validation_rules_assignments", "access_settings_assignments"]
+    __properties: ClassVar[List[str]] = ["id", "name", "description", "campaign_type", "type", "voucher", "auto_join", "join_once", "use_voucher_metadata_schema", "validity_timeframe", "validity_day_of_week", "validity_hours", "activity_duration_after_publishing", "vouchers_count", "start_date", "expiration_date", "active", "metadata", "created_at", "updated_at", "category", "creation_status", "vouchers_generation_status", "readonly", "protected", "category_id", "categories", "object", "referral_program", "loyalty_tiers_expiration", "promotion", "validation_rules_assignments", "access_settings_assignments"]
 
     @field_validator('campaign_type')
     def campaign_type_validate_enum(cls, value):
@@ -77,8 +78,8 @@ class CampaignsCreateResponseBody(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['LOYALTY_PROGRAM', 'GIFT_VOUCHERS', 'DISCOUNT_COUPONS', 'PROMOTION', 'REFERRAL_PROGRAM', 'LUCKY_DRAW']):
-            raise ValueError("must be one of enum values ('LOYALTY_PROGRAM', 'GIFT_VOUCHERS', 'DISCOUNT_COUPONS', 'PROMOTION', 'REFERRAL_PROGRAM', 'LUCKY_DRAW')")
+        if value not in set(['LOYALTY_PROGRAM', 'GIFT_VOUCHERS', 'DISCOUNT_COUPONS', 'PROMOTION', 'REFERRAL_PROGRAM']):
+            raise ValueError("must be one of enum values ('LOYALTY_PROGRAM', 'GIFT_VOUCHERS', 'DISCOUNT_COUPONS', 'PROMOTION', 'REFERRAL_PROGRAM')")
         return value
 
     @field_validator('type')
@@ -287,6 +288,11 @@ class CampaignsCreateResponseBody(BaseModel):
         if self.vouchers_generation_status is None and "vouchers_generation_status" in self.model_fields_set:
             _dict['vouchers_generation_status'] = None
 
+        # set to None if readonly (nullable) is None
+        # and model_fields_set contains the field
+        if self.readonly is None and "readonly" in self.model_fields_set:
+            _dict['readonly'] = None
+
         # set to None if protected (nullable) is None
         # and model_fields_set contains the field
         if self.protected is None and "protected" in self.model_fields_set:
@@ -342,6 +348,7 @@ class CampaignsCreateResponseBody(BaseModel):
             "category": obj.get("category"),
             "creation_status": obj.get("creation_status"),
             "vouchers_generation_status": obj.get("vouchers_generation_status"),
+            "readonly": obj.get("readonly"),
             "protected": obj.get("protected"),
             "category_id": obj.get("category_id"),
             "categories": [Category.from_dict(_item) for _item in obj["categories"]] if obj.get("categories") is not None else None,

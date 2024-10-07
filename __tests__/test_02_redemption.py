@@ -105,20 +105,19 @@ class TestYourSDK(unittest.TestCase):
     def test_04_list_redemptions(self):
         with voucherifyClient.ApiClient(spec_utils.configuration) as api_client:
             api_instance = voucherifyClient.RedemptionsApi(api_client)
-            # OBJECTS IN QUERY ARE NOT YET SUPPORTED !!
-            #
-            # list_redemptions_filters = voucherifyClient.ParameterFiltersListRedemptions(
-            #             voucher_code=voucherifyClient.ParameterFiltersListRedemptionsVoucherCode(
-            #                 conditions=voucherifyClient.FilterConditionsString(
-            #                     var_is=voucher_code
-            #                 )
-            #             )
-            #         )
+
+            list_redemptions_filters = voucherifyClient.ParameterFiltersListRedemptions(
+                        voucher_code=voucherifyClient.ParameterFiltersListRedemptionsVoucherCode(
+                            conditions=voucherifyClient.FilterConditionsString(
+                                is_not=voucher_code
+                            )
+                        )
+                    )
             try:
                 result = api_instance.list_redemptions(
                     100,
                     None,None,None,None,None,None,
-                    # list_redemptions_filters
+                    list_redemptions_filters
                 )
                 self.assertEqual(result.object, 'list')
             except voucherifyClient.ApiException as e:
