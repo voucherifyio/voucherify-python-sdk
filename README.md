@@ -141,6 +141,12 @@ Remember that this SDK is auto generated (except of the tests) so changes made h
         - /management/v1/projects/{projectId}/branding/{brandingId}, get - Get Brand
         - /management/v1/projects/{projectId}/branding/{brandingId}, put - Update Brand
         - /management/v1/projects/{projectId}/branding/{brandingId}, delete - Delete Brand
+        - /v1/referrals/{campaignId}/members/{memberId}/holders, get - List Referral Code Holders
+        - /v1/referrals/members/{memberId}/holders, get - List Referral Code Holders
+        - /v1/referrals/{campaignId}/members/{memberId}/holders, post - Add Referral Code Holders
+        - /v1/referrals/members/{memberId}/holders, post - Add Referral Code Holders
+        - /v1/referrals/{campaignId}/members/{memberId}/holders/{holderId}, delete - Remove Referral Code Holder
+        - /v1/referrals/members/{memberId}/holders/{holderId}, delete - Remove Referral Code Holder
     - !!! BREAKING CHANGES !!!
         - `listPublications` parameter `filters` have changed - now uses `ParameterFiltersListPublications` instead of `String`
         - `ParameterFiltersListRedemptions` and `ParameterFiltersListCustomerRedeemables` have been updated
@@ -399,6 +405,12 @@ Class | Method | HTTP request | Description
 *RedemptionsApi* | [**redeem_stacked_discounts**](docs/RedemptionsApi.md#redeem_stacked_discounts) | **POST** /v1/redemptions | Redeem Stackable Discounts
 *RedemptionsApi* | [**rollback_redemption**](docs/RedemptionsApi.md#rollback_redemption) | **POST** /v1/redemptions/{redemptionId}/rollback | Rollback Redemption
 *RedemptionsApi* | [**rollback_stacked_redemptions**](docs/RedemptionsApi.md#rollback_stacked_redemptions) | **POST** /v1/redemptions/{parentRedemptionId}/rollbacks | Rollback Stackable Redemptions
+*ReferralsApi* | [**referrals_add_holders**](docs/ReferralsApi.md#referrals_add_holders) | **POST** /v1/referrals/members/{memberId}/holders | Add Referral Code Holders
+*ReferralsApi* | [**referrals_add_holders1**](docs/ReferralsApi.md#referrals_add_holders1) | **POST** /v1/referrals/{campaignId}/members/{memberId}/holders | Add Referral Code Holders
+*ReferralsApi* | [**referrals_code_holders**](docs/ReferralsApi.md#referrals_code_holders) | **GET** /v1/referrals/{campaignId}/members/{memberId}/holders | List Referral Code Holders
+*ReferralsApi* | [**referrals_code_holders1**](docs/ReferralsApi.md#referrals_code_holders1) | **GET** /v1/referrals/members/{memberId}/holders | List Referral Code Holders
+*ReferralsApi* | [**referrals_remove_holder**](docs/ReferralsApi.md#referrals_remove_holder) | **DELETE** /v1/referrals/members/{memberId}/holders/{holderId} | Remove Referral Card Holder
+*ReferralsApi* | [**referrals_remove_holder1**](docs/ReferralsApi.md#referrals_remove_holder1) | **DELETE** /v1/referrals/{campaignId}/members/{memberId}/holders/{holderId} | Remove Referral Card Holder
 *RewardsApi* | [**create_reward**](docs/RewardsApi.md#create_reward) | **POST** /v1/rewards | Create Reward
 *RewardsApi* | [**create_reward_assignment**](docs/RewardsApi.md#create_reward_assignment) | **POST** /v1/rewards/{rewardId}/assignments | Create Reward Assignment
 *RewardsApi* | [**delete_reward**](docs/RewardsApi.md#delete_reward) | **DELETE** /v1/rewards/{rewardId} | Delete Reward
@@ -1082,6 +1094,16 @@ Class | Method | HTTP request | Description
  - [ParameterFiltersListRedemptionsResult](docs/ParameterFiltersListRedemptionsResult.md)
  - [ParameterFiltersListRedemptionsUserLogin](docs/ParameterFiltersListRedemptionsUserLogin.md)
  - [ParameterFiltersListRedemptionsVoucherCode](docs/ParameterFiltersListRedemptionsVoucherCode.md)
+ - [ParameterFiltersListReferralsRedeemableHolders](docs/ParameterFiltersListReferralsRedeemableHolders.md)
+ - [ParameterFiltersListReferralsRedeemableHoldersCampaignId](docs/ParameterFiltersListReferralsRedeemableHoldersCampaignId.md)
+ - [ParameterFiltersListReferralsRedeemableHoldersCampaignType](docs/ParameterFiltersListReferralsRedeemableHoldersCampaignType.md)
+ - [ParameterFiltersListReferralsRedeemableHoldersCustomerId](docs/ParameterFiltersListReferralsRedeemableHoldersCustomerId.md)
+ - [ParameterFiltersListReferralsRedeemableHoldersHolderRole](docs/ParameterFiltersListReferralsRedeemableHoldersHolderRole.md)
+ - [ParameterFiltersListReferralsRedeemableHoldersHolderRoleConditions](docs/ParameterFiltersListReferralsRedeemableHoldersHolderRoleConditions.md)
+ - [ParameterFiltersListReferralsRedeemableHoldersId](docs/ParameterFiltersListReferralsRedeemableHoldersId.md)
+ - [ParameterFiltersListReferralsRedeemableHoldersRedeemableId](docs/ParameterFiltersListReferralsRedeemableHoldersRedeemableId.md)
+ - [ParameterFiltersListReferralsRedeemableHoldersRedeemableObject](docs/ParameterFiltersListReferralsRedeemableHoldersRedeemableObject.md)
+ - [ParameterFiltersListReferralsRedeemableHoldersVoucherType](docs/ParameterFiltersListReferralsRedeemableHoldersVoucherType.md)
  - [ParameterOrder](docs/ParameterOrder.md)
  - [ParameterOrderCreatedAt](docs/ParameterOrderCreatedAt.md)
  - [ParameterOrderListAllPromotionStacks](docs/ParameterOrderListAllPromotionStacks.md)
@@ -1217,6 +1239,7 @@ Class | Method | HTTP request | Description
  - [QualificationsRedeemableBase](docs/QualificationsRedeemableBase.md)
  - [QualificationsRedeemables](docs/QualificationsRedeemables.md)
  - [RedeemableGift](docs/RedeemableGift.md)
+ - [RedeemableHolder](docs/RedeemableHolder.md)
  - [RedeemableLoyaltyCard](docs/RedeemableLoyaltyCard.md)
  - [RedeemableResult](docs/RedeemableResult.md)
  - [RedeemableVoucher](docs/RedeemableVoucher.md)
@@ -1335,6 +1358,9 @@ Class | Method | HTTP request | Description
  - [ReferralProgramCustomEvent](docs/ReferralProgramCustomEvent.md)
  - [ReferralProgramRefereeReward](docs/ReferralProgramRefereeReward.md)
  - [ReferralProgramRefereeRewardRelatedObjectParent](docs/ReferralProgramRefereeRewardRelatedObjectParent.md)
+ - [ReferralsMembersHoldersCreateInBulkRequestBody](docs/ReferralsMembersHoldersCreateInBulkRequestBody.md)
+ - [ReferralsMembersHoldersCreateInBulkResponseBody](docs/ReferralsMembersHoldersCreateInBulkResponseBody.md)
+ - [ReferralsMembersHoldersListResponseBody](docs/ReferralsMembersHoldersListResponseBody.md)
  - [Referrer](docs/Referrer.md)
  - [ReferrerAddress](docs/ReferrerAddress.md)
  - [ReferrerId](docs/ReferrerId.md)

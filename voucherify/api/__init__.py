@@ -20,6 +20,7 @@ from voucherify.api.promotions_api import PromotionsApi
 from voucherify.api.publications_api import PublicationsApi
 from voucherify.api.qualifications_api import QualificationsApi
 from voucherify.api.redemptions_api import RedemptionsApi
+from voucherify.api.referrals_api import ReferralsApi
 from voucherify.api.rewards_api import RewardsApi
 from voucherify.api.segments_api import SegmentsApi
 from voucherify.api.validation_rules_api import ValidationRulesApi
