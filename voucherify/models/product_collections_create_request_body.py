@@ -20,7 +20,6 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from voucherify.models.product_collections_create_request_body_filter import ProductCollectionsCreateRequestBodyFilter
 from voucherify.models.product_collections_create_request_body_products_item import ProductCollectionsCreateRequestBodyProductsItem
 from typing import Optional, Set
 from typing_extensions import Self
@@ -32,7 +31,7 @@ class ProductCollectionsCreateRequestBody(BaseModel):
     type: Optional[StrictStr] = Field(default='STATIC', description="Show that the product collection is static (manually selected products).")
     name: Optional[StrictStr] = Field(default=None, description="Unique user-defined product collection name.")
     products: Optional[List[ProductCollectionsCreateRequestBodyProductsItem]] = Field(default=None, description="Defines a set of products for a `STATIC` product collection type.")
-    filter: Optional[ProductCollectionsCreateRequestBodyFilter] = None
+    filter: Optional[Dict[str, Any]] = Field(default=None, description="Defines a set of criteria and boundary conditions for an `AUTO_UPDATE` product collection type.")
     __properties: ClassVar[List[str]] = ["type", "name", "products", "filter"]
 
     @field_validator('type')
@@ -91,9 +90,6 @@ class ProductCollectionsCreateRequestBody(BaseModel):
                 if _item_products:
                     _items.append(_item_products.to_dict())
             _dict['products'] = _items
-        # override the default output from pydantic by calling `to_dict()` of filter
-        if self.filter:
-            _dict['filter'] = self.filter.to_dict()
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -124,7 +120,7 @@ class ProductCollectionsCreateRequestBody(BaseModel):
             "type": obj.get("type") if obj.get("type") is not None else 'STATIC',
             "name": obj.get("name"),
             "products": [ProductCollectionsCreateRequestBodyProductsItem.from_dict(_item) for _item in obj["products"]] if obj.get("products") is not None else None,
-            "filter": ProductCollectionsCreateRequestBodyFilter.from_dict(obj["filter"]) if obj.get("filter") is not None else None
+            "filter": obj.get("filter")
         })
         return _obj
 
