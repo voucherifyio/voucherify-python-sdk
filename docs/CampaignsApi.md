@@ -808,7 +808,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_campaigns**
-> CampaignsListResponseBody list_campaigns(limit=limit, page=page, campaign_type=campaign_type, expand=expand, order=order)
+> CampaignsListResponseBody list_campaigns(limit=limit, page=page, campaign_type=campaign_type, expand=expand, order=order, filters=filters)
 
 List Campaigns
 
@@ -824,6 +824,7 @@ import voucherify
 from voucherify.models.campaigns_list_response_body import CampaignsListResponseBody
 from voucherify.models.parameter_campaign_type import ParameterCampaignType
 from voucherify.models.parameter_expand_list_campaigns import ParameterExpandListCampaigns
+from voucherify.models.parameter_filters_list_campaigns import ParameterFiltersListCampaigns
 from voucherify.models.parameter_order_list_campaigns import ParameterOrderListCampaigns
 from voucherify.rest import ApiException
 from pprint import pprint
@@ -860,10 +861,11 @@ with voucherify.ApiClient(configuration) as api_client:
     campaign_type = voucherify.ParameterCampaignType() # ParameterCampaignType | This attribute allows filtering by campaign type. (optional)
     expand = category # ParameterExpandListCampaigns | Include an expanded categories object in the response. (optional) (default to category)
     order = voucherify.ParameterOrderListCampaigns() # ParameterOrderListCampaigns | Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order. (optional)
+    filters = voucherify.ParameterFiltersListCampaigns() # ParameterFiltersListCampaigns | Filters the results by campaign status or whether the campaign is a referral campaign. (optional)
 
     try:
         # List Campaigns
-        api_response = api_instance.list_campaigns(limit=limit, page=page, campaign_type=campaign_type, expand=expand, order=order)
+        api_response = api_instance.list_campaigns(limit=limit, page=page, campaign_type=campaign_type, expand=expand, order=order, filters=filters)
         print("The response of CampaignsApi->list_campaigns:\n")
         pprint(api_response)
     except Exception as e:
@@ -882,6 +884,7 @@ Name | Type | Description  | Notes
  **campaign_type** | [**ParameterCampaignType**](.md)| This attribute allows filtering by campaign type. | [optional] 
  **expand** | [**ParameterExpandListCampaigns**](.md)| Include an expanded categories object in the response. | [optional] [default to category]
  **order** | [**ParameterOrderListCampaigns**](.md)| Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order. | [optional] 
+ **filters** | [**ParameterFiltersListCampaigns**](.md)| Filters the results by campaign status or whether the campaign is a referral campaign. | [optional] 
 
 ### Return type
 

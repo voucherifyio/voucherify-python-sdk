@@ -21,7 +21,6 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from voucherify.models.product_collections_item_filter import ProductCollectionsItemFilter
 from voucherify.models.product_collections_item_products_item import ProductCollectionsItemProductsItem
 from typing import Optional, Set
 from typing_extensions import Self
@@ -33,7 +32,7 @@ class ProductCollectionsItem(BaseModel):
     id: Optional[StrictStr] = Field(default=None, description="Product collection ID.")
     name: Optional[StrictStr] = Field(default=None, description="Unique user-defined product collection name.")
     type: Optional[StrictStr] = Field(default=None, description="Describes whether the product collection is dynamic (products come in and leave based on set criteria) or static (manually selected products).")
-    filter: Optional[ProductCollectionsItemFilter] = None
+    filter: Optional[Dict[str, Any]] = Field(default=None, description="Defines a set of criteria and boundary conditions for an `AUTO_UPDATE` product collection type.")
     products: Optional[List[ProductCollectionsItemProductsItem]] = Field(default=None, description="Defines a set of products for a `STATIC` product collection type.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the product collection was created. The value is shown in the ISO 8601 format.")
     object: Optional[StrictStr] = Field(default='products_collection', description="The type of the object represented by JSON. This object stores information about the static product collection.")
@@ -98,9 +97,6 @@ class ProductCollectionsItem(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of filter
-        if self.filter:
-            _dict['filter'] = self.filter.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in products (list)
         _items = []
         if self.products:
@@ -158,7 +154,7 @@ class ProductCollectionsItem(BaseModel):
             "id": obj.get("id"),
             "name": obj.get("name"),
             "type": obj.get("type"),
-            "filter": ProductCollectionsItemFilter.from_dict(obj["filter"]) if obj.get("filter") is not None else None,
+            "filter": obj.get("filter"),
             "products": [ProductCollectionsItemProductsItem.from_dict(_item) for _item in obj["products"]] if obj.get("products") is not None else None,
             "created_at": obj.get("created_at"),
             "object": obj.get("object") if obj.get("object") is not None else 'products_collection'

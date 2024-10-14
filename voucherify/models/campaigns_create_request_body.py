@@ -24,7 +24,6 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from voucherify.models.campaigns_create_request_body_promotion import CampaignsCreateRequestBodyPromotion
 from voucherify.models.campaigns_create_request_body_voucher import CampaignsCreateRequestBodyVoucher
-from voucherify.models.lucky_draw import LuckyDraw
 from voucherify.models.referral_program import ReferralProgram
 from voucherify.models.validity_hours import ValidityHours
 from voucherify.models.validity_timeframe import ValidityTimeframe
@@ -56,8 +55,7 @@ class CampaignsCreateRequestBody(BaseModel):
     voucher: Optional[CampaignsCreateRequestBodyVoucher] = None
     referral_program: Optional[ReferralProgram] = None
     promotion: Optional[CampaignsCreateRequestBodyPromotion] = None
-    lucky_draw: Optional[LuckyDraw] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "type", "join_once", "auto_join", "use_voucher_metadata_schema", "vouchers_count", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "activity_duration_after_publishing", "validation_rules", "category_id", "category", "metadata", "campaign_type", "voucher", "referral_program", "promotion", "lucky_draw"]
+    __properties: ClassVar[List[str]] = ["name", "description", "type", "join_once", "auto_join", "use_voucher_metadata_schema", "vouchers_count", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "activity_duration_after_publishing", "validation_rules", "category_id", "category", "metadata", "campaign_type", "voucher", "referral_program", "promotion"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -86,8 +84,8 @@ class CampaignsCreateRequestBody(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['DISCOUNT_COUPONS', 'REFERRAL_PROGRAM', 'GIFT_VOUCHERS', 'LOYALTY_PROGRAM', 'PROMOTION', 'LUCKY_DRAW']):
-            raise ValueError("must be one of enum values ('DISCOUNT_COUPONS', 'REFERRAL_PROGRAM', 'GIFT_VOUCHERS', 'LOYALTY_PROGRAM', 'PROMOTION', 'LUCKY_DRAW')")
+        if value not in set(['DISCOUNT_COUPONS', 'REFERRAL_PROGRAM', 'GIFT_VOUCHERS', 'LOYALTY_PROGRAM', 'PROMOTION']):
+            raise ValueError("must be one of enum values ('DISCOUNT_COUPONS', 'REFERRAL_PROGRAM', 'GIFT_VOUCHERS', 'LOYALTY_PROGRAM', 'PROMOTION')")
         return value
 
     model_config = ConfigDict(
@@ -144,9 +142,6 @@ class CampaignsCreateRequestBody(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of promotion
         if self.promotion:
             _dict['promotion'] = self.promotion.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of lucky_draw
-        if self.lucky_draw:
-            _dict['lucky_draw'] = self.lucky_draw.to_dict()
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -264,8 +259,7 @@ class CampaignsCreateRequestBody(BaseModel):
             "campaign_type": obj.get("campaign_type"),
             "voucher": CampaignsCreateRequestBodyVoucher.from_dict(obj["voucher"]) if obj.get("voucher") is not None else None,
             "referral_program": ReferralProgram.from_dict(obj["referral_program"]) if obj.get("referral_program") is not None else None,
-            "promotion": CampaignsCreateRequestBodyPromotion.from_dict(obj["promotion"]) if obj.get("promotion") is not None else None,
-            "lucky_draw": LuckyDraw.from_dict(obj["lucky_draw"]) if obj.get("lucky_draw") is not None else None
+            "promotion": CampaignsCreateRequestBodyPromotion.from_dict(obj["promotion"]) if obj.get("promotion") is not None else None
         })
         return _obj
 
