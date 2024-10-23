@@ -1,6 +1,6 @@
 # RewardsAssignmentsCreateResponseBody
 
-Response body schema for **GET** `v1/rewards/{rewardId}/assignments/{assignmentId}`.
+Response body schema for **POST** `v1/rewards/{rewardId}/assignments/`.
 
 ## Properties
 
