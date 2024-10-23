@@ -28,13 +28,12 @@ class ManagementProjectsCreateRequestBodyApiUsageNotifications(BaseModel):
     """
     Determines the notification settings.
     """ # noqa: E501
-    redemptions: Optional[UsageNotifications] = None
     messages: Optional[UsageNotifications] = None
     api_calls: Optional[UsageNotifications] = None
     bulk_api_calls: Optional[UsageNotifications] = None
     webhook_calls: Optional[UsageNotifications] = None
     cycle_calls: Optional[UsageNotifications] = None
-    __properties: ClassVar[List[str]] = ["redemptions", "messages", "api_calls", "bulk_api_calls", "webhook_calls", "cycle_calls"]
+    __properties: ClassVar[List[str]] = ["messages", "api_calls", "bulk_api_calls", "webhook_calls", "cycle_calls"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -75,9 +74,6 @@ class ManagementProjectsCreateRequestBodyApiUsageNotifications(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of redemptions
-        if self.redemptions:
-            _dict['redemptions'] = self.redemptions.to_dict()
         # override the default output from pydantic by calling `to_dict()` of messages
         if self.messages:
             _dict['messages'] = self.messages.to_dict()
@@ -105,7 +101,6 @@ class ManagementProjectsCreateRequestBodyApiUsageNotifications(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "redemptions": UsageNotifications.from_dict(obj["redemptions"]) if obj.get("redemptions") is not None else None,
             "messages": UsageNotifications.from_dict(obj["messages"]) if obj.get("messages") is not None else None,
             "api_calls": UsageNotifications.from_dict(obj["api_calls"]) if obj.get("api_calls") is not None else None,
             "bulk_api_calls": UsageNotifications.from_dict(obj["bulk_api_calls"]) if obj.get("bulk_api_calls") is not None else None,

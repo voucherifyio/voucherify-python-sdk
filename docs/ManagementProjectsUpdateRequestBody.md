@@ -19,8 +19,8 @@ Name | Type | Description | Notes
 **client_create_customer_enabled** | **bool** | Enables client-side creation of customers. | [optional] 
 **client_loyalty_events_enabled** | **bool** | Enables client-side events for loyalty and referral programs. | [optional] 
 **client_set_voucher_expiration_date_enabled** | **bool** | Enables client-side setting of voucher expiration date. | [optional] 
-**api_usage_notifications** | [**ManagementProjectsUpdateRequestBodyApiUsageNotifications**](ManagementProjectsUpdateRequestBodyApiUsageNotifications.md) |  | [optional] 
 **webhooks_callout_notifications** | [**ManagementProjectsUpdateRequestBodyWebhooksCalloutNotifications**](ManagementProjectsUpdateRequestBodyWebhooksCalloutNotifications.md) |  | [optional] 
+**api_usage_notifications** | [**ManagementProjectsUpdateRequestBodyApiUsageNotifications**](ManagementProjectsUpdateRequestBodyApiUsageNotifications.md) |  | [optional] 
 **default_code_config** | [**ManagementProjectsUpdateRequestBodyDefaultCodeConfig**](ManagementProjectsUpdateRequestBodyDefaultCodeConfig.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

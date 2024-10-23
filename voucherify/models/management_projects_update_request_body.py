@@ -43,10 +43,10 @@ class ManagementProjectsUpdateRequestBody(BaseModel):
     client_create_customer_enabled: Optional[StrictBool] = Field(default=None, description="Enables client-side creation of customers.")
     client_loyalty_events_enabled: Optional[StrictBool] = Field(default=None, description="Enables client-side events for loyalty and referral programs.")
     client_set_voucher_expiration_date_enabled: Optional[StrictBool] = Field(default=None, description="Enables client-side setting of voucher expiration date.")
-    api_usage_notifications: Optional[ManagementProjectsUpdateRequestBodyApiUsageNotifications] = None
     webhooks_callout_notifications: Optional[ManagementProjectsUpdateRequestBodyWebhooksCalloutNotifications] = None
+    api_usage_notifications: Optional[ManagementProjectsUpdateRequestBodyApiUsageNotifications] = None
     default_code_config: Optional[ManagementProjectsUpdateRequestBodyDefaultCodeConfig] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "timezone", "currency", "dial_code", "webhook_version", "client_trusted_domains", "client_redeem_enabled", "client_publish_enabled", "client_list_vouchers_enabled", "client_create_customer_enabled", "client_loyalty_events_enabled", "client_set_voucher_expiration_date_enabled", "api_usage_notifications", "webhooks_callout_notifications", "default_code_config"]
+    __properties: ClassVar[List[str]] = ["name", "description", "timezone", "currency", "dial_code", "webhook_version", "client_trusted_domains", "client_redeem_enabled", "client_publish_enabled", "client_list_vouchers_enabled", "client_create_customer_enabled", "client_loyalty_events_enabled", "client_set_voucher_expiration_date_enabled", "webhooks_callout_notifications", "api_usage_notifications", "default_code_config"]
 
     @field_validator('webhook_version')
     def webhook_version_validate_enum(cls, value):
@@ -97,12 +97,12 @@ class ManagementProjectsUpdateRequestBody(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of api_usage_notifications
-        if self.api_usage_notifications:
-            _dict['api_usage_notifications'] = self.api_usage_notifications.to_dict()
         # override the default output from pydantic by calling `to_dict()` of webhooks_callout_notifications
         if self.webhooks_callout_notifications:
             _dict['webhooks_callout_notifications'] = self.webhooks_callout_notifications.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of api_usage_notifications
+        if self.api_usage_notifications:
+            _dict['api_usage_notifications'] = self.api_usage_notifications.to_dict()
         # override the default output from pydantic by calling `to_dict()` of default_code_config
         if self.default_code_config:
             _dict['default_code_config'] = self.default_code_config.to_dict()
@@ -171,15 +171,15 @@ class ManagementProjectsUpdateRequestBody(BaseModel):
         if self.client_set_voucher_expiration_date_enabled is None and "client_set_voucher_expiration_date_enabled" in self.model_fields_set:
             _dict['client_set_voucher_expiration_date_enabled'] = None
 
-        # set to None if api_usage_notifications (nullable) is None
-        # and model_fields_set contains the field
-        if self.api_usage_notifications is None and "api_usage_notifications" in self.model_fields_set:
-            _dict['api_usage_notifications'] = None
-
         # set to None if webhooks_callout_notifications (nullable) is None
         # and model_fields_set contains the field
         if self.webhooks_callout_notifications is None and "webhooks_callout_notifications" in self.model_fields_set:
             _dict['webhooks_callout_notifications'] = None
+
+        # set to None if api_usage_notifications (nullable) is None
+        # and model_fields_set contains the field
+        if self.api_usage_notifications is None and "api_usage_notifications" in self.model_fields_set:
+            _dict['api_usage_notifications'] = None
 
         # set to None if default_code_config (nullable) is None
         # and model_fields_set contains the field
@@ -211,8 +211,8 @@ class ManagementProjectsUpdateRequestBody(BaseModel):
             "client_create_customer_enabled": obj.get("client_create_customer_enabled"),
             "client_loyalty_events_enabled": obj.get("client_loyalty_events_enabled"),
             "client_set_voucher_expiration_date_enabled": obj.get("client_set_voucher_expiration_date_enabled"),
-            "api_usage_notifications": ManagementProjectsUpdateRequestBodyApiUsageNotifications.from_dict(obj["api_usage_notifications"]) if obj.get("api_usage_notifications") is not None else None,
             "webhooks_callout_notifications": ManagementProjectsUpdateRequestBodyWebhooksCalloutNotifications.from_dict(obj["webhooks_callout_notifications"]) if obj.get("webhooks_callout_notifications") is not None else None,
+            "api_usage_notifications": ManagementProjectsUpdateRequestBodyApiUsageNotifications.from_dict(obj["api_usage_notifications"]) if obj.get("api_usage_notifications") is not None else None,
             "default_code_config": ManagementProjectsUpdateRequestBodyDefaultCodeConfig.from_dict(obj["default_code_config"]) if obj.get("default_code_config") is not None else None
         })
         return _obj
