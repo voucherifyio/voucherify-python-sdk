@@ -45,7 +45,7 @@ class TestYourSDK(unittest.TestCase):
                 True,
                 voucherifyClient.PublicationsCreateRequestBody(
                     campaign=voucherifyClient.CreatePublicationCampaign(name=campaign_name),
-                    customer=voucherifyClient.PublicationsCreateRequestBodyCustomer(
+                    customer=voucherifyClient.Customer(
                         email=email
                     )
                 )
