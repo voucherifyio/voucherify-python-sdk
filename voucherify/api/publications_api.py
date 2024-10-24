@@ -22,6 +22,7 @@ from typing import Any, Dict, Optional
 from typing_extensions import Annotated
 from voucherify.models.create_publication_campaign import CreatePublicationCampaign
 from voucherify.models.customer import Customer
+from voucherify.models.parameter_filters_list_publications import ParameterFiltersListPublications
 from voucherify.models.parameter_order_list_publications import ParameterOrderListPublications
 from voucherify.models.parameter_result_list_publications import ParameterResultListPublications
 from voucherify.models.parameter_voucher_type_list_publications import ParameterVoucherTypeListPublications
@@ -696,7 +697,7 @@ class PublicationsApi:
         result: Annotated[Optional[ParameterResultListPublications], Field(description="Filters by a publication result.")] = None,
         voucher_type: Annotated[Optional[ParameterVoucherTypeListPublications], Field(description="Filters by a voucher type.")] = None,
         is_referral_code: Annotated[Optional[StrictBool], Field(description="This filter works only for the true option. If set to true, the query returns only publications of codes from referral campaigns. ")] = None,
-        filters: Annotated[Optional[StrictStr], Field(description="Allows for combining the filters mentioned in the endpoint description.")] = None,
+        filters: Annotated[Optional[ParameterFiltersListPublications], Field(description="Filters for listing publications.")] = None,
         source_id: Annotated[Optional[StrictStr], Field(description="Using this endpoint with a particular publication source_id, which was sent with the original request to create a publication, returns in the response, exactly the same code published initially because the code was assigned to the given publication. As a result, you can use this endpoint as a reference and return a code that was assigned in a publication by using a particular source_id.")] = None,
         _request_timeout: Union[
             None,
@@ -733,8 +734,8 @@ class PublicationsApi:
         :type voucher_type: ParameterVoucherTypeListPublications
         :param is_referral_code: This filter works only for the true option. If set to true, the query returns only publications of codes from referral campaigns. 
         :type is_referral_code: bool
-        :param filters: Allows for combining the filters mentioned in the endpoint description.
-        :type filters: str
+        :param filters: Filters for listing publications.
+        :type filters: ParameterFiltersListPublications
         :param source_id: Using this endpoint with a particular publication source_id, which was sent with the original request to create a publication, returns in the response, exactly the same code published initially because the code was assigned to the given publication. As a result, you can use this endpoint as a reference and return a code that was assigned in a publication by using a particular source_id.
         :type source_id: str
         :param _request_timeout: timeout setting for this request. If one
@@ -803,7 +804,7 @@ class PublicationsApi:
         result: Annotated[Optional[ParameterResultListPublications], Field(description="Filters by a publication result.")] = None,
         voucher_type: Annotated[Optional[ParameterVoucherTypeListPublications], Field(description="Filters by a voucher type.")] = None,
         is_referral_code: Annotated[Optional[StrictBool], Field(description="This filter works only for the true option. If set to true, the query returns only publications of codes from referral campaigns. ")] = None,
-        filters: Annotated[Optional[StrictStr], Field(description="Allows for combining the filters mentioned in the endpoint description.")] = None,
+        filters: Annotated[Optional[ParameterFiltersListPublications], Field(description="Filters for listing publications.")] = None,
         source_id: Annotated[Optional[StrictStr], Field(description="Using this endpoint with a particular publication source_id, which was sent with the original request to create a publication, returns in the response, exactly the same code published initially because the code was assigned to the given publication. As a result, you can use this endpoint as a reference and return a code that was assigned in a publication by using a particular source_id.")] = None,
         _request_timeout: Union[
             None,
@@ -840,8 +841,8 @@ class PublicationsApi:
         :type voucher_type: ParameterVoucherTypeListPublications
         :param is_referral_code: This filter works only for the true option. If set to true, the query returns only publications of codes from referral campaigns. 
         :type is_referral_code: bool
-        :param filters: Allows for combining the filters mentioned in the endpoint description.
-        :type filters: str
+        :param filters: Filters for listing publications.
+        :type filters: ParameterFiltersListPublications
         :param source_id: Using this endpoint with a particular publication source_id, which was sent with the original request to create a publication, returns in the response, exactly the same code published initially because the code was assigned to the given publication. As a result, you can use this endpoint as a reference and return a code that was assigned in a publication by using a particular source_id.
         :type source_id: str
         :param _request_timeout: timeout setting for this request. If one
@@ -910,7 +911,7 @@ class PublicationsApi:
         result: Annotated[Optional[ParameterResultListPublications], Field(description="Filters by a publication result.")] = None,
         voucher_type: Annotated[Optional[ParameterVoucherTypeListPublications], Field(description="Filters by a voucher type.")] = None,
         is_referral_code: Annotated[Optional[StrictBool], Field(description="This filter works only for the true option. If set to true, the query returns only publications of codes from referral campaigns. ")] = None,
-        filters: Annotated[Optional[StrictStr], Field(description="Allows for combining the filters mentioned in the endpoint description.")] = None,
+        filters: Annotated[Optional[ParameterFiltersListPublications], Field(description="Filters for listing publications.")] = None,
         source_id: Annotated[Optional[StrictStr], Field(description="Using this endpoint with a particular publication source_id, which was sent with the original request to create a publication, returns in the response, exactly the same code published initially because the code was assigned to the given publication. As a result, you can use this endpoint as a reference and return a code that was assigned in a publication by using a particular source_id.")] = None,
         _request_timeout: Union[
             None,
@@ -947,8 +948,8 @@ class PublicationsApi:
         :type voucher_type: ParameterVoucherTypeListPublications
         :param is_referral_code: This filter works only for the true option. If set to true, the query returns only publications of codes from referral campaigns. 
         :type is_referral_code: bool
-        :param filters: Allows for combining the filters mentioned in the endpoint description.
-        :type filters: str
+        :param filters: Filters for listing publications.
+        :type filters: ParameterFiltersListPublications
         :param source_id: Using this endpoint with a particular publication source_id, which was sent with the original request to create a publication, returns in the response, exactly the same code published initially because the code was assigned to the given publication. As a result, you can use this endpoint as a reference and return a code that was assigned in a publication by using a particular source_id.
         :type source_id: str
         :param _request_timeout: timeout setting for this request. If one

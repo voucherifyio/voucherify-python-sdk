@@ -21,7 +21,6 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from voucherify.models.category import Category
 from voucherify.models.discount import Discount
 from voucherify.models.loyalties_members_redemption_redeem_response_body_voucher_gift import LoyaltiesMembersRedemptionRedeemResponseBodyVoucherGift
 from voucherify.models.loyalties_members_redemption_redeem_response_body_voucher_loyalty_card import LoyaltiesMembersRedemptionRedeemResponseBodyVoucherLoyaltyCard
@@ -66,7 +65,7 @@ class LoyaltiesMembersRedemptionRedeemResponseBodyVoucher(BaseModel):
     object: Optional[StrictStr] = Field(default='voucher', description="The type of the object represented by JSON. Default is `voucher`.")
     publish: Optional[LoyaltiesMembersRedemptionRedeemResponseBodyVoucherPublish] = None
     redemption: Optional[LoyaltiesMembersRedemptionRedeemResponseBodyVoucherRedemption] = None
-    categories: Optional[List[Category]] = Field(default=None, description="Contains details about the category.")
+    categories: Optional[List[Any]] = Field(default=None, description="Always returns an empty array.")
     validation_rules_assignments: Optional[ValidationRulesAssignmentsList] = None
     holder: Optional[SimpleCustomer] = None
     __properties: ClassVar[List[str]] = ["id", "code", "campaign", "campaign_id", "category", "category_id", "type", "discount", "gift", "loyalty_card", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "active", "additional_info", "metadata", "assets", "is_referral_code", "created_at", "updated_at", "holder_id", "referrer_id", "object", "publish", "redemption", "categories", "validation_rules_assignments", "holder"]
@@ -155,13 +154,6 @@ class LoyaltiesMembersRedemptionRedeemResponseBodyVoucher(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of redemption
         if self.redemption:
             _dict['redemption'] = self.redemption.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in categories (list)
-        _items = []
-        if self.categories:
-            for _item_categories in self.categories:
-                if _item_categories:
-                    _items.append(_item_categories.to_dict())
-            _dict['categories'] = _items
         # override the default output from pydantic by calling `to_dict()` of validation_rules_assignments
         if self.validation_rules_assignments:
             _dict['validation_rules_assignments'] = self.validation_rules_assignments.to_dict()
@@ -322,7 +314,7 @@ class LoyaltiesMembersRedemptionRedeemResponseBodyVoucher(BaseModel):
             "object": obj.get("object") if obj.get("object") is not None else 'voucher',
             "publish": LoyaltiesMembersRedemptionRedeemResponseBodyVoucherPublish.from_dict(obj["publish"]) if obj.get("publish") is not None else None,
             "redemption": LoyaltiesMembersRedemptionRedeemResponseBodyVoucherRedemption.from_dict(obj["redemption"]) if obj.get("redemption") is not None else None,
-            "categories": [Category.from_dict(_item) for _item in obj["categories"]] if obj.get("categories") is not None else None,
+            "categories": obj.get("categories"),
             "validation_rules_assignments": ValidationRulesAssignmentsList.from_dict(obj["validation_rules_assignments"]) if obj.get("validation_rules_assignments") is not None else None,
             "holder": SimpleCustomer.from_dict(obj["holder"]) if obj.get("holder") is not None else None
         })

@@ -19,8 +19,9 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,12 +31,11 @@ class CategoriesGetResponseBody(BaseModel):
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Unique category ID assigned by Voucherify.")
     name: Optional[StrictStr] = Field(default=None, description="Category name.")
-    hierarchy: Optional[StrictInt] = Field(default=None, description="Category hierarchy.")
+    hierarchy: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Category hierarchy. Categories with lower hierarchy are processed before categories with higher hierarchy value.")
     object: Optional[StrictStr] = Field(default='category', description="The type of the object represented by the JSON. This object stores information about the category.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the category was created. The value is shown in the ISO 8601 format.")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the category was updated. The value is shown in the ISO 8601 format.")
-    stacking_rules_type: Optional[StrictStr] = Field(default=None, description="The type of the stacking rule eligibility.")
-    __properties: ClassVar[List[str]] = ["id", "name", "hierarchy", "object", "created_at", "updated_at", "stacking_rules_type"]
+    __properties: ClassVar[List[str]] = ["id", "name", "hierarchy", "object", "created_at", "updated_at"]
 
     @field_validator('object')
     def object_validate_enum(cls, value):
@@ -45,16 +45,6 @@ class CategoriesGetResponseBody(BaseModel):
 
         if value not in set(['category']):
             raise ValueError("must be one of enum values ('category')")
-        return value
-
-    @field_validator('stacking_rules_type')
-    def stacking_rules_type_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['JOINT', 'EXCLUSIVE']):
-            raise ValueError("must be one of enum values ('JOINT', 'EXCLUSIVE')")
         return value
 
     model_config = ConfigDict(
@@ -126,11 +116,6 @@ class CategoriesGetResponseBody(BaseModel):
         if self.updated_at is None and "updated_at" in self.model_fields_set:
             _dict['updated_at'] = None
 
-        # set to None if stacking_rules_type (nullable) is None
-        # and model_fields_set contains the field
-        if self.stacking_rules_type is None and "stacking_rules_type" in self.model_fields_set:
-            _dict['stacking_rules_type'] = None
-
         return _dict
 
     @classmethod
@@ -148,8 +133,7 @@ class CategoriesGetResponseBody(BaseModel):
             "hierarchy": obj.get("hierarchy"),
             "object": obj.get("object") if obj.get("object") is not None else 'category',
             "created_at": obj.get("created_at"),
-            "updated_at": obj.get("updated_at"),
-            "stacking_rules_type": obj.get("stacking_rules_type")
+            "updated_at": obj.get("updated_at")
         })
         return _obj
 

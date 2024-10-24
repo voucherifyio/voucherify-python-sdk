@@ -1,6 +1,6 @@
 # ValidationsValidateResponseBody
 
-Response body schema for POST `/validations`.
+Response body schema for **POST** `v1/validations`.
 
 ## Properties
 

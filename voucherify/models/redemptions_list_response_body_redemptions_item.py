@@ -55,13 +55,13 @@ class RedemptionsListResponseBodyRedemptionsItem(BaseModel):
     customer: Optional[RedemptionsListResponseBodyRedemptionsItemCustomer] = None
     related_object_type: Optional[StrictStr] = Field(default=None, description="Defines the related object.")
     related_object_id: Optional[StrictStr] = None
-    voucher: Optional[RedemptionsListResponseBodyRedemptionsItemVoucher] = None
     promotion_tier: Optional[RedemptionsListResponseBodyRedemptionsItemPromotionTier] = None
     reward: Optional[RedemptionRewardResult] = None
     gift: Optional[RedemptionsListResponseBodyRedemptionsItemGift] = None
     loyalty_card: Optional[RedemptionsListResponseBodyRedemptionsItemLoyaltyCard] = None
+    voucher: Optional[RedemptionsListResponseBodyRedemptionsItemVoucher] = None
     reason: Optional[StrictStr] = Field(default=None, description="System generated cause for the redemption being invalid in the context of the provided parameters.")
-    __properties: ClassVar[List[str]] = ["id", "object", "date", "customer_id", "tracking_id", "metadata", "amount", "redemption", "result", "status", "related_redemptions", "failure_code", "failure_message", "order", "channel", "customer", "related_object_type", "related_object_id", "voucher", "promotion_tier", "reward", "gift", "loyalty_card", "reason"]
+    __properties: ClassVar[List[str]] = ["id", "object", "date", "customer_id", "tracking_id", "metadata", "amount", "redemption", "result", "status", "related_redemptions", "failure_code", "failure_message", "order", "channel", "customer", "related_object_type", "related_object_id", "promotion_tier", "reward", "gift", "loyalty_card", "voucher", "reason"]
 
     @field_validator('object')
     def object_validate_enum(cls, value):
@@ -154,9 +154,6 @@ class RedemptionsListResponseBodyRedemptionsItem(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of customer
         if self.customer:
             _dict['customer'] = self.customer.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of voucher
-        if self.voucher:
-            _dict['voucher'] = self.voucher.to_dict()
         # override the default output from pydantic by calling `to_dict()` of promotion_tier
         if self.promotion_tier:
             _dict['promotion_tier'] = self.promotion_tier.to_dict()
@@ -169,6 +166,9 @@ class RedemptionsListResponseBodyRedemptionsItem(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of loyalty_card
         if self.loyalty_card:
             _dict['loyalty_card'] = self.loyalty_card.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of voucher
+        if self.voucher:
+            _dict['voucher'] = self.voucher.to_dict()
         # set to None if var_date (nullable) is None
         # and model_fields_set contains the field
         if self.var_date is None and "var_date" in self.model_fields_set:
@@ -244,11 +244,11 @@ class RedemptionsListResponseBodyRedemptionsItem(BaseModel):
             "customer": RedemptionsListResponseBodyRedemptionsItemCustomer.from_dict(obj["customer"]) if obj.get("customer") is not None else None,
             "related_object_type": obj.get("related_object_type"),
             "related_object_id": obj.get("related_object_id"),
-            "voucher": RedemptionsListResponseBodyRedemptionsItemVoucher.from_dict(obj["voucher"]) if obj.get("voucher") is not None else None,
             "promotion_tier": RedemptionsListResponseBodyRedemptionsItemPromotionTier.from_dict(obj["promotion_tier"]) if obj.get("promotion_tier") is not None else None,
             "reward": RedemptionRewardResult.from_dict(obj["reward"]) if obj.get("reward") is not None else None,
             "gift": RedemptionsListResponseBodyRedemptionsItemGift.from_dict(obj["gift"]) if obj.get("gift") is not None else None,
             "loyalty_card": RedemptionsListResponseBodyRedemptionsItemLoyaltyCard.from_dict(obj["loyalty_card"]) if obj.get("loyalty_card") is not None else None,
+            "voucher": RedemptionsListResponseBodyRedemptionsItemVoucher.from_dict(obj["voucher"]) if obj.get("voucher") is not None else None,
             "reason": obj.get("reason")
         })
         return _obj

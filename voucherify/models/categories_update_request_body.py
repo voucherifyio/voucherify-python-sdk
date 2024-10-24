@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,7 +29,7 @@ class CategoriesUpdateRequestBody(BaseModel):
     Request body schema for **PUT** `v1/categories/{categoryId}`.
     """ # noqa: E501
     name: Optional[StrictStr] = Field(default=None, description="Category name.")
-    hierarchy: Optional[StrictInt] = Field(default=None, description="Category hierarchy.")
+    hierarchy: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Category hierarchy. Categories with lower hierarchy are processed before categories with higher hierarchy value.")
     __properties: ClassVar[List[str]] = ["name", "hierarchy"]
 
     model_config = ConfigDict(

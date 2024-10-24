@@ -34,7 +34,7 @@ class Order(BaseModel):
     amount: Optional[StrictInt] = Field(default=None, description="A positive integer in the smallest currency unit (e.g. 100 cents for $1.00) representing the total amount of the order. This is the sum of the order items' amounts.")
     initial_amount: Optional[StrictInt] = Field(default=None, description="A positive integer in the smallest currency unit (e.g. 100 cents for $1.00) representing the total amount of the order. This is the sum of the order items' amounts.")
     discount_amount: Optional[StrictInt] = Field(default=None, description="Sum of all order-level discounts applied to the order.")
-    items: Optional[List[OrderItem]] = Field(default=None, description="Array of items applied to the order.")
+    items: Optional[List[OrderItem]] = Field(default=None, description="Array of items applied to the order. It can include up 500 items.")
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="A set of custom key/value pairs that you can attach to an order. It can be useful for storing additional information about the order in a structured format.")
     __properties: ClassVar[List[str]] = ["id", "source_id", "status", "amount", "initial_amount", "discount_amount", "items", "metadata"]
 

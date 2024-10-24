@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Unique category ID assigned by Voucherify. | [optional] 
 **name** | **str** | Category name. | [optional] 
-**hierarchy** | **int** | Category hierarchy. | [optional] 
+**hierarchy** | **int** | Category hierarchy. Categories with lower hierarchy are processed before categories with higher hierarchy value. | [optional] 
 **object** | **str** |  | [optional] [default to 'category']
 **created_at** | **datetime** | Timestamp representing the date and time when the category was created. The value is shown in the ISO 8601 format. | [optional] 
 

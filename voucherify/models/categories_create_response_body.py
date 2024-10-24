@@ -19,8 +19,9 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,7 +31,7 @@ class CategoriesCreateResponseBody(BaseModel):
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Unique category ID assigned by Voucherify.")
     name: Optional[StrictStr] = Field(default=None, description="Category name.")
-    hierarchy: Optional[StrictInt] = Field(default=None, description="Category hierarchy.")
+    hierarchy: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Category hierarchy. Categories with lower hierarchy are processed before categories with higher hierarchy value.")
     object: Optional[StrictStr] = 'category'
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the category was created. The value is shown in the ISO 8601 format.")
     __properties: ClassVar[List[str]] = ["id", "name", "hierarchy", "object", "created_at"]

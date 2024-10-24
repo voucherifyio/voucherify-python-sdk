@@ -21,7 +21,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from voucherify.models.category import Category
+from voucherify.models.category_with_stacking_rules_type import CategoryWithStackingRulesType
 from voucherify.models.discount import Discount
 from voucherify.models.redemption_voucher_gift import RedemptionVoucherGift
 from voucherify.models.redemption_voucher_loyalty_card import RedemptionVoucherLoyaltyCard
@@ -66,7 +66,7 @@ class RedemptionVoucher(BaseModel):
     object: Optional[StrictStr] = Field(default='voucher', description="The type of the object represented by JSON. Default is `voucher`.")
     publish: Optional[RedemptionVoucherPublish] = None
     redemption: Optional[RedemptionVoucherRedemption] = None
-    categories: Optional[List[Category]] = Field(default=None, description="Contains details about the category.")
+    categories: Optional[List[CategoryWithStackingRulesType]] = Field(default=None, description="Contains details about the category.")
     validation_rules_assignments: Optional[ValidationRulesAssignmentsList] = None
     holder: Optional[SimpleCustomer] = None
     __properties: ClassVar[List[str]] = ["id", "code", "campaign", "campaign_id", "category", "category_id", "type", "discount", "gift", "loyalty_card", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "active", "additional_info", "metadata", "assets", "is_referral_code", "created_at", "updated_at", "holder_id", "referrer_id", "object", "publish", "redemption", "categories", "validation_rules_assignments", "holder"]
@@ -322,7 +322,7 @@ class RedemptionVoucher(BaseModel):
             "object": obj.get("object") if obj.get("object") is not None else 'voucher',
             "publish": RedemptionVoucherPublish.from_dict(obj["publish"]) if obj.get("publish") is not None else None,
             "redemption": RedemptionVoucherRedemption.from_dict(obj["redemption"]) if obj.get("redemption") is not None else None,
-            "categories": [Category.from_dict(_item) for _item in obj["categories"]] if obj.get("categories") is not None else None,
+            "categories": [CategoryWithStackingRulesType.from_dict(_item) for _item in obj["categories"]] if obj.get("categories") is not None else None,
             "validation_rules_assignments": ValidationRulesAssignmentsList.from_dict(obj["validation_rules_assignments"]) if obj.get("validation_rules_assignments") is not None else None,
             "holder": SimpleCustomer.from_dict(obj["holder"]) if obj.get("holder") is not None else None
         })

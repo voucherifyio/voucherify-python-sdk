@@ -29,7 +29,6 @@ class ParameterVoucherTypeListPublications(str, Enum):
     """
     DISCOUNT = 'discount'
     LOYALTY = 'loyalty'
-    LUCKY_DRAW = 'lucky_draw'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

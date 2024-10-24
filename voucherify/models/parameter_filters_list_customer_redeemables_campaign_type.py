@@ -20,7 +20,6 @@ import json
 
 from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
-from voucherify.models.junction import Junction
 from voucherify.models.parameter_filters_list_customer_redeemables_campaign_type_conditions import ParameterFiltersListCustomerRedeemablesCampaignTypeConditions
 from typing import Optional, Set
 from typing_extensions import Self
@@ -30,8 +29,7 @@ class ParameterFiltersListCustomerRedeemablesCampaignType(BaseModel):
     Type of the campaign. Allowed values: `DISCOUNT_COUPONS`, `REFERRAL_PROGRAM`, `GIFT_VOUCHERS`, `LOYALTY_PROGRAM`
     """ # noqa: E501
     conditions: Optional[ParameterFiltersListCustomerRedeemablesCampaignTypeConditions] = None
-    junction: Optional[Junction] = None
-    __properties: ClassVar[List[str]] = ["conditions", "junction"]
+    __properties: ClassVar[List[str]] = ["conditions"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -87,8 +85,7 @@ class ParameterFiltersListCustomerRedeemablesCampaignType(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "conditions": ParameterFiltersListCustomerRedeemablesCampaignTypeConditions.from_dict(obj["conditions"]) if obj.get("conditions") is not None else None,
-            "junction": obj.get("junction")
+            "conditions": ParameterFiltersListCustomerRedeemablesCampaignTypeConditions.from_dict(obj["conditions"]) if obj.get("conditions") is not None else None
         })
         return _obj
 

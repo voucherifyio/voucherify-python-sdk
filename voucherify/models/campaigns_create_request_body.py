@@ -24,7 +24,6 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from voucherify.models.campaigns_create_request_body_promotion import CampaignsCreateRequestBodyPromotion
 from voucherify.models.campaigns_create_request_body_voucher import CampaignsCreateRequestBodyVoucher
-from voucherify.models.lucky_draw import LuckyDraw
 from voucherify.models.referral_program import ReferralProgram
 from voucherify.models.validity_hours import ValidityHours
 from voucherify.models.validity_timeframe import ValidityTimeframe
@@ -48,16 +47,15 @@ class CampaignsCreateRequestBody(BaseModel):
     validity_day_of_week: Optional[List[StrictInt]] = Field(default=None, description="Integer array corresponding to the particular days of the week in which the voucher is valid.  - `0` Sunday - `1` Monday - `2` Tuesday - `3` Wednesday - `4` Thursday - `5` Friday - `6` Saturday")
     validity_hours: Optional[ValidityHours] = None
     activity_duration_after_publishing: Optional[StrictStr] = Field(default=None, description="Defines the amount of time the vouchers will be active after publishing. The value is shown in the ISO 8601 format. For example, a voucher with the value of P24D will be valid for a duration of 24 days.")
-    validation_rules: Optional[Annotated[List[StrictStr], Field(max_length=1)]] = Field(default=None, description="Array containing the ID of the validation rule associated with the promotion tier.")
     category_id: Optional[StrictStr] = Field(default=None, description="Unique category ID that this campaign belongs to. Either pass this parameter OR the `category`.")
     category: Optional[StrictStr] = Field(default=None, description="The category assigned to the campaign. Either pass this parameter OR the `category_id`.")
     metadata: Optional[Dict[str, Any]] = None
+    validation_rules: Optional[Annotated[List[StrictStr], Field(max_length=1)]] = Field(default=None, description="Array containing the ID of the validation rule associated with the promotion tier.")
     campaign_type: Optional[StrictStr] = None
     voucher: Optional[CampaignsCreateRequestBodyVoucher] = None
     referral_program: Optional[ReferralProgram] = None
     promotion: Optional[CampaignsCreateRequestBodyPromotion] = None
-    lucky_draw: Optional[LuckyDraw] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "type", "join_once", "auto_join", "use_voucher_metadata_schema", "vouchers_count", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "activity_duration_after_publishing", "validation_rules", "category_id", "category", "metadata", "campaign_type", "voucher", "referral_program", "promotion", "lucky_draw"]
+    __properties: ClassVar[List[str]] = ["name", "description", "type", "join_once", "auto_join", "use_voucher_metadata_schema", "vouchers_count", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "activity_duration_after_publishing", "category_id", "category", "metadata", "validation_rules", "campaign_type", "voucher", "referral_program", "promotion"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -86,8 +84,8 @@ class CampaignsCreateRequestBody(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['DISCOUNT_COUPONS', 'REFERRAL_PROGRAM', 'GIFT_VOUCHERS', 'LOYALTY_PROGRAM', 'PROMOTION', 'LUCKY_DRAW']):
-            raise ValueError("must be one of enum values ('DISCOUNT_COUPONS', 'REFERRAL_PROGRAM', 'GIFT_VOUCHERS', 'LOYALTY_PROGRAM', 'PROMOTION', 'LUCKY_DRAW')")
+        if value not in set(['DISCOUNT_COUPONS', 'REFERRAL_PROGRAM', 'GIFT_VOUCHERS', 'LOYALTY_PROGRAM', 'PROMOTION']):
+            raise ValueError("must be one of enum values ('DISCOUNT_COUPONS', 'REFERRAL_PROGRAM', 'GIFT_VOUCHERS', 'LOYALTY_PROGRAM', 'PROMOTION')")
         return value
 
     model_config = ConfigDict(
@@ -144,9 +142,6 @@ class CampaignsCreateRequestBody(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of promotion
         if self.promotion:
             _dict['promotion'] = self.promotion.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of lucky_draw
-        if self.lucky_draw:
-            _dict['lucky_draw'] = self.lucky_draw.to_dict()
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -197,11 +192,6 @@ class CampaignsCreateRequestBody(BaseModel):
         if self.activity_duration_after_publishing is None and "activity_duration_after_publishing" in self.model_fields_set:
             _dict['activity_duration_after_publishing'] = None
 
-        # set to None if validation_rules (nullable) is None
-        # and model_fields_set contains the field
-        if self.validation_rules is None and "validation_rules" in self.model_fields_set:
-            _dict['validation_rules'] = None
-
         # set to None if category_id (nullable) is None
         # and model_fields_set contains the field
         if self.category_id is None and "category_id" in self.model_fields_set:
@@ -216,6 +206,11 @@ class CampaignsCreateRequestBody(BaseModel):
         # and model_fields_set contains the field
         if self.metadata is None and "metadata" in self.model_fields_set:
             _dict['metadata'] = None
+
+        # set to None if validation_rules (nullable) is None
+        # and model_fields_set contains the field
+        if self.validation_rules is None and "validation_rules" in self.model_fields_set:
+            _dict['validation_rules'] = None
 
         # set to None if campaign_type (nullable) is None
         # and model_fields_set contains the field
@@ -257,15 +252,14 @@ class CampaignsCreateRequestBody(BaseModel):
             "validity_day_of_week": obj.get("validity_day_of_week"),
             "validity_hours": ValidityHours.from_dict(obj["validity_hours"]) if obj.get("validity_hours") is not None else None,
             "activity_duration_after_publishing": obj.get("activity_duration_after_publishing"),
-            "validation_rules": obj.get("validation_rules"),
             "category_id": obj.get("category_id"),
             "category": obj.get("category"),
             "metadata": obj.get("metadata"),
+            "validation_rules": obj.get("validation_rules"),
             "campaign_type": obj.get("campaign_type"),
             "voucher": CampaignsCreateRequestBodyVoucher.from_dict(obj["voucher"]) if obj.get("voucher") is not None else None,
             "referral_program": ReferralProgram.from_dict(obj["referral_program"]) if obj.get("referral_program") is not None else None,
-            "promotion": CampaignsCreateRequestBodyPromotion.from_dict(obj["promotion"]) if obj.get("promotion") is not None else None,
-            "lucky_draw": LuckyDraw.from_dict(obj["lucky_draw"]) if obj.get("lucky_draw") is not None else None
+            "promotion": CampaignsCreateRequestBodyPromotion.from_dict(obj["promotion"]) if obj.get("promotion") is not None else None
         })
         return _obj
 

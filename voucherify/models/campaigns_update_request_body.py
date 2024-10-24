@@ -21,8 +21,8 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
 from voucherify.models.campaigns_update_request_body_options import CampaignsUpdateRequestBodyOptions
+from voucherify.models.discount import Discount
 from voucherify.models.gift import Gift
 from voucherify.models.loyalty_tiers_expiration_all import LoyaltyTiersExpirationAll
 from voucherify.models.referral_program import ReferralProgram
@@ -49,15 +49,12 @@ class CampaignsUpdateRequestBody(BaseModel):
     join_once: Optional[StrictBool] = Field(default=None, description="If this value is set to `true`, customers will be able to join the campaign only once.")
     auto_join: Optional[StrictBool] = Field(default=None, description="Indicates whether customers will be able to auto-join a loyalty campaign if any earning rule is fulfilled.")
     type: Optional[StrictStr] = Field(default=None, description="Defines whether the campaign can be updated with new vouchers after campaign creation.      - `AUTO_UPDATE`: By choosing the auto update option you will create a campaign that can be enhanced by new vouchers after the time of creation (e.g. by publish vouchers method).     -  `STATIC`: vouchers need to be manually published.")
-    discount: Optional[Dict[str, Any]] = None
+    discount: Optional[Discount] = None
     referral_program: Optional[ReferralProgram] = None
     gift: Optional[Gift] = None
     loyalty_tiers_expiration: Optional[LoyaltyTiersExpirationAll] = None
     options: Optional[CampaignsUpdateRequestBodyOptions] = None
-    winners_count: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="It represents the total number of winners in a lucky draw.")
-    unique_winners_per_draw: Optional[StrictStr] = Field(default=None, description="It indicates whether each winner in a draw is unique or not.")
-    unique_winners: Optional[StrictStr] = Field(default=None, description="Specifies whether each participant can win only once across multiple draws.")
-    __properties: ClassVar[List[str]] = ["start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "description", "category", "metadata", "unset_metadata_fields", "category_id", "activity_duration_after_publishing", "join_once", "auto_join", "type", "discount", "referral_program", "gift", "loyalty_tiers_expiration", "options", "winners_count", "unique_winners_per_draw", "unique_winners"]
+    __properties: ClassVar[List[str]] = ["start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "description", "category", "metadata", "unset_metadata_fields", "category_id", "activity_duration_after_publishing", "join_once", "auto_join", "type", "discount", "referral_program", "gift", "loyalty_tiers_expiration", "options"]
 
     @field_validator('validity_day_of_week')
     def validity_day_of_week_validate_enum(cls, value):
@@ -125,6 +122,9 @@ class CampaignsUpdateRequestBody(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of validity_hours
         if self.validity_hours:
             _dict['validity_hours'] = self.validity_hours.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of discount
+        if self.discount:
+            _dict['discount'] = self.discount.to_dict()
         # override the default output from pydantic by calling `to_dict()` of referral_program
         if self.referral_program:
             _dict['referral_program'] = self.referral_program.to_dict()
@@ -192,30 +192,10 @@ class CampaignsUpdateRequestBody(BaseModel):
         if self.type is None and "type" in self.model_fields_set:
             _dict['type'] = None
 
-        # set to None if discount (nullable) is None
-        # and model_fields_set contains the field
-        if self.discount is None and "discount" in self.model_fields_set:
-            _dict['discount'] = None
-
         # set to None if options (nullable) is None
         # and model_fields_set contains the field
         if self.options is None and "options" in self.model_fields_set:
             _dict['options'] = None
-
-        # set to None if winners_count (nullable) is None
-        # and model_fields_set contains the field
-        if self.winners_count is None and "winners_count" in self.model_fields_set:
-            _dict['winners_count'] = None
-
-        # set to None if unique_winners_per_draw (nullable) is None
-        # and model_fields_set contains the field
-        if self.unique_winners_per_draw is None and "unique_winners_per_draw" in self.model_fields_set:
-            _dict['unique_winners_per_draw'] = None
-
-        # set to None if unique_winners (nullable) is None
-        # and model_fields_set contains the field
-        if self.unique_winners is None and "unique_winners" in self.model_fields_set:
-            _dict['unique_winners'] = None
 
         return _dict
 
@@ -243,14 +223,11 @@ class CampaignsUpdateRequestBody(BaseModel):
             "join_once": obj.get("join_once"),
             "auto_join": obj.get("auto_join"),
             "type": obj.get("type"),
-            "discount": obj.get("discount"),
+            "discount": Discount.from_dict(obj["discount"]) if obj.get("discount") is not None else None,
             "referral_program": ReferralProgram.from_dict(obj["referral_program"]) if obj.get("referral_program") is not None else None,
             "gift": Gift.from_dict(obj["gift"]) if obj.get("gift") is not None else None,
             "loyalty_tiers_expiration": LoyaltyTiersExpirationAll.from_dict(obj["loyalty_tiers_expiration"]) if obj.get("loyalty_tiers_expiration") is not None else None,
-            "options": CampaignsUpdateRequestBodyOptions.from_dict(obj["options"]) if obj.get("options") is not None else None,
-            "winners_count": obj.get("winners_count"),
-            "unique_winners_per_draw": obj.get("unique_winners_per_draw"),
-            "unique_winners": obj.get("unique_winners")
+            "options": CampaignsUpdateRequestBodyOptions.from_dict(obj["options"]) if obj.get("options") is not None else None
         })
         return _obj
 

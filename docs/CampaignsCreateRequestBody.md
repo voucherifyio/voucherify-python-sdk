@@ -18,15 +18,14 @@ Name | Type | Description | Notes
 **validity_day_of_week** | **List[int]** | Integer array corresponding to the particular days of the week in which the voucher is valid.  - &#x60;0&#x60; Sunday - &#x60;1&#x60; Monday - &#x60;2&#x60; Tuesday - &#x60;3&#x60; Wednesday - &#x60;4&#x60; Thursday - &#x60;5&#x60; Friday - &#x60;6&#x60; Saturday | [optional] 
 **validity_hours** | [**ValidityHours**](ValidityHours.md) |  | [optional] 
 **activity_duration_after_publishing** | **str** | Defines the amount of time the vouchers will be active after publishing. The value is shown in the ISO 8601 format. For example, a voucher with the value of P24D will be valid for a duration of 24 days. | [optional] 
-**validation_rules** | **List[str]** | Array containing the ID of the validation rule associated with the promotion tier. | [optional] 
 **category_id** | **str** | Unique category ID that this campaign belongs to. Either pass this parameter OR the &#x60;category&#x60;. | [optional] 
 **category** | **str** | The category assigned to the campaign. Either pass this parameter OR the &#x60;category_id&#x60;. | [optional] 
 **metadata** | **object** |  | [optional] 
+**validation_rules** | **List[str]** | Array containing the ID of the validation rule associated with the promotion tier. | [optional] 
 **campaign_type** | **str** |  | [optional] 
 **voucher** | [**CampaignsCreateRequestBodyVoucher**](CampaignsCreateRequestBodyVoucher.md) |  | [optional] 
 **referral_program** | [**ReferralProgram**](ReferralProgram.md) |  | [optional] 
 **promotion** | [**CampaignsCreateRequestBodyPromotion**](CampaignsCreateRequestBodyPromotion.md) |  | [optional] 
-**lucky_draw** | [**LuckyDraw**](LuckyDraw.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

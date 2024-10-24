@@ -24,11 +24,11 @@ Name | Type | Description | Notes
 **customer** | [**SimpleCustomer**](SimpleCustomer.md) |  | [optional] 
 **related_object_type** | **str** | Defines the related object. | [optional] 
 **related_object_id** | **str** | Unique related object ID assigned by Voucherify, i.e. v_lfZi4rcEGe0sN9gmnj40bzwK2FH6QUno for a voucher. | [optional] 
-**voucher** | [**LoyaltiesMembersRedemptionRedeemResponseBodyVoucher**](LoyaltiesMembersRedemptionRedeemResponseBodyVoucher.md) |  | [optional] 
 **promotion_tier** | [**PromotionTier**](PromotionTier.md) |  | [optional] 
 **reward** | [**RedemptionRewardResult**](RedemptionRewardResult.md) |  | [optional] 
 **gift** | [**LoyaltiesMembersRedemptionRedeemResponseBodyGift**](LoyaltiesMembersRedemptionRedeemResponseBodyGift.md) |  | [optional] 
 **loyalty_card** | [**LoyaltiesMembersRedemptionRedeemResponseBodyLoyaltyCard**](LoyaltiesMembersRedemptionRedeemResponseBodyLoyaltyCard.md) |  | [optional] 
+**voucher** | [**LoyaltiesMembersRedemptionRedeemResponseBodyVoucher**](LoyaltiesMembersRedemptionRedeemResponseBodyVoucher.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

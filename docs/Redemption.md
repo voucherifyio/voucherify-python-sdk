@@ -1,6 +1,6 @@
 # Redemption
 
-This is an object representing a redemption.
+This is an object representing a redemption for **POST** `v1/redemptions` and **POST** `/client/v1/redemptions`.
 
 ## Properties
 
@@ -24,11 +24,11 @@ Name | Type | Description | Notes
 **customer** | [**SimpleCustomer**](SimpleCustomer.md) |  | [optional] 
 **related_object_type** | **str** | Defines the related object. | [optional] 
 **related_object_id** | **str** | Unique related object ID assigned by Voucherify, i.e. v_lfZi4rcEGe0sN9gmnj40bzwK2FH6QUno for a voucher. | [optional] 
-**voucher** | [**RedemptionVoucher**](RedemptionVoucher.md) |  | [optional] 
 **promotion_tier** | [**PromotionTier**](PromotionTier.md) |  | [optional] 
 **reward** | [**RedemptionRewardResult**](RedemptionRewardResult.md) |  | [optional] 
 **gift** | [**RedemptionGift**](RedemptionGift.md) |  | [optional] 
 **loyalty_card** | [**RedemptionLoyaltyCard**](RedemptionLoyaltyCard.md) |  | [optional] 
+**voucher** | [**RedemptionVoucher**](RedemptionVoucher.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

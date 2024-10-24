@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **applicable_to** | [**ApplicableToResultList**](ApplicableToResultList.md) |  | [optional] 
 **inapplicable_to** | [**InapplicableToResultList**](InapplicableToResultList.md) |  | [optional] 
 **metadata** | **object** | The metadata object stores all custom attributes assigned to the product. A set of key/value pairs that you can attach to a product object. It can be useful for storing additional information about the product in a structured format. | [optional] 
-**categories** | [**List[Category]**](Category.md) | List of category information. | [optional] 
+**categories** | [**List[CategoryWithStackingRulesType]**](CategoryWithStackingRulesType.md) | List of category information. | [optional] 
 **banner** | **str** | Name of the earning rule. This is displayed as a header for the earning rule in the Dashboard. | [optional] 
 **name** | **str** | Name of the redeemable. | [optional] 
 **campaign_name** | **str** | Name of the campaign associated to the redeemable. This field is available only if object is not &#x60;campaign&#x60; | [optional] 

@@ -27,7 +27,7 @@ from typing_extensions import Self
 
 class RewardsAssignmentsCreateResponseBody(BaseModel):
     """
-    Response body schema for **GET** `v1/rewards/{rewardId}/assignments/{assignmentId}`.
+    Response body schema for **POST** `v1/rewards/{rewardId}/assignments/`.
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Unique reward assignment ID, assigned by Voucherify.")
     reward_id: Optional[StrictStr] = Field(default=None, description="Associated reward ID.")

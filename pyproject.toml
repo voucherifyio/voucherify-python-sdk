@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "voucherify"
-version = "3.0.0"
+version = "4.0.0"
 description = "Voucherify API"
 authors = ["Voucherify Team <support@voucherify.io>"]
 license = "MIT"

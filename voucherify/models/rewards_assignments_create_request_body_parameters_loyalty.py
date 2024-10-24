@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictBool
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
@@ -29,7 +29,8 @@ class RewardsAssignmentsCreateRequestBodyParametersLoyalty(BaseModel):
     Defines the equivalent points value of the reward.
     """ # noqa: E501
     points: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="Number of points that will be subtracted from the loyalty card points balance if the reward is redeemed. Must be positive integer.")
-    __properties: ClassVar[List[str]] = ["points"]
+    auto_redeem: Optional[StrictBool] = Field(default=None, description="Determines if the reward is redeemed automatically when the customer reaches the sufficient number of points to redeem it. Value `true` means that the automatic reward redemption is active. Only one reward can be set to be redeemed automatically in a loyalty campaign, i.e. only one can have the value `true`.")
+    __properties: ClassVar[List[str]] = ["points", "auto_redeem"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -75,6 +76,11 @@ class RewardsAssignmentsCreateRequestBodyParametersLoyalty(BaseModel):
         if self.points is None and "points" in self.model_fields_set:
             _dict['points'] = None
 
+        # set to None if auto_redeem (nullable) is None
+        # and model_fields_set contains the field
+        if self.auto_redeem is None and "auto_redeem" in self.model_fields_set:
+            _dict['auto_redeem'] = None
+
         return _dict
 
     @classmethod
@@ -87,7 +93,8 @@ class RewardsAssignmentsCreateRequestBodyParametersLoyalty(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "points": obj.get("points")
+            "points": obj.get("points"),
+            "auto_redeem": obj.get("auto_redeem")
         })
         return _obj
 

@@ -21,7 +21,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from voucherify.models.create_publication_campaign import CreatePublicationCampaign
-from voucherify.models.publications_create_request_body_customer import PublicationsCreateRequestBodyCustomer
+from voucherify.models.customer import Customer
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -31,7 +31,7 @@ class PublicationsCreateRequestBody(BaseModel):
     """ # noqa: E501
     voucher: Optional[StrictStr] = Field(default=None, description="Code of the voucher being published.")
     source_id: Optional[StrictStr] = Field(default=None, description="The merchant's publication ID if it is different from the Voucherify publication ID. It's an optional tracking identifier of a publication. It is really useful in case of an integration between multiple systems. It can be a publication ID from a CRM system, database or 3rd-party service. If `source_id` is provided only 1 voucher can be published per request.")
-    customer: Optional[PublicationsCreateRequestBodyCustomer] = None
+    customer: Optional[Customer] = None
     metadata: Optional[Dict[str, Any]] = None
     channel: Optional[StrictStr] = Field(default=None, description="Specify the distribution channel.")
     campaign: Optional[CreatePublicationCampaign] = None
@@ -92,11 +92,6 @@ class PublicationsCreateRequestBody(BaseModel):
         if self.source_id is None and "source_id" in self.model_fields_set:
             _dict['source_id'] = None
 
-        # set to None if customer (nullable) is None
-        # and model_fields_set contains the field
-        if self.customer is None and "customer" in self.model_fields_set:
-            _dict['customer'] = None
-
         # set to None if metadata (nullable) is None
         # and model_fields_set contains the field
         if self.metadata is None and "metadata" in self.model_fields_set:
@@ -121,7 +116,7 @@ class PublicationsCreateRequestBody(BaseModel):
         _obj = cls.model_validate({
             "voucher": obj.get("voucher"),
             "source_id": obj.get("source_id"),
-            "customer": PublicationsCreateRequestBodyCustomer.from_dict(obj["customer"]) if obj.get("customer") is not None else None,
+            "customer": Customer.from_dict(obj["customer"]) if obj.get("customer") is not None else None,
             "metadata": obj.get("metadata"),
             "channel": obj.get("channel"),
             "campaign": CreatePublicationCampaign.from_dict(obj["campaign"]) if obj.get("campaign") is not None else None

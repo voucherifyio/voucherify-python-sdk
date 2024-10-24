@@ -21,7 +21,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from voucherify.models.applicable_to_result_list import ApplicableToResultList
-from voucherify.models.category import Category
+from voucherify.models.category_with_stacking_rules_type import CategoryWithStackingRulesType
 from voucherify.models.client_validations_validate_response_body_redeemables_item_result import ClientValidationsValidateResponseBodyRedeemablesItemResult
 from voucherify.models.inapplicable_to_result_list import InapplicableToResultList
 from voucherify.models.order_calculated import OrderCalculated
@@ -40,7 +40,7 @@ class ClientValidationsValidateResponseBodyRedeemablesItem(BaseModel):
     inapplicable_to: Optional[InapplicableToResultList] = None
     result: Optional[ClientValidationsValidateResponseBodyRedeemablesItemResult] = None
     metadata: Optional[Dict[str, Any]] = None
-    categories: Optional[List[Category]] = None
+    categories: Optional[List[CategoryWithStackingRulesType]] = None
     __properties: ClassVar[List[str]] = ["status", "id", "object", "order", "applicable_to", "inapplicable_to", "result", "metadata", "categories"]
 
     @field_validator('status')
@@ -156,7 +156,7 @@ class ClientValidationsValidateResponseBodyRedeemablesItem(BaseModel):
             "inapplicable_to": InapplicableToResultList.from_dict(obj["inapplicable_to"]) if obj.get("inapplicable_to") is not None else None,
             "result": ClientValidationsValidateResponseBodyRedeemablesItemResult.from_dict(obj["result"]) if obj.get("result") is not None else None,
             "metadata": obj.get("metadata"),
-            "categories": [Category.from_dict(_item) for _item in obj["categories"]] if obj.get("categories") is not None else None
+            "categories": [CategoryWithStackingRulesType.from_dict(_item) for _item in obj["categories"]] if obj.get("categories") is not None else None
         })
         return _obj
 

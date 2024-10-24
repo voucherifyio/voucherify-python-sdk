@@ -31,7 +31,7 @@ class RedemptionsListResponseBodyRedemptionsItemVoucherRedemption(BaseModel):
     redeemed_quantity: Optional[StrictInt] = Field(default=None, description="How many times a voucher has already been redeemed.")
     redeemed_points: Optional[StrictInt] = Field(default=None, description="Total loyalty points redeemed.")
     object: Optional[StrictStr] = Field(default='list', description="The type of the object represented is by default `list`. To get this list, you need to make a call to the endpoint returned in the url attribute.")
-    url: Optional[StrictStr] = Field(default=None, description="The endpoint where this list of redemptions can be accessed using a GET method. `/v1/vouchers/{voucher_code}/redemptions`")
+    url: Optional[StrictStr] = Field(default=None, description="The endpoint where this list of redemptions can be accessed using a **GET** method. `/v1/vouchers/{voucher_code}/redemptions`")
     __properties: ClassVar[List[str]] = ["quantity", "redeemed_quantity", "redeemed_points", "object", "url"]
 
     model_config = ConfigDict(

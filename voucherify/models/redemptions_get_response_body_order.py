@@ -43,7 +43,7 @@ class RedemptionsGetResponseBodyOrder(BaseModel):
     applied_discount_amount: Optional[StrictInt] = Field(default=None, description="This field shows the order-level discount applied.")
     items_applied_discount_amount: Optional[StrictInt] = Field(default=None, description="Sum of all product-specific discounts applied in a particular request.   `sum(items, i => i.applied_discount_amount)`")
     total_applied_discount_amount: Optional[StrictInt] = Field(default=None, description="Sum of all order-level AND all product-specific discounts applied in a particular request.   `total_applied_discount_amount` = `applied_discount_amount` + `items_applied_discount_amount`")
-    items: Optional[List[OrderCalculatedItem]] = Field(default=None, description="Array of items applied to the order.")
+    items: Optional[List[OrderCalculatedItem]] = Field(default=None, description="Array of items applied to the order. It can include up 500 items.")
     metadata: Optional[Dict[str, Any]] = None
     object: Optional[StrictStr] = Field(default='order', description="The type of the object represented by JSON.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the order was created. The value is shown in the ISO 8601 format.")

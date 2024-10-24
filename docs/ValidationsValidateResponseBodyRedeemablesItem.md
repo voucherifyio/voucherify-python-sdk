@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **inapplicable_to** | [**InapplicableToResultList**](InapplicableToResultList.md) |  | [optional] 
 **result** | [**ValidationsValidateResponseBodyRedeemablesItemResult**](ValidationsValidateResponseBodyRedeemablesItemResult.md) |  | [optional] 
 **metadata** | **object** |  | [optional] 
-**categories** | [**List[Category]**](Category.md) |  | [optional] 
+**categories** | [**List[CategoryWithStackingRulesType]**](CategoryWithStackingRulesType.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

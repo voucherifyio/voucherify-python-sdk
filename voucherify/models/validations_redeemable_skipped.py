@@ -20,7 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from voucherify.models.category import Category
+from voucherify.models.category_with_stacking_rules_type import CategoryWithStackingRulesType
 from voucherify.models.validations_redeemable_skipped_result import ValidationsRedeemableSkippedResult
 from typing import Optional, Set
 from typing_extensions import Self
@@ -34,7 +34,7 @@ class ValidationsRedeemableSkipped(BaseModel):
     object: Optional[StrictStr] = Field(default=None, description="Redeemable's object type.")
     result: Optional[ValidationsRedeemableSkippedResult] = None
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes in the form of key/value pairs assigned to the redeemable.")
-    categories: Optional[List[Category]] = None
+    categories: Optional[List[CategoryWithStackingRulesType]] = None
     __properties: ClassVar[List[str]] = ["status", "id", "object", "result", "metadata", "categories"]
 
     @field_validator('status')
@@ -153,7 +153,7 @@ class ValidationsRedeemableSkipped(BaseModel):
             "object": obj.get("object"),
             "result": ValidationsRedeemableSkippedResult.from_dict(obj["result"]) if obj.get("result") is not None else None,
             "metadata": obj.get("metadata"),
-            "categories": [Category.from_dict(_item) for _item in obj["categories"]] if obj.get("categories") is not None else None
+            "categories": [CategoryWithStackingRulesType.from_dict(_item) for _item in obj["categories"]] if obj.get("categories") is not None else None
         })
         return _obj
 

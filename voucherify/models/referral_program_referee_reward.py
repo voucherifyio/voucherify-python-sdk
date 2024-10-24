@@ -39,8 +39,8 @@ class ReferralProgramRefereeReward(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['DISCOUNT_VOUCHER', 'LOYALTY_CARD', 'GIFT_VOUCHER', 'LUCKY_DRAW_CODE']):
-            raise ValueError("must be one of enum values ('DISCOUNT_VOUCHER', 'LOYALTY_CARD', 'GIFT_VOUCHER', 'LUCKY_DRAW_CODE')")
+        if value not in set(['LOYALTY_CARD', 'GIFT_VOUCHER']):
+            raise ValueError("must be one of enum values ('LOYALTY_CARD', 'GIFT_VOUCHER')")
         return value
 
     model_config = ConfigDict(

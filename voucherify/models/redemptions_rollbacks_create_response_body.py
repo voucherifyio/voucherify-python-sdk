@@ -27,7 +27,7 @@ from typing_extensions import Self
 
 class RedemptionsRollbacksCreateResponseBody(BaseModel):
     """
-    Response body schema for POST `/redemptions/{parentRedemptionID}/rollbacks`.
+    Response body schema for **POST** `/redemptions/{parentRedemptionID}/rollbacks`.
     """ # noqa: E501
     rollbacks: Optional[List[RedemptionRollback]] = Field(default=None, description="Contains the rollback redemption objects of the particular incentives.")
     parent_rollback: Optional[RedemptionRollback] = None
