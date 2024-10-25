@@ -23,11 +23,11 @@ Name | Type | Description | Notes
 **customer** | [**RedemptionsGetResponseBodyCustomer**](RedemptionsGetResponseBodyCustomer.md) |  | [optional] 
 **related_object_type** | **str** | Defines the related object. | [optional] 
 **related_object_id** | **str** |  | [optional] 
-**voucher** | [**RedemptionsGetResponseBodyVoucher**](RedemptionsGetResponseBodyVoucher.md) |  | [optional] 
 **promotion_tier** | [**RedemptionsGetResponseBodyPromotionTier**](RedemptionsGetResponseBodyPromotionTier.md) |  | [optional] 
 **reward** | [**RedemptionRewardResult**](RedemptionRewardResult.md) |  | [optional] 
 **gift** | [**RedemptionsGetResponseBodyGift**](RedemptionsGetResponseBodyGift.md) |  | [optional] 
 **loyalty_card** | [**RedemptionsGetResponseBodyLoyaltyCard**](RedemptionsGetResponseBodyLoyaltyCard.md) |  | [optional] 
+**voucher** | [**RedemptionsGetResponseBodyVoucher**](RedemptionsGetResponseBodyVoucher.md) |  | [optional] 
 **reason** | **str** | System generated cause for the redemption being invalid in the context of the provided parameters. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -245,7 +245,7 @@ configuration.api_key['X-App-Token'] = os.environ["API_KEY"]
 with voucherify.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = voucherify.CampaignsApi(api_client)
-    campaigns_create_request_body = {"name":"Discount Campaign 4","campaign_type":"DISCOUNT_COUPONS","join_once":true,"type":"AUTO_UPDATE","category_id":"cat_0bb343dee3cdb5ec0c","start_date":"2020-08-16T00:00:00Z","expiration_date":"2023-12-26T00:00:00Z","vouchers_count":3,"voucher":{"type":"DISCOUNT_VOUCHER","discount":{"percent_off":10,"type":"PERCENT"},"redemption":{"quantity":10},"code_config":{"pattern":"10OFF-#######"}},"validity_timeframe":{"interval":"P2D","duration":"P1D"},"validity_day_of_week":[0,1,2],"activity_duration_after_publishing":"P24D","use_voucher_metadata_schema":false,"metadata":{"region":"AMER"}} # CampaignsCreateRequestBody | Specify the details of the campaign that you would like to create. (optional)
+    campaigns_create_request_body = {"name":"Discount Campaign 4","campaign_type":"DISCOUNT_COUPONS","join_once":true,"type":"AUTO_UPDATE","start_date":"2020-08-16T00:00:00Z","expiration_date":"2023-12-26T00:00:00Z","vouchers_count":3,"voucher":{"type":"DISCOUNT_VOUCHER","discount":{"percent_off":10,"type":"PERCENT"},"redemption":{"quantity":10},"code_config":{"pattern":"10OFF-#######"}},"validity_timeframe":{"interval":"P2D","duration":"P1D"},"validity_day_of_week":[0,1,2],"activity_duration_after_publishing":"P24D","use_voucher_metadata_schema":false,"metadata":{"region":"AMER"}} # CampaignsCreateRequestBody | Specify the details of the campaign that you would like to create. (optional)
 
     try:
         # Create Campaign
@@ -677,7 +677,7 @@ with voucherify.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = voucherify.CampaignsApi(api_client)
     campaign_id = 'campaign_id_example' # str | The ID of an existing campaign to which youre importing the codes. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.
-    campaigns_import_voucher_item = [{"code":"CODE7","category":"First","redemption":{"quantity":1},"metadata":{"season":"Fall"},"additional_info":"secret-code1","active":true},{"code":"CODE8","category":"Second","redemption":{"quantity":18},"metadata":{"season":"Fall"},"additional_info":"secret-code1","active":true},{"code":"CODE9","category_id":"cat_0bb343dee3cdb5ec0c","redemption":{"quantity":4},"metadata":{"season":"Fall"},"additional_info":"secret-code1","active":true}] # List[CampaignsImportVoucherItem] | Discount type, expiration date and the remaining attributes will be taken from the Campaign settings. (optional)
+    campaigns_import_voucher_item = [{"code":"CODE7","category":"First","redemption":{"quantity":1},"metadata":{"season":"Fall"},"additional_info":"secret-code1","active":true},{"code":"CODE8","category":"Second","redemption":{"quantity":18},"metadata":{"season":"Fall"},"additional_info":"secret-code1","active":true},{"code":"CODE9","redemption":{"quantity":4},"metadata":{"season":"Fall"},"additional_info":"secret-code1","active":true}] # List[CampaignsImportVoucherItem] | Discount type, expiration date and the remaining attributes will be taken from the Campaign settings. (optional)
 
     try:
         # Import Vouchers to Campaign
@@ -808,7 +808,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_campaigns**
-> CampaignsListResponseBody list_campaigns(limit=limit, page=page, campaign_type=campaign_type, expand=expand, order=order)
+> CampaignsListResponseBody list_campaigns(limit=limit, page=page, campaign_type=campaign_type, expand=expand, order=order, filters=filters)
 
 List Campaigns
 
@@ -824,6 +824,7 @@ import voucherify
 from voucherify.models.campaigns_list_response_body import CampaignsListResponseBody
 from voucherify.models.parameter_campaign_type import ParameterCampaignType
 from voucherify.models.parameter_expand_list_campaigns import ParameterExpandListCampaigns
+from voucherify.models.parameter_filters_list_campaigns import ParameterFiltersListCampaigns
 from voucherify.models.parameter_order_list_campaigns import ParameterOrderListCampaigns
 from voucherify.rest import ApiException
 from pprint import pprint
@@ -860,10 +861,11 @@ with voucherify.ApiClient(configuration) as api_client:
     campaign_type = voucherify.ParameterCampaignType() # ParameterCampaignType | This attribute allows filtering by campaign type. (optional)
     expand = category # ParameterExpandListCampaigns | Include an expanded categories object in the response. (optional) (default to category)
     order = voucherify.ParameterOrderListCampaigns() # ParameterOrderListCampaigns | Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order. (optional)
+    filters = voucherify.ParameterFiltersListCampaigns() # ParameterFiltersListCampaigns | Filters the results by campaign status or whether the campaign is a referral campaign. (optional)
 
     try:
         # List Campaigns
-        api_response = api_instance.list_campaigns(limit=limit, page=page, campaign_type=campaign_type, expand=expand, order=order)
+        api_response = api_instance.list_campaigns(limit=limit, page=page, campaign_type=campaign_type, expand=expand, order=order, filters=filters)
         print("The response of CampaignsApi->list_campaigns:\n")
         pprint(api_response)
     except Exception as e:
@@ -882,6 +884,7 @@ Name | Type | Description  | Notes
  **campaign_type** | [**ParameterCampaignType**](.md)| This attribute allows filtering by campaign type. | [optional] 
  **expand** | [**ParameterExpandListCampaigns**](.md)| Include an expanded categories object in the response. | [optional] [default to category]
  **order** | [**ParameterOrderListCampaigns**](.md)| Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order. | [optional] 
+ **filters** | [**ParameterFiltersListCampaigns**](.md)| Filters the results by campaign status or whether the campaign is a referral campaign. | [optional] 
 
 ### Return type
 

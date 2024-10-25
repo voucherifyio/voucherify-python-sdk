@@ -825,6 +825,8 @@ class ExportsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'X-App-Id', 
+            'X-App-Token'
         ]
 
         return self.api_client.param_serialize(

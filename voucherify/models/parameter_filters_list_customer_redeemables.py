@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
+from voucherify.models.junction import Junction
 from voucherify.models.parameter_filters_list_customer_redeemables_campaign_id import ParameterFiltersListCustomerRedeemablesCampaignId
 from voucherify.models.parameter_filters_list_customer_redeemables_campaign_type import ParameterFiltersListCustomerRedeemablesCampaignType
 from voucherify.models.parameter_filters_list_customer_redeemables_created_at import ParameterFiltersListCustomerRedeemablesCreatedAt
@@ -43,7 +44,8 @@ class ParameterFiltersListCustomerRedeemables(BaseModel):
     campaign_id: Optional[ParameterFiltersListCustomerRedeemablesCampaignId] = None
     campaign_type: Optional[ParameterFiltersListCustomerRedeemablesCampaignType] = None
     voucher_type: Optional[ParameterFiltersListCustomerRedeemablesVoucherType] = None
-    __properties: ClassVar[List[str]] = ["id", "created_at", "redeemable_id", "redeemable_object", "holder_role", "campaign_id", "campaign_type", "voucher_type"]
+    junction: Optional[Junction] = None
+    __properties: ClassVar[List[str]] = ["id", "created_at", "redeemable_id", "redeemable_object", "holder_role", "campaign_id", "campaign_type", "voucher_type", "junction"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -167,7 +169,8 @@ class ParameterFiltersListCustomerRedeemables(BaseModel):
             "holder_role": ParameterFiltersListCustomerRedeemablesHolderRole.from_dict(obj["holder_role"]) if obj.get("holder_role") is not None else None,
             "campaign_id": ParameterFiltersListCustomerRedeemablesCampaignId.from_dict(obj["campaign_id"]) if obj.get("campaign_id") is not None else None,
             "campaign_type": ParameterFiltersListCustomerRedeemablesCampaignType.from_dict(obj["campaign_type"]) if obj.get("campaign_type") is not None else None,
-            "voucher_type": ParameterFiltersListCustomerRedeemablesVoucherType.from_dict(obj["voucher_type"]) if obj.get("voucher_type") is not None else None
+            "voucher_type": ParameterFiltersListCustomerRedeemablesVoucherType.from_dict(obj["voucher_type"]) if obj.get("voucher_type") is not None else None,
+            "junction": obj.get("junction")
         })
         return _obj
 

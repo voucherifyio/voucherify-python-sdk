@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,7 +28,7 @@ class RedemptionEntryChannel(BaseModel):
     RedemptionEntryChannel
     """ # noqa: E501
     channel_id: Optional[StrictStr] = None
-    channel_type: Optional[StrictStr] = Field(default=None, description="The source of the channel for the redemption. A `USER` corresponds to the Voucherify Dashboard and an `API` corresponds to the API.")
+    channel_type: Optional[StrictStr] = None
     __properties: ClassVar[List[str]] = ["channel_id", "channel_type"]
 
     @field_validator('channel_type')
@@ -37,8 +37,8 @@ class RedemptionEntryChannel(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['USER', 'API']):
-            raise ValueError("must be one of enum values ('USER', 'API')")
+        if value not in set(['USER', 'API', 'AUTO_REDEEM']):
+            raise ValueError("must be one of enum values ('USER', 'API', 'AUTO_REDEEM')")
         return value
 
     model_config = ConfigDict(

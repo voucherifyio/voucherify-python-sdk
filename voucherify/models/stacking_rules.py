@@ -26,7 +26,7 @@ from typing_extensions import Self
 
 class StackingRules(BaseModel):
     """
-    Defines stacking rules for redeemables. Read more in the [Help Center](https://support.voucherify.io/article/604-stacking-rules)
+    Defines stacking rules for redeemables. Read more in the [Stacking Rule Documentation](https://support.voucherify.io/article/604-stacking-rules).
     """ # noqa: E501
     redeemables_limit: Optional[Annotated[int, Field(le=30, strict=True, ge=1)]] = Field(default=30, description="Defines how many redeemables can be sent in one stacking request (note: more redeemables means more processing time!).")
     applicable_redeemables_limit: Optional[Annotated[int, Field(le=30, strict=True, ge=1)]] = Field(default=5, description="Defines how many of the sent redeemables will be applied to the order. For example, a user can select 30 discounts but only 5 will be applied to the order and the remaining will be labelled as SKIPPED.")

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **redeemed_points** | **int** | Total loyalty points redeemed. | [optional] 
 **redeemed_quantity** | **int** | How many times a voucher has already been redeemed. | [optional] 
 **object** | **str** | The type of the object represented is by default list. To get this list, you need to make a call to the endpoint returned in the url attribute. | [optional] [default to 'list']
-**url** | **str** | The endpoint where this list of redemptions can be accessed using a GET method. /v1/vouchers/{voucher_code}/redemptions | [optional] 
+**url** | **str** | The endpoint where this list of redemptions can be accessed using a **GET** method. /v1/vouchers/{voucher_code}/redemptions | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

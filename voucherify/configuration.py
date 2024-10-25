@@ -430,6 +430,24 @@ conf = voucherify.Configuration(
                     'X-Client-Application-Id',
                 ),
             }
+        if 'X-Management-Id' in self.api_key:
+            auth['X-Management-Id'] = {
+                'type': 'api_key',
+                'in': 'header',
+                'key': 'X-Management-Id',
+                'value': self.get_api_key_with_prefix(
+                    'X-Management-Id',
+                ),
+            }
+        if 'X-Management-Token' in self.api_key:
+            auth['X-Management-Token'] = {
+                'type': 'api_key',
+                'in': 'header',
+                'key': 'X-Management-Token',
+                'value': self.get_api_key_with_prefix(
+                    'X-Management-Token',
+                ),
+            }
         return auth
 
     def to_debug_report(self):
@@ -441,7 +459,7 @@ conf = voucherify.Configuration(
                "OS: {env}\n"\
                "Python Version: {pyversion}\n"\
                "Version of the API: v2018-08-01\n"\
-               "SDK Package Version: 3.0.0".\
+               "SDK Package Version: 4.0.0".\
                format(env=sys.platform, pyversion=sys.version)
 
     def get_host_settings(self):

@@ -55,12 +55,12 @@ class LoyaltiesMembersRedemptionRedeemResponseBody(BaseModel):
     customer: Optional[SimpleCustomer] = None
     related_object_type: Optional[StrictStr] = Field(default=None, description="Defines the related object.")
     related_object_id: Optional[StrictStr] = Field(default=None, description="Unique related object ID assigned by Voucherify, i.e. v_lfZi4rcEGe0sN9gmnj40bzwK2FH6QUno for a voucher.")
-    voucher: Optional[LoyaltiesMembersRedemptionRedeemResponseBodyVoucher] = None
     promotion_tier: Optional[PromotionTier] = None
     reward: Optional[RedemptionRewardResult] = None
     gift: Optional[LoyaltiesMembersRedemptionRedeemResponseBodyGift] = None
     loyalty_card: Optional[LoyaltiesMembersRedemptionRedeemResponseBodyLoyaltyCard] = None
-    __properties: ClassVar[List[str]] = ["id", "object", "date", "customer_id", "tracking_id", "metadata", "amount", "redemption", "result", "status", "related_redemptions", "failure_code", "failure_message", "order", "channel", "customer", "related_object_type", "related_object_id", "voucher", "promotion_tier", "reward", "gift", "loyalty_card"]
+    voucher: Optional[LoyaltiesMembersRedemptionRedeemResponseBodyVoucher] = None
+    __properties: ClassVar[List[str]] = ["id", "object", "date", "customer_id", "tracking_id", "metadata", "amount", "redemption", "result", "status", "related_redemptions", "failure_code", "failure_message", "order", "channel", "customer", "related_object_type", "related_object_id", "promotion_tier", "reward", "gift", "loyalty_card", "voucher"]
 
     @field_validator('object')
     def object_validate_enum(cls, value):
@@ -153,9 +153,6 @@ class LoyaltiesMembersRedemptionRedeemResponseBody(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of customer
         if self.customer:
             _dict['customer'] = self.customer.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of voucher
-        if self.voucher:
-            _dict['voucher'] = self.voucher.to_dict()
         # override the default output from pydantic by calling `to_dict()` of promotion_tier
         if self.promotion_tier:
             _dict['promotion_tier'] = self.promotion_tier.to_dict()
@@ -168,6 +165,9 @@ class LoyaltiesMembersRedemptionRedeemResponseBody(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of loyalty_card
         if self.loyalty_card:
             _dict['loyalty_card'] = self.loyalty_card.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of voucher
+        if self.voucher:
+            _dict['voucher'] = self.voucher.to_dict()
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -248,11 +248,6 @@ class LoyaltiesMembersRedemptionRedeemResponseBody(BaseModel):
         if self.related_object_id is None and "related_object_id" in self.model_fields_set:
             _dict['related_object_id'] = None
 
-        # set to None if voucher (nullable) is None
-        # and model_fields_set contains the field
-        if self.voucher is None and "voucher" in self.model_fields_set:
-            _dict['voucher'] = None
-
         # set to None if gift (nullable) is None
         # and model_fields_set contains the field
         if self.gift is None and "gift" in self.model_fields_set:
@@ -262,6 +257,11 @@ class LoyaltiesMembersRedemptionRedeemResponseBody(BaseModel):
         # and model_fields_set contains the field
         if self.loyalty_card is None and "loyalty_card" in self.model_fields_set:
             _dict['loyalty_card'] = None
+
+        # set to None if voucher (nullable) is None
+        # and model_fields_set contains the field
+        if self.voucher is None and "voucher" in self.model_fields_set:
+            _dict['voucher'] = None
 
         return _dict
 
@@ -293,11 +293,11 @@ class LoyaltiesMembersRedemptionRedeemResponseBody(BaseModel):
             "customer": SimpleCustomer.from_dict(obj["customer"]) if obj.get("customer") is not None else None,
             "related_object_type": obj.get("related_object_type"),
             "related_object_id": obj.get("related_object_id"),
-            "voucher": LoyaltiesMembersRedemptionRedeemResponseBodyVoucher.from_dict(obj["voucher"]) if obj.get("voucher") is not None else None,
             "promotion_tier": PromotionTier.from_dict(obj["promotion_tier"]) if obj.get("promotion_tier") is not None else None,
             "reward": RedemptionRewardResult.from_dict(obj["reward"]) if obj.get("reward") is not None else None,
             "gift": LoyaltiesMembersRedemptionRedeemResponseBodyGift.from_dict(obj["gift"]) if obj.get("gift") is not None else None,
-            "loyalty_card": LoyaltiesMembersRedemptionRedeemResponseBodyLoyaltyCard.from_dict(obj["loyalty_card"]) if obj.get("loyalty_card") is not None else None
+            "loyalty_card": LoyaltiesMembersRedemptionRedeemResponseBodyLoyaltyCard.from_dict(obj["loyalty_card"]) if obj.get("loyalty_card") is not None else None,
+            "voucher": LoyaltiesMembersRedemptionRedeemResponseBodyVoucher.from_dict(obj["voucher"]) if obj.get("voucher") is not None else None
         })
         return _obj
 

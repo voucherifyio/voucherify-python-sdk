@@ -31,7 +31,7 @@ from typing_extensions import Self
 
 class ClientValidationsValidateResponseBody(BaseModel):
     """
-    Response body schema for POST `/validations`.
+    Response body schema for **POST** `/validations`.
     """ # noqa: E501
     valid: Optional[StrictBool] = Field(default=None, description="The result of the validation. It takes all of the redeemables into account and returns a `false` if at least one redeemable is inapplicable. Returns `true` if all redeemables are applicable.")
     redeemables: Optional[List[ClientValidationsValidateResponseBodyRedeemablesItem]] = None

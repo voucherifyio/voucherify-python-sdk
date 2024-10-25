@@ -34,7 +34,6 @@ class PromotionsTiersCreateRequestBody(BaseModel):
     """ # noqa: E501
     name: Optional[StrictStr] = Field(default=None, description="Name of the promotion tier.")
     banner: Optional[StrictStr] = Field(default=None, description="Text to be displayed to your customers on your website.")
-    action: Optional[PromotionsTiersCreateRequestBodyAction] = None
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the promotion tier. A set of key/value pairs that you can attach to a promotion tier object. It can be useful for storing additional information about the promotion tier in a structured format.")
     hierarchy: Optional[StrictInt] = Field(default=None, description="The promotions hierarchy defines the order in which the discounts from different tiers will be applied to a customer's order. If a customer qualifies for discounts from more than one tier, discounts will be applied in the order defined in the hierarchy.")
     active: Optional[StrictBool] = Field(default=None, description="A flag to toggle the promotion tier on or off. You can disable a promotion tier even though it's within the active period defined by the `start_date` and `expiration_date`.    - `true` indicates an *active* promotion tier - `false` indicates an *inactive* promotion tier")
@@ -43,10 +42,11 @@ class PromotionsTiersCreateRequestBody(BaseModel):
     validity_timeframe: Optional[ValidityTimeframe] = None
     validity_day_of_week: Optional[List[StrictInt]] = Field(default=None, description="Integer array corresponding to the particular days of the week in which the voucher is valid.  - `0` Sunday - `1` Monday - `2` Tuesday - `3` Wednesday - `4` Thursday - `5` Friday - `6` Saturday")
     validity_hours: Optional[ValidityHours] = None
-    validation_rule_assignments: Optional[ValidationRuleAssignmentsList] = None
     category: Optional[StrictStr] = Field(default=None, description="Assign a new or update the promotion tier's category using name.")
     category_id: Optional[StrictStr] = Field(default=None, description="Assign a new or update the promotion tier's category using id")
-    __properties: ClassVar[List[str]] = ["name", "banner", "action", "metadata", "hierarchy", "active", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "validation_rule_assignments", "category", "category_id"]
+    action: Optional[PromotionsTiersCreateRequestBodyAction] = None
+    validation_rule_assignments: Optional[ValidationRuleAssignmentsList] = None
+    __properties: ClassVar[List[str]] = ["name", "banner", "metadata", "hierarchy", "active", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "category", "category_id", "action", "validation_rule_assignments"]
 
     @field_validator('validity_day_of_week')
     def validity_day_of_week_validate_enum(cls, value):
@@ -98,15 +98,15 @@ class PromotionsTiersCreateRequestBody(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of action
-        if self.action:
-            _dict['action'] = self.action.to_dict()
         # override the default output from pydantic by calling `to_dict()` of validity_timeframe
         if self.validity_timeframe:
             _dict['validity_timeframe'] = self.validity_timeframe.to_dict()
         # override the default output from pydantic by calling `to_dict()` of validity_hours
         if self.validity_hours:
             _dict['validity_hours'] = self.validity_hours.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of action
+        if self.action:
+            _dict['action'] = self.action.to_dict()
         # override the default output from pydantic by calling `to_dict()` of validation_rule_assignments
         if self.validation_rule_assignments:
             _dict['validation_rule_assignments'] = self.validation_rule_assignments.to_dict()
@@ -119,11 +119,6 @@ class PromotionsTiersCreateRequestBody(BaseModel):
         # and model_fields_set contains the field
         if self.banner is None and "banner" in self.model_fields_set:
             _dict['banner'] = None
-
-        # set to None if action (nullable) is None
-        # and model_fields_set contains the field
-        if self.action is None and "action" in self.model_fields_set:
-            _dict['action'] = None
 
         # set to None if metadata (nullable) is None
         # and model_fields_set contains the field
@@ -160,6 +155,11 @@ class PromotionsTiersCreateRequestBody(BaseModel):
         if self.category_id is None and "category_id" in self.model_fields_set:
             _dict['category_id'] = None
 
+        # set to None if action (nullable) is None
+        # and model_fields_set contains the field
+        if self.action is None and "action" in self.model_fields_set:
+            _dict['action'] = None
+
         return _dict
 
     @classmethod
@@ -174,7 +174,6 @@ class PromotionsTiersCreateRequestBody(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "banner": obj.get("banner"),
-            "action": PromotionsTiersCreateRequestBodyAction.from_dict(obj["action"]) if obj.get("action") is not None else None,
             "metadata": obj.get("metadata"),
             "hierarchy": obj.get("hierarchy"),
             "active": obj.get("active"),
@@ -183,9 +182,10 @@ class PromotionsTiersCreateRequestBody(BaseModel):
             "validity_timeframe": ValidityTimeframe.from_dict(obj["validity_timeframe"]) if obj.get("validity_timeframe") is not None else None,
             "validity_day_of_week": obj.get("validity_day_of_week"),
             "validity_hours": ValidityHours.from_dict(obj["validity_hours"]) if obj.get("validity_hours") is not None else None,
-            "validation_rule_assignments": ValidationRuleAssignmentsList.from_dict(obj["validation_rule_assignments"]) if obj.get("validation_rule_assignments") is not None else None,
             "category": obj.get("category"),
-            "category_id": obj.get("category_id")
+            "category_id": obj.get("category_id"),
+            "action": PromotionsTiersCreateRequestBodyAction.from_dict(obj["action"]) if obj.get("action") is not None else None,
+            "validation_rule_assignments": ValidationRuleAssignmentsList.from_dict(obj["validation_rule_assignments"]) if obj.get("validation_rule_assignments") is not None else None
         })
         return _obj
 

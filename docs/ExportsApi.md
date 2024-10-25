@@ -190,6 +190,8 @@ Download the contents of the exported CSV file.   📘 Important notes  **Base U
 
 ### Example
 
+* Api Key Authentication (X-App-Id):
+* Api Key Authentication (X-App-Token):
 
 ```python
 import voucherify
@@ -202,6 +204,22 @@ configuration = voucherify.Configuration(
     host = "https://api.voucherify.io"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: X-App-Id
+configuration.api_key['X-App-Id'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['X-App-Id'] = 'Bearer'
+
+# Configure API key authorization: X-App-Token
+configuration.api_key['X-App-Token'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['X-App-Token'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with voucherify.ApiClient(configuration) as api_client:
@@ -235,7 +253,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[X-App-Id](../README.md#X-App-Id), [X-App-Token](../README.md#X-App-Token)
 
 ### HTTP request headers
 
