@@ -20,7 +20,6 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from voucherify.models.export_parameters_filters import ExportParametersFilters
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,7 +29,7 @@ class ExportParameters(BaseModel):
     """ # noqa: E501
     order: Optional[StrictStr] = None
     fields: Optional[List[StrictStr]] = Field(default=None, description="Array of strings containing the data in the export. These fields define the headers in the CSV file.")
-    filters: Optional[ExportParametersFilters] = None
+    filters: Optional[Dict[str, Any]] = Field(default=None, description="Allowed additional properties must start with \"metadata.\" or \"redemption.\" and Allowed additional properties must start with \"metadata.\" and Allowed additional properties must start with \"metadata.\" or \"address.\" or \"summary.\" or \"loyalty.\" or \"loyalty_tier.\" or \"loyalty_points.\" or \"system_metadata.\"")
     __properties: ClassVar[List[str]] = ["order", "fields", "filters"]
 
     @field_validator('order')
@@ -39,8 +38,8 @@ class ExportParameters(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['-created_at', 'created_at', '-updated_at', 'updated_at', '-code', 'code', '-id', 'id', '-voucher_code', 'voucher_code', '-tracking_id', 'tracking_id', '-customer_id', 'customer_id']):
-            raise ValueError("must be one of enum values ('-created_at', 'created_at', '-updated_at', 'updated_at', '-code', 'code', '-id', 'id', '-voucher_code', 'voucher_code', '-tracking_id', 'tracking_id', '-customer_id', 'customer_id')")
+        if value not in set(['-created_at', 'created_at', '-updated_at', 'updated_at', '-code', 'code', '-id', 'id', '-voucher_code', 'voucher_code', '-tracking_id', 'tracking_id', '-customer_id', 'customer_id', '-name', 'name', '-email', 'email', '-source_id', 'source_id', '-channel', 'channel', '-status', 'status', '-expires_at', 'expires_at']):
+            raise ValueError("must be one of enum values ('-created_at', 'created_at', '-updated_at', 'updated_at', '-code', 'code', '-id', 'id', '-voucher_code', 'voucher_code', '-tracking_id', 'tracking_id', '-customer_id', 'customer_id', '-name', 'name', '-email', 'email', '-source_id', 'source_id', '-channel', 'channel', '-status', 'status', '-expires_at', 'expires_at')")
         return value
 
     @field_validator('fields')
@@ -93,9 +92,6 @@ class ExportParameters(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of filters
-        if self.filters:
-            _dict['filters'] = self.filters.to_dict()
         # set to None if order (nullable) is None
         # and model_fields_set contains the field
         if self.order is None and "order" in self.model_fields_set:
@@ -125,7 +121,7 @@ class ExportParameters(BaseModel):
         _obj = cls.model_validate({
             "order": obj.get("order"),
             "fields": obj.get("fields"),
-            "filters": ExportParametersFilters.from_dict(obj["filters"]) if obj.get("filters") is not None else None
+            "filters": obj.get("filters")
         })
         return _obj
 

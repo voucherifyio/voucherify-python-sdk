@@ -21,19 +21,21 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from voucherify.models.code_config import CodeConfig
 from voucherify.models.discount import Discount
 from voucherify.models.gift import Gift
 from voucherify.models.simple_loyalty_card import SimpleLoyaltyCard
 from voucherify.models.validity_hours import ValidityHours
 from voucherify.models.validity_timeframe import ValidityTimeframe
-from voucherify.models.vouchers_create_with_specific_code_request_body_redemption import VouchersCreateWithSpecificCodeRequestBodyRedemption
+from voucherify.models.vouchers_create_request_body_redemption import VouchersCreateRequestBodyRedemption
 from typing import Optional, Set
 from typing_extensions import Self
 
-class VouchersCreateWithSpecificCodeRequestBody(BaseModel):
+class VouchersCreateRequestBody(BaseModel):
     """
-    VouchersCreateWithSpecificCodeRequestBody
+    VouchersCreateRequestBody
     """ # noqa: E501
+    code: Optional[StrictStr] = Field(default=None, description="Code that identifies a voucher. The pattern can use all the letters of the English alphabet, Arabic numerals, and special characters. Pass this attribute in the request body to create a distinct code. Otherwise, either use the `code_config` object to set the rules that the Voucherify API will use to create a random code, or don't pass any code and Voucherify will generate a random code.")
     campaign: Optional[StrictStr] = Field(default=None, description="Identifies the voucher's parent campaign using a unique campaign name.")
     campaign_id: Optional[StrictStr] = Field(default=None, description="Identifies the voucher's parent campaign using a unique campaign ID assigned by the Voucherify API.")
     category: Optional[StrictStr] = Field(default=None, description="The name of the category that this voucher belongs to. Useful when listing vouchers with the [List Vouchers](ref:list-vouchers) endpoint.")
@@ -47,12 +49,13 @@ class VouchersCreateWithSpecificCodeRequestBody(BaseModel):
     additional_info: Optional[StrictStr] = Field(default=None, description="An optional field to keep any extra textual information about the code such as a code description and details.")
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the code. A set of key/value pairs that you can attach to a voucher object. It can be useful for storing additional information about the voucher in a structured format.")
     validation_rules: Optional[List[StrictStr]] = Field(default=None, description="Array containing the ID of the validation rule associated with the voucher.")
-    redemption: Optional[VouchersCreateWithSpecificCodeRequestBodyRedemption] = None
+    redemption: Optional[VouchersCreateRequestBodyRedemption] = None
     type: Optional[StrictStr] = None
     loyalty_card: Optional[SimpleLoyaltyCard] = None
+    code_config: Optional[CodeConfig] = None
     gift: Optional[Gift] = None
     discount: Optional[Discount] = None
-    __properties: ClassVar[List[str]] = ["campaign", "campaign_id", "category", "category_id", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "active", "additional_info", "metadata", "validation_rules", "redemption", "type", "loyalty_card", "gift", "discount"]
+    __properties: ClassVar[List[str]] = ["code", "campaign", "campaign_id", "category", "category_id", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "active", "additional_info", "metadata", "validation_rules", "redemption", "type", "loyalty_card", "code_config", "gift", "discount"]
 
     @field_validator('validity_day_of_week')
     def validity_day_of_week_validate_enum(cls, value):
@@ -93,7 +96,7 @@ class VouchersCreateWithSpecificCodeRequestBody(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of VouchersCreateWithSpecificCodeRequestBody from a JSON string"""
+        """Create an instance of VouchersCreateRequestBody from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -126,12 +129,20 @@ class VouchersCreateWithSpecificCodeRequestBody(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of loyalty_card
         if self.loyalty_card:
             _dict['loyalty_card'] = self.loyalty_card.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of code_config
+        if self.code_config:
+            _dict['code_config'] = self.code_config.to_dict()
         # override the default output from pydantic by calling `to_dict()` of gift
         if self.gift:
             _dict['gift'] = self.gift.to_dict()
         # override the default output from pydantic by calling `to_dict()` of discount
         if self.discount:
             _dict['discount'] = self.discount.to_dict()
+        # set to None if code (nullable) is None
+        # and model_fields_set contains the field
+        if self.code is None and "code" in self.model_fields_set:
+            _dict['code'] = None
+
         # set to None if campaign (nullable) is None
         # and model_fields_set contains the field
         if self.campaign is None and "campaign" in self.model_fields_set:
@@ -196,7 +207,7 @@ class VouchersCreateWithSpecificCodeRequestBody(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of VouchersCreateWithSpecificCodeRequestBody from a dict"""
+        """Create an instance of VouchersCreateRequestBody from a dict"""
         if obj is None:
             return None
 
@@ -204,6 +215,7 @@ class VouchersCreateWithSpecificCodeRequestBody(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "code": obj.get("code"),
             "campaign": obj.get("campaign"),
             "campaign_id": obj.get("campaign_id"),
             "category": obj.get("category"),
@@ -217,9 +229,10 @@ class VouchersCreateWithSpecificCodeRequestBody(BaseModel):
             "additional_info": obj.get("additional_info"),
             "metadata": obj.get("metadata"),
             "validation_rules": obj.get("validation_rules"),
-            "redemption": VouchersCreateWithSpecificCodeRequestBodyRedemption.from_dict(obj["redemption"]) if obj.get("redemption") is not None else None,
+            "redemption": VouchersCreateRequestBodyRedemption.from_dict(obj["redemption"]) if obj.get("redemption") is not None else None,
             "type": obj.get("type"),
             "loyalty_card": SimpleLoyaltyCard.from_dict(obj["loyalty_card"]) if obj.get("loyalty_card") is not None else None,
+            "code_config": CodeConfig.from_dict(obj["code_config"]) if obj.get("code_config") is not None else None,
             "gift": Gift.from_dict(obj["gift"]) if obj.get("gift") is not None else None,
             "discount": Discount.from_dict(obj["discount"]) if obj.get("discount") is not None else None
         })

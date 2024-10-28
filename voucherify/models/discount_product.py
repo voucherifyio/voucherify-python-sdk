@@ -18,32 +18,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class RedemptionsListResponseBodyRedemptionsItemCustomer(BaseModel):
+class DiscountProduct(BaseModel):
     """
-    RedemptionsListResponseBodyRedemptionsItemCustomer
+    DiscountProduct
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, description="Unique identifier of an existing customer. It is assigned by Voucherify.")
-    name: Optional[StrictStr] = Field(default=None, description="Customer's first and last name.")
-    email: Optional[StrictStr] = Field(default=None, description="Customer's email address.")
-    source_id: Optional[StrictStr] = Field(default=None, description="A unique identifier of the customer. It can be a customer ID or email from a CRM system, database, or a third-party service.")
-    metadata: Optional[Dict[str, Any]] = Field(default=None, description="A set of custom key/value pairs that are attached to the customer. It stores all custom attributes assigned to the customer.")
-    object: Optional[StrictStr] = Field(default='customer', description="The type of the object represented by JSON.")
-    __properties: ClassVar[List[str]] = ["id", "name", "email", "source_id", "metadata", "object"]
-
-    @field_validator('object')
-    def object_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['customer']):
-            raise ValueError("must be one of enum values ('customer')")
-        return value
+    id: Optional[StrictStr] = Field(default=None, description="Unique product ID, assigned by Voucherify.")
+    source_id: Optional[StrictStr] = Field(default=None, description="Product's source ID.")
+    name: Optional[StrictStr] = Field(default=None, description="Product name.")
+    __properties: ClassVar[List[str]] = ["id", "source_id", "name"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -63,7 +50,7 @@ class RedemptionsListResponseBodyRedemptionsItemCustomer(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of RedemptionsListResponseBodyRedemptionsItemCustomer from a JSON string"""
+        """Create an instance of DiscountProduct from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -89,36 +76,21 @@ class RedemptionsListResponseBodyRedemptionsItemCustomer(BaseModel):
         if self.id is None and "id" in self.model_fields_set:
             _dict['id'] = None
 
-        # set to None if name (nullable) is None
-        # and model_fields_set contains the field
-        if self.name is None and "name" in self.model_fields_set:
-            _dict['name'] = None
-
-        # set to None if email (nullable) is None
-        # and model_fields_set contains the field
-        if self.email is None and "email" in self.model_fields_set:
-            _dict['email'] = None
-
         # set to None if source_id (nullable) is None
         # and model_fields_set contains the field
         if self.source_id is None and "source_id" in self.model_fields_set:
             _dict['source_id'] = None
 
-        # set to None if metadata (nullable) is None
+        # set to None if name (nullable) is None
         # and model_fields_set contains the field
-        if self.metadata is None and "metadata" in self.model_fields_set:
-            _dict['metadata'] = None
-
-        # set to None if object (nullable) is None
-        # and model_fields_set contains the field
-        if self.object is None and "object" in self.model_fields_set:
-            _dict['object'] = None
+        if self.name is None and "name" in self.model_fields_set:
+            _dict['name'] = None
 
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of RedemptionsListResponseBodyRedemptionsItemCustomer from a dict"""
+        """Create an instance of DiscountProduct from a dict"""
         if obj is None:
             return None
 
@@ -127,11 +99,8 @@ class RedemptionsListResponseBodyRedemptionsItemCustomer(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
-            "name": obj.get("name"),
-            "email": obj.get("email"),
             "source_id": obj.get("source_id"),
-            "metadata": obj.get("metadata"),
-            "object": obj.get("object") if obj.get("object") is not None else 'customer'
+            "name": obj.get("name")
         })
         return _obj
 

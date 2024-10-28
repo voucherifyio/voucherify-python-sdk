@@ -42,7 +42,7 @@ class RedemptionsListResponseBodyRedemptionsItem(BaseModel):
     var_date: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the object was created. The value is shown in the ISO 8601 format.", alias="date")
     customer_id: Optional[StrictStr] = Field(default=None, description="Unique customer ID of the redeeming customer.")
     tracking_id: Optional[StrictStr] = Field(default=None, description="Hashed customer source ID.")
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the redemption.")
     amount: Optional[StrictInt] = Field(default=None, description="For gift cards, this is a positive integer in the smallest currency unit (e.g. 100 cents for $1.00) representing the number of redeemed credits. For loyalty cards, this is the number of loyalty points used in the transaction. and For gift cards, this represents the number of the credits restored to the card in the rolledback redemption. The number is a negative integer in the smallest currency unit, e.g. -100 cents for $1.00 added back to the card. For loyalty cards, this represents the number of loyalty points restored to the card in the rolledback redemption. The number is a negative integer.")
     redemption: Optional[StrictStr] = Field(default=None, description="Unique redemption ID of the parent redemption.")
     result: Optional[StrictStr] = Field(default=None, description="Redemption result.")
@@ -183,6 +183,11 @@ class RedemptionsListResponseBodyRedemptionsItem(BaseModel):
         # and model_fields_set contains the field
         if self.tracking_id is None and "tracking_id" in self.model_fields_set:
             _dict['tracking_id'] = None
+
+        # set to None if metadata (nullable) is None
+        # and model_fields_set contains the field
+        if self.metadata is None and "metadata" in self.model_fields_set:
+            _dict['metadata'] = None
 
         # set to None if redemption (nullable) is None
         # and model_fields_set contains the field

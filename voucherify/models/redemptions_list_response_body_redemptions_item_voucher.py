@@ -56,7 +56,7 @@ class RedemptionsListResponseBodyRedemptionsItemVoucher(BaseModel):
     validity_hours: Optional[ValidityHours] = None
     active: Optional[StrictBool] = Field(default=None, description="A flag to toggle the voucher on or off. You can disable a voucher even though it's within the active period defined by the `start_date` and `expiration_date`.    - `true` indicates an *active* voucher - `false` indicates an *inactive* voucher")
     additional_info: Optional[StrictStr] = Field(default=None, description="An optional field to keep any extra textual information about the code such as a code description and details.")
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the code. A set of key/value pairs that you can attach to a voucher object. It can be useful for storing additional information about the voucher in a structured format.")
     assets: Optional[VoucherAssets] = None
     is_referral_code: Optional[StrictBool] = Field(default=None, description="Flag indicating whether this voucher is a referral code; `true` for campaign type `REFERRAL_PROGRAM`.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the voucher was created. The value is shown in the ISO 8601 format.")
@@ -222,6 +222,11 @@ class RedemptionsListResponseBodyRedemptionsItemVoucher(BaseModel):
         # and model_fields_set contains the field
         if self.additional_info is None and "additional_info" in self.model_fields_set:
             _dict['additional_info'] = None
+
+        # set to None if metadata (nullable) is None
+        # and model_fields_set contains the field
+        if self.metadata is None and "metadata" in self.model_fields_set:
+            _dict['metadata'] = None
 
         # set to None if is_referral_code (nullable) is None
         # and model_fields_set contains the field

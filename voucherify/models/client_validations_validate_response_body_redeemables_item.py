@@ -39,7 +39,7 @@ class ClientValidationsValidateResponseBodyRedeemablesItem(BaseModel):
     applicable_to: Optional[ApplicableToResultList] = None
     inapplicable_to: Optional[InapplicableToResultList] = None
     result: Optional[ClientValidationsValidateResponseBodyRedeemablesItemResult] = None
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes in the form of key/value pairs assigned to the redeemable.")
     categories: Optional[List[CategoryWithStackingRulesType]] = None
     __properties: ClassVar[List[str]] = ["status", "id", "object", "order", "applicable_to", "inapplicable_to", "result", "metadata", "categories"]
 
@@ -130,6 +130,11 @@ class ClientValidationsValidateResponseBodyRedeemablesItem(BaseModel):
         # and model_fields_set contains the field
         if self.object is None and "object" in self.model_fields_set:
             _dict['object'] = None
+
+        # set to None if metadata (nullable) is None
+        # and model_fields_set contains the field
+        if self.metadata is None and "metadata" in self.model_fields_set:
+            _dict['metadata'] = None
 
         # set to None if categories (nullable) is None
         # and model_fields_set contains the field

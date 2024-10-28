@@ -31,7 +31,7 @@ class RewardsUpdateRequestBody(BaseModel):
     """ # noqa: E501
     name: Optional[StrictStr] = Field(default=None, description="Reward name.")
     parameters: Optional[RewardsUpdateRequestBodyParameters] = None
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the reward. A set of key/value pairs that you can attach to a reward object. It can be useful for storing additional information about the reward in a structured format.")
     stock: Optional[StrictInt] = Field(default=None, description="The number of units of the product that you want to share as a reward.")
     attributes: Optional[RewardsUpdateRequestBodyAttributes] = None
     __properties: ClassVar[List[str]] = ["name", "parameters", "metadata", "stock", "attributes"]

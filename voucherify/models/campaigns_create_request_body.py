@@ -49,7 +49,7 @@ class CampaignsCreateRequestBody(BaseModel):
     activity_duration_after_publishing: Optional[StrictStr] = Field(default=None, description="Defines the amount of time the vouchers will be active after publishing. The value is shown in the ISO 8601 format. For example, a voucher with the value of P24D will be valid for a duration of 24 days.")
     category_id: Optional[StrictStr] = Field(default=None, description="Unique category ID that this campaign belongs to. Either pass this parameter OR the `category`.")
     category: Optional[StrictStr] = Field(default=None, description="The category assigned to the campaign. Either pass this parameter OR the `category_id`.")
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the campaign. A set of key/value pairs that you can attach to a campaign object. It can be useful for storing additional information about the campaign in a structured format.")
     validation_rules: Optional[Annotated[List[StrictStr], Field(max_length=1)]] = Field(default=None, description="Array containing the ID of the validation rule associated with the promotion tier.")
     campaign_type: Optional[StrictStr] = None
     voucher: Optional[CampaignsCreateRequestBodyVoucher] = None

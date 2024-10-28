@@ -42,7 +42,7 @@ class VouchersUpdateRequestBody(BaseModel):
     validity_hours: Optional[ValidityHours] = None
     active: Optional[StrictBool] = Field(default=None, description="A flag to toggle the voucher on or off. You can disable a voucher even though it's within the active period defined by the `start_date` and `expiration_date`.    - `true` indicates an *active* voucher - `false` indicates an *inactive* voucher")
     additional_info: Optional[StrictStr] = Field(default=None, description="An optional field to keep any extra textual information about the code such as a code description and details.")
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the code. A set of key/value pairs that you can attach to a voucher object. It can be useful for storing additional information about the voucher in a structured format.")
     type: Optional[StrictStr] = None
     loyalty_card: Optional[SimpleLoyaltyCard] = None
     gift: Optional[Gift] = None

@@ -31,7 +31,7 @@ class RedemptionEntryCustomer(BaseModel):
     name: Optional[StrictStr] = Field(default=None, description="Customer's first and last name.")
     email: Optional[StrictStr] = Field(default=None, description="Customer's email address.")
     source_id: Optional[StrictStr] = Field(default=None, description="A unique identifier of the customer. It can be a customer ID or email from a CRM system, database, or a third-party service.")
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="A set of custom key/value pairs that are attached to the customer. It stores all custom attributes assigned to the customer.")
     object: Optional[StrictStr] = Field(default='customer', description="The type of the object represented by JSON.")
     __properties: ClassVar[List[str]] = ["id", "name", "email", "source_id", "metadata", "object"]
 

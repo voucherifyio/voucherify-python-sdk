@@ -18,18 +18,17 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class ClientValidationsValidateResponseBodyRedeemablesItemResultDetails(BaseModel):
+class VouchersCreateRequestBodyRedemption(BaseModel):
     """
-    ClientValidationsValidateResponseBodyRedeemablesItemResultDetails
+    VouchersCreateRequestBodyRedemption
     """ # noqa: E501
-    message: Optional[StrictStr] = None
-    key: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["message", "key"]
+    quantity: Optional[StrictInt] = Field(default=None, description="How many times a voucher can be redeemed. A `null` value means unlimited.")
+    __properties: ClassVar[List[str]] = ["quantity"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -49,7 +48,7 @@ class ClientValidationsValidateResponseBodyRedeemablesItemResultDetails(BaseMode
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of ClientValidationsValidateResponseBodyRedeemablesItemResultDetails from a JSON string"""
+        """Create an instance of VouchersCreateRequestBodyRedemption from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -70,11 +69,16 @@ class ClientValidationsValidateResponseBodyRedeemablesItemResultDetails(BaseMode
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if quantity (nullable) is None
+        # and model_fields_set contains the field
+        if self.quantity is None and "quantity" in self.model_fields_set:
+            _dict['quantity'] = None
+
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ClientValidationsValidateResponseBodyRedeemablesItemResultDetails from a dict"""
+        """Create an instance of VouchersCreateRequestBodyRedemption from a dict"""
         if obj is None:
             return None
 
@@ -82,8 +86,7 @@ class ClientValidationsValidateResponseBodyRedeemablesItemResultDetails(BaseMode
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "message": obj.get("message"),
-            "key": obj.get("key")
+            "quantity": obj.get("quantity")
         })
         return _obj
 

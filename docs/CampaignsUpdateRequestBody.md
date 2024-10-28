@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **validity_hours** | [**ValidityHours**](ValidityHours.md) |  | [optional] 
 **description** | **str** | An optional field to keep any extra textual information about the campaign such as a campaign description and details. | [optional] 
 **category** | **str** | The category assigned to the campaign. Either pass this parameter OR the &#x60;category_id&#x60;. | [optional] 
-**metadata** | **object** |  | [optional] 
+**metadata** | **object** | The metadata object stores all custom attributes assigned to the campaign. A set of key/value pairs that you can attach to a campaign object. It can be useful for storing additional information about the campaign in a structured format. | [optional] 
 **unset_metadata_fields** | **List[str]** | Determine which metadata should be removed from campaign. | [optional] 
 **category_id** | **str** | Unique category ID that this campaign belongs to. Either pass this parameter OR the &#x60;category&#x60;. | [optional] 
 **activity_duration_after_publishing** | **str** | Defines the amount of time the vouchers will be active after publishing. The value is shown in the ISO 8601 format. For example, a voucher with the value of P24D will be valid for a duration of 24 days. | [optional] 

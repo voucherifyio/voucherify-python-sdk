@@ -20,8 +20,8 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from voucherify.models.discount_product import DiscountProduct
 from voucherify.models.discount_unit_multiple_one_unit import DiscountUnitMultipleOneUnit
-from voucherify.models.simple_product_discount_unit import SimpleProductDiscountUnit
 from voucherify.models.simple_sku_discount_unit import SimpleSkuDiscountUnit
 from typing import Optional, Set
 from typing_extensions import Self
@@ -39,7 +39,7 @@ class Discount(BaseModel):
     unit_off: Optional[StrictInt] = Field(default=None, description="Number of units to be granted a full value discount.")
     unit_off_formula: Optional[StrictStr] = None
     unit_type: Optional[StrictStr] = Field(default=None, description="The product deemed as free, chosen from product inventory (e.g. time, items).")
-    product: Optional[SimpleProductDiscountUnit] = None
+    product: Optional[DiscountProduct] = None
     sku: Optional[SimpleSkuDiscountUnit] = None
     units: Optional[List[DiscountUnitMultipleOneUnit]] = None
     percent_off: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The percent discount that the customer will receive.")
@@ -166,6 +166,11 @@ class Discount(BaseModel):
         if self.unit_type is None and "unit_type" in self.model_fields_set:
             _dict['unit_type'] = None
 
+        # set to None if product (nullable) is None
+        # and model_fields_set contains the field
+        if self.product is None and "product" in self.model_fields_set:
+            _dict['product'] = None
+
         # set to None if units (nullable) is None
         # and model_fields_set contains the field
         if self.units is None and "units" in self.model_fields_set:
@@ -217,7 +222,7 @@ class Discount(BaseModel):
             "unit_off": obj.get("unit_off"),
             "unit_off_formula": obj.get("unit_off_formula"),
             "unit_type": obj.get("unit_type"),
-            "product": SimpleProductDiscountUnit.from_dict(obj["product"]) if obj.get("product") is not None else None,
+            "product": DiscountProduct.from_dict(obj["product"]) if obj.get("product") is not None else None,
             "sku": SimpleSkuDiscountUnit.from_dict(obj["sku"]) if obj.get("sku") is not None else None,
             "units": [DiscountUnitMultipleOneUnit.from_dict(_item) for _item in obj["units"]] if obj.get("units") is not None else None,
             "percent_off": obj.get("percent_off"),
