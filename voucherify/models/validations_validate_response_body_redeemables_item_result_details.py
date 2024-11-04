@@ -27,9 +27,9 @@ class ValidationsValidateResponseBodyRedeemablesItemResultDetails(BaseModel):
     """
     ValidationsValidateResponseBodyRedeemablesItemResultDetails
     """ # noqa: E501
-    key: Optional[StrictStr] = None
     message: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["key", "message"]
+    key: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["message", "key"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -82,8 +82,8 @@ class ValidationsValidateResponseBodyRedeemablesItemResultDetails(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "key": obj.get("key"),
-            "message": obj.get("message")
+            "message": obj.get("message"),
+            "key": obj.get("key")
         })
         return _obj
 

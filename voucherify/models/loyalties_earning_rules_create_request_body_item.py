@@ -45,7 +45,7 @@ class LoyaltiesEarningRulesCreateRequestBodyItem(BaseModel):
     validity_timeframe: Optional[ValidityTimeframe] = None
     validity_day_of_week: Optional[List[StrictInt]] = Field(default=None, description="Integer array corresponding to the particular days of the week in which the voucher is valid.  - `0` Sunday - `1` Monday - `2` Tuesday - `3` Wednesday - `4` Thursday - `5` Friday - `6` Saturday")
     validity_hours: Optional[ValidityHours] = None
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the earning rule. A set of key/value pairs that you can attach to an earning rule object. It can be useful for storing additional information about the earning rule in a structured format.")
     segment: Optional[LoyaltiesEarningRulesCreateRequestBodyItemSegment] = None
     custom_event: Optional[LoyaltiesEarningRulesCreateRequestBodyItemCustomEvent] = None
     loyalty_tier: Optional[LoyaltiesEarningRulesCreateRequestBodyItemLoyaltyTier] = None
@@ -141,6 +141,11 @@ class LoyaltiesEarningRulesCreateRequestBodyItem(BaseModel):
         # and model_fields_set contains the field
         if self.expiration_date is None and "expiration_date" in self.model_fields_set:
             _dict['expiration_date'] = None
+
+        # set to None if metadata (nullable) is None
+        # and model_fields_set contains the field
+        if self.metadata is None and "metadata" in self.model_fields_set:
+            _dict['metadata'] = None
 
         # set to None if segment (nullable) is None
         # and model_fields_set contains the field

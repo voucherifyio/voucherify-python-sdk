@@ -44,7 +44,7 @@ class RedemptionsListResponseBodyRedemptionsItemOrder(BaseModel):
     items_applied_discount_amount: Optional[StrictInt] = Field(default=None, description="Sum of all product-specific discounts applied in a particular request.   `sum(items, i => i.applied_discount_amount)`")
     total_applied_discount_amount: Optional[StrictInt] = Field(default=None, description="Sum of all order-level AND all product-specific discounts applied in a particular request.   `total_applied_discount_amount` = `applied_discount_amount` + `items_applied_discount_amount`")
     items: Optional[List[OrderCalculatedItem]] = Field(default=None, description="Array of items applied to the order. It can include up 500 items.")
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="A set of custom key/value pairs that you can attach to an order. It can be useful for storing additional information about the order in a structured format.")
     object: Optional[StrictStr] = Field(default='order', description="The type of the object represented by JSON.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the order was created. The value is shown in the ISO 8601 format.")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the order was last updated in ISO 8601 format.")
@@ -192,6 +192,11 @@ class RedemptionsListResponseBodyRedemptionsItemOrder(BaseModel):
         if self.items is None and "items" in self.model_fields_set:
             _dict['items'] = None
 
+        # set to None if metadata (nullable) is None
+        # and model_fields_set contains the field
+        if self.metadata is None and "metadata" in self.model_fields_set:
+            _dict['metadata'] = None
+
         # set to None if object (nullable) is None
         # and model_fields_set contains the field
         if self.object is None and "object" in self.model_fields_set:
@@ -216,6 +221,11 @@ class RedemptionsListResponseBodyRedemptionsItemOrder(BaseModel):
         # and model_fields_set contains the field
         if self.referrer_id is None and "referrer_id" in self.model_fields_set:
             _dict['referrer_id'] = None
+
+        # set to None if redemptions (nullable) is None
+        # and model_fields_set contains the field
+        if self.redemptions is None and "redemptions" in self.model_fields_set:
+            _dict['redemptions'] = None
 
         return _dict
 

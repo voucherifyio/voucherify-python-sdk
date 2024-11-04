@@ -103,7 +103,13 @@ Remember that this SDK is auto generated (except of the tests) so changes made h
 
 ## 📅 Changelog
 
-- **2024-10-28** - `4.0.0`
+- **2024-10-28** - `5.0.0`
+  - Added missing `enums` in few filters models
+  - !!! BREAKING CHANGES !!!
+    - VouchersApi.generateRandomCode now requires `VouchersCreateResponseBody` instead of plain `object`
+    - property `product` in model `Discount` now uses `DiscountProduct` instead of `SimpleProductDiscountUnit`
+    - property `filters` of model `ExportsCreateRequestBodyParameters` now uses plain `object` instead of `ExportsCreateRequestBodyParametersFilters`
+- **2024-10-25** - `4.0.0`
     - Fix object parsing in query. For example `filters` while listing redemptions.
     - !!! BREAKING CHANGES !!!
         - Remove support for `/client/v1/customers/{customerId}/consents` - put `Update Customer's consents (client-side) [Deprecated]`
@@ -597,6 +603,7 @@ Class | Method | HTTP request | Description
  - [CustomersUpdateResponseBodyAddress](docs/CustomersUpdateResponseBodyAddress.md)
  - [CustomersUpdateResponseBodyAssets](docs/CustomersUpdateResponseBodyAssets.md)
  - [Discount](docs/Discount.md)
+ - [DiscountProduct](docs/DiscountProduct.md)
  - [DiscountUnitMultipleOneUnit](docs/DiscountUnitMultipleOneUnit.md)
  - [EarningRule](docs/EarningRule.md)
  - [EarningRuleCustomEvent](docs/EarningRuleCustomEvent.md)
@@ -625,20 +632,16 @@ Class | Method | HTTP request | Description
  - [ExportOrderFields](docs/ExportOrderFields.md)
  - [ExportOrderOrder](docs/ExportOrderOrder.md)
  - [ExportParameters](docs/ExportParameters.md)
- - [ExportParametersFilters](docs/ExportParametersFilters.md)
  - [ExportResult](docs/ExportResult.md)
  - [ExportVoucherTransactionsFields](docs/ExportVoucherTransactionsFields.md)
  - [ExportVoucherTransactionsFilters](docs/ExportVoucherTransactionsFilters.md)
  - [ExportVoucherTransactionsOrder](docs/ExportVoucherTransactionsOrder.md)
  - [ExportsCreateRequestBody](docs/ExportsCreateRequestBody.md)
  - [ExportsCreateRequestBodyParameters](docs/ExportsCreateRequestBodyParameters.md)
- - [ExportsCreateRequestBodyParametersFilters](docs/ExportsCreateRequestBodyParametersFilters.md)
  - [ExportsCreateResponseBody](docs/ExportsCreateResponseBody.md)
  - [ExportsCreateResponseBodyParameters](docs/ExportsCreateResponseBodyParameters.md)
- - [ExportsCreateResponseBodyParametersFilters](docs/ExportsCreateResponseBodyParametersFilters.md)
  - [ExportsGetResponseBody](docs/ExportsGetResponseBody.md)
  - [ExportsGetResponseBodyParameters](docs/ExportsGetResponseBodyParameters.md)
- - [ExportsGetResponseBodyParametersFilters](docs/ExportsGetResponseBodyParametersFilters.md)
  - [ExportsGetResponseBodyResult](docs/ExportsGetResponseBodyResult.md)
  - [ExportsListResponseBody](docs/ExportsListResponseBody.md)
  - [FieldConditions](docs/FieldConditions.md)
@@ -1550,6 +1553,8 @@ Class | Method | HTTP request | Description
  - [VouchersBalanceUpdateRequestBody](docs/VouchersBalanceUpdateRequestBody.md)
  - [VouchersBalanceUpdateResponseBody](docs/VouchersBalanceUpdateResponseBody.md)
  - [VouchersBalanceUpdateResponseBodyRelatedObject](docs/VouchersBalanceUpdateResponseBodyRelatedObject.md)
+ - [VouchersCreateRequestBody](docs/VouchersCreateRequestBody.md)
+ - [VouchersCreateRequestBodyRedemption](docs/VouchersCreateRequestBodyRedemption.md)
  - [VouchersCreateResponseBody](docs/VouchersCreateResponseBody.md)
  - [VouchersCreateResponseBodyGift](docs/VouchersCreateResponseBodyGift.md)
  - [VouchersCreateResponseBodyLoyaltyCard](docs/VouchersCreateResponseBodyLoyaltyCard.md)

@@ -35,7 +35,7 @@ class PublicationsCreateResponseBody(BaseModel):
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the publication was created. The value is shown in the ISO 8601 format.")
     customer_id: Optional[StrictStr] = Field(default=None, description="Unique customer ID of the customer receiving the publication.")
     tracking_id: Optional[StrictStr] = Field(default=None, description="Customer's `source_id`.")
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the publication. A set of key/value pairs that you can attach to a publication object. It can be useful for storing additional information about the publication in a structured format.")
     channel: Optional[StrictStr] = Field(default='API', description="How the publication was originated. It can be your own custom channel or an example value provided here.")
     source_id: Optional[StrictStr] = Field(default=None, description="The merchant's publication ID if it is different from the Voucherify publication ID. It's an optional tracking identifier of a publication. It is really useful in case of an integration between multiple systems. It can be a publication ID from a CRM system, database or 3rd-party service. ")
     result: Optional[StrictStr] = Field(default='SUCCESS', description="Status of the publication attempt.")

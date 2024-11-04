@@ -32,7 +32,7 @@ class PublicationsCreateRequestBody(BaseModel):
     voucher: Optional[StrictStr] = Field(default=None, description="Code of the voucher being published.")
     source_id: Optional[StrictStr] = Field(default=None, description="The merchant's publication ID if it is different from the Voucherify publication ID. It's an optional tracking identifier of a publication. It is really useful in case of an integration between multiple systems. It can be a publication ID from a CRM system, database or 3rd-party service. If `source_id` is provided only 1 voucher can be published per request.")
     customer: Optional[Customer] = None
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the publication. A set of key/value pairs that you can attach to a publication object. It can be useful for storing additional information about the publication in a structured format.")
     channel: Optional[StrictStr] = Field(default=None, description="Specify the distribution channel.")
     campaign: Optional[CreatePublicationCampaign] = None
     __properties: ClassVar[List[str]] = ["voucher", "source_id", "customer", "metadata", "channel", "campaign"]

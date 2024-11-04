@@ -41,7 +41,7 @@ class RedemptionEntryPromotionTier(BaseModel):
     name: Optional[StrictStr] = Field(default=None, description="Name of the promotion tier.")
     banner: Optional[StrictStr] = Field(default=None, description="Text to be displayed to your customers on your website.")
     action: Optional[RedemptionEntryPromotionTierAction] = None
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the promotion tier. A set of key/value pairs that you can attach to a promotion tier object. It can be useful for storing additional information about the promotion tier in a structured format.")
     hierarchy: Optional[StrictInt] = Field(default=None, description="The promotions hierarchy defines the order in which the discounts from different tiers will be applied to a customer's order. If a customer qualifies for discounts from more than one tier, discounts will be applied in the order defined in the hierarchy.")
     promotion_id: Optional[StrictStr] = Field(default=None, description="Promotion unique ID.")
     campaign: Optional[RedemptionEntryPromotionTierCampaign] = None

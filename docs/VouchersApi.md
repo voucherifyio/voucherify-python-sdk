@@ -458,7 +458,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **generate_random_code**
-> VouchersCreateResponseBody generate_random_code(body=body)
+> VouchersCreateResponseBody generate_random_code(vouchers_create_request_body=vouchers_create_request_body)
 
 Generate Random Code
 
@@ -471,6 +471,7 @@ Create a standalone voucher. You can choose to create a GIFT_VOUCHER, a DISCOUNT
 
 ```python
 import voucherify
+from voucherify.models.vouchers_create_request_body import VouchersCreateRequestBody
 from voucherify.models.vouchers_create_response_body import VouchersCreateResponseBody
 from voucherify.rest import ApiException
 from pprint import pprint
@@ -502,11 +503,11 @@ configuration.api_key['X-App-Token'] = os.environ["API_KEY"]
 with voucherify.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = voucherify.VouchersApi(api_client)
-    body = {"category":"New Customers","code":"NEW-WELCOME-COUPON","type":"DISCOUNT_VOUCHER","campaign_id":"camp_Y6dLsYIZloGqP8izufXY6SSJ","discount":{"percent_off":10,"type":"PERCENT","effect":"APPLY_TO_ORDER"},"start_date":"2016-01-01T00:00:00Z","expiration_date":"2022-12-31T23:59:59Z","validity_timeframe":{"duration":"PT1H","interval":"P2D"},"validity_day_of_week":[1,2,3,4,5],"active":false,"additional_info":"This voucher will remain inactive until enabled.","redemption":{"quantity":10},"metadata":{"test":true,"locale":"de-en"},"validation_rules":["val_4j7DCRm2IS59"]} # object | Specify the details of the voucher that you would like to create. (optional)
+    vouchers_create_request_body = {"category":"New Customers","code":"NEW-WELCOME-COUPON","type":"DISCOUNT_VOUCHER","campaign_id":"camp_Y6dLsYIZloGqP8izufXY6SSJ","discount":{"percent_off":10,"type":"PERCENT","effect":"APPLY_TO_ORDER"},"start_date":"2016-01-01T00:00:00Z","expiration_date":"2022-12-31T23:59:59Z","validity_timeframe":{"duration":"PT1H","interval":"P2D"},"validity_day_of_week":[1,2,3,4,5],"active":false,"additional_info":"This voucher will remain inactive until enabled.","redemption":{"quantity":10},"metadata":{"test":true,"locale":"de-en"},"validation_rules":["val_4j7DCRm2IS59"]} # VouchersCreateRequestBody | Specify the details of the voucher that you would like to create. (optional)
 
     try:
         # Generate Random Code
-        api_response = api_instance.generate_random_code(body=body)
+        api_response = api_instance.generate_random_code(vouchers_create_request_body=vouchers_create_request_body)
         print("The response of VouchersApi->generate_random_code:\n")
         pprint(api_response)
     except Exception as e:
@@ -520,7 +521,7 @@ with voucherify.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | **object**| Specify the details of the voucher that you would like to create. | [optional] 
+ **vouchers_create_request_body** | [**VouchersCreateRequestBody**](VouchersCreateRequestBody.md)| Specify the details of the voucher that you would like to create. | [optional] 
 
 ### Return type
 

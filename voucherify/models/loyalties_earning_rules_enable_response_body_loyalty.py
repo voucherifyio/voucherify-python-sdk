@@ -32,13 +32,13 @@ class LoyaltiesEarningRulesEnableResponseBodyLoyalty(BaseModel):
     LoyaltiesEarningRulesEnableResponseBodyLoyalty
     """ # noqa: E501
     type: Optional[StrictStr] = None
+    points: Optional[StrictInt] = Field(default=None, description="Defines how the points will be added to the loyalty card. FIXED adds a fixed number of points.")
     calculation_type: Optional[StrictStr] = None
     order: Optional[LoyaltiesEarningRulesEnableResponseBodyLoyaltyOrder] = None
     order_items: Optional[LoyaltiesEarningRulesEnableResponseBodyLoyaltyOrderItems] = None
     customer: Optional[LoyaltiesEarningRulesEnableResponseBodyLoyaltyCustomer] = None
     custom_event: Optional[LoyaltiesEarningRulesEnableResponseBodyLoyaltyCustomEvent] = None
-    points: Optional[StrictInt] = Field(default=None, description="Defines how the points will be added to the loyalty card. FIXED adds a fixed number of points.")
-    __properties: ClassVar[List[str]] = ["type", "calculation_type", "order", "order_items", "customer", "custom_event", "points"]
+    __properties: ClassVar[List[str]] = ["type", "points", "calculation_type", "order", "order_items", "customer", "custom_event"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -46,8 +46,8 @@ class LoyaltiesEarningRulesEnableResponseBodyLoyalty(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['PROPORTIONAL', 'FIXED']):
-            raise ValueError("must be one of enum values ('PROPORTIONAL', 'FIXED')")
+        if value not in set(['FIXED', 'PROPORTIONAL']):
+            raise ValueError("must be one of enum values ('FIXED', 'PROPORTIONAL')")
         return value
 
     @field_validator('calculation_type')
@@ -116,6 +116,11 @@ class LoyaltiesEarningRulesEnableResponseBodyLoyalty(BaseModel):
         if self.type is None and "type" in self.model_fields_set:
             _dict['type'] = None
 
+        # set to None if points (nullable) is None
+        # and model_fields_set contains the field
+        if self.points is None and "points" in self.model_fields_set:
+            _dict['points'] = None
+
         # set to None if calculation_type (nullable) is None
         # and model_fields_set contains the field
         if self.calculation_type is None and "calculation_type" in self.model_fields_set:
@@ -141,11 +146,6 @@ class LoyaltiesEarningRulesEnableResponseBodyLoyalty(BaseModel):
         if self.custom_event is None and "custom_event" in self.model_fields_set:
             _dict['custom_event'] = None
 
-        # set to None if points (nullable) is None
-        # and model_fields_set contains the field
-        if self.points is None and "points" in self.model_fields_set:
-            _dict['points'] = None
-
         return _dict
 
     @classmethod
@@ -159,12 +159,12 @@ class LoyaltiesEarningRulesEnableResponseBodyLoyalty(BaseModel):
 
         _obj = cls.model_validate({
             "type": obj.get("type"),
+            "points": obj.get("points"),
             "calculation_type": obj.get("calculation_type"),
             "order": LoyaltiesEarningRulesEnableResponseBodyLoyaltyOrder.from_dict(obj["order"]) if obj.get("order") is not None else None,
             "order_items": LoyaltiesEarningRulesEnableResponseBodyLoyaltyOrderItems.from_dict(obj["order_items"]) if obj.get("order_items") is not None else None,
             "customer": LoyaltiesEarningRulesEnableResponseBodyLoyaltyCustomer.from_dict(obj["customer"]) if obj.get("customer") is not None else None,
-            "custom_event": LoyaltiesEarningRulesEnableResponseBodyLoyaltyCustomEvent.from_dict(obj["custom_event"]) if obj.get("custom_event") is not None else None,
-            "points": obj.get("points")
+            "custom_event": LoyaltiesEarningRulesEnableResponseBodyLoyaltyCustomEvent.from_dict(obj["custom_event"]) if obj.get("custom_event") is not None else None
         })
         return _obj
 

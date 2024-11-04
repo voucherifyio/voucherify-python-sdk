@@ -34,11 +34,11 @@ class LoyaltiesEarningRulesCreateRequestBodyItemLoyalty(BaseModel):
     type: Optional[StrictStr] = None
     points: Optional[StrictInt] = Field(default=None, description="Defines how the points will be added to the loyalty card. FIXED adds a fixed number of points.")
     calculation_type: Optional[StrictStr] = None
-    custom_event: Optional[LoyaltiesEarningRulesCreateRequestBodyItemLoyaltyCustomEvent] = None
-    order_items: Optional[LoyaltiesEarningRulesCreateRequestBodyItemLoyaltyOrderItems] = None
     order: Optional[LoyaltiesEarningRulesCreateRequestBodyItemLoyaltyOrder] = None
+    order_items: Optional[LoyaltiesEarningRulesCreateRequestBodyItemLoyaltyOrderItems] = None
     customer: Optional[LoyaltiesEarningRulesCreateRequestBodyItemLoyaltyCustomer] = None
-    __properties: ClassVar[List[str]] = ["type", "points", "calculation_type", "custom_event", "order_items", "order", "customer"]
+    custom_event: Optional[LoyaltiesEarningRulesCreateRequestBodyItemLoyaltyCustomEvent] = None
+    __properties: ClassVar[List[str]] = ["type", "points", "calculation_type", "order", "order_items", "customer", "custom_event"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -56,8 +56,8 @@ class LoyaltiesEarningRulesCreateRequestBodyItemLoyalty(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['CUSTOM_EVENT_METADATA', 'ORDER_ITEMS_QUANTITY', 'ORDER_ITEMS_AMOUNT', 'ORDER_ITEMS_SUBTOTAL_AMOUNT', 'ORDER_AMOUNT', 'ORDER_TOTAL_AMOUNT', 'ORDER_METADATA', 'CUSTOMER_METADATA']):
-            raise ValueError("must be one of enum values ('CUSTOM_EVENT_METADATA', 'ORDER_ITEMS_QUANTITY', 'ORDER_ITEMS_AMOUNT', 'ORDER_ITEMS_SUBTOTAL_AMOUNT', 'ORDER_AMOUNT', 'ORDER_TOTAL_AMOUNT', 'ORDER_METADATA', 'CUSTOMER_METADATA')")
+        if value not in set(['ORDER_AMOUNT', 'ORDER_TOTAL_AMOUNT', 'ORDER_METADATA', 'ORDER_ITEMS_QUANTITY', 'ORDER_ITEMS_AMOUNT', 'ORDER_ITEMS_SUBTOTAL_AMOUNT', 'CUSTOMER_METADATA', 'CUSTOM_EVENT_METADATA']):
+            raise ValueError("must be one of enum values ('ORDER_AMOUNT', 'ORDER_TOTAL_AMOUNT', 'ORDER_METADATA', 'ORDER_ITEMS_QUANTITY', 'ORDER_ITEMS_AMOUNT', 'ORDER_ITEMS_SUBTOTAL_AMOUNT', 'CUSTOMER_METADATA', 'CUSTOM_EVENT_METADATA')")
         return value
 
     model_config = ConfigDict(
@@ -99,32 +99,32 @@ class LoyaltiesEarningRulesCreateRequestBodyItemLoyalty(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of custom_event
-        if self.custom_event:
-            _dict['custom_event'] = self.custom_event.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of order_items
-        if self.order_items:
-            _dict['order_items'] = self.order_items.to_dict()
         # override the default output from pydantic by calling `to_dict()` of order
         if self.order:
             _dict['order'] = self.order.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of order_items
+        if self.order_items:
+            _dict['order_items'] = self.order_items.to_dict()
         # override the default output from pydantic by calling `to_dict()` of customer
         if self.customer:
             _dict['customer'] = self.customer.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of custom_event
+        if self.custom_event:
+            _dict['custom_event'] = self.custom_event.to_dict()
         # set to None if points (nullable) is None
         # and model_fields_set contains the field
         if self.points is None and "points" in self.model_fields_set:
             _dict['points'] = None
 
-        # set to None if custom_event (nullable) is None
-        # and model_fields_set contains the field
-        if self.custom_event is None and "custom_event" in self.model_fields_set:
-            _dict['custom_event'] = None
-
         # set to None if customer (nullable) is None
         # and model_fields_set contains the field
         if self.customer is None and "customer" in self.model_fields_set:
             _dict['customer'] = None
+
+        # set to None if custom_event (nullable) is None
+        # and model_fields_set contains the field
+        if self.custom_event is None and "custom_event" in self.model_fields_set:
+            _dict['custom_event'] = None
 
         return _dict
 
@@ -141,10 +141,10 @@ class LoyaltiesEarningRulesCreateRequestBodyItemLoyalty(BaseModel):
             "type": obj.get("type"),
             "points": obj.get("points"),
             "calculation_type": obj.get("calculation_type"),
-            "custom_event": LoyaltiesEarningRulesCreateRequestBodyItemLoyaltyCustomEvent.from_dict(obj["custom_event"]) if obj.get("custom_event") is not None else None,
-            "order_items": LoyaltiesEarningRulesCreateRequestBodyItemLoyaltyOrderItems.from_dict(obj["order_items"]) if obj.get("order_items") is not None else None,
             "order": LoyaltiesEarningRulesCreateRequestBodyItemLoyaltyOrder.from_dict(obj["order"]) if obj.get("order") is not None else None,
-            "customer": LoyaltiesEarningRulesCreateRequestBodyItemLoyaltyCustomer.from_dict(obj["customer"]) if obj.get("customer") is not None else None
+            "order_items": LoyaltiesEarningRulesCreateRequestBodyItemLoyaltyOrderItems.from_dict(obj["order_items"]) if obj.get("order_items") is not None else None,
+            "customer": LoyaltiesEarningRulesCreateRequestBodyItemLoyaltyCustomer.from_dict(obj["customer"]) if obj.get("customer") is not None else None,
+            "custom_event": LoyaltiesEarningRulesCreateRequestBodyItemLoyaltyCustomEvent.from_dict(obj["custom_event"]) if obj.get("custom_event") is not None else None
         })
         return _obj
 

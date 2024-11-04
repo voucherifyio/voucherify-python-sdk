@@ -88,13 +88,13 @@ class ApiClient:
         self.rest_client = rest.RESTClientObject(configuration)
         self.default_headers = {
             "X-Voucherify-Channel": "Python-SDK",
-            "User-Agent": "OpenAPI-Python-SDK/4.0.0"
+            "User-Agent": "OpenAPI-Python-SDK/5.0.0"
         }
         if header_name is not None:
             self.default_headers[header_name] = header_value
         self.cookie = cookie
         # Set default User-Agent.
-        self.user_agent = 'OpenAPI-Python-SDK/4.0.0'
+        self.user_agent = 'OpenAPI-Python-SDK/5.0.0'
         self.client_side_validation = configuration.client_side_validation
 
     def __enter__(self):

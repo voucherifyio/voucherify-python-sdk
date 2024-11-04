@@ -42,7 +42,7 @@ class CampaignsUpdateRequestBody(BaseModel):
     validity_hours: Optional[ValidityHours] = None
     description: Optional[StrictStr] = Field(default=None, description="An optional field to keep any extra textual information about the campaign such as a campaign description and details.")
     category: Optional[StrictStr] = Field(default=None, description="The category assigned to the campaign. Either pass this parameter OR the `category_id`.")
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the campaign. A set of key/value pairs that you can attach to a campaign object. It can be useful for storing additional information about the campaign in a structured format.")
     unset_metadata_fields: Optional[List[StrictStr]] = Field(default=None, description="Determine which metadata should be removed from campaign.")
     category_id: Optional[StrictStr] = Field(default=None, description="Unique category ID that this campaign belongs to. Either pass this parameter OR the `category`.")
     activity_duration_after_publishing: Optional[StrictStr] = Field(default=None, description="Defines the amount of time the vouchers will be active after publishing. The value is shown in the ISO 8601 format. For example, a voucher with the value of P24D will be valid for a duration of 24 days.")
