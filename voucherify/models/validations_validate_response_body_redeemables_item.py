@@ -41,7 +41,9 @@ class ValidationsValidateResponseBodyRedeemablesItem(BaseModel):
     result: Optional[ValidationsValidateResponseBodyRedeemablesItemResult] = None
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes in the form of key/value pairs assigned to the redeemable.")
     categories: Optional[List[CategoryWithStackingRulesType]] = None
-    __properties: ClassVar[List[str]] = ["status", "id", "object", "order", "applicable_to", "inapplicable_to", "result", "metadata", "categories"]
+    campaign_name: Optional[StrictStr] = Field(default=None, description="Campaign name")
+    campaign_id: Optional[StrictStr] = Field(default=None, description="Unique campaign ID assigned by Voucherify.")
+    __properties: ClassVar[List[str]] = ["status", "id", "object", "order", "applicable_to", "inapplicable_to", "result", "metadata", "categories", "campaign_name", "campaign_id"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -141,6 +143,16 @@ class ValidationsValidateResponseBodyRedeemablesItem(BaseModel):
         if self.categories is None and "categories" in self.model_fields_set:
             _dict['categories'] = None
 
+        # set to None if campaign_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.campaign_name is None and "campaign_name" in self.model_fields_set:
+            _dict['campaign_name'] = None
+
+        # set to None if campaign_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.campaign_id is None and "campaign_id" in self.model_fields_set:
+            _dict['campaign_id'] = None
+
         return _dict
 
     @classmethod
@@ -161,7 +173,9 @@ class ValidationsValidateResponseBodyRedeemablesItem(BaseModel):
             "inapplicable_to": InapplicableToResultList.from_dict(obj["inapplicable_to"]) if obj.get("inapplicable_to") is not None else None,
             "result": ValidationsValidateResponseBodyRedeemablesItemResult.from_dict(obj["result"]) if obj.get("result") is not None else None,
             "metadata": obj.get("metadata"),
-            "categories": [CategoryWithStackingRulesType.from_dict(_item) for _item in obj["categories"]] if obj.get("categories") is not None else None
+            "categories": [CategoryWithStackingRulesType.from_dict(_item) for _item in obj["categories"]] if obj.get("categories") is not None else None,
+            "campaign_name": obj.get("campaign_name"),
+            "campaign_id": obj.get("campaign_id")
         })
         return _obj
 

@@ -14,6 +14,8 @@ Name | Type | Description | Notes
 **result** | [**ValidationsValidateResponseBodyRedeemablesItemResult**](ValidationsValidateResponseBodyRedeemablesItemResult.md) |  | [optional] 
 **metadata** | **object** | The metadata object stores all custom attributes in the form of key/value pairs assigned to the redeemable. | [optional] 
 **categories** | [**List[CategoryWithStackingRulesType]**](CategoryWithStackingRulesType.md) |  | [optional] 
+**campaign_name** | **str** | Campaign name | [optional] 
+**campaign_id** | **str** | Unique campaign ID assigned by Voucherify. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

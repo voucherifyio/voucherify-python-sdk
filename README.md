@@ -103,6 +103,8 @@ Remember that this SDK is auto generated (except of the tests) so changes made h
 
 ## 📅 Changelog
 
+- **2024-11-04** - `5.0.1`
+  - Added support for returning `campaign_id` and `campaign_name` in stackable validation endpoint, when `redeemable` option is expanded
 - **2024-10-28** - `5.0.0`
   - Added missing `enums` in few filters models
   - !!! BREAKING CHANGES !!!
