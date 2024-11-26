@@ -42,7 +42,7 @@ class OrderItem(BaseModel):
     price: Optional[StrictInt] = Field(default=None, description="Unit price of an item. Value is multiplied by 100 to precisely represent 2 decimal places. For example `10000 cents` for `$100.00`.")
     product: Optional[OrderItemProduct] = None
     sku: Optional[OrderItemSku] = None
-    metadata: Optional[Dict[str, Any]] = Field(default=None, description="A set of custom key/value pairs that you can attach to an order item. It can be useful for storing additional information about the order item in a structured format.")
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="A set of custom key/value pairs that you can attach to an order item. It can be useful for storing additional information about the order item in a structured format. It can be used to define business validation rules.")
     __properties: ClassVar[List[str]] = ["sku_id", "product_id", "related_object", "source_id", "quantity", "discount_quantity", "initial_quantity", "amount", "discount_amount", "initial_amount", "price", "product", "sku", "metadata"]
 
     @field_validator('related_object')

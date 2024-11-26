@@ -21,36 +21,31 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
 from voucherify.models.loyalties_members_points_expiration_list_response_body_data_item_bucket import LoyaltiesMembersPointsExpirationListResponseBodyDataItemBucket
 from typing import Optional, Set
 from typing_extensions import Self
 
 class LoyaltiesMembersPointsExpirationListResponseBodyDataItem(BaseModel):
     """
-    LoyaltiesMembersPointsExpirationListResponseBodyDataItem
+    Contains the details about expiring loyalty points.
     """ # noqa: E501
-    id: StrictStr = Field(description="Unique loyalty points bucket ID.")
-    voucher_id: StrictStr = Field(description="Unique parent loyalty card ID.")
-    campaign_id: StrictStr = Field(description=" Unique parent campaign ID.")
-    bucket: LoyaltiesMembersPointsExpirationListResponseBodyDataItemBucket
-    created_at: datetime = Field(description="Timestamp representing the date and time when the loyalty points bucket object was created. The value is shown in the ISO 8601 format.")
-    status: StrictStr = Field(description="Loyalty points bucket point status.")
-    expires_at: datetime = Field(description="Date when the number of points defined in the bucket object are due to expire.")
-    updated_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the loyalty points bucket object was updated. The value is shown in the ISO 8601 format.")
-    object: Annotated[str, Field(strict=True)] = Field(description="The type of the object represented by JSON. This object stores information about the loyalty points bucket.")
-    __properties: ClassVar[List[str]] = ["id", "voucher_id", "campaign_id", "bucket", "created_at", "status", "expires_at", "updated_at", "object"]
-
-    @field_validator('object')
-    def object_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if not re.match(r"loyalty_points_bucket", value):
-            raise ValueError(r"must validate the regular expression /loyalty_points_bucket/")
-        return value
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the loyalty points bucket.")
+    voucher_id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the parent loyalty card.")
+    campaign_id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the parent campaign.")
+    bucket: Optional[LoyaltiesMembersPointsExpirationListResponseBodyDataItemBucket] = None
+    status: Optional[StrictStr] = Field(default=None, description="Loyalty point point bucket status.")
+    expires_at: Optional[datetime] = Field(default=None, description="Date when the number of points defined in the bucket object are due to expire.")
+    created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the loyalty point bucket object was created in ISO 8601 format.")
+    updated_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the loyalty point bucket object was updated in ISO 8601 format.")
+    object: Optional[StrictStr] = Field(default='loyalty_points_bucket', description="The type of the object represented by JSON. This object stores information about the loyalty point bucket.")
+    __properties: ClassVar[List[str]] = ["id", "voucher_id", "campaign_id", "bucket", "status", "expires_at", "created_at", "updated_at", "object"]
 
     @field_validator('object')
     def object_validate_enum(cls, value):
         """Validates the enum"""
+        if value is None:
+            return value
+
         if value not in set(['loyalty_points_bucket']):
             raise ValueError("must be one of enum values ('loyalty_points_bucket')")
         return value
@@ -97,6 +92,51 @@ class LoyaltiesMembersPointsExpirationListResponseBodyDataItem(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of bucket
         if self.bucket:
             _dict['bucket'] = self.bucket.to_dict()
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['id'] = None
+
+        # set to None if voucher_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.voucher_id is None and "voucher_id" in self.model_fields_set:
+            _dict['voucher_id'] = None
+
+        # set to None if campaign_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.campaign_id is None and "campaign_id" in self.model_fields_set:
+            _dict['campaign_id'] = None
+
+        # set to None if bucket (nullable) is None
+        # and model_fields_set contains the field
+        if self.bucket is None and "bucket" in self.model_fields_set:
+            _dict['bucket'] = None
+
+        # set to None if status (nullable) is None
+        # and model_fields_set contains the field
+        if self.status is None and "status" in self.model_fields_set:
+            _dict['status'] = None
+
+        # set to None if expires_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.expires_at is None and "expires_at" in self.model_fields_set:
+            _dict['expires_at'] = None
+
+        # set to None if created_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.created_at is None and "created_at" in self.model_fields_set:
+            _dict['created_at'] = None
+
+        # set to None if updated_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.updated_at is None and "updated_at" in self.model_fields_set:
+            _dict['updated_at'] = None
+
+        # set to None if object (nullable) is None
+        # and model_fields_set contains the field
+        if self.object is None and "object" in self.model_fields_set:
+            _dict['object'] = None
+
         return _dict
 
     @classmethod
@@ -113,9 +153,9 @@ class LoyaltiesMembersPointsExpirationListResponseBodyDataItem(BaseModel):
             "voucher_id": obj.get("voucher_id"),
             "campaign_id": obj.get("campaign_id"),
             "bucket": LoyaltiesMembersPointsExpirationListResponseBodyDataItemBucket.from_dict(obj["bucket"]) if obj.get("bucket") is not None else None,
-            "created_at": obj.get("created_at"),
             "status": obj.get("status"),
             "expires_at": obj.get("expires_at"),
+            "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
             "object": obj.get("object") if obj.get("object") is not None else 'loyalty_points_bucket'
         })

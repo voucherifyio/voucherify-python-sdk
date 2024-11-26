@@ -49,7 +49,7 @@ class OrderCalculatedItem(BaseModel):
     product: Optional[OrderCalculatedItemProduct] = None
     sku: Optional[OrderCalculatedItemSku] = None
     object: Optional[StrictStr] = Field(default='order_item', description="The type of the object represented by JSON.")
-    metadata: Optional[Dict[str, Any]] = Field(default=None, description="A set of custom key/value pairs that you can attach to an SKU. It can be useful for storing additional information about the SKU in a structured format.")
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="A set of custom key/value pairs that you can attach to an item object. It can be useful for storing additional information about the item in a structured format. It can be used to define business validation rules or discount formulas.")
     __properties: ClassVar[List[str]] = ["id", "sku_id", "product_id", "related_object", "source_id", "quantity", "discount_quantity", "initial_quantity", "amount", "discount_amount", "applied_discount_amount", "applied_discount_quantity", "applied_quantity", "applied_quantity_amount", "initial_amount", "price", "subtotal_amount", "product", "sku", "object", "metadata"]
 
     @field_validator('related_object')

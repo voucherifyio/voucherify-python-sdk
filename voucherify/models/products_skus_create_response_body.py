@@ -36,7 +36,7 @@ class ProductsSkusCreateResponseBody(BaseModel):
     currency: Optional[StrictStr] = Field(default=None, description="SKU price currency.")
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="The attributes object stores values for all custom attributes inherited by the SKU from the parent product. A set of key/value pairs that are attached to a SKU object and are unique to each SKU within a product family.")
     image_url: Optional[StrictStr] = Field(default=None, description="The HTTPS URL pointing to the .png or .jpg file that will be used to render the SKU image.")
-    metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the SKU. A set of key/value pairs that you can attach to a SKU object. It can be useful for storing additional information about the SKU in a structured format.")
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the SKU. A set of key/value pairs that you can attach to a SKU object. It can be useful for storing additional information about the SKU in a structured format. It can be used to create product collections.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the SKU was created. The value is shown in the ISO 8601 format.")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the SKU was updated. The value is shown in the ISO 8601 format.")
     object: Optional[StrictStr] = Field(default='sku', description="The type of the object represented by JSON. This object stores information about the `SKU`.")

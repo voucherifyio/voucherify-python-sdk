@@ -103,6 +103,12 @@ Remember that this SDK is auto generated (except of the tests) so changes made h
 
 ## 📅 Changelog
 
+- **2024-11-26** - `5.0.2`
+  - Added support for `STANDALONE` campaign type.
+  - Added optional `metadata` in `OrderCalculatedItemSku`
+  - New possible value of `ParameterExpandListCampaigns`
+  - New optional `error` parameter in `Error`
+  - Updated `LoyaltyCardTransactionDetailsBalance`
 - **2024-11-04** - `5.0.1`
   - Added support for returning `campaign_id` and `campaign_name` in stackable validation endpoint, when `redeemable` option is expanded
 - **2024-10-28** - `5.0.0`
@@ -626,6 +632,7 @@ Class | Method | HTTP request | Description
  - [EarningRuleSegment](docs/EarningRuleSegment.md)
  - [EarningRuleSource](docs/EarningRuleSource.md)
  - [Error](docs/Error.md)
+ - [ErrorError](docs/ErrorError.md)
  - [EventsCreateRequestBody](docs/EventsCreateRequestBody.md)
  - [EventsCreateRequestBodyLoyalty](docs/EventsCreateRequestBodyLoyalty.md)
  - [EventsCreateRequestBodyReferral](docs/EventsCreateRequestBodyReferral.md)
@@ -911,6 +918,8 @@ Class | Method | HTTP request | Description
  - [LoyaltyMemberLoyaltyCard](docs/LoyaltyMemberLoyaltyCard.md)
  - [LoyaltyMemberPublish](docs/LoyaltyMemberPublish.md)
  - [LoyaltyMemberRedemption](docs/LoyaltyMemberRedemption.md)
+ - [LoyaltyPointsBucket](docs/LoyaltyPointsBucket.md)
+ - [LoyaltyPointsBucketBucket](docs/LoyaltyPointsBucketBucket.md)
  - [LoyaltyTier](docs/LoyaltyTier.md)
  - [LoyaltyTierBase](docs/LoyaltyTierBase.md)
  - [LoyaltyTierBasePoints](docs/LoyaltyTierBasePoints.md)
@@ -1523,6 +1532,8 @@ Class | Method | HTTP request | Description
  - [VoucherAssets](docs/VoucherAssets.md)
  - [VoucherAssetsBarcode](docs/VoucherAssetsBarcode.md)
  - [VoucherAssetsQr](docs/VoucherAssetsQr.md)
+ - [VoucherBalance](docs/VoucherBalance.md)
+ - [VoucherBalanceRelatedObject](docs/VoucherBalanceRelatedObject.md)
  - [VoucherGift](docs/VoucherGift.md)
  - [VoucherLoyaltyCard](docs/VoucherLoyaltyCard.md)
  - [VoucherPublish](docs/VoucherPublish.md)

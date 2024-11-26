@@ -32,7 +32,8 @@ class OrderItemSku(BaseModel):
     override: Optional[StrictBool] = Field(default=None, description="The override set to `true` is used to store the product information in the system. If the product does not exist, it will be created with a source_id; if it does exist, the provided values for the name, price, and metadata will replace those already stored in the system.")
     sku: Optional[StrictStr] = Field(default=None, description="The SKU name.")
     price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="SKU price. A positive integer in the smallest currency unit (e.g. 100 cents for $1.00).")
-    __properties: ClassVar[List[str]] = ["id", "source_id", "override", "sku", "price"]
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="A set of custom key/value pairs that you can attach to an order item. It can be useful for storing additional information about the order item in a structured format. It can be used to create product collections.")
+    __properties: ClassVar[List[str]] = ["id", "source_id", "override", "sku", "price", "metadata"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -98,6 +99,11 @@ class OrderItemSku(BaseModel):
         if self.price is None and "price" in self.model_fields_set:
             _dict['price'] = None
 
+        # set to None if metadata (nullable) is None
+        # and model_fields_set contains the field
+        if self.metadata is None and "metadata" in self.model_fields_set:
+            _dict['metadata'] = None
+
         return _dict
 
     @classmethod
@@ -114,7 +120,8 @@ class OrderItemSku(BaseModel):
             "source_id": obj.get("source_id"),
             "override": obj.get("override"),
             "sku": obj.get("sku"),
-            "price": obj.get("price")
+            "price": obj.get("price"),
+            "metadata": obj.get("metadata")
         })
         return _obj
 

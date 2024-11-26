@@ -35,7 +35,7 @@ class LoyaltiesMembersBalanceUpdateResponseBody(BaseModel):
     type: Optional[StrictStr] = Field(default=None, description="The type of voucher being modified.")
     object: Optional[Annotated[str, Field(strict=True)]] = Field(default='balance', description="The type of the object represented by JSON. Default is balance.")
     related_object: Optional[LoyaltiesMembersBalanceUpdateResponseBodyRelatedObject] = None
-    operation_type: Optional[StrictStr] = None
+    operation_type: Optional[StrictStr] = Field(default=None, description="The type of operation being performed.")
     __properties: ClassVar[List[str]] = ["points", "total", "balance", "type", "object", "related_object", "operation_type"]
 
     @field_validator('type')

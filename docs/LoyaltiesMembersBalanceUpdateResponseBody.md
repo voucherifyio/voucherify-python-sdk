@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **type** | **str** | The type of voucher being modified. | [optional] 
 **object** | **str** | The type of the object represented by JSON. Default is balance. | [optional] [default to 'balance']
 **related_object** | [**LoyaltiesMembersBalanceUpdateResponseBodyRelatedObject**](LoyaltiesMembersBalanceUpdateResponseBodyRelatedObject.md) |  | [optional] 
-**operation_type** | **str** |  | [optional] 
+**operation_type** | **str** | The type of operation being performed. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

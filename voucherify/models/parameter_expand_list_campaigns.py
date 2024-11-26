@@ -28,6 +28,7 @@ class ParameterExpandListCampaigns(str, Enum):
     allowed enum values
     """
     CATEGORY = 'category'
+    ACCESS_SETTINGS_ASSIGNMENTS = 'access_settings_assignments'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

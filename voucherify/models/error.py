@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from voucherify.models.error_error import ErrorError
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -34,7 +35,8 @@ class Error(BaseModel):
     request_id: Optional[StrictStr] = Field(default=None, description="This ID is useful when troubleshooting and/or finding the root cause of an error response by our support team.")
     resource_id: Optional[StrictStr] = Field(default=None, description="Unique resource ID that can be used in another endpoint to get more details.")
     resource_type: Optional[StrictStr] = Field(default=None, description="The resource type.")
-    __properties: ClassVar[List[str]] = ["code", "key", "message", "details", "request_id", "resource_id", "resource_type"]
+    error: Optional[ErrorError] = None
+    __properties: ClassVar[List[str]] = ["code", "key", "message", "details", "request_id", "resource_id", "resource_type", "error"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -75,6 +77,9 @@ class Error(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of error
+        if self.error:
+            _dict['error'] = self.error.to_dict()
         # set to None if code (nullable) is None
         # and model_fields_set contains the field
         if self.code is None and "code" in self.model_fields_set:
@@ -110,6 +115,11 @@ class Error(BaseModel):
         if self.resource_type is None and "resource_type" in self.model_fields_set:
             _dict['resource_type'] = None
 
+        # set to None if error (nullable) is None
+        # and model_fields_set contains the field
+        if self.error is None and "error" in self.model_fields_set:
+            _dict['error'] = None
+
         return _dict
 
     @classmethod
@@ -128,7 +138,8 @@ class Error(BaseModel):
             "details": obj.get("details"),
             "request_id": obj.get("request_id"),
             "resource_id": obj.get("resource_id"),
-            "resource_type": obj.get("resource_type")
+            "resource_type": obj.get("resource_type"),
+            "error": ErrorError.from_dict(obj["error"]) if obj.get("error") is not None else None
         })
         return _obj
 

@@ -18,9 +18,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
 from voucherify.models.voucher_transaction_details_balance_related_object import VoucherTransactionDetailsBalanceRelatedObject
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,23 +28,14 @@ class VoucherTransactionDetailsBalance(BaseModel):
     """
     Contains information on how the balance was affected by the transaction.
     """ # noqa: E501
-    type: Optional[Annotated[str, Field(strict=True)]] = Field(default='loyalty_card', description="The type of voucher whose balance is being adjusted due to the transaction.")
-    total: Optional[StrictInt] = Field(default=None, description="The number of all points accumulated on the card as affected by add or subtract operations.")
-    object: Optional[Annotated[str, Field(strict=True)]] = Field(default='balance', description="The type of the object represented by the JSON.")
-    points: Optional[StrictInt] = Field(default=None, description="Points added or subtracted in the transaction.")
-    balance: Optional[StrictInt] = Field(default=None, description="The available points on the card after the transaction as affected by redemption or rollback.")
+    type: Optional[StrictStr] = Field(default=None, description="The type of voucher whose balance is being adjusted due to the transaction.")
+    total: Optional[StrictInt] = Field(default=None, description="The number of all points or credits accumulated on the card as affected by add or subtract operations.")
+    object: Optional[StrictStr] = Field(default='balance', description="The type of the object represented by the JSON.")
+    points: Optional[StrictInt] = Field(default=None, description="Points added or subtracted in the transaction of a loyalty card.")
+    balance: Optional[StrictInt] = Field(default=None, description="The available points or credits on the card after the transaction as affected by redemption or rollback.")
+    operation_type: Optional[StrictStr] = Field(default=None, description="The type of the operation being performed. The operation type is `AUTOMATIC` if it is an automatic redemption.")
     related_object: Optional[VoucherTransactionDetailsBalanceRelatedObject] = None
-    __properties: ClassVar[List[str]] = ["type", "total", "object", "points", "balance", "related_object"]
-
-    @field_validator('type')
-    def type_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if value is None:
-            return value
-
-        if not re.match(r"loyalty_card", value):
-            raise ValueError(r"must validate the regular expression /loyalty_card/")
-        return value
+    __properties: ClassVar[List[str]] = ["type", "total", "object", "points", "balance", "operation_type", "related_object"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -53,18 +43,8 @@ class VoucherTransactionDetailsBalance(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['loyalty_card']):
-            raise ValueError("must be one of enum values ('loyalty_card')")
-        return value
-
-    @field_validator('object')
-    def object_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if value is None:
-            return value
-
-        if not re.match(r"balance", value):
-            raise ValueError(r"must validate the regular expression /balance/")
+        if value not in set(['loyalty_card', 'gift_voucher']):
+            raise ValueError("must be one of enum values ('loyalty_card', 'gift_voucher')")
         return value
 
     @field_validator('object')
@@ -75,6 +55,16 @@ class VoucherTransactionDetailsBalance(BaseModel):
 
         if value not in set(['balance']):
             raise ValueError("must be one of enum values ('balance')")
+        return value
+
+    @field_validator('operation_type')
+    def operation_type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['MANUAL', 'AUTOMATIC']):
+            raise ValueError("must be one of enum values ('MANUAL', 'AUTOMATIC')")
         return value
 
     model_config = ConfigDict(
@@ -144,6 +134,11 @@ class VoucherTransactionDetailsBalance(BaseModel):
         if self.balance is None and "balance" in self.model_fields_set:
             _dict['balance'] = None
 
+        # set to None if operation_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.operation_type is None and "operation_type" in self.model_fields_set:
+            _dict['operation_type'] = None
+
         # set to None if related_object (nullable) is None
         # and model_fields_set contains the field
         if self.related_object is None and "related_object" in self.model_fields_set:
@@ -161,11 +156,12 @@ class VoucherTransactionDetailsBalance(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "type": obj.get("type") if obj.get("type") is not None else 'loyalty_card',
+            "type": obj.get("type"),
             "total": obj.get("total"),
             "object": obj.get("object") if obj.get("object") is not None else 'balance',
             "points": obj.get("points"),
             "balance": obj.get("balance"),
+            "operation_type": obj.get("operation_type"),
             "related_object": VoucherTransactionDetailsBalanceRelatedObject.from_dict(obj["related_object"]) if obj.get("related_object") is not None else None
         })
         return _obj

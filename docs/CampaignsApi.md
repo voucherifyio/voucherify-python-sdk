@@ -204,7 +204,7 @@ Name | Type | Description  | Notes
 
 Create Campaign
 
-Method to create a batch of vouchers aggregated in one campaign. You can choose a variety of voucher types and define a unique pattern for generating codes.    📘 Global uniqueness  All campaign codes are unique across the whole project. Voucherify will not allow you to generate 2 campaigns with the same coupon code.    🚧 Code generation status  This is an asynchronous action; you cant read or modify a newly created campaign until the code generation is completed. See the creation_status field in the campaign object description.
+Method to create a batch of vouchers aggregated in one campaign. You can choose a variety of voucher types and define a unique pattern for generating codes.    📘 Global uniqueness  All campaign codes are unique across the whole project. Voucherify will not allow you to generate 2 campaigns with the same coupon code.    🚧 Code generation status  This is an asynchronous action; you cant read or modify a newly created campaign until the code generation is completed. See the creation_status field in the campaign object description. 🚧 Standalone Vouchers and Campaigns In version [v20241004](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004), standalone vouchers created through the Voucherify dashboard create a campaign for that voucher. However, you cannot create a standalone discount or gift voucher campaign with the type: STANDALONE through the API. Voucherify developers work on adding that feature. Follow the [Voucherify Release Notes](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004) for more details about released features.
 
 ### Example
 
@@ -859,7 +859,7 @@ with voucherify.ApiClient(configuration) as api_client:
     limit = 56 # int | Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items. (optional)
     page = 56 # int | Which page of results to return. The lowest value is 1. (optional)
     campaign_type = voucherify.ParameterCampaignType() # ParameterCampaignType | This attribute allows filtering by campaign type. (optional)
-    expand = category # ParameterExpandListCampaigns | Include an expanded categories object in the response. (optional) (default to category)
+    expand = voucherify.ParameterExpandListCampaigns() # ParameterExpandListCampaigns | Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores. (optional)
     order = voucherify.ParameterOrderListCampaigns() # ParameterOrderListCampaigns | Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order. (optional)
     filters = voucherify.ParameterFiltersListCampaigns() # ParameterFiltersListCampaigns | Filters the results by campaign status or whether the campaign is a referral campaign. (optional)
 
@@ -882,7 +882,7 @@ Name | Type | Description  | Notes
  **limit** | **int**| Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items. | [optional] 
  **page** | **int**| Which page of results to return. The lowest value is 1. | [optional] 
  **campaign_type** | [**ParameterCampaignType**](.md)| This attribute allows filtering by campaign type. | [optional] 
- **expand** | [**ParameterExpandListCampaigns**](.md)| Include an expanded categories object in the response. | [optional] [default to category]
+ **expand** | [**ParameterExpandListCampaigns**](.md)| Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores. | [optional] 
  **order** | [**ParameterOrderListCampaigns**](.md)| Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order. | [optional] 
  **filters** | [**ParameterFiltersListCampaigns**](.md)| Filters the results by campaign status or whether the campaign is a referral campaign. | [optional] 
 

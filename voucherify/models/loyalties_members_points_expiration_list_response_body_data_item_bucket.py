@@ -19,15 +19,15 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
 class LoyaltiesMembersPointsExpirationListResponseBodyDataItemBucket(BaseModel):
     """
-    Defines the number of points stored in the given loyalty points bucket.
+    Defines the number of points stored in this loyalty point bucket.
     """ # noqa: E501
-    total_points: StrictInt = Field(description="Total number of points in the loyalty points bucket.")
+    total_points: Optional[StrictInt] = Field(default=None, description="Total number of points in the loyalty point bucket.")
     __properties: ClassVar[List[str]] = ["total_points"]
 
     model_config = ConfigDict(
@@ -69,6 +69,11 @@ class LoyaltiesMembersPointsExpirationListResponseBodyDataItemBucket(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if total_points (nullable) is None
+        # and model_fields_set contains the field
+        if self.total_points is None and "total_points" in self.model_fields_set:
+            _dict['total_points'] = None
+
         return _dict
 
     @classmethod

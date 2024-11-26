@@ -1,5 +1,6 @@
 # LoyaltyCardTransactionsType
 
+Transaction types concerning loyalty points.
 
 ## Enum
 
