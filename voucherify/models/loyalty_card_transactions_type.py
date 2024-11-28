@@ -21,7 +21,7 @@ from typing_extensions import Self
 
 class LoyaltyCardTransactionsType(str, Enum):
     """
-    LoyaltyCardTransactionsType
+    Transaction types concerning loyalty points.
     """
 
     """

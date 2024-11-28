@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "5.0.1"
+__version__ = "5.0.2"
 
 # import apis into sdk package
 from voucherify.api.async_actions_api import AsyncActionsApi
@@ -204,6 +204,7 @@ from voucherify.models.earning_rule_loyalty_tier import EarningRuleLoyaltyTier
 from voucherify.models.earning_rule_segment import EarningRuleSegment
 from voucherify.models.earning_rule_source import EarningRuleSource
 from voucherify.models.error import Error
+from voucherify.models.error_error import ErrorError
 from voucherify.models.events_create_request_body import EventsCreateRequestBody
 from voucherify.models.events_create_request_body_loyalty import EventsCreateRequestBodyLoyalty
 from voucherify.models.events_create_request_body_referral import EventsCreateRequestBodyReferral
@@ -489,6 +490,8 @@ from voucherify.models.loyalty_member import LoyaltyMember
 from voucherify.models.loyalty_member_loyalty_card import LoyaltyMemberLoyaltyCard
 from voucherify.models.loyalty_member_publish import LoyaltyMemberPublish
 from voucherify.models.loyalty_member_redemption import LoyaltyMemberRedemption
+from voucherify.models.loyalty_points_bucket import LoyaltyPointsBucket
+from voucherify.models.loyalty_points_bucket_bucket import LoyaltyPointsBucketBucket
 from voucherify.models.loyalty_tier import LoyaltyTier
 from voucherify.models.loyalty_tier_base import LoyaltyTierBase
 from voucherify.models.loyalty_tier_base_points import LoyaltyTierBasePoints
@@ -1101,6 +1104,8 @@ from voucherify.models.voucher import Voucher
 from voucherify.models.voucher_assets import VoucherAssets
 from voucherify.models.voucher_assets_barcode import VoucherAssetsBarcode
 from voucherify.models.voucher_assets_qr import VoucherAssetsQr
+from voucherify.models.voucher_balance import VoucherBalance
+from voucherify.models.voucher_balance_related_object import VoucherBalanceRelatedObject
 from voucherify.models.voucher_gift import VoucherGift
 from voucherify.models.voucher_loyalty_card import VoucherLoyaltyCard
 from voucherify.models.voucher_publish import VoucherPublish

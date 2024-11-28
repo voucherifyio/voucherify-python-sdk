@@ -41,9 +41,10 @@ class ValidationsValidateResponseBodyRedeemablesItem(BaseModel):
     result: Optional[ValidationsValidateResponseBodyRedeemablesItemResult] = None
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes in the form of key/value pairs assigned to the redeemable.")
     categories: Optional[List[CategoryWithStackingRulesType]] = None
-    campaign_name: Optional[StrictStr] = Field(default=None, description="Campaign name")
-    campaign_id: Optional[StrictStr] = Field(default=None, description="Unique campaign ID assigned by Voucherify.")
-    __properties: ClassVar[List[str]] = ["status", "id", "object", "order", "applicable_to", "inapplicable_to", "result", "metadata", "categories", "campaign_name", "campaign_id"]
+    campaign_name: Optional[StrictStr] = Field(default=None, description="Campaign name. Displayed only if the `options.expand` is passed with a `redeemable` value in the validation request body.")
+    campaign_id: Optional[StrictStr] = Field(default=None, description="Unique campaign ID assigned by Voucherify. Displayed only if the `options.expand` is passed with a `redeemable` value in the validation request body.")
+    name: Optional[StrictStr] = Field(default=None, description="Name of the promotion tier. Displayed only if the `options.expand` is passed with a `redeemable` value in the validation request body.")
+    __properties: ClassVar[List[str]] = ["status", "id", "object", "order", "applicable_to", "inapplicable_to", "result", "metadata", "categories", "campaign_name", "campaign_id", "name"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -153,6 +154,11 @@ class ValidationsValidateResponseBodyRedeemablesItem(BaseModel):
         if self.campaign_id is None and "campaign_id" in self.model_fields_set:
             _dict['campaign_id'] = None
 
+        # set to None if name (nullable) is None
+        # and model_fields_set contains the field
+        if self.name is None and "name" in self.model_fields_set:
+            _dict['name'] = None
+
         return _dict
 
     @classmethod
@@ -175,7 +181,8 @@ class ValidationsValidateResponseBodyRedeemablesItem(BaseModel):
             "metadata": obj.get("metadata"),
             "categories": [CategoryWithStackingRulesType.from_dict(_item) for _item in obj["categories"]] if obj.get("categories") is not None else None,
             "campaign_name": obj.get("campaign_name"),
-            "campaign_id": obj.get("campaign_id")
+            "campaign_id": obj.get("campaign_id"),
+            "name": obj.get("name")
         })
         return _obj
 

@@ -46,9 +46,9 @@ class CampaignsUpdateRequestBody(BaseModel):
     unset_metadata_fields: Optional[List[StrictStr]] = Field(default=None, description="Determine which metadata should be removed from campaign.")
     category_id: Optional[StrictStr] = Field(default=None, description="Unique category ID that this campaign belongs to. Either pass this parameter OR the `category`.")
     activity_duration_after_publishing: Optional[StrictStr] = Field(default=None, description="Defines the amount of time the vouchers will be active after publishing. The value is shown in the ISO 8601 format. For example, a voucher with the value of P24D will be valid for a duration of 24 days.")
-    join_once: Optional[StrictBool] = Field(default=None, description="If this value is set to `true`, customers will be able to join the campaign only once.")
+    join_once: Optional[StrictBool] = Field(default=None, description="If this value is set to `true`, customers will be able to join the campaign only once. It is always `false` for standalone voucher campaigns and it cannot be changed in them.")
     auto_join: Optional[StrictBool] = Field(default=None, description="Indicates whether customers will be able to auto-join a loyalty campaign if any earning rule is fulfilled.")
-    type: Optional[StrictStr] = Field(default=None, description="Defines whether the campaign can be updated with new vouchers after campaign creation.      - `AUTO_UPDATE`: By choosing the auto update option you will create a campaign that can be enhanced by new vouchers after the time of creation (e.g. by publish vouchers method).     -  `STATIC`: vouchers need to be manually published.")
+    type: Optional[StrictStr] = Field(default=None, description="Defines whether the campaign can be updated with new vouchers after campaign creation.  - `AUTO_UPDATE`: By choosing the auto update option you will create a campaign that can be enhanced by new vouchers after the time of creation (e.g. by publish vouchers method). -  `STATIC`: vouchers need to be manually published.  If the `type` of the campaign is `STANDALONE`, the type cannot be changed. Also, the `type` cannot be changed to `STANDALONE`.")
     discount: Optional[Discount] = None
     referral_program: Optional[ReferralProgram] = None
     gift: Optional[Gift] = None

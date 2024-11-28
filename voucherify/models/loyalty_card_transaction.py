@@ -36,11 +36,11 @@ class LoyaltyCardTransaction(BaseModel):
     campaign_id: Optional[StrictStr] = Field(default=None, description="Unqiue campaign ID of the voucher's parent campaign if it is part of campaign that generates bulk codes.")
     source: Optional[StrictStr] = Field(default=None, description="The channel through which the transaction took place, whether through the API or the the Dashboard. In case of a redemption, this value is null.")
     reason: Optional[StrictStr] = Field(default=None, description="Reason why the transaction occurred. In case of a redemption, this value is null.")
-    type: LoyaltyCardTransactionsType
-    details: Optional[LoyaltyCardTransactionDetails] = None
     related_transaction_id: Optional[StrictStr] = Field(default=None, description="The related transaction ID on the receiving card.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the transaction was created. The value is shown in the ISO 8601 format.")
-    __properties: ClassVar[List[str]] = ["id", "source_id", "voucher_id", "campaign_id", "source", "reason", "type", "details", "related_transaction_id", "created_at"]
+    details: Optional[LoyaltyCardTransactionDetails] = None
+    type: Optional[LoyaltyCardTransactionsType] = None
+    __properties: ClassVar[List[str]] = ["id", "source_id", "voucher_id", "campaign_id", "source", "reason", "related_transaction_id", "created_at", "details", "type"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -114,11 +114,6 @@ class LoyaltyCardTransaction(BaseModel):
         if self.reason is None and "reason" in self.model_fields_set:
             _dict['reason'] = None
 
-        # set to None if details (nullable) is None
-        # and model_fields_set contains the field
-        if self.details is None and "details" in self.model_fields_set:
-            _dict['details'] = None
-
         # set to None if related_transaction_id (nullable) is None
         # and model_fields_set contains the field
         if self.related_transaction_id is None and "related_transaction_id" in self.model_fields_set:
@@ -128,6 +123,11 @@ class LoyaltyCardTransaction(BaseModel):
         # and model_fields_set contains the field
         if self.created_at is None and "created_at" in self.model_fields_set:
             _dict['created_at'] = None
+
+        # set to None if details (nullable) is None
+        # and model_fields_set contains the field
+        if self.details is None and "details" in self.model_fields_set:
+            _dict['details'] = None
 
         return _dict
 
@@ -147,10 +147,10 @@ class LoyaltyCardTransaction(BaseModel):
             "campaign_id": obj.get("campaign_id"),
             "source": obj.get("source"),
             "reason": obj.get("reason"),
-            "type": obj.get("type"),
-            "details": LoyaltyCardTransactionDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
             "related_transaction_id": obj.get("related_transaction_id"),
-            "created_at": obj.get("created_at")
+            "created_at": obj.get("created_at"),
+            "details": LoyaltyCardTransactionDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
+            "type": obj.get("type")
         })
         return _obj
 

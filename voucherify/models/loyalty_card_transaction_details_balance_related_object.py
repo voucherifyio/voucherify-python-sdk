@@ -20,7 +20,6 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,19 +27,9 @@ class LoyaltyCardTransactionDetailsBalanceRelatedObject(BaseModel):
     """
     Defines the resource that is being modified with the values that are returned in the balance object.
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, description="Identifies the voucher that is being modified, this is the ID that was assigned by the Voucherify API.")
-    type: Optional[Annotated[str, Field(strict=True)]] = Field(default='voucher', description="The object being modified, i.e. voucher.")
+    id: Optional[StrictStr] = Field(default=None, description="Identifies the voucher that is being modified. The ID is assigned by the Voucherify API.")
+    type: Optional[StrictStr] = Field(default='voucher', description="The object being modified, i.e. voucher.")
     __properties: ClassVar[List[str]] = ["id", "type"]
-
-    @field_validator('type')
-    def type_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if value is None:
-            return value
-
-        if not re.match(r"voucher", value):
-            raise ValueError(r"must validate the regular expression /voucher/")
-        return value
 
     @field_validator('type')
     def type_validate_enum(cls, value):

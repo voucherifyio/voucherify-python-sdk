@@ -132,11 +132,6 @@ class VoucherTransactionDetails(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of destination_voucher
         if self.destination_voucher:
             _dict['destination_voucher'] = self.destination_voucher.to_dict()
-        # set to None if balance (nullable) is None
-        # and model_fields_set contains the field
-        if self.balance is None and "balance" in self.model_fields_set:
-            _dict['balance'] = None
-
         # set to None if order (nullable) is None
         # and model_fields_set contains the field
         if self.order is None and "order" in self.model_fields_set:

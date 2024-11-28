@@ -27,7 +27,7 @@ from typing_extensions import Self
 
 class AccessSettingsCampaignAssignmentsList(BaseModel):
     """
-    Lists all assignments of the campaign to areas and stores.  **NOTE**: This object is returned only if the Areas and Stores enterprise feature is enabled. Contact [Voucherify Sales](https://www.voucherify.io/contact-sales) to learn more.
+    Lists all assignments of the campaign to areas and stores. For [GET List Campaigns](ref:list-campaigns), this is returned if the `expand=access_settings_assignments` query parameter is passed in the request.  **NOTE**: This object is returned only if the Areas and Stores enterprise feature is enabled. Contact [Voucherify Sales](https://www.voucherify.io/contact-sales) to learn more.
     """ # noqa: E501
     object: Optional[StrictStr] = Field(default='list', description="The type of the object represented by JSON. Default is `list`. This object stores information about campaign assignments to areas and stores")
     data_ref: Optional[StrictStr] = Field(default='data', description="Identifies the name of the attribute that contains the array of campaign assignments.")

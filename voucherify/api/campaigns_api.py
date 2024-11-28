@@ -684,7 +684,7 @@ class CampaignsApi:
     ) -> CampaignsCreateResponseBody:
         """Create Campaign
 
-        Method to create a batch of vouchers aggregated in one campaign. You can choose a variety of voucher types and define a unique pattern for generating codes.    📘 Global uniqueness  All campaign codes are unique across the whole project. Voucherify will not allow you to generate 2 campaigns with the same coupon code.    🚧 Code generation status  This is an asynchronous action; you cant read or modify a newly created campaign until the code generation is completed. See the creation_status field in the campaign object description.
+        Method to create a batch of vouchers aggregated in one campaign. You can choose a variety of voucher types and define a unique pattern for generating codes.    📘 Global uniqueness  All campaign codes are unique across the whole project. Voucherify will not allow you to generate 2 campaigns with the same coupon code.    🚧 Code generation status  This is an asynchronous action; you cant read or modify a newly created campaign until the code generation is completed. See the creation_status field in the campaign object description. 🚧 Standalone Vouchers and Campaigns In version [v20241004](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004), standalone vouchers created through the Voucherify dashboard create a campaign for that voucher. However, you cannot create a standalone discount or gift voucher campaign with the type: STANDALONE through the API. Voucherify developers work on adding that feature. Follow the [Voucherify Release Notes](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004) for more details about released features.
 
         :param campaigns_create_request_body: Specify the details of the campaign that you would like to create.
         :type campaigns_create_request_body: CampaignsCreateRequestBody
@@ -751,7 +751,7 @@ class CampaignsApi:
     ) -> ApiResponse[CampaignsCreateResponseBody]:
         """Create Campaign
 
-        Method to create a batch of vouchers aggregated in one campaign. You can choose a variety of voucher types and define a unique pattern for generating codes.    📘 Global uniqueness  All campaign codes are unique across the whole project. Voucherify will not allow you to generate 2 campaigns with the same coupon code.    🚧 Code generation status  This is an asynchronous action; you cant read or modify a newly created campaign until the code generation is completed. See the creation_status field in the campaign object description.
+        Method to create a batch of vouchers aggregated in one campaign. You can choose a variety of voucher types and define a unique pattern for generating codes.    📘 Global uniqueness  All campaign codes are unique across the whole project. Voucherify will not allow you to generate 2 campaigns with the same coupon code.    🚧 Code generation status  This is an asynchronous action; you cant read or modify a newly created campaign until the code generation is completed. See the creation_status field in the campaign object description. 🚧 Standalone Vouchers and Campaigns In version [v20241004](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004), standalone vouchers created through the Voucherify dashboard create a campaign for that voucher. However, you cannot create a standalone discount or gift voucher campaign with the type: STANDALONE through the API. Voucherify developers work on adding that feature. Follow the [Voucherify Release Notes](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004) for more details about released features.
 
         :param campaigns_create_request_body: Specify the details of the campaign that you would like to create.
         :type campaigns_create_request_body: CampaignsCreateRequestBody
@@ -818,7 +818,7 @@ class CampaignsApi:
     ) -> RESTResponseType:
         """Create Campaign
 
-        Method to create a batch of vouchers aggregated in one campaign. You can choose a variety of voucher types and define a unique pattern for generating codes.    📘 Global uniqueness  All campaign codes are unique across the whole project. Voucherify will not allow you to generate 2 campaigns with the same coupon code.    🚧 Code generation status  This is an asynchronous action; you cant read or modify a newly created campaign until the code generation is completed. See the creation_status field in the campaign object description.
+        Method to create a batch of vouchers aggregated in one campaign. You can choose a variety of voucher types and define a unique pattern for generating codes.    📘 Global uniqueness  All campaign codes are unique across the whole project. Voucherify will not allow you to generate 2 campaigns with the same coupon code.    🚧 Code generation status  This is an asynchronous action; you cant read or modify a newly created campaign until the code generation is completed. See the creation_status field in the campaign object description. 🚧 Standalone Vouchers and Campaigns In version [v20241004](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004), standalone vouchers created through the Voucherify dashboard create a campaign for that voucher. However, you cannot create a standalone discount or gift voucher campaign with the type: STANDALONE through the API. Voucherify developers work on adding that feature. Follow the [Voucherify Release Notes](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004) for more details about released features.
 
         :param campaigns_create_request_body: Specify the details of the campaign that you would like to create.
         :type campaigns_create_request_body: CampaignsCreateRequestBody
@@ -2578,7 +2578,7 @@ class CampaignsApi:
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
         page: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1.")] = None,
         campaign_type: Annotated[Optional[ParameterCampaignType], Field(description="This attribute allows filtering by campaign type.")] = None,
-        expand: Annotated[Optional[ParameterExpandListCampaigns], Field(description="Include an expanded categories object in the response.")] = None,
+        expand: Annotated[Optional[ParameterExpandListCampaigns], Field(description="Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.")] = None,
         order: Annotated[Optional[ParameterOrderListCampaigns], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
         filters: Annotated[Optional[ParameterFiltersListCampaigns], Field(description="Filters the results by campaign status or whether the campaign is a referral campaign.")] = None,
         _request_timeout: Union[
@@ -2604,7 +2604,7 @@ class CampaignsApi:
         :type page: int
         :param campaign_type: This attribute allows filtering by campaign type.
         :type campaign_type: ParameterCampaignType
-        :param expand: Include an expanded categories object in the response.
+        :param expand: Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.
         :type expand: ParameterExpandListCampaigns
         :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListCampaigns
@@ -2665,7 +2665,7 @@ class CampaignsApi:
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
         page: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1.")] = None,
         campaign_type: Annotated[Optional[ParameterCampaignType], Field(description="This attribute allows filtering by campaign type.")] = None,
-        expand: Annotated[Optional[ParameterExpandListCampaigns], Field(description="Include an expanded categories object in the response.")] = None,
+        expand: Annotated[Optional[ParameterExpandListCampaigns], Field(description="Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.")] = None,
         order: Annotated[Optional[ParameterOrderListCampaigns], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
         filters: Annotated[Optional[ParameterFiltersListCampaigns], Field(description="Filters the results by campaign status or whether the campaign is a referral campaign.")] = None,
         _request_timeout: Union[
@@ -2691,7 +2691,7 @@ class CampaignsApi:
         :type page: int
         :param campaign_type: This attribute allows filtering by campaign type.
         :type campaign_type: ParameterCampaignType
-        :param expand: Include an expanded categories object in the response.
+        :param expand: Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.
         :type expand: ParameterExpandListCampaigns
         :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListCampaigns
@@ -2752,7 +2752,7 @@ class CampaignsApi:
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
         page: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1.")] = None,
         campaign_type: Annotated[Optional[ParameterCampaignType], Field(description="This attribute allows filtering by campaign type.")] = None,
-        expand: Annotated[Optional[ParameterExpandListCampaigns], Field(description="Include an expanded categories object in the response.")] = None,
+        expand: Annotated[Optional[ParameterExpandListCampaigns], Field(description="Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.")] = None,
         order: Annotated[Optional[ParameterOrderListCampaigns], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
         filters: Annotated[Optional[ParameterFiltersListCampaigns], Field(description="Filters the results by campaign status or whether the campaign is a referral campaign.")] = None,
         _request_timeout: Union[
@@ -2778,7 +2778,7 @@ class CampaignsApi:
         :type page: int
         :param campaign_type: This attribute allows filtering by campaign type.
         :type campaign_type: ParameterCampaignType
-        :param expand: Include an expanded categories object in the response.
+        :param expand: Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.
         :type expand: ParameterExpandListCampaigns
         :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListCampaigns
