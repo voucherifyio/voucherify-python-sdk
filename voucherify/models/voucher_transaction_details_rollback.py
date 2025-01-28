@@ -27,7 +27,7 @@ class VoucherTransactionDetailsRollback(BaseModel):
     """
     Contains information about the redemption rollback.
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, description="Unique redemption rollback ID.")
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the redemption rollback.")
     __properties: ClassVar[List[str]] = ["id"]
 
     model_config = ConfigDict(

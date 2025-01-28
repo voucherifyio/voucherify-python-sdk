@@ -27,7 +27,7 @@ class CustomerLoyalty(BaseModel):
     """
     CustomerLoyalty
     """ # noqa: E501
-    points: Optional[StrictInt] = Field(default=None, description="Customer's loyalty points.")
+    points: Optional[StrictInt] = Field(default=None, description="Customer's loyalty points minus expired for all loyalty cards which the customer has.")
     referred_customers: Optional[StrictInt] = Field(default=None, description="Total number of customers referred by the customer.")
     campaigns: Optional[Dict[str, Any]] = Field(default=None, description="Contains campaigns with details about point balances and how many customers were referred by the customer.")
     __properties: ClassVar[List[str]] = ["points", "referred_customers", "campaigns"]

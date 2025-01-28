@@ -30,7 +30,7 @@ class DiscountUnitMultipleOneUnit(BaseModel):
     DiscountUnitMultipleOneUnit
     """ # noqa: E501
     unit_off: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Number of units to be granted a full value discount.")
-    unit_off_formula: Optional[StrictStr] = None
+    unit_off_formula: Optional[StrictStr] = Field(default=None, description="Formula used to calculate the number of units.")
     effect: Optional[StrictStr] = Field(default=None, description="Defines how the unit is added to the customer's order.  ")
     unit_type: Optional[StrictStr] = Field(default=None, description="The product deemed as free, chosen from product inventory (e.g. time, items).")
     product: Optional[SimpleProductDiscountUnit] = None

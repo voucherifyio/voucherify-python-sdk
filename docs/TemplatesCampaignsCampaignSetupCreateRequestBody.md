@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **category_id** | **str** | Unique category ID that this campaign belongs to. Either pass this parameter OR the &#x60;category&#x60;. | [optional] 
 **category** | **str** | The category assigned to the campaign. Either pass this parameter OR the &#x60;category_id&#x60;. | [optional] 
 **metadata** | **object** | The metadata object stores all custom attributes assigned to the campaign. A set of key/value pairs that you can attach to a campaign object. It can be useful for storing additional information about the campaign in a structured format. | [optional] 
+**access_settings** | [**AccessSettings**](AccessSettings.md) |  | [optional] 
 **voucher** | [**TemplatesCampaignsCampaignSetupCreateRequestBodyVoucher**](TemplatesCampaignsCampaignSetupCreateRequestBodyVoucher.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

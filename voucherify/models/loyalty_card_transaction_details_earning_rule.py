@@ -28,7 +28,7 @@ class LoyaltyCardTransactionDetailsEarningRule(BaseModel):
     """
     Contains information about the earning rule.
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, description="Unique earning rule ID.")
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier of an earning rule, assigned by Voucherify.")
     source: Optional[LoyaltyCardTransactionDetailsEarningRuleSource] = None
     __properties: ClassVar[List[str]] = ["id", "source"]
 

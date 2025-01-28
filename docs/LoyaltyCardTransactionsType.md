@@ -4,6 +4,8 @@ Transaction types concerning loyalty points.
 
 ## Enum
 
+* `PENDING_POINTS_ACTIVATION` (value: `'PENDING_POINTS_ACTIVATION'`)
+
 * `POINTS_ACCRUAL` (value: `'POINTS_ACCRUAL'`)
 
 * `POINTS_REDEMPTION` (value: `'POINTS_REDEMPTION'`)

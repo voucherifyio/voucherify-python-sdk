@@ -29,7 +29,8 @@ class AccessSettingsAssign(BaseModel):
     """ # noqa: E501
     areas_ids: Optional[List[StrictStr]] = Field(default=None, description="List all area IDs to which the campaign will be assigned.")
     area_stores_ids: Optional[List[StrictStr]] = Field(default=None, description="List all store IDs to which the campaign will be assigned.")
-    __properties: ClassVar[List[str]] = ["areas_ids", "area_stores_ids"]
+    area_all_stores_ids: Optional[List[StrictStr]] = Field(default=None, description="List all area IDs where the campaign is assigned to all stores in the area. This assignment is not equal to the assignment to all `area_stores_ids` listed separately.")
+    __properties: ClassVar[List[str]] = ["areas_ids", "area_stores_ids", "area_all_stores_ids"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -80,6 +81,11 @@ class AccessSettingsAssign(BaseModel):
         if self.area_stores_ids is None and "area_stores_ids" in self.model_fields_set:
             _dict['area_stores_ids'] = None
 
+        # set to None if area_all_stores_ids (nullable) is None
+        # and model_fields_set contains the field
+        if self.area_all_stores_ids is None and "area_all_stores_ids" in self.model_fields_set:
+            _dict['area_all_stores_ids'] = None
+
         return _dict
 
     @classmethod
@@ -93,7 +99,8 @@ class AccessSettingsAssign(BaseModel):
 
         _obj = cls.model_validate({
             "areas_ids": obj.get("areas_ids"),
-            "area_stores_ids": obj.get("area_stores_ids")
+            "area_stores_ids": obj.get("area_stores_ids"),
+            "area_all_stores_ids": obj.get("area_all_stores_ids")
         })
         return _obj
 

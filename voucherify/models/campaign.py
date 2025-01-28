@@ -67,10 +67,10 @@ class Campaign(BaseModel):
     object: Optional[StrictStr] = Field(default='campaign', description="The type of the object represented by JSON. This object stores information about the campaign.")
     referral_program: Optional[ReferralProgram] = None
     loyalty_tiers_expiration: Optional[LoyaltyTiersExpirationAll] = None
+    access_settings_assignments: Optional[AccessSettingsCampaignAssignmentsList] = None
     promotion: Optional[PromotionTiersList] = None
     validation_rules_assignments: Optional[ValidationRulesAssignmentsList] = None
-    access_settings_assignments: Optional[AccessSettingsCampaignAssignmentsList] = None
-    __properties: ClassVar[List[str]] = ["id", "name", "description", "campaign_type", "type", "voucher", "auto_join", "join_once", "use_voucher_metadata_schema", "validity_timeframe", "validity_day_of_week", "validity_hours", "activity_duration_after_publishing", "vouchers_count", "start_date", "expiration_date", "active", "metadata", "created_at", "updated_at", "category", "creation_status", "vouchers_generation_status", "readonly", "protected", "category_id", "categories", "object", "referral_program", "loyalty_tiers_expiration", "promotion", "validation_rules_assignments", "access_settings_assignments"]
+    __properties: ClassVar[List[str]] = ["id", "name", "description", "campaign_type", "type", "voucher", "auto_join", "join_once", "use_voucher_metadata_schema", "validity_timeframe", "validity_day_of_week", "validity_hours", "activity_duration_after_publishing", "vouchers_count", "start_date", "expiration_date", "active", "metadata", "created_at", "updated_at", "category", "creation_status", "vouchers_generation_status", "readonly", "protected", "category_id", "categories", "object", "referral_program", "loyalty_tiers_expiration", "access_settings_assignments", "promotion", "validation_rules_assignments"]
 
     @field_validator('campaign_type')
     def campaign_type_validate_enum(cls, value):
@@ -184,15 +184,15 @@ class Campaign(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of loyalty_tiers_expiration
         if self.loyalty_tiers_expiration:
             _dict['loyalty_tiers_expiration'] = self.loyalty_tiers_expiration.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of access_settings_assignments
+        if self.access_settings_assignments:
+            _dict['access_settings_assignments'] = self.access_settings_assignments.to_dict()
         # override the default output from pydantic by calling `to_dict()` of promotion
         if self.promotion:
             _dict['promotion'] = self.promotion.to_dict()
         # override the default output from pydantic by calling `to_dict()` of validation_rules_assignments
         if self.validation_rules_assignments:
             _dict['validation_rules_assignments'] = self.validation_rules_assignments.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of access_settings_assignments
-        if self.access_settings_assignments:
-            _dict['access_settings_assignments'] = self.access_settings_assignments.to_dict()
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -355,9 +355,9 @@ class Campaign(BaseModel):
             "object": obj.get("object") if obj.get("object") is not None else 'campaign',
             "referral_program": ReferralProgram.from_dict(obj["referral_program"]) if obj.get("referral_program") is not None else None,
             "loyalty_tiers_expiration": LoyaltyTiersExpirationAll.from_dict(obj["loyalty_tiers_expiration"]) if obj.get("loyalty_tiers_expiration") is not None else None,
+            "access_settings_assignments": AccessSettingsCampaignAssignmentsList.from_dict(obj["access_settings_assignments"]) if obj.get("access_settings_assignments") is not None else None,
             "promotion": PromotionTiersList.from_dict(obj["promotion"]) if obj.get("promotion") is not None else None,
-            "validation_rules_assignments": ValidationRulesAssignmentsList.from_dict(obj["validation_rules_assignments"]) if obj.get("validation_rules_assignments") is not None else None,
-            "access_settings_assignments": AccessSettingsCampaignAssignmentsList.from_dict(obj["access_settings_assignments"]) if obj.get("access_settings_assignments") is not None else None
+            "validation_rules_assignments": ValidationRulesAssignmentsList.from_dict(obj["validation_rules_assignments"]) if obj.get("validation_rules_assignments") is not None else None
         })
         return _obj
 

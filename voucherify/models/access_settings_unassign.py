@@ -28,8 +28,9 @@ class AccessSettingsUnassign(BaseModel):
     Unassigns the campaign from an area or a store. Provide the area and/or store IDs in the respective arrays. If a campaign changes assignments between areas or stores, unassign it first. For example, if a campaign is assigned to Area-01, but it must be now assigned to Store-01 within this area, you have to unassign the campaign from Area-01 and assigned to Store-01 only.  If you want to assign the campaign to stores only, you do not have to send the area ID.
     """ # noqa: E501
     areas_ids: Optional[List[StrictStr]] = Field(default=None, description="List all area IDs from which the campaign will be unassigned.")
-    area_stores_ids: Optional[List[StrictStr]] = Field(default=None, description="List all store IDs to which the campaign will be unassigned.")
-    __properties: ClassVar[List[str]] = ["areas_ids", "area_stores_ids"]
+    area_stores_ids: Optional[List[StrictStr]] = Field(default=None, description="List all store IDs from which the campaign will be unassigned.")
+    area_all_stores_ids: Optional[List[StrictStr]] = Field(default=None, description="List all area IDs where the campaign will be unassigned from all stores in the area. This unassignment is not equal to the unassignment from all `area_stores_ids` listed separately.")
+    __properties: ClassVar[List[str]] = ["areas_ids", "area_stores_ids", "area_all_stores_ids"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -80,6 +81,11 @@ class AccessSettingsUnassign(BaseModel):
         if self.area_stores_ids is None and "area_stores_ids" in self.model_fields_set:
             _dict['area_stores_ids'] = None
 
+        # set to None if area_all_stores_ids (nullable) is None
+        # and model_fields_set contains the field
+        if self.area_all_stores_ids is None and "area_all_stores_ids" in self.model_fields_set:
+            _dict['area_all_stores_ids'] = None
+
         return _dict
 
     @classmethod
@@ -93,7 +99,8 @@ class AccessSettingsUnassign(BaseModel):
 
         _obj = cls.model_validate({
             "areas_ids": obj.get("areas_ids"),
-            "area_stores_ids": obj.get("area_stores_ids")
+            "area_stores_ids": obj.get("area_stores_ids"),
+            "area_all_stores_ids": obj.get("area_all_stores_ids")
         })
         return _obj
 

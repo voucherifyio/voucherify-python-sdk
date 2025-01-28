@@ -7,7 +7,8 @@ Unassigns the campaign from an area or a store. Provide the area and/or store ID
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **areas_ids** | **List[str]** | List all area IDs from which the campaign will be unassigned. | [optional] 
-**area_stores_ids** | **List[str]** | List all store IDs to which the campaign will be unassigned. | [optional] 
+**area_stores_ids** | **List[str]** | List all store IDs from which the campaign will be unassigned. | [optional] 
+**area_all_stores_ids** | **List[str]** | List all area IDs where the campaign will be unassigned from all stores in the area. This unassignment is not equal to the unassignment from all &#x60;area_stores_ids&#x60; listed separately. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

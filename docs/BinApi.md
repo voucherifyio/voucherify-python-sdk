@@ -139,8 +139,8 @@ with voucherify.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = voucherify.BinApi(api_client)
     limit = 56 # int | Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items. (optional)
-    order = voucherify.ParameterOrderListBin() # ParameterOrderListBin | Orders the bin entries according the date and time when they were moved to the bin or according to the bin entry ID. The dash - preceding a sorting option means sorting in a descending order. (optional)
-    starting_after_id = 'starting_after_id_example' # str | A cursor for pagination. It retrieves the events starting after an event with the given ID. (optional)
+    order = voucherify.ParameterOrderListBin() # ParameterOrderListBin | Orders the bin entries according to the bin entry ID. The dash - preceding a sorting option means sorting in a descending order. (optional)
+    starting_after_id = 'starting_after_id_example' # str | A cursor for pagination. It retrieves the results starting after a result with the given ID. (optional)
     filters = voucherify.ParameterFiltersListBin() # ParameterFiltersListBin | Filters for listing bin entries. (optional)
 
     try:
@@ -160,8 +160,8 @@ with voucherify.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int**| Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items. | [optional] 
- **order** | [**ParameterOrderListBin**](.md)| Orders the bin entries according the date and time when they were moved to the bin or according to the bin entry ID. The dash - preceding a sorting option means sorting in a descending order. | [optional] 
- **starting_after_id** | **str**| A cursor for pagination. It retrieves the events starting after an event with the given ID. | [optional] 
+ **order** | [**ParameterOrderListBin**](.md)| Orders the bin entries according to the bin entry ID. The dash - preceding a sorting option means sorting in a descending order. | [optional] 
+ **starting_after_id** | **str**| A cursor for pagination. It retrieves the results starting after a result with the given ID. | [optional] 
  **filters** | [**ParameterFiltersListBin**](.md)| Filters for listing bin entries. | [optional] 
 
 ### Return type

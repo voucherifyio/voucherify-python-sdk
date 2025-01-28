@@ -28,7 +28,7 @@ class LoyaltyTierExpiration(BaseModel):
     """
     Defines loyalty tier expiration date.
     """ # noqa: E501
-    customer_id: Optional[StrictStr] = Field(default=None, description="Unique customer ID of the customer making the purchase.")
+    customer_id: Optional[StrictStr] = Field(default=None, description="Unique customer identifier of the customer making the purchase. The ID is assigned by Voucherify.")
     campaign_id: Optional[StrictStr] = Field(default=None, description="Unique campaign ID, assigned by Voucherify.")
     tier_id: Optional[StrictStr] = Field(default=None, description="Unique tier ID, assigned by Voucherify.")
     start_date: Optional[StrictStr] = Field(default=None, description="Activation timestamp defines when the loyalty tier starts to be active in ISO 8601 format. Loyalty tier is inactive before this date.")

@@ -27,8 +27,8 @@ class VoucherTransactionDetailsCustomEvent(BaseModel):
     """
     Contains information about the custom event that triggers the point accrual.
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, description="Unique event ID.")
-    type: Optional[StrictStr] = Field(default=None, description="Type of custom event.")
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the event.")
+    type: Optional[StrictStr] = Field(default=None, description="Type of the custom event.")
     __properties: ClassVar[List[str]] = ["id", "type"]
 
     model_config = ConfigDict(
