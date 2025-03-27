@@ -35,9 +35,9 @@ Name | Type | Description | Notes
 **object** | **str** | The type of the object represented by JSON. This object stores information about the campaign. | [optional] [default to 'campaign']
 **referral_program** | [**ReferralProgram**](ReferralProgram.md) |  | [optional] 
 **loyalty_tiers_expiration** | [**LoyaltyTiersExpirationAll**](LoyaltyTiersExpirationAll.md) |  | [optional] 
+**access_settings_assignments** | [**AccessSettingsCampaignAssignmentsList**](AccessSettingsCampaignAssignmentsList.md) |  | [optional] 
 **promotion** | [**PromotionTiersList**](PromotionTiersList.md) |  | [optional] 
 **validation_rules_assignments** | [**ValidationRulesAssignmentsList**](ValidationRulesAssignmentsList.md) |  | [optional] 
-**access_settings_assignments** | [**AccessSettingsCampaignAssignmentsList**](AccessSettingsCampaignAssignmentsList.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

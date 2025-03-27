@@ -37,7 +37,7 @@ class ClientValidationsValidateResponseBodyRedeemablesItemResultDiscount(BaseMod
     effect: Optional[StrictStr] = None
     is_dynamic: Optional[StrictBool] = Field(default=None, description="Flag indicating whether the discount was calculated using a formula.")
     unit_off: Optional[StrictInt] = Field(default=None, description="Number of units to be granted a full value discount.")
-    unit_off_formula: Optional[StrictStr] = None
+    unit_off_formula: Optional[StrictStr] = Field(default=None, description="Formula used to calculate the number of units.")
     unit_type: Optional[StrictStr] = Field(default=None, description="The product deemed as free, chosen from product inventory (e.g. time, items).")
     product: Optional[ClientValidationsValidateResponseBodyRedeemablesItemResultDiscountProduct] = None
     sku: Optional[SimpleSkuDiscountUnit] = None

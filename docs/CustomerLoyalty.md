@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**points** | **int** | Customer&#39;s loyalty points. | [optional] 
+**points** | **int** | Customer&#39;s loyalty points minus expired for all loyalty cards which the customer has. | [optional] 
 **referred_customers** | **int** | Total number of customers referred by the customer. | [optional] 
 **campaigns** | **object** | Contains campaigns with details about point balances and how many customers were referred by the customer. | [optional] 
 

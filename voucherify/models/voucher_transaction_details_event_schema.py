@@ -27,8 +27,8 @@ class VoucherTransactionDetailsEventSchema(BaseModel):
     """
     Contains information about the custom event metadata schema.
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, description="Unique metadata schema ID.")
-    name: Optional[StrictStr] = Field(default=None, description="Type of custom event.")
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the metadata schema.")
+    name: Optional[StrictStr] = Field(default=None, description="Type of the custom event.")
     __properties: ClassVar[List[str]] = ["id", "name"]
 
     model_config = ConfigDict(

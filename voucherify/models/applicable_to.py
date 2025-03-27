@@ -21,6 +21,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from voucherify.models.applicable_to_effect import ApplicableToEffect
+from voucherify.models.applicable_to_order_item_units_item import ApplicableToOrderItemUnitsItem
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -41,11 +42,12 @@ class ApplicableTo(BaseModel):
     aggregated_quantity_limit: Optional[StrictInt] = Field(default=None, description="The maximum number of units allowed to be discounted combined across all matched order line items.")
     amount_limit: Optional[StrictInt] = Field(default=None, description="Upper limit allowed to be applied as a discount per order line item. Value is multiplied by 100 to precisely represent 2 decimal places. For example, a $6 maximum discount is written as 600.")
     aggregated_amount_limit: Optional[StrictInt] = Field(default=None, description="Maximum discount amount per order. Value is multiplied by 100 to precisely represent 2 decimal places. For example, a $6 maximum discount on the entire order is written as 600. This value is definable for the following discount effects: - `APPLY_TO_ITEMS` (each item subtotal is discounted equally) - `APPLY_TO_ITEMS_BY_QUANTITY` (each unit of matched products has the same discount value)")
-    order_item_indices: Optional[List[StrictInt]] = Field(default=None, description="Determines the order in which the discount is applied to the products or SKUs sent in the `order` object in the request. The counting begins from `0`.")
+    order_item_indices: Optional[List[StrictInt]] = Field(default=None, description="Lists which order lines are (not) covered by the discount. The order in the array is determined by the sequence of applied discounts, while the numbers correspond to the order lines sent in the `order` object in the request. The first order line is assigned `0`, the second order line is assigned `1`, and so on.")
+    order_item_units: Optional[List[ApplicableToOrderItemUnitsItem]] = Field(default=None, description="Lists which units within order lines are covered by the discount. The order line items are listed according to sequence of applied discounts while the `index` corresponds to the order line sent in the `order` object in the request.")
     repeat: Optional[StrictInt] = Field(default=None, description="Determines the recurrence of the discount, e.g. `\"repeat\": 3` means that the discount is applied to every third item.")
     skip_initially: Optional[StrictInt] = Field(default=None, description="Determines how many items are skipped before the discount is applied.")
-    target: Optional[StrictStr] = Field(default=None, description="Determines to which kinds of objects the discount is applicable. `\"ITEM\"` includes products and SKUs.")
-    __properties: ClassVar[List[str]] = ["object", "id", "source_id", "product_id", "product_source_id", "strict", "price", "price_formula", "effect", "quantity_limit", "aggregated_quantity_limit", "amount_limit", "aggregated_amount_limit", "order_item_indices", "repeat", "skip_initially", "target"]
+    target: Optional[StrictStr] = Field(default=None, description="Determines to which kinds of objects the discount is applicable. `ITEM` includes products and SKUs. `UNIT` means particular units within an order line.")
+    __properties: ClassVar[List[str]] = ["object", "id", "source_id", "product_id", "product_source_id", "strict", "price", "price_formula", "effect", "quantity_limit", "aggregated_quantity_limit", "amount_limit", "aggregated_amount_limit", "order_item_indices", "order_item_units", "repeat", "skip_initially", "target"]
 
     @field_validator('object')
     def object_validate_enum(cls, value):
@@ -96,6 +98,13 @@ class ApplicableTo(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in order_item_units (list)
+        _items = []
+        if self.order_item_units:
+            for _item_order_item_units in self.order_item_units:
+                if _item_order_item_units:
+                    _items.append(_item_order_item_units.to_dict())
+            _dict['order_item_units'] = _items
         # set to None if object (nullable) is None
         # and model_fields_set contains the field
         if self.object is None and "object" in self.model_fields_set:
@@ -161,6 +170,11 @@ class ApplicableTo(BaseModel):
         if self.order_item_indices is None and "order_item_indices" in self.model_fields_set:
             _dict['order_item_indices'] = None
 
+        # set to None if order_item_units (nullable) is None
+        # and model_fields_set contains the field
+        if self.order_item_units is None and "order_item_units" in self.model_fields_set:
+            _dict['order_item_units'] = None
+
         # set to None if repeat (nullable) is None
         # and model_fields_set contains the field
         if self.repeat is None and "repeat" in self.model_fields_set:
@@ -202,6 +216,7 @@ class ApplicableTo(BaseModel):
             "amount_limit": obj.get("amount_limit"),
             "aggregated_amount_limit": obj.get("aggregated_amount_limit"),
             "order_item_indices": obj.get("order_item_indices"),
+            "order_item_units": [ApplicableToOrderItemUnitsItem.from_dict(_item) for _item in obj["order_item_units"]] if obj.get("order_item_units") is not None else None,
             "repeat": obj.get("repeat"),
             "skip_initially": obj.get("skip_initially"),
             "target": obj.get("target")

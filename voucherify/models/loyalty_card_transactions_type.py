@@ -27,6 +27,7 @@ class LoyaltyCardTransactionsType(str, Enum):
     """
     allowed enum values
     """
+    PENDING_POINTS_ACTIVATION = 'PENDING_POINTS_ACTIVATION'
     POINTS_ACCRUAL = 'POINTS_ACCRUAL'
     POINTS_REDEMPTION = 'POINTS_REDEMPTION'
     POINTS_REFUND = 'POINTS_REFUND'

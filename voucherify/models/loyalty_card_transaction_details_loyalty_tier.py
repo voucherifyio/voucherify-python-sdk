@@ -18,17 +18,17 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
 class LoyaltyCardTransactionDetailsLoyaltyTier(BaseModel):
     """
-    Contains information about the loyalty tier.
+    Contains information about the loyalty tier that is mapped for the earning rule and used in the transaction.
     """ # noqa: E501
-    id: Optional[StrictStr] = None
-    name: Optional[StrictStr] = None
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the loyalty tier, assigned by Voucherify.")
+    name: Optional[StrictStr] = Field(default=None, description="User-defined name of the loyalty tier.")
     __properties: ClassVar[List[str]] = ["id", "name"]
 
     model_config = ConfigDict(

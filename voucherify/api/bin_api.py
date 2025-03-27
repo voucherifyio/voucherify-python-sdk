@@ -299,8 +299,8 @@ class BinApi:
     def list_bin_entries(
         self,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
-        order: Annotated[Optional[ParameterOrderListBin], Field(description="Orders the bin entries according the date and time when they were moved to the bin or according to the bin entry ID. The dash - preceding a sorting option means sorting in a descending order.")] = None,
-        starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the events starting after an event with the given ID.")] = None,
+        order: Annotated[Optional[ParameterOrderListBin], Field(description="Orders the bin entries according to the bin entry ID. The dash - preceding a sorting option means sorting in a descending order.")] = None,
+        starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the results starting after a result with the given ID.")] = None,
         filters: Annotated[Optional[ParameterFiltersListBin], Field(description="Filters for listing bin entries.")] = None,
         _request_timeout: Union[
             None,
@@ -321,9 +321,9 @@ class BinApi:
 
         :param limit: Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.
         :type limit: int
-        :param order: Orders the bin entries according the date and time when they were moved to the bin or according to the bin entry ID. The dash - preceding a sorting option means sorting in a descending order.
+        :param order: Orders the bin entries according to the bin entry ID. The dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListBin
-        :param starting_after_id: A cursor for pagination. It retrieves the events starting after an event with the given ID.
+        :param starting_after_id: A cursor for pagination. It retrieves the results starting after a result with the given ID.
         :type starting_after_id: str
         :param filters: Filters for listing bin entries.
         :type filters: ParameterFiltersListBin
@@ -378,8 +378,8 @@ class BinApi:
     def list_bin_entries_with_http_info(
         self,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
-        order: Annotated[Optional[ParameterOrderListBin], Field(description="Orders the bin entries according the date and time when they were moved to the bin or according to the bin entry ID. The dash - preceding a sorting option means sorting in a descending order.")] = None,
-        starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the events starting after an event with the given ID.")] = None,
+        order: Annotated[Optional[ParameterOrderListBin], Field(description="Orders the bin entries according to the bin entry ID. The dash - preceding a sorting option means sorting in a descending order.")] = None,
+        starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the results starting after a result with the given ID.")] = None,
         filters: Annotated[Optional[ParameterFiltersListBin], Field(description="Filters for listing bin entries.")] = None,
         _request_timeout: Union[
             None,
@@ -400,9 +400,9 @@ class BinApi:
 
         :param limit: Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.
         :type limit: int
-        :param order: Orders the bin entries according the date and time when they were moved to the bin or according to the bin entry ID. The dash - preceding a sorting option means sorting in a descending order.
+        :param order: Orders the bin entries according to the bin entry ID. The dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListBin
-        :param starting_after_id: A cursor for pagination. It retrieves the events starting after an event with the given ID.
+        :param starting_after_id: A cursor for pagination. It retrieves the results starting after a result with the given ID.
         :type starting_after_id: str
         :param filters: Filters for listing bin entries.
         :type filters: ParameterFiltersListBin
@@ -457,8 +457,8 @@ class BinApi:
     def list_bin_entries_without_preload_content(
         self,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
-        order: Annotated[Optional[ParameterOrderListBin], Field(description="Orders the bin entries according the date and time when they were moved to the bin or according to the bin entry ID. The dash - preceding a sorting option means sorting in a descending order.")] = None,
-        starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the events starting after an event with the given ID.")] = None,
+        order: Annotated[Optional[ParameterOrderListBin], Field(description="Orders the bin entries according to the bin entry ID. The dash - preceding a sorting option means sorting in a descending order.")] = None,
+        starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the results starting after a result with the given ID.")] = None,
         filters: Annotated[Optional[ParameterFiltersListBin], Field(description="Filters for listing bin entries.")] = None,
         _request_timeout: Union[
             None,
@@ -479,9 +479,9 @@ class BinApi:
 
         :param limit: Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.
         :type limit: int
-        :param order: Orders the bin entries according the date and time when they were moved to the bin or according to the bin entry ID. The dash - preceding a sorting option means sorting in a descending order.
+        :param order: Orders the bin entries according to the bin entry ID. The dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListBin
-        :param starting_after_id: A cursor for pagination. It retrieves the events starting after an event with the given ID.
+        :param starting_after_id: A cursor for pagination. It retrieves the results starting after a result with the given ID.
         :type starting_after_id: str
         :param filters: Filters for listing bin entries.
         :type filters: ParameterFiltersListBin

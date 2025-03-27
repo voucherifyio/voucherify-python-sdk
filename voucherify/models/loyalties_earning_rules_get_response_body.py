@@ -24,6 +24,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from voucherify.models.loyalties_earning_rules_get_response_body_custom_event import LoyaltiesEarningRulesGetResponseBodyCustomEvent
 from voucherify.models.loyalties_earning_rules_get_response_body_loyalty import LoyaltiesEarningRulesGetResponseBodyLoyalty
 from voucherify.models.loyalties_earning_rules_get_response_body_loyalty_tier import LoyaltiesEarningRulesGetResponseBodyLoyaltyTier
+from voucherify.models.loyalties_earning_rules_get_response_body_pending_points import LoyaltiesEarningRulesGetResponseBodyPendingPoints
 from voucherify.models.loyalties_earning_rules_get_response_body_segment import LoyaltiesEarningRulesGetResponseBodySegment
 from voucherify.models.loyalties_earning_rules_get_response_body_source import LoyaltiesEarningRulesGetResponseBodySource
 from voucherify.models.validity_hours import ValidityHours
@@ -42,6 +43,7 @@ class LoyaltiesEarningRulesGetResponseBody(BaseModel):
     custom_event: Optional[LoyaltiesEarningRulesGetResponseBodyCustomEvent] = None
     segment: Optional[LoyaltiesEarningRulesGetResponseBodySegment] = None
     loyalty_tier: Optional[LoyaltiesEarningRulesGetResponseBodyLoyaltyTier] = None
+    pending_points: Optional[LoyaltiesEarningRulesGetResponseBodyPendingPoints] = None
     source: Optional[LoyaltiesEarningRulesGetResponseBodySource] = None
     object: Optional[StrictStr] = Field(default='earning_rule', description="The type of the object represented by JSON. Default is earning_rule.")
     automation_id: Optional[StrictStr] = Field(default=None, description="For internal use by Voucherify.")
@@ -54,7 +56,7 @@ class LoyaltiesEarningRulesGetResponseBody(BaseModel):
     validation_rule_id: Optional[StrictStr] = Field(default=None, description="A unique validation rule identifier assigned by the Voucherify API. The validation rule is verified before points are added to the balance.")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the earning rule was last updated in ISO 8601 format.")
     active: Optional[StrictBool] = Field(default=None, description="A flag to toggle the earning rule on or off. You can disable an earning rule even though it's within the active period defined by the start_date and expiration_date of the campaign or the earning rule's own start_date and expiration_date.  - `true` indicates an active earning rule - `false` indicates an inactive earning rule")
-    __properties: ClassVar[List[str]] = ["id", "created_at", "loyalty", "event", "custom_event", "segment", "loyalty_tier", "source", "object", "automation_id", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "metadata", "validation_rule_id", "updated_at", "active"]
+    __properties: ClassVar[List[str]] = ["id", "created_at", "loyalty", "event", "custom_event", "segment", "loyalty_tier", "pending_points", "source", "object", "automation_id", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "metadata", "validation_rule_id", "updated_at", "active"]
 
     @field_validator('object')
     def object_validate_enum(cls, value):
@@ -128,6 +130,9 @@ class LoyaltiesEarningRulesGetResponseBody(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of loyalty_tier
         if self.loyalty_tier:
             _dict['loyalty_tier'] = self.loyalty_tier.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of pending_points
+        if self.pending_points:
+            _dict['pending_points'] = self.pending_points.to_dict()
         # override the default output from pydantic by calling `to_dict()` of source
         if self.source:
             _dict['source'] = self.source.to_dict()
@@ -166,6 +171,11 @@ class LoyaltiesEarningRulesGetResponseBody(BaseModel):
         # and model_fields_set contains the field
         if self.loyalty_tier is None and "loyalty_tier" in self.model_fields_set:
             _dict['loyalty_tier'] = None
+
+        # set to None if pending_points (nullable) is None
+        # and model_fields_set contains the field
+        if self.pending_points is None and "pending_points" in self.model_fields_set:
+            _dict['pending_points'] = None
 
         # set to None if source (nullable) is None
         # and model_fields_set contains the field
@@ -231,6 +241,7 @@ class LoyaltiesEarningRulesGetResponseBody(BaseModel):
             "custom_event": LoyaltiesEarningRulesGetResponseBodyCustomEvent.from_dict(obj["custom_event"]) if obj.get("custom_event") is not None else None,
             "segment": LoyaltiesEarningRulesGetResponseBodySegment.from_dict(obj["segment"]) if obj.get("segment") is not None else None,
             "loyalty_tier": LoyaltiesEarningRulesGetResponseBodyLoyaltyTier.from_dict(obj["loyalty_tier"]) if obj.get("loyalty_tier") is not None else None,
+            "pending_points": LoyaltiesEarningRulesGetResponseBodyPendingPoints.from_dict(obj["pending_points"]) if obj.get("pending_points") is not None else None,
             "source": LoyaltiesEarningRulesGetResponseBodySource.from_dict(obj["source"]) if obj.get("source") is not None else None,
             "object": obj.get("object") if obj.get("object") is not None else 'earning_rule',
             "automation_id": obj.get("automation_id"),

@@ -22,6 +22,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from voucherify.models.access_settings import AccessSettings
 from voucherify.models.campaigns_create_request_body_promotion import CampaignsCreateRequestBodyPromotion
 from voucherify.models.campaigns_create_request_body_voucher import CampaignsCreateRequestBodyVoucher
 from voucherify.models.referral_program import ReferralProgram
@@ -50,12 +51,13 @@ class CampaignsCreateRequestBody(BaseModel):
     category_id: Optional[StrictStr] = Field(default=None, description="Unique category ID that this campaign belongs to. Either pass this parameter OR the `category`.")
     category: Optional[StrictStr] = Field(default=None, description="The category assigned to the campaign. Either pass this parameter OR the `category_id`.")
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the campaign. A set of key/value pairs that you can attach to a campaign object. It can be useful for storing additional information about the campaign in a structured format.")
+    access_settings: Optional[AccessSettings] = None
     validation_rules: Optional[Annotated[List[StrictStr], Field(max_length=1)]] = Field(default=None, description="Array containing the ID of the validation rule associated with the promotion tier.")
     campaign_type: Optional[StrictStr] = None
     voucher: Optional[CampaignsCreateRequestBodyVoucher] = None
     referral_program: Optional[ReferralProgram] = None
     promotion: Optional[CampaignsCreateRequestBodyPromotion] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "type", "join_once", "auto_join", "use_voucher_metadata_schema", "vouchers_count", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "activity_duration_after_publishing", "category_id", "category", "metadata", "validation_rules", "campaign_type", "voucher", "referral_program", "promotion"]
+    __properties: ClassVar[List[str]] = ["name", "description", "type", "join_once", "auto_join", "use_voucher_metadata_schema", "vouchers_count", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "activity_duration_after_publishing", "category_id", "category", "metadata", "access_settings", "validation_rules", "campaign_type", "voucher", "referral_program", "promotion"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -133,6 +135,9 @@ class CampaignsCreateRequestBody(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of validity_hours
         if self.validity_hours:
             _dict['validity_hours'] = self.validity_hours.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of access_settings
+        if self.access_settings:
+            _dict['access_settings'] = self.access_settings.to_dict()
         # override the default output from pydantic by calling `to_dict()` of voucher
         if self.voucher:
             _dict['voucher'] = self.voucher.to_dict()
@@ -255,6 +260,7 @@ class CampaignsCreateRequestBody(BaseModel):
             "category_id": obj.get("category_id"),
             "category": obj.get("category"),
             "metadata": obj.get("metadata"),
+            "access_settings": AccessSettings.from_dict(obj["access_settings"]) if obj.get("access_settings") is not None else None,
             "validation_rules": obj.get("validation_rules"),
             "campaign_type": obj.get("campaign_type"),
             "voucher": CampaignsCreateRequestBodyVoucher.from_dict(obj["voucher"]) if obj.get("voucher") is not None else None,

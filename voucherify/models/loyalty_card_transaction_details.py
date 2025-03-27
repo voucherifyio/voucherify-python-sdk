@@ -25,12 +25,14 @@ from voucherify.models.loyalty_card_transaction_details_custom_event import Loya
 from voucherify.models.loyalty_card_transaction_details_earning_rule import LoyaltyCardTransactionDetailsEarningRule
 from voucherify.models.loyalty_card_transaction_details_event import LoyaltyCardTransactionDetailsEvent
 from voucherify.models.loyalty_card_transaction_details_event_schema import LoyaltyCardTransactionDetailsEventSchema
+from voucherify.models.loyalty_card_transaction_details_holder_loyalty_tier import LoyaltyCardTransactionDetailsHolderLoyaltyTier
 from voucherify.models.loyalty_card_transaction_details_loyalty_tier import LoyaltyCardTransactionDetailsLoyaltyTier
 from voucherify.models.loyalty_card_transaction_details_order import LoyaltyCardTransactionDetailsOrder
 from voucherify.models.loyalty_card_transaction_details_redemption import LoyaltyCardTransactionDetailsRedemption
 from voucherify.models.loyalty_card_transaction_details_reward import LoyaltyCardTransactionDetailsReward
 from voucherify.models.loyalty_card_transaction_details_rollback import LoyaltyCardTransactionDetailsRollback
 from voucherify.models.loyalty_card_transaction_details_segment import LoyaltyCardTransactionDetailsSegment
+from voucherify.models.loyalty_pending_points import LoyaltyPendingPoints
 from voucherify.models.simple_voucher import SimpleVoucher
 from typing import Optional, Set
 from typing_extensions import Self
@@ -49,10 +51,12 @@ class LoyaltyCardTransactionDetails(BaseModel):
     rollback: Optional[LoyaltyCardTransactionDetailsRollback] = None
     custom_event: Optional[LoyaltyCardTransactionDetailsCustomEvent] = None
     event_schema: Optional[LoyaltyCardTransactionDetailsEventSchema] = None
+    holder_loyalty_tier: Optional[LoyaltyCardTransactionDetailsHolderLoyaltyTier] = None
+    pending_points: Optional[LoyaltyPendingPoints] = None
     reward: Optional[LoyaltyCardTransactionDetailsReward] = None
     source_voucher: Optional[SimpleVoucher] = None
     destination_voucher: Optional[SimpleVoucher] = None
-    __properties: ClassVar[List[str]] = ["balance", "order", "event", "earning_rule", "segment", "loyalty_tier", "redemption", "rollback", "custom_event", "event_schema", "reward", "source_voucher", "destination_voucher"]
+    __properties: ClassVar[List[str]] = ["balance", "order", "event", "earning_rule", "segment", "loyalty_tier", "redemption", "rollback", "custom_event", "event_schema", "holder_loyalty_tier", "pending_points", "reward", "source_voucher", "destination_voucher"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -123,6 +127,12 @@ class LoyaltyCardTransactionDetails(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of event_schema
         if self.event_schema:
             _dict['event_schema'] = self.event_schema.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of holder_loyalty_tier
+        if self.holder_loyalty_tier:
+            _dict['holder_loyalty_tier'] = self.holder_loyalty_tier.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of pending_points
+        if self.pending_points:
+            _dict['pending_points'] = self.pending_points.to_dict()
         # override the default output from pydantic by calling `to_dict()` of reward
         if self.reward:
             _dict['reward'] = self.reward.to_dict()
@@ -177,6 +187,11 @@ class LoyaltyCardTransactionDetails(BaseModel):
         if self.event_schema is None and "event_schema" in self.model_fields_set:
             _dict['event_schema'] = None
 
+        # set to None if holder_loyalty_tier (nullable) is None
+        # and model_fields_set contains the field
+        if self.holder_loyalty_tier is None and "holder_loyalty_tier" in self.model_fields_set:
+            _dict['holder_loyalty_tier'] = None
+
         # set to None if reward (nullable) is None
         # and model_fields_set contains the field
         if self.reward is None and "reward" in self.model_fields_set:
@@ -204,6 +219,8 @@ class LoyaltyCardTransactionDetails(BaseModel):
             "rollback": LoyaltyCardTransactionDetailsRollback.from_dict(obj["rollback"]) if obj.get("rollback") is not None else None,
             "custom_event": LoyaltyCardTransactionDetailsCustomEvent.from_dict(obj["custom_event"]) if obj.get("custom_event") is not None else None,
             "event_schema": LoyaltyCardTransactionDetailsEventSchema.from_dict(obj["event_schema"]) if obj.get("event_schema") is not None else None,
+            "holder_loyalty_tier": LoyaltyCardTransactionDetailsHolderLoyaltyTier.from_dict(obj["holder_loyalty_tier"]) if obj.get("holder_loyalty_tier") is not None else None,
+            "pending_points": LoyaltyPendingPoints.from_dict(obj["pending_points"]) if obj.get("pending_points") is not None else None,
             "reward": LoyaltyCardTransactionDetailsReward.from_dict(obj["reward"]) if obj.get("reward") is not None else None,
             "source_voucher": SimpleVoucher.from_dict(obj["source_voucher"]) if obj.get("source_voucher") is not None else None,
             "destination_voucher": SimpleVoucher.from_dict(obj["destination_voucher"]) if obj.get("destination_voucher") is not None else None

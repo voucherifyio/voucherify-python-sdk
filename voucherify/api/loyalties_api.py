@@ -40,6 +40,8 @@ from voucherify.models.loyalties_members_balance_update_response_body import Loy
 from voucherify.models.loyalties_members_create_request_body import LoyaltiesMembersCreateRequestBody
 from voucherify.models.loyalties_members_create_response_body import LoyaltiesMembersCreateResponseBody
 from voucherify.models.loyalties_members_get_response_body import LoyaltiesMembersGetResponseBody
+from voucherify.models.loyalties_members_pending_points_activate_response_body import LoyaltiesMembersPendingPointsActivateResponseBody
+from voucherify.models.loyalties_members_pending_points_list_response_body import LoyaltiesMembersPendingPointsListResponseBody
 from voucherify.models.loyalties_members_points_expiration_list_response_body import LoyaltiesMembersPointsExpirationListResponseBody
 from voucherify.models.loyalties_members_redemption_redeem_request_body import LoyaltiesMembersRedemptionRedeemRequestBody
 from voucherify.models.loyalties_members_redemption_redeem_response_body import LoyaltiesMembersRedemptionRedeemResponseBody
@@ -49,6 +51,7 @@ from voucherify.models.loyalties_members_transactions_export_create_request_body
 from voucherify.models.loyalties_members_transactions_export_create_response_body import LoyaltiesMembersTransactionsExportCreateResponseBody
 from voucherify.models.loyalties_members_transactions_list_response_body import LoyaltiesMembersTransactionsListResponseBody
 from voucherify.models.loyalties_members_transfers_create_response_body import LoyaltiesMembersTransfersCreateResponseBody
+from voucherify.models.loyalties_pending_points_list_response_body import LoyaltiesPendingPointsListResponseBody
 from voucherify.models.loyalties_points_expiration_export_create_request_body import LoyaltiesPointsExpirationExportCreateRequestBody
 from voucherify.models.loyalties_points_expiration_export_create_response_body import LoyaltiesPointsExpirationExportCreateResponseBody
 from voucherify.models.loyalties_reward_assignments_get_response_body import LoyaltiesRewardAssignmentsGetResponseBody
@@ -74,6 +77,7 @@ from voucherify.models.parameter_order_created_at import ParameterOrderCreatedAt
 from voucherify.models.parameter_order_list_campaigns import ParameterOrderListCampaigns
 from voucherify.models.parameter_order_list_earning_rules import ParameterOrderListEarningRules
 from voucherify.models.parameter_order_list_loyalty_tiers import ParameterOrderListLoyaltyTiers
+from voucherify.models.parameter_order_list_pending_points import ParameterOrderListPendingPoints
 from voucherify.models.parameter_order_list_transactions import ParameterOrderListTransactions
 from voucherify.models.parameter_order_vouchers import ParameterOrderVouchers
 from voucherify.models.parameter_updated_before_after import ParameterUpdatedBeforeAfter
@@ -94,6 +98,281 @@ class LoyaltiesApi:
         if api_client is None:
             api_client = ApiClient.get_default()
         self.api_client = api_client
+
+
+    @validate_call
+    def activate_member_pending_points(
+        self,
+        member_id: Annotated[StrictStr, Field(description="Unique loyalty card code assigned to a particular customer.")],
+        pending_points_id: Annotated[StrictStr, Field(description="Unique pending point identifier, assigned by Voucherify.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> LoyaltiesMembersPendingPointsActivateResponseBody:
+        """Activate Member Pending Points
+
+        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Activate manually the pending points and add them to the loyalty card. The pending points are determined by the pending point ID. Once activated, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body.
+
+        :param member_id: Unique loyalty card code assigned to a particular customer. (required)
+        :type member_id: str
+        :param pending_points_id: Unique pending point identifier, assigned by Voucherify. (required)
+        :type pending_points_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._activate_member_pending_points_serialize(
+            member_id=member_id,
+            pending_points_id=pending_points_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "LoyaltiesMembersPendingPointsActivateResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def activate_member_pending_points_with_http_info(
+        self,
+        member_id: Annotated[StrictStr, Field(description="Unique loyalty card code assigned to a particular customer.")],
+        pending_points_id: Annotated[StrictStr, Field(description="Unique pending point identifier, assigned by Voucherify.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[LoyaltiesMembersPendingPointsActivateResponseBody]:
+        """Activate Member Pending Points
+
+        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Activate manually the pending points and add them to the loyalty card. The pending points are determined by the pending point ID. Once activated, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body.
+
+        :param member_id: Unique loyalty card code assigned to a particular customer. (required)
+        :type member_id: str
+        :param pending_points_id: Unique pending point identifier, assigned by Voucherify. (required)
+        :type pending_points_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._activate_member_pending_points_serialize(
+            member_id=member_id,
+            pending_points_id=pending_points_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "LoyaltiesMembersPendingPointsActivateResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def activate_member_pending_points_without_preload_content(
+        self,
+        member_id: Annotated[StrictStr, Field(description="Unique loyalty card code assigned to a particular customer.")],
+        pending_points_id: Annotated[StrictStr, Field(description="Unique pending point identifier, assigned by Voucherify.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Activate Member Pending Points
+
+        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Activate manually the pending points and add them to the loyalty card. The pending points are determined by the pending point ID. Once activated, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body.
+
+        :param member_id: Unique loyalty card code assigned to a particular customer. (required)
+        :type member_id: str
+        :param pending_points_id: Unique pending point identifier, assigned by Voucherify. (required)
+        :type pending_points_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._activate_member_pending_points_serialize(
+            member_id=member_id,
+            pending_points_id=pending_points_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "LoyaltiesMembersPendingPointsActivateResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _activate_member_pending_points_serialize(
+        self,
+        member_id,
+        pending_points_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[str, Union[str, bytes]] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if member_id is not None:
+            _path_params['memberId'] = member_id
+        if pending_points_id is not None:
+            _path_params['pendingPointsId'] = pending_points_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'X-App-Id', 
+            'X-App-Token'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/v1/loyalties/members/{memberId}/pending-points/{pendingPointsId}/activate',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
 
 
     @validate_call
@@ -369,6 +648,274 @@ class LoyaltiesApi:
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/v1/loyalties/{campaignId}/members',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def cancel_member_pending_points(
+        self,
+        member_id: Annotated[StrictStr, Field(description="Unique loyalty card code assigned to a particular customer.")],
+        pending_points_id: Annotated[StrictStr, Field(description="Unique pending point identifier, assigned by Voucherify.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> None:
+        """Cancel Member Pending Points
+
+        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Cancel manually the pending points for the loyalty card. The pending points are determined by the pending point ID. Once canceled, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body and it returns an empty, 204, response.
+
+        :param member_id: Unique loyalty card code assigned to a particular customer. (required)
+        :type member_id: str
+        :param pending_points_id: Unique pending point identifier, assigned by Voucherify. (required)
+        :type pending_points_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._cancel_member_pending_points_serialize(
+            member_id=member_id,
+            pending_points_id=pending_points_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def cancel_member_pending_points_with_http_info(
+        self,
+        member_id: Annotated[StrictStr, Field(description="Unique loyalty card code assigned to a particular customer.")],
+        pending_points_id: Annotated[StrictStr, Field(description="Unique pending point identifier, assigned by Voucherify.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[None]:
+        """Cancel Member Pending Points
+
+        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Cancel manually the pending points for the loyalty card. The pending points are determined by the pending point ID. Once canceled, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body and it returns an empty, 204, response.
+
+        :param member_id: Unique loyalty card code assigned to a particular customer. (required)
+        :type member_id: str
+        :param pending_points_id: Unique pending point identifier, assigned by Voucherify. (required)
+        :type pending_points_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._cancel_member_pending_points_serialize(
+            member_id=member_id,
+            pending_points_id=pending_points_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def cancel_member_pending_points_without_preload_content(
+        self,
+        member_id: Annotated[StrictStr, Field(description="Unique loyalty card code assigned to a particular customer.")],
+        pending_points_id: Annotated[StrictStr, Field(description="Unique pending point identifier, assigned by Voucherify.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Cancel Member Pending Points
+
+        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Cancel manually the pending points for the loyalty card. The pending points are determined by the pending point ID. Once canceled, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body and it returns an empty, 204, response.
+
+        :param member_id: Unique loyalty card code assigned to a particular customer. (required)
+        :type member_id: str
+        :param pending_points_id: Unique pending point identifier, assigned by Voucherify. (required)
+        :type pending_points_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._cancel_member_pending_points_serialize(
+            member_id=member_id,
+            pending_points_id=pending_points_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _cancel_member_pending_points_serialize(
+        self,
+        member_id,
+        pending_points_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[str, Union[str, bytes]] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if member_id is not None:
+            _path_params['memberId'] = member_id
+        if pending_points_id is not None:
+            _path_params['pendingPointsId'] = pending_points_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'X-App-Id', 
+            'X-App-Token'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/v1/loyalties/members/{memberId}/pending-points/{pendingPointsId}/cancel',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1253,7 +1800,7 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesPointsExpirationExportCreateResponseBody:
-        """Create Points Expiration Export
+        """Export Loyalty Campaign Point Expiration
 
         Schedule the generation of a points expiration CSV file for a particular campaign.
 
@@ -1324,7 +1871,7 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesPointsExpirationExportCreateResponseBody]:
-        """Create Points Expiration Export
+        """Export Loyalty Campaign Point Expiration
 
         Schedule the generation of a points expiration CSV file for a particular campaign.
 
@@ -1395,7 +1942,7 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Create Points Expiration Export
+        """Export Loyalty Campaign Point Expiration
 
         Schedule the generation of a points expiration CSV file for a particular campaign.
 
@@ -2629,7 +3176,7 @@ class LoyaltiesApi:
     def disable_earning_rule(
         self,
         campaign_id: Annotated[StrictStr, Field(description="Unique campaign ID or name.")],
-        earning_rule_id: Annotated[StrictStr, Field(description="Unique earning rule ID.")],
+        earning_rule_id: Annotated[StrictStr, Field(description="Unique identifier of an earning rule, assigned by Voucherify.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2649,7 +3196,7 @@ class LoyaltiesApi:
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
-        :param earning_rule_id: Unique earning rule ID. (required)
+        :param earning_rule_id: Unique identifier of an earning rule, assigned by Voucherify. (required)
         :type earning_rule_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2700,7 +3247,7 @@ class LoyaltiesApi:
     def disable_earning_rule_with_http_info(
         self,
         campaign_id: Annotated[StrictStr, Field(description="Unique campaign ID or name.")],
-        earning_rule_id: Annotated[StrictStr, Field(description="Unique earning rule ID.")],
+        earning_rule_id: Annotated[StrictStr, Field(description="Unique identifier of an earning rule, assigned by Voucherify.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2720,7 +3267,7 @@ class LoyaltiesApi:
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
-        :param earning_rule_id: Unique earning rule ID. (required)
+        :param earning_rule_id: Unique identifier of an earning rule, assigned by Voucherify. (required)
         :type earning_rule_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2771,7 +3318,7 @@ class LoyaltiesApi:
     def disable_earning_rule_without_preload_content(
         self,
         campaign_id: Annotated[StrictStr, Field(description="Unique campaign ID or name.")],
-        earning_rule_id: Annotated[StrictStr, Field(description="Unique earning rule ID.")],
+        earning_rule_id: Annotated[StrictStr, Field(description="Unique identifier of an earning rule, assigned by Voucherify.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2791,7 +3338,7 @@ class LoyaltiesApi:
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
-        :param earning_rule_id: Unique earning rule ID. (required)
+        :param earning_rule_id: Unique identifier of an earning rule, assigned by Voucherify. (required)
         :type earning_rule_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2904,7 +3451,7 @@ class LoyaltiesApi:
     def enable_earning_rule(
         self,
         campaign_id: Annotated[StrictStr, Field(description="Unique campaign ID or name.")],
-        earning_rule_id: Annotated[StrictStr, Field(description="Unique earning rule ID.")],
+        earning_rule_id: Annotated[StrictStr, Field(description="Unique identifier of an earning rule, assigned by Voucherify.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2924,7 +3471,7 @@ class LoyaltiesApi:
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
-        :param earning_rule_id: Unique earning rule ID. (required)
+        :param earning_rule_id: Unique identifier of an earning rule, assigned by Voucherify. (required)
         :type earning_rule_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2975,7 +3522,7 @@ class LoyaltiesApi:
     def enable_earning_rule_with_http_info(
         self,
         campaign_id: Annotated[StrictStr, Field(description="Unique campaign ID or name.")],
-        earning_rule_id: Annotated[StrictStr, Field(description="Unique earning rule ID.")],
+        earning_rule_id: Annotated[StrictStr, Field(description="Unique identifier of an earning rule, assigned by Voucherify.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2995,7 +3542,7 @@ class LoyaltiesApi:
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
-        :param earning_rule_id: Unique earning rule ID. (required)
+        :param earning_rule_id: Unique identifier of an earning rule, assigned by Voucherify. (required)
         :type earning_rule_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3046,7 +3593,7 @@ class LoyaltiesApi:
     def enable_earning_rule_without_preload_content(
         self,
         campaign_id: Annotated[StrictStr, Field(description="Unique campaign ID or name.")],
-        earning_rule_id: Annotated[StrictStr, Field(description="Unique earning rule ID.")],
+        earning_rule_id: Annotated[StrictStr, Field(description="Unique identifier of an earning rule, assigned by Voucherify.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3066,7 +3613,7 @@ class LoyaltiesApi:
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
-        :param earning_rule_id: Unique earning rule ID. (required)
+        :param earning_rule_id: Unique identifier of an earning rule, assigned by Voucherify. (required)
         :type earning_rule_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -5921,6 +6468,317 @@ class LoyaltiesApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/v1/loyalties/{campaignId}/reward-assignments/{assignmentId}/reward',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def list_campaign_pending_points(
+        self,
+        campaign_id: Annotated[StrictStr, Field(description="Unique campaign ID.")],
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limit the number of the pending point entries that the API returns in the response.")] = None,
+        order: Annotated[Optional[ParameterOrderListPendingPoints], Field(description="Orders the pending point entries according the pending point entry ID. The dash - preceding a sorting option means sorting in a descending order.")] = None,
+        starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the results starting after a result with the given ID.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> LoyaltiesPendingPointsListResponseBody:
+        """List Campaign Pending Points
+
+        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Lists all pending points that are currently assigned to all loyalty cards in a campaign. Once the points are added to the card, the entry is no longer returned.
+
+        :param campaign_id: Unique campaign ID. (required)
+        :type campaign_id: str
+        :param limit: Limit the number of the pending point entries that the API returns in the response.
+        :type limit: int
+        :param order: Orders the pending point entries according the pending point entry ID. The dash - preceding a sorting option means sorting in a descending order.
+        :type order: ParameterOrderListPendingPoints
+        :param starting_after_id: A cursor for pagination. It retrieves the results starting after a result with the given ID.
+        :type starting_after_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_campaign_pending_points_serialize(
+            campaign_id=campaign_id,
+            limit=limit,
+            order=order,
+            starting_after_id=starting_after_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "LoyaltiesPendingPointsListResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def list_campaign_pending_points_with_http_info(
+        self,
+        campaign_id: Annotated[StrictStr, Field(description="Unique campaign ID.")],
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limit the number of the pending point entries that the API returns in the response.")] = None,
+        order: Annotated[Optional[ParameterOrderListPendingPoints], Field(description="Orders the pending point entries according the pending point entry ID. The dash - preceding a sorting option means sorting in a descending order.")] = None,
+        starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the results starting after a result with the given ID.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[LoyaltiesPendingPointsListResponseBody]:
+        """List Campaign Pending Points
+
+        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Lists all pending points that are currently assigned to all loyalty cards in a campaign. Once the points are added to the card, the entry is no longer returned.
+
+        :param campaign_id: Unique campaign ID. (required)
+        :type campaign_id: str
+        :param limit: Limit the number of the pending point entries that the API returns in the response.
+        :type limit: int
+        :param order: Orders the pending point entries according the pending point entry ID. The dash - preceding a sorting option means sorting in a descending order.
+        :type order: ParameterOrderListPendingPoints
+        :param starting_after_id: A cursor for pagination. It retrieves the results starting after a result with the given ID.
+        :type starting_after_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_campaign_pending_points_serialize(
+            campaign_id=campaign_id,
+            limit=limit,
+            order=order,
+            starting_after_id=starting_after_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "LoyaltiesPendingPointsListResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def list_campaign_pending_points_without_preload_content(
+        self,
+        campaign_id: Annotated[StrictStr, Field(description="Unique campaign ID.")],
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limit the number of the pending point entries that the API returns in the response.")] = None,
+        order: Annotated[Optional[ParameterOrderListPendingPoints], Field(description="Orders the pending point entries according the pending point entry ID. The dash - preceding a sorting option means sorting in a descending order.")] = None,
+        starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the results starting after a result with the given ID.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List Campaign Pending Points
+
+        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Lists all pending points that are currently assigned to all loyalty cards in a campaign. Once the points are added to the card, the entry is no longer returned.
+
+        :param campaign_id: Unique campaign ID. (required)
+        :type campaign_id: str
+        :param limit: Limit the number of the pending point entries that the API returns in the response.
+        :type limit: int
+        :param order: Orders the pending point entries according the pending point entry ID. The dash - preceding a sorting option means sorting in a descending order.
+        :type order: ParameterOrderListPendingPoints
+        :param starting_after_id: A cursor for pagination. It retrieves the results starting after a result with the given ID.
+        :type starting_after_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_campaign_pending_points_serialize(
+            campaign_id=campaign_id,
+            limit=limit,
+            order=order,
+            starting_after_id=starting_after_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "LoyaltiesPendingPointsListResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _list_campaign_pending_points_serialize(
+        self,
+        campaign_id,
+        limit,
+        order,
+        starting_after_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[str, Union[str, bytes]] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if campaign_id is not None:
+            _path_params['campaignId'] = campaign_id
+        # process the query parameters
+        if limit is not None:
+            
+            _query_params.append(('limit', limit))
+            
+        if order is not None:
+            
+            _query_params.append(('order', order.value))
+            
+        if starting_after_id is not None:
+            
+            _query_params.append(('starting_after_id', starting_after_id))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'X-App-Id', 
+            'X-App-Token'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v1/loyalties/{campaignId}/pending-points',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -8956,6 +9814,643 @@ class LoyaltiesApi:
 
 
     @validate_call
+    def list_member_pending_points(
+        self,
+        member_id: Annotated[StrictStr, Field(description="Unique loyalty card code assigned to a particular customer.")],
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limit the number of the pending point entries that the API returns in the response.")] = None,
+        order: Annotated[Optional[ParameterOrderListPendingPoints], Field(description="Orders the pending point entries according the pending point entry ID. The dash - preceding a sorting option means sorting in a descending order.")] = None,
+        starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the results starting after a result with the given ID.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> LoyaltiesMembersPendingPointsListResponseBody:
+        """List Member Pending Points
+
+        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to list member pending points without having to provide the campaignId as a path parameter. Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned.
+
+        :param member_id: Unique loyalty card code assigned to a particular customer. (required)
+        :type member_id: str
+        :param limit: Limit the number of the pending point entries that the API returns in the response.
+        :type limit: int
+        :param order: Orders the pending point entries according the pending point entry ID. The dash - preceding a sorting option means sorting in a descending order.
+        :type order: ParameterOrderListPendingPoints
+        :param starting_after_id: A cursor for pagination. It retrieves the results starting after a result with the given ID.
+        :type starting_after_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_member_pending_points_serialize(
+            member_id=member_id,
+            limit=limit,
+            order=order,
+            starting_after_id=starting_after_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "LoyaltiesMembersPendingPointsListResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def list_member_pending_points_with_http_info(
+        self,
+        member_id: Annotated[StrictStr, Field(description="Unique loyalty card code assigned to a particular customer.")],
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limit the number of the pending point entries that the API returns in the response.")] = None,
+        order: Annotated[Optional[ParameterOrderListPendingPoints], Field(description="Orders the pending point entries according the pending point entry ID. The dash - preceding a sorting option means sorting in a descending order.")] = None,
+        starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the results starting after a result with the given ID.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[LoyaltiesMembersPendingPointsListResponseBody]:
+        """List Member Pending Points
+
+        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to list member pending points without having to provide the campaignId as a path parameter. Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned.
+
+        :param member_id: Unique loyalty card code assigned to a particular customer. (required)
+        :type member_id: str
+        :param limit: Limit the number of the pending point entries that the API returns in the response.
+        :type limit: int
+        :param order: Orders the pending point entries according the pending point entry ID. The dash - preceding a sorting option means sorting in a descending order.
+        :type order: ParameterOrderListPendingPoints
+        :param starting_after_id: A cursor for pagination. It retrieves the results starting after a result with the given ID.
+        :type starting_after_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_member_pending_points_serialize(
+            member_id=member_id,
+            limit=limit,
+            order=order,
+            starting_after_id=starting_after_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "LoyaltiesMembersPendingPointsListResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def list_member_pending_points_without_preload_content(
+        self,
+        member_id: Annotated[StrictStr, Field(description="Unique loyalty card code assigned to a particular customer.")],
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limit the number of the pending point entries that the API returns in the response.")] = None,
+        order: Annotated[Optional[ParameterOrderListPendingPoints], Field(description="Orders the pending point entries according the pending point entry ID. The dash - preceding a sorting option means sorting in a descending order.")] = None,
+        starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the results starting after a result with the given ID.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List Member Pending Points
+
+        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to list member pending points without having to provide the campaignId as a path parameter. Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned.
+
+        :param member_id: Unique loyalty card code assigned to a particular customer. (required)
+        :type member_id: str
+        :param limit: Limit the number of the pending point entries that the API returns in the response.
+        :type limit: int
+        :param order: Orders the pending point entries according the pending point entry ID. The dash - preceding a sorting option means sorting in a descending order.
+        :type order: ParameterOrderListPendingPoints
+        :param starting_after_id: A cursor for pagination. It retrieves the results starting after a result with the given ID.
+        :type starting_after_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_member_pending_points_serialize(
+            member_id=member_id,
+            limit=limit,
+            order=order,
+            starting_after_id=starting_after_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "LoyaltiesMembersPendingPointsListResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _list_member_pending_points_serialize(
+        self,
+        member_id,
+        limit,
+        order,
+        starting_after_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[str, Union[str, bytes]] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if member_id is not None:
+            _path_params['memberId'] = member_id
+        # process the query parameters
+        if limit is not None:
+            
+            _query_params.append(('limit', limit))
+            
+        if order is not None:
+            
+            _query_params.append(('order', order.value))
+            
+        if starting_after_id is not None:
+            
+            _query_params.append(('starting_after_id', starting_after_id))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'X-App-Id', 
+            'X-App-Token'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v1/loyalties/members/{memberId}/pending-points',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def list_member_pending_points1(
+        self,
+        campaign_id: Annotated[StrictStr, Field(description="Unique campaign ID.")],
+        member_id: Annotated[StrictStr, Field(description="Unique loyalty card code assigned to a particular customer.")],
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limit the number of the pending point entries that the API returns in the response.")] = None,
+        order: Annotated[Optional[ParameterOrderListPendingPoints], Field(description="Orders the pending point entries according the pending point entry ID. The dash - preceding a sorting option means sorting in a descending order.")] = None,
+        starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the results starting after a result with the given ID.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> LoyaltiesMembersPendingPointsListResponseBody:
+        """List Member Pending Points
+
+        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned.
+
+        :param campaign_id: Unique campaign ID. (required)
+        :type campaign_id: str
+        :param member_id: Unique loyalty card code assigned to a particular customer. (required)
+        :type member_id: str
+        :param limit: Limit the number of the pending point entries that the API returns in the response.
+        :type limit: int
+        :param order: Orders the pending point entries according the pending point entry ID. The dash - preceding a sorting option means sorting in a descending order.
+        :type order: ParameterOrderListPendingPoints
+        :param starting_after_id: A cursor for pagination. It retrieves the results starting after a result with the given ID.
+        :type starting_after_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_member_pending_points1_serialize(
+            campaign_id=campaign_id,
+            member_id=member_id,
+            limit=limit,
+            order=order,
+            starting_after_id=starting_after_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "LoyaltiesMembersPendingPointsListResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def list_member_pending_points1_with_http_info(
+        self,
+        campaign_id: Annotated[StrictStr, Field(description="Unique campaign ID.")],
+        member_id: Annotated[StrictStr, Field(description="Unique loyalty card code assigned to a particular customer.")],
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limit the number of the pending point entries that the API returns in the response.")] = None,
+        order: Annotated[Optional[ParameterOrderListPendingPoints], Field(description="Orders the pending point entries according the pending point entry ID. The dash - preceding a sorting option means sorting in a descending order.")] = None,
+        starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the results starting after a result with the given ID.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[LoyaltiesMembersPendingPointsListResponseBody]:
+        """List Member Pending Points
+
+        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned.
+
+        :param campaign_id: Unique campaign ID. (required)
+        :type campaign_id: str
+        :param member_id: Unique loyalty card code assigned to a particular customer. (required)
+        :type member_id: str
+        :param limit: Limit the number of the pending point entries that the API returns in the response.
+        :type limit: int
+        :param order: Orders the pending point entries according the pending point entry ID. The dash - preceding a sorting option means sorting in a descending order.
+        :type order: ParameterOrderListPendingPoints
+        :param starting_after_id: A cursor for pagination. It retrieves the results starting after a result with the given ID.
+        :type starting_after_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_member_pending_points1_serialize(
+            campaign_id=campaign_id,
+            member_id=member_id,
+            limit=limit,
+            order=order,
+            starting_after_id=starting_after_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "LoyaltiesMembersPendingPointsListResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def list_member_pending_points1_without_preload_content(
+        self,
+        campaign_id: Annotated[StrictStr, Field(description="Unique campaign ID.")],
+        member_id: Annotated[StrictStr, Field(description="Unique loyalty card code assigned to a particular customer.")],
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limit the number of the pending point entries that the API returns in the response.")] = None,
+        order: Annotated[Optional[ParameterOrderListPendingPoints], Field(description="Orders the pending point entries according the pending point entry ID. The dash - preceding a sorting option means sorting in a descending order.")] = None,
+        starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the results starting after a result with the given ID.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List Member Pending Points
+
+        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned.
+
+        :param campaign_id: Unique campaign ID. (required)
+        :type campaign_id: str
+        :param member_id: Unique loyalty card code assigned to a particular customer. (required)
+        :type member_id: str
+        :param limit: Limit the number of the pending point entries that the API returns in the response.
+        :type limit: int
+        :param order: Orders the pending point entries according the pending point entry ID. The dash - preceding a sorting option means sorting in a descending order.
+        :type order: ParameterOrderListPendingPoints
+        :param starting_after_id: A cursor for pagination. It retrieves the results starting after a result with the given ID.
+        :type starting_after_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_member_pending_points1_serialize(
+            campaign_id=campaign_id,
+            member_id=member_id,
+            limit=limit,
+            order=order,
+            starting_after_id=starting_after_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "LoyaltiesMembersPendingPointsListResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _list_member_pending_points1_serialize(
+        self,
+        campaign_id,
+        member_id,
+        limit,
+        order,
+        starting_after_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[str, Union[str, bytes]] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if campaign_id is not None:
+            _path_params['campaignId'] = campaign_id
+        if member_id is not None:
+            _path_params['memberId'] = member_id
+        # process the query parameters
+        if limit is not None:
+            
+            _query_params.append(('limit', limit))
+            
+        if order is not None:
+            
+            _query_params.append(('order', order.value))
+            
+        if starting_after_id is not None:
+            
+            _query_params.append(('starting_after_id', starting_after_id))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'X-App-Id', 
+            'X-App-Token'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v1/loyalties/{campaignId}/members/{memberId}/pending-points',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def list_member_rewards(
         self,
         member_id: Annotated[StrictStr, Field(description="Unique loyalty card assigned to a particular customer.")],
@@ -9649,7 +11144,7 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersPointsExpirationListResponseBody:
-        """Get Points Expiration
+        """List Loyalty Card Point Expiration
 
         Retrieve loyalty point expiration buckets for a given loyalty card. Expired point buckets are not returned in this endpoint. You can use the Exports API to retrieve a list of both ACTIVE and EXPIRED point buckets.
 
@@ -9728,7 +11223,7 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersPointsExpirationListResponseBody]:
-        """Get Points Expiration
+        """List Loyalty Card Point Expiration
 
         Retrieve loyalty point expiration buckets for a given loyalty card. Expired point buckets are not returned in this endpoint. You can use the Exports API to retrieve a list of both ACTIVE and EXPIRED point buckets.
 
@@ -9807,7 +11302,7 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get Points Expiration
+        """List Loyalty Card Point Expiration
 
         Retrieve loyalty point expiration buckets for a given loyalty card. Expired point buckets are not returned in this endpoint. You can use the Exports API to retrieve a list of both ACTIVE and EXPIRED point buckets.
 

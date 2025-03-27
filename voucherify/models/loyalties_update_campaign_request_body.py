@@ -21,6 +21,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from voucherify.models.access_settings import AccessSettings
 from voucherify.models.loyalties_update_campaign_request_body_options import LoyaltiesUpdateCampaignRequestBodyOptions
 from voucherify.models.loyalty_tiers_expiration_all import LoyaltyTiersExpirationAll
 from voucherify.models.validity_hours import ValidityHours
@@ -42,13 +43,14 @@ class LoyaltiesUpdateCampaignRequestBody(BaseModel):
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the campaign. A set of key/value pairs that you can attach to a campaign object. It can be useful for storing additional information about the campaign in a structured format.")
     unset_metadata_fields: Optional[List[StrictStr]] = Field(default=None, description="Determine which metadata should be removed from campaign.")
     category_id: Optional[StrictStr] = Field(default=None, description="Unique category ID that this campaign belongs to. Either pass this parameter OR the `category`.")
+    access_settings: Optional[AccessSettings] = None
     activity_duration_after_publishing: Optional[StrictStr] = Field(default=None, description="Defines the amount of time the vouchers will be active after publishing. The value is shown in the ISO 8601 format. For example, a voucher with the value of P24D will be valid for a duration of 24 days.")
     join_once: Optional[StrictBool] = Field(default=None, description="If this value is set to `true`, customers will be able to join the campaign only once. It is always `false` for standalone voucher campaigns and it cannot be changed in them.")
     auto_join: Optional[StrictBool] = Field(default=None, description="Indicates whether customers will be able to auto-join a loyalty campaign if any earning rule is fulfilled.")
     type: Optional[StrictStr] = Field(default=None, description="Defines whether the campaign can be updated with new vouchers after campaign creation.  - `AUTO_UPDATE`: By choosing the auto update option you will create a campaign that can be enhanced by new vouchers after the time of creation (e.g. by publish vouchers method). -  `STATIC`: vouchers need to be manually published.  If the `type` of the campaign is `STANDALONE`, the type cannot be changed. Also, the `type` cannot be changed to `STANDALONE`.")
     loyalty_tiers_expiration: Optional[LoyaltyTiersExpirationAll] = None
     options: Optional[LoyaltiesUpdateCampaignRequestBodyOptions] = None
-    __properties: ClassVar[List[str]] = ["start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "description", "category", "metadata", "unset_metadata_fields", "category_id", "activity_duration_after_publishing", "join_once", "auto_join", "type", "loyalty_tiers_expiration", "options"]
+    __properties: ClassVar[List[str]] = ["start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "description", "category", "metadata", "unset_metadata_fields", "category_id", "access_settings", "activity_duration_after_publishing", "join_once", "auto_join", "type", "loyalty_tiers_expiration", "options"]
 
     @field_validator('validity_day_of_week')
     def validity_day_of_week_validate_enum(cls, value):
@@ -116,6 +118,9 @@ class LoyaltiesUpdateCampaignRequestBody(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of validity_hours
         if self.validity_hours:
             _dict['validity_hours'] = self.validity_hours.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of access_settings
+        if self.access_settings:
+            _dict['access_settings'] = self.access_settings.to_dict()
         # override the default output from pydantic by calling `to_dict()` of loyalty_tiers_expiration
         if self.loyalty_tiers_expiration:
             _dict['loyalty_tiers_expiration'] = self.loyalty_tiers_expiration.to_dict()
@@ -204,6 +209,7 @@ class LoyaltiesUpdateCampaignRequestBody(BaseModel):
             "metadata": obj.get("metadata"),
             "unset_metadata_fields": obj.get("unset_metadata_fields"),
             "category_id": obj.get("category_id"),
+            "access_settings": AccessSettings.from_dict(obj["access_settings"]) if obj.get("access_settings") is not None else None,
             "activity_duration_after_publishing": obj.get("activity_duration_after_publishing"),
             "join_once": obj.get("join_once"),
             "auto_join": obj.get("auto_join"),

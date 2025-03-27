@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **category_id** | **str** | Unique category ID that this campaign belongs to. Either pass this parameter OR the &#x60;category&#x60;. | [optional] 
 **category** | **str** | The category assigned to the campaign. Either pass this parameter OR the &#x60;category_id&#x60;. | [optional] 
 **metadata** | **object** | The metadata object stores all custom attributes assigned to the campaign. A set of key/value pairs that you can attach to a campaign object. It can be useful for storing additional information about the campaign in a structured format. | [optional] 
+**access_settings** | [**AccessSettings**](AccessSettings.md) |  | [optional] 
 **validation_rules** | **List[str]** | Array containing the ID of the validation rule associated with the promotion tier. | [optional] 
 **campaign_type** | **str** |  | [optional] 
 **voucher** | [**CampaignsCreateRequestBodyVoucher**](CampaignsCreateRequestBodyVoucher.md) |  | [optional] 

@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -30,10 +30,11 @@ class AreaStoreCampaignAssignment(BaseModel):
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the campaign assignment.")
     area_id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the area to which the campaign is assigned.")
+    all_stores: Optional[StrictBool] = Field(default=None, description="Determines if the campaign is assigned to all of the stores in the area, i.e. if an area ID is passed in the `access_settings.assign.area_all_stores_ids` in the request.")
     area_store_id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the store to which the campaign is assigned.")
     created_at: Optional[datetime] = Field(default=None, description="Date and time when the assignment was made. The value is shown in the ISO 8601 format.")
     object: Optional[StrictStr] = Field(default='area_store_campaign_assignment', description="The type of the object represented by JSON. This object stores information about the campaign assignment to areas or stores.")
-    __properties: ClassVar[List[str]] = ["id", "area_id", "area_store_id", "created_at", "object"]
+    __properties: ClassVar[List[str]] = ["id", "area_id", "all_stores", "area_store_id", "created_at", "object"]
 
     @field_validator('object')
     def object_validate_enum(cls, value):
@@ -94,6 +95,11 @@ class AreaStoreCampaignAssignment(BaseModel):
         if self.area_id is None and "area_id" in self.model_fields_set:
             _dict['area_id'] = None
 
+        # set to None if all_stores (nullable) is None
+        # and model_fields_set contains the field
+        if self.all_stores is None and "all_stores" in self.model_fields_set:
+            _dict['all_stores'] = None
+
         # set to None if area_store_id (nullable) is None
         # and model_fields_set contains the field
         if self.area_store_id is None and "area_store_id" in self.model_fields_set:
@@ -123,6 +129,7 @@ class AreaStoreCampaignAssignment(BaseModel):
         _obj = cls.model_validate({
             "id": obj.get("id"),
             "area_id": obj.get("area_id"),
+            "all_stores": obj.get("all_stores"),
             "area_store_id": obj.get("area_store_id"),
             "created_at": obj.get("created_at"),
             "object": obj.get("object") if obj.get("object") is not None else 'area_store_campaign_assignment'

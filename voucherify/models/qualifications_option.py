@@ -30,7 +30,7 @@ class QualificationsOption(BaseModel):
     """
     Configure parameters returned in the response.
     """ # noqa: E501
-    limit: Optional[Annotated[int, Field(le=100, strict=True)]] = Field(default=None, description="The maximum number of redeemables to be returned in the API request. The actual number of returned redeemables will be determined by the API. The default value is set to 5")
+    limit: Optional[Annotated[int, Field(le=50, strict=True)]] = Field(default=None, description="The maximum number of redeemables to be returned in the API request. The actual number of returned redeemables will be determined by the API. The default value is set to 5")
     starting_after: Optional[datetime] = Field(default=None, description="Cursor used for paging.")
     filters: Optional[QualificationsOptionFilters] = None
     expand: Optional[List[StrictStr]] = Field(default=None, description="The expand array lets you configure the parameters included in the response. Depending on the strings included in the array, the response will contain different details.   | **Expand Option** | **Response Body** | |:---|:---| | [`\"redeemable\"`] | Returns the redeemables':<br>- metadata<br>- redeemable name,<br>- campaign name,<br>- campaign ID| | [`\"category\"`] | - Returns an expanded `categories` object, showing details about the category. | | [`\"validation_rules\"`] | - Returns an expanded `validation_rules` object, showing details about the validation rules. |")

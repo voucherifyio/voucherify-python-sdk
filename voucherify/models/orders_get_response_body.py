@@ -34,26 +34,26 @@ class OrdersGetResponseBody(BaseModel):
     id: Optional[StrictStr] = Field(default=None, description="Unique ID assigned by Voucherify of an existing order that will be linked to the redemption of this request.")
     source_id: Optional[StrictStr] = Field(default=None, description="Unique source ID of an existing order that will be linked to the redemption of this request.")
     status: Optional[StrictStr] = Field(default=None, description="The order status.")
-    amount: Optional[StrictInt] = Field(default=None, description="A positive integer in the smallest currency unit (e.g. 100 cents for $1.00) representing the total amount of the order. This is the sum of the order items' amounts.")
-    initial_amount: Optional[StrictInt] = Field(default=None, description="A positive integer in the smallest currency unit (e.g. 100 cents for $1.00) representing the total amount of the order. This is the sum of the order items' amounts.")
-    discount_amount: Optional[StrictInt] = Field(default=None, description="Sum of all order-level discounts applied to the order.")
-    items_discount_amount: Optional[StrictInt] = Field(default=None, description="Sum of all product-specific discounts applied to the order.")
-    total_discount_amount: Optional[StrictInt] = Field(default=None, description="Sum of all order-level AND all product-specific discounts applied to the order.")
-    total_amount: Optional[StrictInt] = Field(default=None, description="Order amount after undoing all the discounts through the rollback redemption.")
-    applied_discount_amount: Optional[StrictInt] = Field(default=None, description="This field shows the order-level discount applied.")
-    items_applied_discount_amount: Optional[StrictInt] = Field(default=None, description="Sum of all product-specific discounts applied in a particular request.   `sum(items, i => i.applied_discount_amount)`")
-    total_applied_discount_amount: Optional[StrictInt] = Field(default=None, description="Sum of all order-level AND all product-specific discounts applied in a particular request.   `total_applied_discount_amount` = `applied_discount_amount` + `items_applied_discount_amount`")
-    items: Optional[List[OrderCalculatedItem]] = Field(default=None, description="Array of items applied to the order. It can include up 500 items.")
+    amount: Optional[StrictInt] = Field(default=None, description="This is the sum of the order items' amounts. It is expressed as an integer in the smallest currency unit (e.g. 100 cents for $1.00).")
+    initial_amount: Optional[StrictInt] = Field(default=None, description="This is the sum of the order items' amounts before any discount or other effect (e.g. add missing units) is applied. It is expressed as an integer in the smallest currency unit (e.g. 100 cents for $1.00).")
+    discount_amount: Optional[StrictInt] = Field(default=None, description="Sum of all order-level discounts applied to the order. It is expressed as an integer in the smallest currency unit (e.g. 100 cents for $1.00).")
+    items_discount_amount: Optional[StrictInt] = Field(default=None, description="Sum of all product-specific discounts applied to the order. It is expressed as an integer in the smallest currency unit (e.g. 100 cents for $1.00).")
+    total_discount_amount: Optional[StrictInt] = Field(default=None, description="Sum of all order-level AND all product-specific discounts applied to the order. It is expressed as an integer in the smallest currency unit (e.g. 100 cents for $1.00).")
+    total_amount: Optional[StrictInt] = Field(default=None, description="Order amount after undoing all the discounts through the rollback redemption. It is expressed as an integer in the smallest currency unit (e.g. 100 cents for $1.00).")
+    applied_discount_amount: Optional[StrictInt] = Field(default=None, description="This field shows the order-level discount applied. It is expressed as an integer in the smallest currency unit (e.g. 100 cents for $1.00).")
+    items_applied_discount_amount: Optional[StrictInt] = Field(default=None, description="Sum of all product-specific discounts applied in a particular request. It is expressed as an integer in the smallest currency unit (e.g. 100 cents for $1.00).   `sum(items, i => i.applied_discount_amount)`")
+    total_applied_discount_amount: Optional[StrictInt] = Field(default=None, description="Sum of all order-level AND all product-specific discounts applied in a particular request. It is expressed as an integer in the smallest currency unit (e.g. 100 cents for $1.00).   `total_applied_discount_amount` = `applied_discount_amount` + `items_applied_discount_amount`")
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="A set of custom key/value pairs that you can attach to an order. It can be useful for storing additional information about the order in a structured format. It can be used to define business validation rules or discount formulas.")
     object: Optional[StrictStr] = Field(default='order', description="The type of the object represented by JSON.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the order was created. The value is shown in the ISO 8601 format.")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the order was last updated in ISO 8601 format.")
-    customer_id: Optional[StrictStr] = Field(default=None, description="Unique customer ID of the customer making the purchase.")
+    customer_id: Optional[StrictStr] = Field(default=None, description="Unique customer identifier of the customer making the purchase. The ID is assigned by Voucherify.")
     referrer_id: Optional[StrictStr] = Field(default=None, description="Unique referrer ID.")
     customer: Optional[CustomerId] = None
     referrer: Optional[ReferrerId] = None
     redemptions: Optional[Dict[str, Any]] = None
-    __properties: ClassVar[List[str]] = ["id", "source_id", "status", "amount", "initial_amount", "discount_amount", "items_discount_amount", "total_discount_amount", "total_amount", "applied_discount_amount", "items_applied_discount_amount", "total_applied_discount_amount", "items", "metadata", "object", "created_at", "updated_at", "customer_id", "referrer_id", "customer", "referrer", "redemptions"]
+    items: Optional[List[OrderCalculatedItem]] = Field(default=None, description="Array of items applied to the order. It can include up to 500 items.")
+    __properties: ClassVar[List[str]] = ["id", "source_id", "status", "amount", "initial_amount", "discount_amount", "items_discount_amount", "total_discount_amount", "total_amount", "applied_discount_amount", "items_applied_discount_amount", "total_applied_discount_amount", "metadata", "object", "created_at", "updated_at", "customer_id", "referrer_id", "customer", "referrer", "redemptions", "items"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -114,6 +114,12 @@ class OrdersGetResponseBody(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of customer
+        if self.customer:
+            _dict['customer'] = self.customer.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of referrer
+        if self.referrer:
+            _dict['referrer'] = self.referrer.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in items (list)
         _items = []
         if self.items:
@@ -121,12 +127,6 @@ class OrdersGetResponseBody(BaseModel):
                 if _item_items:
                     _items.append(_item_items.to_dict())
             _dict['items'] = _items
-        # override the default output from pydantic by calling `to_dict()` of customer
-        if self.customer:
-            _dict['customer'] = self.customer.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of referrer
-        if self.referrer:
-            _dict['referrer'] = self.referrer.to_dict()
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -187,11 +187,6 @@ class OrdersGetResponseBody(BaseModel):
         if self.total_applied_discount_amount is None and "total_applied_discount_amount" in self.model_fields_set:
             _dict['total_applied_discount_amount'] = None
 
-        # set to None if items (nullable) is None
-        # and model_fields_set contains the field
-        if self.items is None and "items" in self.model_fields_set:
-            _dict['items'] = None
-
         # set to None if metadata (nullable) is None
         # and model_fields_set contains the field
         if self.metadata is None and "metadata" in self.model_fields_set:
@@ -227,6 +222,11 @@ class OrdersGetResponseBody(BaseModel):
         if self.redemptions is None and "redemptions" in self.model_fields_set:
             _dict['redemptions'] = None
 
+        # set to None if items (nullable) is None
+        # and model_fields_set contains the field
+        if self.items is None and "items" in self.model_fields_set:
+            _dict['items'] = None
+
         return _dict
 
     @classmethod
@@ -251,7 +251,6 @@ class OrdersGetResponseBody(BaseModel):
             "applied_discount_amount": obj.get("applied_discount_amount"),
             "items_applied_discount_amount": obj.get("items_applied_discount_amount"),
             "total_applied_discount_amount": obj.get("total_applied_discount_amount"),
-            "items": [OrderCalculatedItem.from_dict(_item) for _item in obj["items"]] if obj.get("items") is not None else None,
             "metadata": obj.get("metadata"),
             "object": obj.get("object") if obj.get("object") is not None else 'order',
             "created_at": obj.get("created_at"),
@@ -260,7 +259,8 @@ class OrdersGetResponseBody(BaseModel):
             "referrer_id": obj.get("referrer_id"),
             "customer": CustomerId.from_dict(obj["customer"]) if obj.get("customer") is not None else None,
             "referrer": ReferrerId.from_dict(obj["referrer"]) if obj.get("referrer") is not None else None,
-            "redemptions": obj.get("redemptions")
+            "redemptions": obj.get("redemptions"),
+            "items": [OrderCalculatedItem.from_dict(_item) for _item in obj["items"]] if obj.get("items") is not None else None
         })
         return _obj
 

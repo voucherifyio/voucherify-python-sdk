@@ -6,7 +6,7 @@ Defines loyalty tier expiration date.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**customer_id** | **str** | Unique customer ID of the customer making the purchase. | [optional] 
+**customer_id** | **str** | Unique customer identifier of the customer making the purchase. The ID is assigned by Voucherify. | [optional] 
 **campaign_id** | **str** | Unique campaign ID, assigned by Voucherify. | [optional] 
 **tier_id** | **str** | Unique tier ID, assigned by Voucherify. | [optional] 
 **start_date** | **str** | Activation timestamp defines when the loyalty tier starts to be active in ISO 8601 format. Loyalty tier is inactive before this date. | [optional] 
