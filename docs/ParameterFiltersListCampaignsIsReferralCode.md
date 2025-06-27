@@ -1,6 +1,6 @@
 # ParameterFiltersListCampaignsIsReferralCode
 
-
+Determines if the campaign is or is not a referral campaign.
 
 ## Properties
 

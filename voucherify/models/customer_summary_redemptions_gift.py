@@ -27,8 +27,8 @@ class CustomerSummaryRedemptionsGift(BaseModel):
     """
     Summary of gift card credits.
     """ # noqa: E501
-    redeemed_amount: Optional[StrictInt] = Field(default=0, description="Total amount of gift card credits redeemed by customer. Value is multiplied by 100 to precisely represent 2 decimal places. For example `10000 cents` for `$100.00`.")
-    amount_to_go: Optional[StrictInt] = Field(default=0, description="Remaining gift card balance across all gift cards. Value is multiplied by 100 to precisely represent 2 decimal places. For example `10000 cents` for `$100.00`.")
+    redeemed_amount: Optional[StrictInt] = Field(default=0, description="Total amount of gift card credits redeemed by customer. The value is multiplied by 100 to represent 2 decimal places. For example `10000 cents` for `$100.00`.")
+    amount_to_go: Optional[StrictInt] = Field(default=0, description="Remaining gift card balance across all gift cards. The value is multiplied by 100 to represent 2 decimal places. For example `10000 cents` for `$100.00`.")
     __properties: ClassVar[List[str]] = ["redeemed_amount", "amount_to_go"]
 
     model_config = ConfigDict(

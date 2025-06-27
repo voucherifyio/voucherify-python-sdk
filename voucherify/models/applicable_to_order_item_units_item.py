@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +28,7 @@ class ApplicableToOrderItemUnitsItem(BaseModel):
     """
     ApplicableToOrderItemUnitsItem
     """ # noqa: E501
-    index: Optional[StrictInt] = Field(default=None, description="Number assigned to the order line item in accordance with the order sent in the request.")
+    index: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Number assigned to the order line item in accordance with the order sent in the request.")
     units: Optional[List[StrictInt]] = Field(default=None, description="Numbers of units in the order line covered by the discount; e.g. `2, 5, 8` for 10 units with the setting `\"skip_initially\": 1`, `\"repeat\": 3`. The counting of units starts from `1`.")
     __properties: ClassVar[List[str]] = ["index", "units"]
 

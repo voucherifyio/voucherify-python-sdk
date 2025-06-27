@@ -26,7 +26,7 @@ from typing_extensions import Self
 
 class ParameterFiltersListCampaignsCategoryIds(BaseModel):
     """
-    Filter by categories ids
+    Filter by categories IDs
     """ # noqa: E501
     conditions: Optional[FilterConditionsString] = None
     __properties: ClassVar[List[str]] = ["conditions"]

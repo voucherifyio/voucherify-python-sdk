@@ -29,7 +29,8 @@ class SimpleVoucherRedemption(BaseModel):
     """ # noqa: E501
     quantity: Optional[StrictInt] = Field(default=None, description="How many times a voucher can be redeemed. A `null` value means unlimited.")
     redeemed_quantity: Optional[StrictInt] = Field(default=None, description="How many times a voucher has already been redeemed.")
-    __properties: ClassVar[List[str]] = ["quantity", "redeemed_quantity"]
+    redeemed_points: Optional[StrictInt] = Field(default=None, description="Total loyalty points redeemed.")
+    __properties: ClassVar[List[str]] = ["quantity", "redeemed_quantity", "redeemed_points"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -80,6 +81,11 @@ class SimpleVoucherRedemption(BaseModel):
         if self.redeemed_quantity is None and "redeemed_quantity" in self.model_fields_set:
             _dict['redeemed_quantity'] = None
 
+        # set to None if redeemed_points (nullable) is None
+        # and model_fields_set contains the field
+        if self.redeemed_points is None and "redeemed_points" in self.model_fields_set:
+            _dict['redeemed_points'] = None
+
         return _dict
 
     @classmethod
@@ -93,7 +99,8 @@ class SimpleVoucherRedemption(BaseModel):
 
         _obj = cls.model_validate({
             "quantity": obj.get("quantity"),
-            "redeemed_quantity": obj.get("redeemed_quantity")
+            "redeemed_quantity": obj.get("redeemed_quantity"),
+            "redeemed_points": obj.get("redeemed_points")
         })
         return _obj
 

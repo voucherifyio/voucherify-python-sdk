@@ -10,9 +10,12 @@ Method | HTTP request | Description
 [**delete_campaign**](CampaignsApi.md#delete_campaign) | **DELETE** /v1/campaigns/{campaignId} | Delete Campaign
 [**disable_campaign**](CampaignsApi.md#disable_campaign) | **POST** /v1/campaigns/{campaignId}/disable | Disable Campaign
 [**enable_campaign**](CampaignsApi.md#enable_campaign) | **POST** /v1/campaigns/{campaignId}/enable | Enable Campaign
+[**export_campaign_transactions**](CampaignsApi.md#export_campaign_transactions) | **POST** /v1/campaigns/{campaignId}/transactions/export | Export Campaign Transactions
 [**get_campaign**](CampaignsApi.md#get_campaign) | **GET** /v1/campaigns/{campaignId} | Get Campaign
+[**get_campaign_summary**](CampaignsApi.md#get_campaign_summary) | **GET** /v1/campaigns/{campaignId}/summary | Get Campaign Summary
 [**import_vouchers_to_campaign**](CampaignsApi.md#import_vouchers_to_campaign) | **POST** /v1/campaigns/{campaignId}/import | Import Vouchers to Campaign
 [**import_vouchers_to_campaign_using_csv**](CampaignsApi.md#import_vouchers_to_campaign_using_csv) | **POST** /v1/campaigns/{campaignId}/importCSV | Import Vouchers to Campaign by CSV
+[**list_campaign_transactions**](CampaignsApi.md#list_campaign_transactions) | **GET** /v1/campaigns/{campaignId}/transactions | List Campaign Transactions
 [**list_campaigns**](CampaignsApi.md#list_campaigns) | **GET** /v1/campaigns | List Campaigns
 [**update_campaign**](CampaignsApi.md#update_campaign) | **PUT** /v1/campaigns/{campaignId} | Update Campaign
 
@@ -204,7 +207,7 @@ Name | Type | Description  | Notes
 
 Create Campaign
 
-Method to create a batch of vouchers aggregated in one campaign. You can choose a variety of voucher types and define a unique pattern for generating codes.    📘 Global uniqueness  All campaign codes are unique across the whole project. Voucherify will not allow you to generate 2 campaigns with the same coupon code.    🚧 Code generation status  This is an asynchronous action; you cant read or modify a newly created campaign until the code generation is completed. See the creation_status field in the campaign object description. 🚧 Standalone Vouchers and Campaigns In version [v20241004](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004), standalone vouchers created through the Voucherify dashboard create a campaign for that voucher. However, you cannot create a standalone discount or gift voucher campaign with the type: STANDALONE through the API. Voucherify developers work on adding that feature. Follow the [Voucherify Release Notes](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004) for more details about released features.
+Method to create a batch of vouchers aggregated in one campaign. You can choose a variety of voucher types and define a unique pattern for generating codes.    📘 Global uniqueness  All campaign codes are unique across the whole project. Voucherify will not allow you to generate 2 campaigns with the same coupon code.    🚧 Code generation status  This is an asynchronous action; you cant read or modify a newly created campaign until the code generation is completed. See the creation_status field in the campaign object description. 🚧 Standalone Vouchers and Campaigns In version [v20241004](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004), generic (standalone) voucherss created through the Voucherify dashboard create a campaign for that voucher. However, you cannot create a standalone discount or gift voucher campaign with the type: STANDALONE through the API. Voucherify developers work on adding that feature. Follow the [Voucherify Release Notes](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004) for more details about released features.
 
 ### Example
 
@@ -544,6 +547,95 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **export_campaign_transactions**
+> CampaignsTransactionsExportCreateResponseBody export_campaign_transactions(campaign_id, campaigns_transactions_export_create_request_body=campaigns_transactions_export_create_request_body)
+
+Export Campaign Transactions
+
+Export transactions is an asynchronous process that generates a CSV file with the data about credit movements on all gift cards or point movements on all loyalty cards in a given campaign. To export transactions: 1. In the export request, use parameters to select which fields will be exported, in what order, and which data will be filtered. 2. Use the returned id to track the export status with the GET Export method. 3. In the GET Export method, when the returned status field has the DONE value, the export file has been generated. 4. Use the URL in the result property to download the file. You must be logged to your Voucherify account on a given cluster in the browser to be able to download the file. An export request will almost always result in a single file being generated by the system. However, when the data volume is large, the system may split the results into multiple files. An example export file can look as follows:    👍 Export Loyalty Campaign Transactions  For loyalty campaigns, this method works in the same way the POST Export Loyalty Campaign Transactions does.
+
+### Example
+
+* Api Key Authentication (X-App-Id):
+* Api Key Authentication (X-App-Token):
+
+```python
+import voucherify
+from voucherify.models.campaigns_transactions_export_create_request_body import CampaignsTransactionsExportCreateRequestBody
+from voucherify.models.campaigns_transactions_export_create_response_body import CampaignsTransactionsExportCreateResponseBody
+from voucherify.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.voucherify.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = voucherify.Configuration(
+    host = "https://api.voucherify.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: X-App-Id
+configuration.api_key['X-App-Id'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['X-App-Id'] = 'Bearer'
+
+# Configure API key authorization: X-App-Token
+configuration.api_key['X-App-Token'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['X-App-Token'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with voucherify.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = voucherify.CampaignsApi(api_client)
+    campaign_id = 'campaign_id_example' # str | You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.
+    campaigns_transactions_export_create_request_body = {"order":"-created_at","parameters":{"fields":["id","type","source_id","created_at"],"filters":{"created_at":{"conditions":{"$after":["2024-10-01T00:00:00.000Z"]}}}}} # CampaignsTransactionsExportCreateRequestBody | Specify the parameters for the transaction export. (optional)
+
+    try:
+        # Export Campaign Transactions
+        api_response = api_instance.export_campaign_transactions(campaign_id, campaigns_transactions_export_create_request_body=campaigns_transactions_export_create_request_body)
+        print("The response of CampaignsApi->export_campaign_transactions:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CampaignsApi->export_campaign_transactions: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **campaign_id** | **str**| You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. | 
+ **campaigns_transactions_export_create_request_body** | [**CampaignsTransactionsExportCreateRequestBody**](CampaignsTransactionsExportCreateRequestBody.md)| Specify the parameters for the transaction export. | [optional] 
+
+### Return type
+
+[**CampaignsTransactionsExportCreateResponseBody**](CampaignsTransactionsExportCreateResponseBody.md)
+
+### Authorization
+
+[X-App-Id](../README.md#X-App-Id), [X-App-Token](../README.md#X-App-Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**2XX** | An object representing an export. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_campaign**
 > CampaignsGetResponseBody get_campaign(campaign_id)
 
@@ -627,6 +719,96 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **2XX** | Returns a campaign object if a valid identifier was provided. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_campaign_summary**
+> CampaignsSummaryGetResponseBody get_campaign_summary(campaign_id, start_date=start_date, end_date=end_date)
+
+Get Campaign Summary
+
+Returns data for campaign analytics, covering validations, redemptions, publications, and other details specific to a given campaign type. Use start_date and end_date to narrow down the data to specific periods. 🚧 Campaigns created before v20250602 version This endpoint returns analytics data for campaigns that were created after the [v20250602 version](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20250602) was released on 17 June 2025. Older campaigns return empty data.
+
+### Example
+
+* Api Key Authentication (X-App-Id):
+* Api Key Authentication (X-App-Token):
+
+```python
+import voucherify
+from voucherify.models.campaigns_summary_get_response_body import CampaignsSummaryGetResponseBody
+from voucherify.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.voucherify.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = voucherify.Configuration(
+    host = "https://api.voucherify.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: X-App-Id
+configuration.api_key['X-App-Id'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['X-App-Id'] = 'Bearer'
+
+# Configure API key authorization: X-App-Token
+configuration.api_key['X-App-Token'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['X-App-Token'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with voucherify.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = voucherify.CampaignsApi(api_client)
+    campaign_id = 'campaign_id_example' # str | You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.
+    start_date = '2013-10-20' # date | Timestamp representing the date which results must begin on. Represented in ISO 8601 format. (optional)
+    end_date = '2013-10-20' # date | Timestamp representing the date which results must end on. Represented in ISO 8601 format. (optional)
+
+    try:
+        # Get Campaign Summary
+        api_response = api_instance.get_campaign_summary(campaign_id, start_date=start_date, end_date=end_date)
+        print("The response of CampaignsApi->get_campaign_summary:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CampaignsApi->get_campaign_summary: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **campaign_id** | **str**| You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. | 
+ **start_date** | **date**| Timestamp representing the date which results must begin on. Represented in ISO 8601 format. | [optional] 
+ **end_date** | **date**| Timestamp representing the date which results must end on. Represented in ISO 8601 format. | [optional] 
+
+### Return type
+
+[**CampaignsSummaryGetResponseBody**](CampaignsSummaryGetResponseBody.md)
+
+### Authorization
+
+[X-App-Id](../README.md#X-App-Id), [X-App-Token](../README.md#X-App-Token)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**2XX** | Returns campaign analytics data. Returns different data depending on the campaign type. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -807,6 +989,102 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **list_campaign_transactions**
+> CampaignsTransactionsListResponseBody list_campaign_transactions(campaign_id, limit=limit, order=order, starting_after_id=starting_after_id, filters=filters)
+
+List Campaign Transactions
+
+Retrieves all transactions for the campaign with the given campaign ID or campaign name. The id filter denotes the unique transaction identifier.  🚧  The endpoint works only for gift card and loyalty campaigns.
+
+### Example
+
+* Api Key Authentication (X-App-Id):
+* Api Key Authentication (X-App-Token):
+
+```python
+import voucherify
+from voucherify.models.campaigns_transactions_list_response_body import CampaignsTransactionsListResponseBody
+from voucherify.models.parameter_order_list_transactions import ParameterOrderListTransactions
+from voucherify.models.parameters_filters_list_campaign_transactions import ParametersFiltersListCampaignTransactions
+from voucherify.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.voucherify.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = voucherify.Configuration(
+    host = "https://api.voucherify.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: X-App-Id
+configuration.api_key['X-App-Id'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['X-App-Id'] = 'Bearer'
+
+# Configure API key authorization: X-App-Token
+configuration.api_key['X-App-Token'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['X-App-Token'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with voucherify.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = voucherify.CampaignsApi(api_client)
+    campaign_id = 'campaign_id_example' # str | You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.
+    limit = 56 # int | Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items. (optional)
+    order = voucherify.ParameterOrderListTransactions() # ParameterOrderListTransactions | Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order. (optional)
+    starting_after_id = 'starting_after_id_example' # str | A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID. (optional)
+    filters = voucherify.ParametersFiltersListCampaignTransactions() # ParametersFiltersListCampaignTransactions | Filters for listing responses. (optional)
+
+    try:
+        # List Campaign Transactions
+        api_response = api_instance.list_campaign_transactions(campaign_id, limit=limit, order=order, starting_after_id=starting_after_id, filters=filters)
+        print("The response of CampaignsApi->list_campaign_transactions:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CampaignsApi->list_campaign_transactions: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **campaign_id** | **str**| You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. | 
+ **limit** | **int**| Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items. | [optional] 
+ **order** | [**ParameterOrderListTransactions**](.md)| Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order. | [optional] 
+ **starting_after_id** | **str**| A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID. | [optional] 
+ **filters** | [**ParametersFiltersListCampaignTransactions**](.md)| Filters for listing responses. | [optional] 
+
+### Return type
+
+[**CampaignsTransactionsListResponseBody**](CampaignsTransactionsListResponseBody.md)
+
+### Authorization
+
+[X-App-Id](../README.md#X-App-Id), [X-App-Token](../README.md#X-App-Token)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**2XX** | Returns a dictionary with a &#x60;data&#x60; property that contains an array of transactions. The maximum number of transactions returned is determined by the &#x60;limit&#x60; query parameter. Each entry in the array is a separate transaction object. If more results are available, the &#x60;has_more&#x60; flag has value &#x60;true&#x60; and the value of the &#x60;more_starting_after&#x60; property can be used to retrieve another page of results. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **list_campaigns**
 > CampaignsListResponseBody list_campaigns(limit=limit, page=page, campaign_type=campaign_type, expand=expand, order=order, filters=filters)
 
@@ -861,7 +1139,7 @@ with voucherify.ApiClient(configuration) as api_client:
     campaign_type = voucherify.ParameterCampaignType() # ParameterCampaignType | This attribute allows filtering by campaign type. (optional)
     expand = voucherify.ParameterExpandListCampaigns() # ParameterExpandListCampaigns | Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores. (optional)
     order = voucherify.ParameterOrderListCampaigns() # ParameterOrderListCampaigns | Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order. (optional)
-    filters = voucherify.ParameterFiltersListCampaigns() # ParameterFiltersListCampaigns | Filters the results by campaign status or whether the campaign is a referral campaign. (optional)
+    filters = voucherify.ParameterFiltersListCampaigns() # ParameterFiltersListCampaigns | Filters the results by various campaign properties. (optional)
 
     try:
         # List Campaigns
@@ -884,7 +1162,7 @@ Name | Type | Description  | Notes
  **campaign_type** | [**ParameterCampaignType**](.md)| This attribute allows filtering by campaign type. | [optional] 
  **expand** | [**ParameterExpandListCampaigns**](.md)| Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores. | [optional] 
  **order** | [**ParameterOrderListCampaigns**](.md)| Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order. | [optional] 
- **filters** | [**ParameterFiltersListCampaigns**](.md)| Filters the results by campaign status or whether the campaign is a referral campaign. | [optional] 
+ **filters** | [**ParameterFiltersListCampaigns**](.md)| Filters the results by various campaign properties. | [optional] 
 
 ### Return type
 

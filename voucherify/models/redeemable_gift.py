@@ -27,9 +27,10 @@ class RedeemableGift(BaseModel):
     """
     Contains current gift card balance information.
     """ # noqa: E501
-    balance: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Available funds. Value is multiplied by 100 to precisely represent 2 decimal places. For example, $100 amount is written as 10000.")
-    credits: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The number of credits that the user wants to use from the gift card to fulfil the order. The value of credits cannot be higher than the current balance on the gift card. If the user gives more points than he has on the gift card, the application will return an error code in response. Value is multiplied by 100 to precisely represent 2 decimal places. For example `10000 cents` for `$100.00`.")
-    __properties: ClassVar[List[str]] = ["balance", "credits"]
+    balance: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Available funds. The value is multiplied by 100 to represent 2 decimal places. For example `10000 cents` for `$100.00`.")
+    credits: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The number of credits that the user wants to use from the gift card to fulfil the order. The value of credits cannot be higher than the current balance on the gift card. If the user gives more points than he has on the gift card, the application will return an error code in response. The value is multiplied by 100 to represent 2 decimal places. For example `10000 cents` for `$100.00`.")
+    locked_credits: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The number of credits that are locked under a validation session. This is returned if the qualification request includes `session.type: LOCK` parameter in the body. The value is multiplied by 100 to represent 2 decimal places. For example `10000` for `$100.00`. Returns `0` if there aren't any active validation sessions for the gift card.")
+    __properties: ClassVar[List[str]] = ["balance", "credits", "locked_credits"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -80,6 +81,11 @@ class RedeemableGift(BaseModel):
         if self.credits is None and "credits" in self.model_fields_set:
             _dict['credits'] = None
 
+        # set to None if locked_credits (nullable) is None
+        # and model_fields_set contains the field
+        if self.locked_credits is None and "locked_credits" in self.model_fields_set:
+            _dict['locked_credits'] = None
+
         return _dict
 
     @classmethod
@@ -93,7 +99,8 @@ class RedeemableGift(BaseModel):
 
         _obj = cls.model_validate({
             "balance": obj.get("balance"),
-            "credits": obj.get("credits")
+            "credits": obj.get("credits"),
+            "locked_credits": obj.get("locked_credits")
         })
         return _obj
 

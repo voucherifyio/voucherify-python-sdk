@@ -28,10 +28,10 @@ class CustomerSummaryOrders(BaseModel):
     """
     CustomerSummaryOrders
     """ # noqa: E501
-    total_amount: Optional[StrictInt] = Field(default=None, description="The total amount spent by the customer. Value is multiplied by 100 to precisely represent 2 decimal places. For example `10000 cents` for `$100.00`.")
+    total_amount: Optional[StrictInt] = Field(default=None, description="The total amount spent by the customer. The value is multiplied by 100 to represent 2 decimal places. For example `10000 cents` for `$100.00`.")
     total_count: Optional[StrictInt] = Field(default=None, description="Total number of orders made by the customer.")
-    average_amount: Optional[StrictInt] = Field(default=None, description="Average amount spent on orders. `total_amount` &divide; `total_count`. Value is multiplied by 100 to precisely represent 2 decimal places. For example `10000 cents` for `$100.00`.")
-    last_order_amount: Optional[StrictInt] = Field(default=None, description="Amount spent on last order. Value is multiplied by 100 to precisely represent 2 decimal places. For example `10000 cents` for `$100.00`.")
+    average_amount: Optional[StrictInt] = Field(default=None, description="Average amount spent on orders. `total_amount` &divide; `total_count`. The value is multiplied by 100 to represent 2 decimal places. For example `10000 cents` for `$100.00`.")
+    last_order_amount: Optional[StrictInt] = Field(default=None, description="Amount spent on last order. The value is multiplied by 100 to represent 2 decimal places. For example `10000 cents` for `$100.00`.")
     last_order_date: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time of the customer's last order in ISO 8601 format.")
     __properties: ClassVar[List[str]] = ["total_amount", "total_count", "average_amount", "last_order_amount", "last_order_date"]
 

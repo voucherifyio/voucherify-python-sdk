@@ -45,7 +45,7 @@ class OrderCalculatedItem(BaseModel):
     applied_quantity: Optional[StrictInt] = Field(default=None, description="Quantity of items changed by the application of a new quantity items. It can be positive when an item is added or negative if an item is replaced.")
     applied_quantity_amount: Optional[StrictInt] = Field(default=None, description="Amount for the items changed by the application of a new quantity items. It can be positive when an item is added or negative if an item is replaced.")
     initial_amount: Optional[StrictInt] = Field(default=None, description="A positive integer in the smallest currency unit (e.g. 100 cents for $1.00) representing the total amount of the order. This is the sum of the order items' amounts.")
-    price: Optional[StrictInt] = Field(default=None, description="Unit price of an item. Value is multiplied by 100 to precisely represent 2 decimal places. For example `10000 cents` for `$100.00`.")
+    price: Optional[StrictInt] = Field(default=None, description="Unit price of an item. The value is multiplied by 100 to represent 2 decimal places. For example `10000 cents` for `$100.00`.")
     subtotal_amount: Optional[StrictInt] = Field(default=None, description="Final order item amount after the applied item-level discount.  If there are no item-level discounts applied, this item is equal to the `amount`.    `subtotal_amount`=`amount`-`applied_discount_amount`")
     product: Optional[OrderCalculatedItemProduct] = None
     sku: Optional[OrderCalculatedItemSku] = None

@@ -25,12 +25,12 @@ from typing_extensions import Self
 
 class CampaignLoyaltyCardExpirationRules(BaseModel):
     """
-    CampaignLoyaltyCardExpirationRules
+    Defines the loyalty point expiration rule. This expiration rule applies when there are no `expiration_rules` defined for an earning rule.
     """ # noqa: E501
-    period_type: Optional[StrictStr] = Field(default='MONTH', description="Type of period")
-    period_value: Optional[StrictInt] = Field(default=None, description="Value of the period")
-    rounding_type: Optional[StrictStr] = Field(default=None, description="Type of rounding")
-    rounding_value: Optional[StrictInt] = Field(default=None, description="Value of rounding")
+    period_type: Optional[StrictStr] = Field(default='MONTH', description="Type of period. Currently, only `MONTH` is allowed.")
+    period_value: Optional[StrictInt] = Field(default=None, description="Value of the period.")
+    rounding_type: Optional[StrictStr] = Field(default=None, description="Type of rounding of the expiration period.")
+    rounding_value: Optional[StrictInt] = Field(default=None, description="Value of rounding of the expiration period.")
     __properties: ClassVar[List[str]] = ["period_type", "period_value", "rounding_type", "rounding_value"]
 
     @field_validator('period_type')

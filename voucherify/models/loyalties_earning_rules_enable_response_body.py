@@ -21,6 +21,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from voucherify.models.earning_rule_expiration_rules import EarningRuleExpirationRules
 from voucherify.models.loyalties_earning_rules_enable_response_body_custom_event import LoyaltiesEarningRulesEnableResponseBodyCustomEvent
 from voucherify.models.loyalties_earning_rules_enable_response_body_loyalty import LoyaltiesEarningRulesEnableResponseBodyLoyalty
 from voucherify.models.loyalties_earning_rules_enable_response_body_loyalty_tier import LoyaltiesEarningRulesEnableResponseBodyLoyaltyTier
@@ -53,9 +54,10 @@ class LoyaltiesEarningRulesEnableResponseBody(BaseModel):
     validity_day_of_week: Optional[List[StrictInt]] = Field(default=None, description="Integer array corresponding to the particular days of the week in which the voucher is valid.  - `0` Sunday - `1` Monday - `2` Tuesday - `3` Wednesday - `4` Thursday - `5` Friday - `6` Saturday")
     validity_hours: Optional[ValidityHours] = None
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the earning rule. A set of key/value pairs that you can attach to an earning rule object. It can be useful for storing additional information about the earning rule in a structured format.")
+    expiration_rules: Optional[EarningRuleExpirationRules] = None
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the earning rule was last updated in ISO 8601 format.")
     active: Optional[StrictBool] = Field(default=True, description="A flag to toggle the earning rule on or off. You can disable an earning rule even though it's within the active period defined by the start_date and expiration_date of the campaign or the earning rule's own start_date and expiration_date.")
-    __properties: ClassVar[List[str]] = ["id", "created_at", "loyalty", "event", "custom_event", "segment", "loyalty_tier", "pending_points", "source", "object", "automation_id", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "metadata", "updated_at", "active"]
+    __properties: ClassVar[List[str]] = ["id", "created_at", "loyalty", "event", "custom_event", "segment", "loyalty_tier", "pending_points", "source", "object", "automation_id", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "metadata", "expiration_rules", "updated_at", "active"]
 
     @field_validator('object')
     def object_validate_enum(cls, value):
@@ -141,6 +143,9 @@ class LoyaltiesEarningRulesEnableResponseBody(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of validity_hours
         if self.validity_hours:
             _dict['validity_hours'] = self.validity_hours.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of expiration_rules
+        if self.expiration_rules:
+            _dict['expiration_rules'] = self.expiration_rules.to_dict()
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -245,6 +250,7 @@ class LoyaltiesEarningRulesEnableResponseBody(BaseModel):
             "validity_day_of_week": obj.get("validity_day_of_week"),
             "validity_hours": ValidityHours.from_dict(obj["validity_hours"]) if obj.get("validity_hours") is not None else None,
             "metadata": obj.get("metadata"),
+            "expiration_rules": EarningRuleExpirationRules.from_dict(obj["expiration_rules"]) if obj.get("expiration_rules") is not None else None,
             "updated_at": obj.get("updated_at"),
             "active": obj.get("active") if obj.get("active") is not None else True
         })

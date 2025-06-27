@@ -25,10 +25,11 @@ from typing_extensions import Self
 
 class ClientValidationsValidateResponseBodyRedeemablesItemResultGift(BaseModel):
     """
-    Stores the amount of gift card credits to be applied in the redemption.
+    Stores the amount of gift card credits to be applied.
     """ # noqa: E501
-    credits: Optional[StrictInt] = Field(default=None, description="Total number of gift card credits to be applied in the redemption expressed as the smallest currency unit (e.g. 100 cents for $1.00).")
-    __properties: ClassVar[List[str]] = ["credits"]
+    balance: Optional[StrictInt] = Field(default=None, description="Available funds at the moment of validation. The value is multiplied by 100 to represent 2 decimal places. For example `10000 cents` for `$100.00`.")
+    credits: Optional[StrictInt] = Field(default=None, description="Total number of gift card credits to be applied. The value is multiplied by 100 to represent 2 decimal places. For example `10000 cents` for `$100.00`.")
+    __properties: ClassVar[List[str]] = ["balance", "credits"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -69,6 +70,11 @@ class ClientValidationsValidateResponseBodyRedeemablesItemResultGift(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if balance (nullable) is None
+        # and model_fields_set contains the field
+        if self.balance is None and "balance" in self.model_fields_set:
+            _dict['balance'] = None
+
         # set to None if credits (nullable) is None
         # and model_fields_set contains the field
         if self.credits is None and "credits" in self.model_fields_set:
@@ -86,6 +92,7 @@ class ClientValidationsValidateResponseBodyRedeemablesItemResultGift(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "balance": obj.get("balance"),
             "credits": obj.get("credits")
         })
         return _obj

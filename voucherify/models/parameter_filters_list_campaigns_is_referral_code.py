@@ -25,7 +25,7 @@ from typing_extensions import Self
 
 class ParameterFiltersListCampaignsIsReferralCode(BaseModel):
     """
-    
+    Determines if the campaign is or is not a referral campaign.
     """ # noqa: E501
     var_is: Optional[StrictStr] = Field(default=None, description="Value is exactly this value (single value).", alias="$is")
     is_not: Optional[StrictStr] = Field(default=None, description="Results omit this value (single value).", alias="$is_not")

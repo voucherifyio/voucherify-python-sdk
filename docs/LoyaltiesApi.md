@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**activate_member_pending_points**](LoyaltiesApi.md#activate_member_pending_points) | **POST** /v1/loyalties/members/{memberId}/pending-points/{pendingPointsId}/activate | Activate Member Pending Points
 [**add_member**](LoyaltiesApi.md#add_member) | **POST** /v1/loyalties/{campaignId}/members | Add Member
+[**adjust_member_pending_points**](LoyaltiesApi.md#adjust_member_pending_points) | **POST** /v1/loyalties/members/{memberId}/pending-points/{pendingPointsId}/balance | Adjust Member Pending Points
 [**cancel_member_pending_points**](LoyaltiesApi.md#cancel_member_pending_points) | **POST** /v1/loyalties/members/{memberId}/pending-points/{pendingPointsId}/cancel | Cancel Member Pending Points
 [**create_earning_rule**](LoyaltiesApi.md#create_earning_rule) | **POST** /v1/loyalties/{campaignId}/earning-rules | Create Earning Rule
 [**create_in_bulk_loyalty_tiers**](LoyaltiesApi.md#create_in_bulk_loyalty_tiers) | **POST** /v1/loyalties/{campaignId}/tiers | Create loyalty tiers
@@ -17,6 +18,7 @@ Method | HTTP request | Description
 [**delete_reward_assignment1**](LoyaltiesApi.md#delete_reward_assignment1) | **DELETE** /v1/loyalties/{campaignId}/rewards/{assignmentId} | Delete Reward Assignment
 [**disable_earning_rule**](LoyaltiesApi.md#disable_earning_rule) | **POST** /v1/loyalties/{campaignId}/earning-rules/{earningRuleId}/disable | Disable Earning Rule
 [**enable_earning_rule**](LoyaltiesApi.md#enable_earning_rule) | **POST** /v1/loyalties/{campaignId}/earning-rules/{earningRuleId}/enable | Enable Earning Rule
+[**export_loyalty_campaign_transactions**](LoyaltiesApi.md#export_loyalty_campaign_transactions) | **POST** /v1/loyalties/{campaignId}/transactions/export | Export Loyalty Campaign Transactions
 [**export_loyalty_card_transactions**](LoyaltiesApi.md#export_loyalty_card_transactions) | **POST** /v1/loyalties/members/{memberId}/transactions/export | Export Loyalty Card Transactions
 [**export_loyalty_card_transactions1**](LoyaltiesApi.md#export_loyalty_card_transactions1) | **POST** /v1/loyalties/{campaignId}/members/{memberId}/transactions/export | Export Loyalty Card Transactions
 [**get_earning_rule**](LoyaltiesApi.md#get_earning_rule) | **GET** /v1/loyalties/{campaignId}/earning-rules/{earningRuleId} | Get Earning Rule
@@ -29,6 +31,7 @@ Method | HTTP request | Description
 [**get_reward_details**](LoyaltiesApi.md#get_reward_details) | **GET** /v1/loyalties/{campaignId}/reward-assignments/{assignmentId}/reward | Get Reward Details
 [**list_campaign_pending_points**](LoyaltiesApi.md#list_campaign_pending_points) | **GET** /v1/loyalties/{campaignId}/pending-points | List Campaign Pending Points
 [**list_earning_rules**](LoyaltiesApi.md#list_earning_rules) | **GET** /v1/loyalties/{campaignId}/earning-rules | List Earning Rules
+[**list_loyalty_campaign_transactions**](LoyaltiesApi.md#list_loyalty_campaign_transactions) | **GET** /v1/loyalties/{campaignId}/transactions | List Loyalty Campaign Transactions
 [**list_loyalty_card_transactions**](LoyaltiesApi.md#list_loyalty_card_transactions) | **GET** /v1/loyalties/members/{memberId}/transactions | List Loyalty Card Transactions
 [**list_loyalty_card_transactions1**](LoyaltiesApi.md#list_loyalty_card_transactions1) | **GET** /v1/loyalties/{campaignId}/members/{memberId}/transactions | List Loyalty Card Transactions
 [**list_loyalty_programs**](LoyaltiesApi.md#list_loyalty_programs) | **GET** /v1/loyalties | List Loyalty Campaigns
@@ -49,8 +52,8 @@ Method | HTTP request | Description
 [**redeem_reward1**](LoyaltiesApi.md#redeem_reward1) | **POST** /v1/loyalties/{campaignId}/members/{memberId}/redemption | Redeem Reward
 [**transfer_points**](LoyaltiesApi.md#transfer_points) | **POST** /v1/loyalties/{campaignId}/members/{memberId}/transfers | Transfer Loyalty Points
 [**update_earning_rule**](LoyaltiesApi.md#update_earning_rule) | **PUT** /v1/loyalties/{campaignId}/earning-rules/{earningRuleId} | Update Earning Rule
-[**update_loyalty_card_balance**](LoyaltiesApi.md#update_loyalty_card_balance) | **POST** /v1/loyalties/members/{memberId}/balance | Add or Remove Loyalty Card Balance
-[**update_loyalty_card_balance1**](LoyaltiesApi.md#update_loyalty_card_balance1) | **POST** /v1/loyalties/{campaignId}/members/{memberId}/balance | Add or Remove Loyalty Card Balance
+[**update_loyalty_card_balance**](LoyaltiesApi.md#update_loyalty_card_balance) | **POST** /v1/loyalties/members/{memberId}/balance | Adjust Loyalty Card Balance
+[**update_loyalty_card_balance1**](LoyaltiesApi.md#update_loyalty_card_balance1) | **POST** /v1/loyalties/{campaignId}/members/{memberId}/balance | Adjust Loyalty Card Balance
 [**update_loyalty_program**](LoyaltiesApi.md#update_loyalty_program) | **PUT** /v1/loyalties/{campaignId} | Update Loyalty Campaign
 [**update_reward_assignment1**](LoyaltiesApi.md#update_reward_assignment1) | **PUT** /v1/loyalties/{campaignId}/rewards/{assignmentId} | Update Reward Assignment
 
@@ -60,7 +63,7 @@ Method | HTTP request | Description
 
 Activate Member Pending Points
 
->🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Activate manually the pending points and add them to the loyalty card. The pending points are determined by the pending point ID. Once activated, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body.
+Activate manually the pending points and add them to the loyalty card. The pending points are determined by the pending point ID. Once activated, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
 
 ### Example
 
@@ -232,12 +235,103 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **adjust_member_pending_points**
+> LoyaltiesMembersPendingPointsBalanceResponseBody adjust_member_pending_points(member_id, pending_points_id, loyalties_members_pending_points_balance_request_body=loyalties_members_pending_points_balance_request_body)
+
+Adjust Member Pending Points
+
+Adjusts the pending points with a given ID. You can add or subtract the number of points. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+
+### Example
+
+* Api Key Authentication (X-App-Id):
+* Api Key Authentication (X-App-Token):
+
+```python
+import voucherify
+from voucherify.models.loyalties_members_pending_points_balance_request_body import LoyaltiesMembersPendingPointsBalanceRequestBody
+from voucherify.models.loyalties_members_pending_points_balance_response_body import LoyaltiesMembersPendingPointsBalanceResponseBody
+from voucherify.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.voucherify.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = voucherify.Configuration(
+    host = "https://api.voucherify.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: X-App-Id
+configuration.api_key['X-App-Id'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['X-App-Id'] = 'Bearer'
+
+# Configure API key authorization: X-App-Token
+configuration.api_key['X-App-Token'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['X-App-Token'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with voucherify.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = voucherify.LoyaltiesApi(api_client)
+    member_id = 'member_id_example' # str | Unique loyalty card code assigned to a particular customer.
+    pending_points_id = 'pending_points_id_example' # str | Unique pending point identifier, assigned by Voucherify.
+    loyalties_members_pending_points_balance_request_body = {"points":10} # LoyaltiesMembersPendingPointsBalanceRequestBody | Define the number of pending points to be added or subtracted. (optional)
+
+    try:
+        # Adjust Member Pending Points
+        api_response = api_instance.adjust_member_pending_points(member_id, pending_points_id, loyalties_members_pending_points_balance_request_body=loyalties_members_pending_points_balance_request_body)
+        print("The response of LoyaltiesApi->adjust_member_pending_points:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling LoyaltiesApi->adjust_member_pending_points: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **member_id** | **str**| Unique loyalty card code assigned to a particular customer. | 
+ **pending_points_id** | **str**| Unique pending point identifier, assigned by Voucherify. | 
+ **loyalties_members_pending_points_balance_request_body** | [**LoyaltiesMembersPendingPointsBalanceRequestBody**](LoyaltiesMembersPendingPointsBalanceRequestBody.md)| Define the number of pending points to be added or subtracted. | [optional] 
+
+### Return type
+
+[**LoyaltiesMembersPendingPointsBalanceResponseBody**](LoyaltiesMembersPendingPointsBalanceResponseBody.md)
+
+### Authorization
+
+[X-App-Id](../README.md#X-App-Id), [X-App-Token](../README.md#X-App-Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**2XX** | Returns the details about the balance adjustment of the pending points with a given ID for a loyalty card. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **cancel_member_pending_points**
 > cancel_member_pending_points(member_id, pending_points_id)
 
 Cancel Member Pending Points
 
->🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Cancel manually the pending points for the loyalty card. The pending points are determined by the pending point ID. Once canceled, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body and it returns an empty, 204, response.
+Cancel manually the pending points for the loyalty card. The pending points are determined by the pending point ID. Once canceled, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body and it returns an empty, 204, response. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
 
 ### Example
 
@@ -587,7 +681,7 @@ Name | Type | Description  | Notes
 
 Export Loyalty Campaign Point Expiration
 
-Schedule the generation of a points expiration CSV file for a particular campaign.
+Schedule the generation of a point expiration CSV file for a particular campaign. It can list point buckets, which can have an ACTIVE or EXPIRED status.
 
 ### Example
 
@@ -1191,6 +1285,95 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **2XX** | Returns an earning rule object with the &#x60;active&#x60; parameter set to &#x60;true&#x60;. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **export_loyalty_campaign_transactions**
+> CampaignsTransactionsExportCreateResponseBody export_loyalty_campaign_transactions(campaign_id, loyalties_transactions_export_create_request_body=loyalties_transactions_export_create_request_body)
+
+Export Loyalty Campaign Transactions
+
+Export transactions is an asynchronous process that generates a CSV file with the data about or point movements on all loyalty cards in a given campaign. To export transactions: 1. In the export request, use parameters to select which fields will be exported, in what order, and which data will be filtered. 2. Use the returned id to track the export status with the GET Export method. 3. In the GET Export method, when the returned status field has the DONE value, the export file has been generated. 4. Use the URL in the result property to download the file. You must be logged to your Voucherify account on a given cluster in the browser to be able to download the file. An export request will almost always result in a single file being generated by the system. However, when the data volume is large, the system may split the results into multiple files. An example export file can look as follows:    👍 Export Campaign Transactions  This method works in the same way the POST Export Campaign Transactions does, but it is limited to loyalty campaigns only. The POST Export Campaign Transactions method can also export gift card campaign transactions.
+
+### Example
+
+* Api Key Authentication (X-App-Id):
+* Api Key Authentication (X-App-Token):
+
+```python
+import voucherify
+from voucherify.models.campaigns_transactions_export_create_response_body import CampaignsTransactionsExportCreateResponseBody
+from voucherify.models.loyalties_transactions_export_create_request_body import LoyaltiesTransactionsExportCreateRequestBody
+from voucherify.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.voucherify.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = voucherify.Configuration(
+    host = "https://api.voucherify.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: X-App-Id
+configuration.api_key['X-App-Id'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['X-App-Id'] = 'Bearer'
+
+# Configure API key authorization: X-App-Token
+configuration.api_key['X-App-Token'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['X-App-Token'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with voucherify.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = voucherify.LoyaltiesApi(api_client)
+    campaign_id = 'campaign_id_example' # str | You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.
+    loyalties_transactions_export_create_request_body = {"order":"-created_at","parameters":{"fields":["id","type","source_id","created_at"],"filters":{"created_at":{"conditions":{"$after":["2024-10-01T00:00:00.000Z"]}}}}} # LoyaltiesTransactionsExportCreateRequestBody | Specify the parameters for the transaction export. (optional)
+
+    try:
+        # Export Loyalty Campaign Transactions
+        api_response = api_instance.export_loyalty_campaign_transactions(campaign_id, loyalties_transactions_export_create_request_body=loyalties_transactions_export_create_request_body)
+        print("The response of LoyaltiesApi->export_loyalty_campaign_transactions:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling LoyaltiesApi->export_loyalty_campaign_transactions: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **campaign_id** | **str**| You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. | 
+ **loyalties_transactions_export_create_request_body** | [**LoyaltiesTransactionsExportCreateRequestBody**](LoyaltiesTransactionsExportCreateRequestBody.md)| Specify the parameters for the transaction export. | [optional] 
+
+### Return type
+
+[**CampaignsTransactionsExportCreateResponseBody**](CampaignsTransactionsExportCreateResponseBody.md)
+
+### Authorization
+
+[X-App-Id](../README.md#X-App-Id), [X-App-Token](../README.md#X-App-Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**2XX** | An object representing an export. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2079,7 +2262,7 @@ Name | Type | Description  | Notes
 
 List Campaign Pending Points
 
->🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Lists all pending points that are currently assigned to all loyalty cards in a campaign. Once the points are added to the card, the entry is no longer returned.
+Lists all pending points that are currently assigned to all loyalty cards in a campaign. Once the points are added to the card, the entry is no longer returned. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
 
 ### Example
 
@@ -2257,6 +2440,102 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **2XX** | Returns a list of earning rules. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **list_loyalty_campaign_transactions**
+> LoyaltiesTransactionsListResponseBody list_loyalty_campaign_transactions(campaign_id, limit=limit, order=order, starting_after_id=starting_after_id, filters=filters)
+
+List Loyalty Campaign Transactions
+
+Retrieves all transactions for the campaign with the given campaign ID or campaign name.
+
+### Example
+
+* Api Key Authentication (X-App-Id):
+* Api Key Authentication (X-App-Token):
+
+```python
+import voucherify
+from voucherify.models.loyalties_transactions_list_response_body import LoyaltiesTransactionsListResponseBody
+from voucherify.models.parameter_order_list_transactions import ParameterOrderListTransactions
+from voucherify.models.parameters_filters_list_campaign_transactions import ParametersFiltersListCampaignTransactions
+from voucherify.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.voucherify.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = voucherify.Configuration(
+    host = "https://api.voucherify.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: X-App-Id
+configuration.api_key['X-App-Id'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['X-App-Id'] = 'Bearer'
+
+# Configure API key authorization: X-App-Token
+configuration.api_key['X-App-Token'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['X-App-Token'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with voucherify.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = voucherify.LoyaltiesApi(api_client)
+    campaign_id = 'campaign_id_example' # str | You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.
+    limit = 56 # int | Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items. (optional)
+    order = voucherify.ParameterOrderListTransactions() # ParameterOrderListTransactions | Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order. (optional)
+    starting_after_id = 'starting_after_id_example' # str | A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID. (optional)
+    filters = voucherify.ParametersFiltersListCampaignTransactions() # ParametersFiltersListCampaignTransactions | Filters for listing responses. The id filter denotes the unique transaction identifier. (optional)
+
+    try:
+        # List Loyalty Campaign Transactions
+        api_response = api_instance.list_loyalty_campaign_transactions(campaign_id, limit=limit, order=order, starting_after_id=starting_after_id, filters=filters)
+        print("The response of LoyaltiesApi->list_loyalty_campaign_transactions:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling LoyaltiesApi->list_loyalty_campaign_transactions: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **campaign_id** | **str**| You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. | 
+ **limit** | **int**| Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items. | [optional] 
+ **order** | [**ParameterOrderListTransactions**](.md)| Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order. | [optional] 
+ **starting_after_id** | **str**| A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID. | [optional] 
+ **filters** | [**ParametersFiltersListCampaignTransactions**](.md)| Filters for listing responses. The id filter denotes the unique transaction identifier. | [optional] 
+
+### Return type
+
+[**LoyaltiesTransactionsListResponseBody**](LoyaltiesTransactionsListResponseBody.md)
+
+### Authorization
+
+[X-App-Id](../README.md#X-App-Id), [X-App-Token](../README.md#X-App-Token)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**2XX** | Returns a dictionary with a &#x60;data&#x60; property that contains an array of transactions. The maximum number of transactions returned is determined by the &#x60;limit&#x60; query parameter. Each entry in the array is a separate transaction object. If more results are available, the &#x60;has_more&#x60; flag has value &#x60;true&#x60; and the value of the &#x60;more_starting_after&#x60; property can be used to retrieve another page of results. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -3089,7 +3368,7 @@ Name | Type | Description  | Notes
 
 List Member Pending Points
 
->🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to list member pending points without having to provide the campaignId as a path parameter. Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned.
+  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to list member pending points without having to provide the campaignId as a path parameter. Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
 
 ### Example
 
@@ -3182,7 +3461,7 @@ Name | Type | Description  | Notes
 
 List Member Pending Points
 
->🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned.
+Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
 
 ### Example
 
@@ -3926,7 +4205,7 @@ Name | Type | Description  | Notes
 
 Transfer Loyalty Points
 
-Transfer points between different loyalty cards. You need to provide the campaign ID and the loyalty card ID you want the points to be transferred to as path parameters in the URL. In the request body, you provide the loyalty cards you want the points to be transferred from and the number of points to transfer from each card.
+Transfer points between different loyalty cards which have holders. You need to provide the campaign ID and the loyalty card ID you want the points to be transferred to as path parameters in the URL. In the request body, you provide the loyalty cards you want the points to be transferred from and the number of points to transfer from each card. Transfer works only for loyalty cards that have holders, meaning they were published to customers.
 
 ### Example
 
@@ -4106,9 +4385,9 @@ Name | Type | Description  | Notes
 # **update_loyalty_card_balance**
 > LoyaltiesMembersBalanceUpdateResponseBody update_loyalty_card_balance(member_id, loyalties_members_balance_update_request_body=loyalties_members_balance_update_request_body)
 
-Add or Remove Loyalty Card Balance
+Adjust Loyalty Card Balance
 
-This method gives adds or removes balance to an existing loyalty card. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to allow you to add or remove loyalty card balance without having to provide the campaignId as a path parameter.
+This method gives adds or removes balance to an existing loyalty card that is assigned to a holder. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to allow you to add or remove loyalty card balance without having to provide the campaignId as a path parameter.
 
 ### Example
 
@@ -4153,7 +4432,7 @@ with voucherify.ApiClient(configuration) as api_client:
     loyalties_members_balance_update_request_body = {"points":-100} # LoyaltiesMembersBalanceUpdateRequestBody | Specify the point adjustment along with the expiration mechanism. (optional)
 
     try:
-        # Add or Remove Loyalty Card Balance
+        # Adjust Loyalty Card Balance
         api_response = api_instance.update_loyalty_card_balance(member_id, loyalties_members_balance_update_request_body=loyalties_members_balance_update_request_body)
         print("The response of LoyaltiesApi->update_loyalty_card_balance:\n")
         pprint(api_response)
@@ -4195,9 +4474,9 @@ Name | Type | Description  | Notes
 # **update_loyalty_card_balance1**
 > LoyaltiesMembersBalanceUpdateResponseBody update_loyalty_card_balance1(campaign_id, member_id, loyalties_members_balance_update_request_body=loyalties_members_balance_update_request_body)
 
-Add or Remove Loyalty Card Balance
+Adjust Loyalty Card Balance
 
-This method adds or removes balance to an existing loyalty card. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.
+This method adds or removes balance to an existing loyalty card that is assigned to a holder. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.
 
 ### Example
 
@@ -4243,7 +4522,7 @@ with voucherify.ApiClient(configuration) as api_client:
     loyalties_members_balance_update_request_body = {"points":100,"expiration_type":"CUSTOM_DATE","expiration_date":"2023-05-30"} # LoyaltiesMembersBalanceUpdateRequestBody | Specify the point adjustment along with the expiration mechanism. (optional)
 
     try:
-        # Add or Remove Loyalty Card Balance
+        # Adjust Loyalty Card Balance
         api_response = api_instance.update_loyalty_card_balance1(campaign_id, member_id, loyalties_members_balance_update_request_body=loyalties_members_balance_update_request_body)
         print("The response of LoyaltiesApi->update_loyalty_card_balance1:\n")
         pprint(api_response)

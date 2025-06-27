@@ -33,6 +33,7 @@ class ValidationsValidateResponseBody(BaseModel):
     """
     Response body schema for **POST** `v1/validations`.
     """ # noqa: E501
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the validation, assigned by Voucherify.")
     valid: Optional[StrictBool] = Field(default=None, description="The result of the validation. It takes all of the redeemables into account and returns a `false` if at least one redeemable is inapplicable. Returns `true` if all redeemables are applicable.")
     redeemables: Optional[List[ValidationsValidateResponseBodyRedeemablesItem]] = None
     skipped_redeemables: Optional[List[ValidationsRedeemableSkipped]] = Field(default=None, description="Lists validation results of each skipped redeemable.")
@@ -41,7 +42,7 @@ class ValidationsValidateResponseBody(BaseModel):
     tracking_id: Optional[StrictStr] = Field(default=None, description="Hashed customer source ID.")
     session: Optional[Session] = None
     stacking_rules: StackingRules
-    __properties: ClassVar[List[str]] = ["valid", "redeemables", "skipped_redeemables", "inapplicable_redeemables", "order", "tracking_id", "session", "stacking_rules"]
+    __properties: ClassVar[List[str]] = ["id", "valid", "redeemables", "skipped_redeemables", "inapplicable_redeemables", "order", "tracking_id", "session", "stacking_rules"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -112,6 +113,11 @@ class ValidationsValidateResponseBody(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of stacking_rules
         if self.stacking_rules:
             _dict['stacking_rules'] = self.stacking_rules.to_dict()
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['id'] = None
+
         # set to None if valid (nullable) is None
         # and model_fields_set contains the field
         if self.valid is None and "valid" in self.model_fields_set:
@@ -149,6 +155,7 @@ class ValidationsValidateResponseBody(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
             "valid": obj.get("valid"),
             "redeemables": [ValidationsValidateResponseBodyRedeemablesItem.from_dict(_item) for _item in obj["redeemables"]] if obj.get("redeemables") is not None else None,
             "skipped_redeemables": [ValidationsRedeemableSkipped.from_dict(_item) for _item in obj["skipped_redeemables"]] if obj.get("skipped_redeemables") is not None else None,

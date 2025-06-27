@@ -86,11 +86,6 @@ class RedemptionsListResponseBodyRedemptionsItemRelatedRedemptions(BaseModel):
                 if _item_redemptions:
                     _items.append(_item_redemptions.to_dict())
             _dict['redemptions'] = _items
-        # set to None if redemptions (nullable) is None
-        # and model_fields_set contains the field
-        if self.redemptions is None and "redemptions" in self.model_fields_set:
-            _dict['redemptions'] = None
-
         return _dict
 
     @classmethod

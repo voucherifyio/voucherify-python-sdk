@@ -43,8 +43,8 @@ class SegmentsGetResponseBody(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['auto-update', 'static']):
-            raise ValueError("must be one of enum values ('auto-update', 'static')")
+        if value not in set(['auto-update', 'static', 'passive']):
+            raise ValueError("must be one of enum values ('auto-update', 'static', 'passive')")
         return value
 
     @field_validator('initial_sync_status')

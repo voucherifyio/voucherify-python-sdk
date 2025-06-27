@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **source_id** | **str** | The source identifier from your inventory system. | [optional] 
 **product_id** | **str** | Parent product&#39;s unique ID assigned by Voucherify. | [optional] 
 **product_source_id** | **str** | Parent product&#39;s source ID from your inventory system. | [optional] 
-**strict** | **bool** |  | [optional] 
 **price** | **float** | New fixed price of an item. Value is multiplied by 100 to precisely represent 2 decimal places. For example, a $10 price is written as 1000. In case of the fixed price being calculated by the formula, i.e. the price_formula parameter is present in the fixed price definition, this value becomes the fallback value. Such that in a case where the formula cannot be calculated due to missing metadata, for example, this value will be used as the fixed price. | [optional] 
 **price_formula** | **float** | Formula used to calculate the discounted price of an item. | [optional] 
 **effect** | [**ApplicableToEffect**](ApplicableToEffect.md) |  | 
@@ -23,6 +22,7 @@ Name | Type | Description | Notes
 **repeat** | **int** | Determines the recurrence of the discount, e.g. &#x60;\&quot;repeat\&quot;: 3&#x60; means that the discount is applied to every third item. | [optional] 
 **skip_initially** | **int** | Determines how many items are skipped before the discount is applied. | [optional] 
 **target** | **str** | Determines to which kinds of objects the discount is applicable. &#x60;ITEM&#x60; includes products and SKUs. &#x60;UNIT&#x60; means particular units within an order line. | [optional] 
+**strict** | **bool** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

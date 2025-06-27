@@ -27,10 +27,11 @@ class VouchersEnableResponseBodyGift(BaseModel):
     """
     Object representing gift parameters. Child attributes are present only if `type` is `GIFT_VOUCHER`. Defaults to `null`.
     """ # noqa: E501
-    amount: Optional[StrictInt] = Field(default=None, description="Total gift card income over the lifetime of the card. Value is multiplied by 100 to precisely represent 2 decimal places. For example, $100 amount is written as 10000.")
-    balance: Optional[StrictInt] = Field(default=None, description="Available funds. Value is multiplied by 100 to precisely represent 2 decimal places. For example, $100 amount is written as 10000.")
+    amount: Optional[StrictInt] = Field(default=None, description="Total gift card income over the lifetime of the card. The value is multiplied by 100 to represent 2 decimal places. For example `10000 cents` for `$100.00`.")
+    subtracted_amount: Optional[StrictInt] = Field(default=None, description="Total amount of subtracted credits over the gift card lifetime. The value is multiplied by 100 to represent 2 decimal places. For example `10000 cents` for `$100.00`.")
+    balance: Optional[StrictInt] = Field(default=None, description="Available funds. The value is multiplied by 100 to represent 2 decimal places. For example `10000 cents` for `$100.00`.")
     effect: Optional[StrictStr] = Field(default=None, description="Defines how the credits are applied to the customer's order.")
-    __properties: ClassVar[List[str]] = ["amount", "balance", "effect"]
+    __properties: ClassVar[List[str]] = ["amount", "subtracted_amount", "balance", "effect"]
 
     @field_validator('effect')
     def effect_validate_enum(cls, value):
@@ -86,6 +87,11 @@ class VouchersEnableResponseBodyGift(BaseModel):
         if self.amount is None and "amount" in self.model_fields_set:
             _dict['amount'] = None
 
+        # set to None if subtracted_amount (nullable) is None
+        # and model_fields_set contains the field
+        if self.subtracted_amount is None and "subtracted_amount" in self.model_fields_set:
+            _dict['subtracted_amount'] = None
+
         # set to None if balance (nullable) is None
         # and model_fields_set contains the field
         if self.balance is None and "balance" in self.model_fields_set:
@@ -109,6 +115,7 @@ class VouchersEnableResponseBodyGift(BaseModel):
 
         _obj = cls.model_validate({
             "amount": obj.get("amount"),
+            "subtracted_amount": obj.get("subtracted_amount"),
             "balance": obj.get("balance"),
             "effect": obj.get("effect")
         })
