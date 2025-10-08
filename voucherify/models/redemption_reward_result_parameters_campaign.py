@@ -28,7 +28,7 @@ class RedemptionRewardResultParametersCampaign(BaseModel):
     Defines the product redeemed as a reward.
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Campaign unique ID.")
-    balance: Optional[StrictInt] = Field(default=None, description="Points available for reward redemption.")
+    balance: Optional[StrictInt] = Field(default=None, description="Points available for reward redemption. This is calculated as follows: `balance` = `points` - `expired_points` - `subtracted_points` - `redemption.redeemed_points`.")
     type: Optional[StrictStr] = Field(default=None, description="Defines the type of the campaign.")
     __properties: ClassVar[List[str]] = ["id", "balance", "type"]
 

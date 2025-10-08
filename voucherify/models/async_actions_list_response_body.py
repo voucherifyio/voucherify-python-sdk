@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from voucherify.models.async_action_base import AsyncActionBase
 from typing import Optional, Set
@@ -31,7 +31,8 @@ class AsyncActionsListResponseBody(BaseModel):
     object: Optional[StrictStr] = Field(default='list', description="The type of the object represented by JSON. This object stores information about asynchronous actions.")
     data_ref: Optional[StrictStr] = Field(default='async_actions', description="Identifies the name of the JSON property that contains the array of asynchronous actions.")
     async_actions: Optional[List[AsyncActionBase]] = None
-    __properties: ClassVar[List[str]] = ["object", "data_ref", "async_actions"]
+    has_more: Optional[StrictBool] = Field(default=None, description="As query results are always limited by parameters, the `has_more` flag indicates if there are more records available. This lets you know if you can run another request to get more records returned in the results.")
+    __properties: ClassVar[List[str]] = ["object", "data_ref", "async_actions", "has_more"]
 
     @field_validator('object')
     def object_validate_enum(cls, value):
@@ -114,6 +115,11 @@ class AsyncActionsListResponseBody(BaseModel):
         if self.async_actions is None and "async_actions" in self.model_fields_set:
             _dict['async_actions'] = None
 
+        # set to None if has_more (nullable) is None
+        # and model_fields_set contains the field
+        if self.has_more is None and "has_more" in self.model_fields_set:
+            _dict['has_more'] = None
+
         return _dict
 
     @classmethod
@@ -128,7 +134,8 @@ class AsyncActionsListResponseBody(BaseModel):
         _obj = cls.model_validate({
             "object": obj.get("object") if obj.get("object") is not None else 'list',
             "data_ref": obj.get("data_ref") if obj.get("data_ref") is not None else 'async_actions',
-            "async_actions": [AsyncActionBase.from_dict(_item) for _item in obj["async_actions"]] if obj.get("async_actions") is not None else None
+            "async_actions": [AsyncActionBase.from_dict(_item) for _item in obj["async_actions"]] if obj.get("async_actions") is not None else None,
+            "has_more": obj.get("has_more")
         })
         return _obj
 

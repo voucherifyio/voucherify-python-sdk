@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from voucherify.models.applicable_to_effect import ApplicableToEffect
 from voucherify.models.applicable_to_order_item_units_item import ApplicableToOrderItemUnitsItem
@@ -34,7 +34,6 @@ class ApplicableTo(BaseModel):
     source_id: Optional[StrictStr] = Field(default=None, description="The source identifier from your inventory system.")
     product_id: Optional[StrictStr] = Field(default=None, description="Parent product's unique ID assigned by Voucherify.")
     product_source_id: Optional[StrictStr] = Field(default=None, description="Parent product's source ID from your inventory system.")
-    strict: Optional[StrictBool] = None
     price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="New fixed price of an item. Value is multiplied by 100 to precisely represent 2 decimal places. For example, a $10 price is written as 1000. In case of the fixed price being calculated by the formula, i.e. the price_formula parameter is present in the fixed price definition, this value becomes the fallback value. Such that in a case where the formula cannot be calculated due to missing metadata, for example, this value will be used as the fixed price.")
     price_formula: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Formula used to calculate the discounted price of an item.")
     effect: ApplicableToEffect
@@ -47,7 +46,7 @@ class ApplicableTo(BaseModel):
     repeat: Optional[StrictInt] = Field(default=None, description="Determines the recurrence of the discount, e.g. `\"repeat\": 3` means that the discount is applied to every third item.")
     skip_initially: Optional[StrictInt] = Field(default=None, description="Determines how many items are skipped before the discount is applied.")
     target: Optional[StrictStr] = Field(default=None, description="Determines to which kinds of objects the discount is applicable. `ITEM` includes products and SKUs. `UNIT` means particular units within an order line.")
-    __properties: ClassVar[List[str]] = ["object", "id", "source_id", "product_id", "product_source_id", "strict", "price", "price_formula", "effect", "quantity_limit", "aggregated_quantity_limit", "amount_limit", "aggregated_amount_limit", "order_item_indices", "order_item_units", "repeat", "skip_initially", "target"]
+    __properties: ClassVar[List[str]] = ["object", "id", "source_id", "product_id", "product_source_id", "price", "price_formula", "effect", "quantity_limit", "aggregated_quantity_limit", "amount_limit", "aggregated_amount_limit", "order_item_indices", "order_item_units", "repeat", "skip_initially", "target"]
 
     @field_validator('object')
     def object_validate_enum(cls, value):
@@ -57,6 +56,16 @@ class ApplicableTo(BaseModel):
 
         if value not in set(['product', 'sku', 'products_collection']):
             raise ValueError("must be one of enum values ('product', 'sku', 'products_collection')")
+        return value
+
+    @field_validator('target')
+    def target_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['ITEM', 'UNIT']):
+            raise ValueError("must be one of enum values ('ITEM', 'UNIT')")
         return value
 
     model_config = ConfigDict(
@@ -130,11 +139,6 @@ class ApplicableTo(BaseModel):
         if self.product_source_id is None and "product_source_id" in self.model_fields_set:
             _dict['product_source_id'] = None
 
-        # set to None if strict (nullable) is None
-        # and model_fields_set contains the field
-        if self.strict is None and "strict" in self.model_fields_set:
-            _dict['strict'] = None
-
         # set to None if price (nullable) is None
         # and model_fields_set contains the field
         if self.price is None and "price" in self.model_fields_set:
@@ -207,7 +211,6 @@ class ApplicableTo(BaseModel):
             "source_id": obj.get("source_id"),
             "product_id": obj.get("product_id"),
             "product_source_id": obj.get("product_source_id"),
-            "strict": obj.get("strict"),
             "price": obj.get("price"),
             "price_formula": obj.get("price_formula"),
             "effect": obj.get("effect"),

@@ -66,7 +66,7 @@ configuration.api_key['X-App-Token'] = os.environ["API_KEY"]
 with voucherify.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = voucherify.ProductsApi(api_client)
-    products_create_request_body = {"source_id":"first_product","name":"Samsung Phone","price":200000,"attributes":["color","memory","processor"],"metadata":{"test":true,"vendor":"Online Store"},"image_url":"https://www.website.com/image.png"} # ProductsCreateRequestBody | Specify the product parameters. (optional)
+    products_create_request_body = {"source_id":"first_product","name":"Samsung Phone","price":200000,"attributes":["color","memory","processor"],"metadata":{"test":true,"vendor":"Online Store"},"image_url":"{{internalVoucherifyURL}}"} # ProductsCreateRequestBody | Specify the product parameters. (optional)
 
     try:
         # Create Product
@@ -154,7 +154,7 @@ with voucherify.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = voucherify.ProductsApi(api_client)
     product_id = 'product_id_example' # str | A Voucherify product ID or product source ID.
-    products_skus_create_request_body = {"source_id":"first_product_sku_1","sku":"Samsung phone 256GB","price":1300,"currency":"USD","attributes":{"color":"vintage-black","memory":"256","processor":"Intel"},"image_url":"https://www.website.com/image.png","metadata":{"imported":true}} # ProductsSkusCreateRequestBody | Specify the SKU parameters to be created. (optional)
+    products_skus_create_request_body = {"source_id":"first_product_sku_1","sku":"Samsung phone 256GB","price":1300,"currency":"USD","attributes":{"color":"vintage-black","memory":"256","processor":"Intel"},"image_url":"{{internalVoucherifyURL}}","metadata":{"imported":true}} # ProductsSkusCreateRequestBody | Specify the SKU parameters to be created. (optional)
 
     try:
         # Create SKU
@@ -1039,7 +1039,7 @@ configuration.api_key['X-App-Token'] = os.environ["API_KEY"]
 with voucherify.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = voucherify.ProductsApi(api_client)
-    products_update_in_bulk_request_body = [{"source_id":"first_product","name":"Samsung Phone 1","price":220000,"attributes":["color","memory","processor"],"metadata":{"test":true,"vendor":"Online Store - 3"},"image_url":"https://voucherify-uploads.s3.amazonaws.com/org_2qt8DYlM/img_Z2qvs2KFnQyo2Ohz4uhsjGtf.png"},{"source_id":"second_product","name":"Samsung Phone 2","price":230000,"attributes":["color","memory","processor"],"metadata":{"test":true,"vendor":"Online Store - 4"},"image_url":"https://voucherify-uploads.s3.amazonaws.com/org_2qt8DYlM/img_Z2qvs2KFnQyo2Ohz4uhsjGtf.png"}] # List[ProductsUpdateInBulkRequestBody] | List the product fields to be updated in each customer object. (optional)
+    products_update_in_bulk_request_body = [{"source_id":"first_product","name":"Samsung Phone 1","price":220000,"attributes":["color","memory","processor"],"metadata":{"test":true,"vendor":"Online Store - 3"},"image_url":"{{internalVoucherifyURL}}"},{"source_id":"second_product","name":"Samsung Phone 2","price":230000,"attributes":["color","memory","processor"],"metadata":{"test":true,"vendor":"Online Store - 4"},"image_url":"{{internalVoucherifyURL}}"}] # List[ProductsUpdateInBulkRequestBody] | List the product fields to be updated in each product object. (optional)
 
     try:
         # Update Products in Bulk
@@ -1057,7 +1057,7 @@ with voucherify.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **products_update_in_bulk_request_body** | [**List[ProductsUpdateInBulkRequestBody]**](ProductsUpdateInBulkRequestBody.md)| List the product fields to be updated in each customer object. | [optional] 
+ **products_update_in_bulk_request_body** | [**List[ProductsUpdateInBulkRequestBody]**](ProductsUpdateInBulkRequestBody.md)| List the product fields to be updated in each product object. | [optional] 
 
 ### Return type
 

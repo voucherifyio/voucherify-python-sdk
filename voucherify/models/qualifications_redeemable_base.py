@@ -24,7 +24,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from voucherify.models.applicable_to_result_list import ApplicableToResultList
 from voucherify.models.category_with_stacking_rules_type import CategoryWithStackingRulesType
 from voucherify.models.inapplicable_to_result_list import InapplicableToResultList
-from voucherify.models.order_calculated import OrderCalculated
+from voucherify.models.qualifications_redeemable_base_order import QualificationsRedeemableBaseOrder
 from voucherify.models.redeemable_result import RedeemableResult
 from voucherify.models.validation_rules_assignments_list import ValidationRulesAssignmentsList
 from typing import Optional, Set
@@ -38,7 +38,7 @@ class QualificationsRedeemableBase(BaseModel):
     object: Optional[StrictStr] = Field(default=None, description="Object type of the redeemable.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the object was created. The value is shown in the ISO 8601 format.")
     result: Optional[RedeemableResult] = None
-    order: Optional[OrderCalculated] = None
+    order: Optional[QualificationsRedeemableBaseOrder] = None
     validation_rule_id: Optional[StrictStr] = Field(default=None, description="A unique validation rule identifier assigned by the Voucherify API. The validation rule is verified before points are added to the balance.")
     applicable_to: Optional[ApplicableToResultList] = None
     inapplicable_to: Optional[InapplicableToResultList] = None
@@ -137,6 +137,11 @@ class QualificationsRedeemableBase(BaseModel):
         if self.created_at is None and "created_at" in self.model_fields_set:
             _dict['created_at'] = None
 
+        # set to None if order (nullable) is None
+        # and model_fields_set contains the field
+        if self.order is None and "order" in self.model_fields_set:
+            _dict['order'] = None
+
         # set to None if validation_rule_id (nullable) is None
         # and model_fields_set contains the field
         if self.validation_rule_id is None and "validation_rule_id" in self.model_fields_set:
@@ -188,7 +193,7 @@ class QualificationsRedeemableBase(BaseModel):
             "object": obj.get("object"),
             "created_at": obj.get("created_at"),
             "result": RedeemableResult.from_dict(obj["result"]) if obj.get("result") is not None else None,
-            "order": OrderCalculated.from_dict(obj["order"]) if obj.get("order") is not None else None,
+            "order": QualificationsRedeemableBaseOrder.from_dict(obj["order"]) if obj.get("order") is not None else None,
             "validation_rule_id": obj.get("validation_rule_id"),
             "applicable_to": ApplicableToResultList.from_dict(obj["applicable_to"]) if obj.get("applicable_to") is not None else None,
             "inapplicable_to": InapplicableToResultList.from_dict(obj["inapplicable_to"]) if obj.get("inapplicable_to") is not None else None,

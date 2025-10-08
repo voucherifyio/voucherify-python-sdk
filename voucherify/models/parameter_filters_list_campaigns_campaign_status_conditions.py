@@ -25,7 +25,7 @@ from typing_extensions import Self
 
 class ParameterFiltersListCampaignsCampaignStatusConditions(BaseModel):
     """
-    ParameterFiltersListCampaignsCampaignStatusConditions
+    Data conditions used to narrow down the data records to be returned in the result.
     """ # noqa: E501
     var_in: Optional[List[StrictStr]] = Field(default=None, description="Array of resource values that should be included in the results (multiple values).", alias="$in")
     not_in: Optional[List[StrictStr]] = Field(default=None, description="Array of resource values that should be included in the results (multiple values).", alias="$not_in")

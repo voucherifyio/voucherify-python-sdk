@@ -41,10 +41,10 @@ class Campaign(BaseModel):
     name: Optional[StrictStr] = Field(default=None, description="Campaign name.")
     description: Optional[StrictStr] = Field(default=None, description="An optional field to keep any extra textual information about the campaign such as a campaign description and details.")
     campaign_type: Optional[StrictStr] = Field(default=None, description="Type of campaign.")
-    type: Optional[StrictStr] = Field(default=None, description="Defines whether the campaign can be updated with new vouchers after campaign creation or if the campaign consists of standalone vouchers.  - `AUTO_UPDATE`: the campaign is dynamic, i.e. vouchers will generate based on set criteria -  `STATIC`: vouchers need to be manually published - `STANDALONE`: campaign for single vouchers")
+    type: Optional[StrictStr] = Field(default=None, description="Defines whether the campaign can be updated with new vouchers after campaign creation or if the campaign consists of generic (standalone) voucherss.  - `AUTO_UPDATE`: the campaign is dynamic, i.e. vouchers will generate based on set criteria -  `STATIC`: vouchers need to be manually published - `STANDALONE`: campaign for single vouchers")
     voucher: Optional[CampaignVoucher] = None
     auto_join: Optional[StrictBool] = Field(default=None, description="Indicates whether customers will be able to auto-join a loyalty campaign if any earning rule is fulfilled.")
-    join_once: Optional[StrictBool] = Field(default=None, description="If this value is set to `true`, customers will be able to join the campaign only once. It is always `false` for standalone voucher campaigns and it cannot be changed in them.")
+    join_once: Optional[StrictBool] = Field(default=None, description="If this value is set to `true`, customers will be able to join the campaign only once. It is always `false` for generic (standalone) vouchers campaigns and it cannot be changed in them. It is always `true` for loyalty campaigns and it cannot be changed in them.")
     use_voucher_metadata_schema: Optional[StrictBool] = Field(default=None, description="Flag indicating whether the campaign is to use the voucher's metadata schema instead of the campaign metadata schema.")
     validity_timeframe: Optional[ValidityTimeframe] = None
     validity_day_of_week: Optional[List[StrictInt]] = Field(default=None, description="Integer array corresponding to the particular days of the week in which the voucher is valid.  - `0` Sunday - `1` Monday - `2` Tuesday - `3` Wednesday - `4` Thursday - `5` Friday - `6` Saturday")
@@ -60,10 +60,10 @@ class Campaign(BaseModel):
     category: Optional[StrictStr] = Field(default=None, description="Unique category name.")
     creation_status: Optional[StrictStr] = Field(default=None, description="Indicates the status of the campaign creation.")
     vouchers_generation_status: Optional[StrictStr] = Field(default=None, description="Indicates the status of the campaign's voucher generation.")
-    readonly: Optional[StrictBool] = Field(default=None, description="Indicates whether the campaign can be only read by a restricted user in the Areas and Stores enterprise feature. It is returned only to restricted users; this field is not returned for users with other roles.")
+    readonly: Optional[StrictBool] = Field(default=None, description="Indicates whether the campaign can be only read by a restricted user in the Areas and Stores enterprise feature. It is returned only to restricted users; this field is not returned for users with other roles. It is also not returned for restricted users who use the [GET Campaign summary](ref:campaign-summary) endpoint.")
     protected: Optional[StrictBool] = Field(default=None, description="Indicates whether the resource can be deleted.")
     category_id: Optional[StrictStr] = Field(default=None, description="Unique category ID that this campaign belongs to.")
-    categories: Optional[List[Category]] = Field(default=None, description="Contains details about the category.")
+    categories: Optional[List[Category]] = Field(default=None, description="Contains details about the campaign category. For the GET [List campaigns](ref:list-campaigns) endpoint, this is returned only if the `expand=category` query parameter is passed in the request. Otherwise, it is returned as an empty array. For GET [Campaign summary](ref:get-campaign-summary) endpoint, it is always returned as an empty array.")
     object: Optional[StrictStr] = Field(default='campaign', description="The type of the object represented by JSON. This object stores information about the campaign.")
     referral_program: Optional[ReferralProgram] = None
     loyalty_tiers_expiration: Optional[LoyaltyTiersExpirationAll] = None

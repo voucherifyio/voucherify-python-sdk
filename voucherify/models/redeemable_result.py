@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
+from voucherify.models.bundle import Bundle
 from voucherify.models.discount import Discount
 from voucherify.models.error import Error
 from voucherify.models.redeemable_gift import RedeemableGift
@@ -32,10 +33,11 @@ class RedeemableResult(BaseModel):
     Information about redeemable result.
     """ # noqa: E501
     discount: Optional[Discount] = None
+    bundle: Optional[Bundle] = None
     gift: Optional[RedeemableGift] = None
     loyalty_card: Optional[RedeemableLoyaltyCard] = None
     error: Optional[Error] = None
-    __properties: ClassVar[List[str]] = ["discount", "gift", "loyalty_card", "error"]
+    __properties: ClassVar[List[str]] = ["discount", "bundle", "gift", "loyalty_card", "error"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -79,6 +81,9 @@ class RedeemableResult(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of discount
         if self.discount:
             _dict['discount'] = self.discount.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of bundle
+        if self.bundle:
+            _dict['bundle'] = self.bundle.to_dict()
         # override the default output from pydantic by calling `to_dict()` of gift
         if self.gift:
             _dict['gift'] = self.gift.to_dict()
@@ -101,6 +106,7 @@ class RedeemableResult(BaseModel):
 
         _obj = cls.model_validate({
             "discount": Discount.from_dict(obj["discount"]) if obj.get("discount") is not None else None,
+            "bundle": Bundle.from_dict(obj["bundle"]) if obj.get("bundle") is not None else None,
             "gift": RedeemableGift.from_dict(obj["gift"]) if obj.get("gift") is not None else None,
             "loyalty_card": RedeemableLoyaltyCard.from_dict(obj["loyalty_card"]) if obj.get("loyalty_card") is not None else None,
             "error": Error.from_dict(obj["error"]) if obj.get("error") is not None else None

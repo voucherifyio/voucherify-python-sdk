@@ -39,7 +39,7 @@ class OrderItem(BaseModel):
     amount: Optional[StrictInt] = Field(default=None, description="The total amount of the order item (price * quantity).")
     discount_amount: Optional[StrictInt] = Field(default=None, description="Sum of all order-item-level discounts applied to the order.")
     initial_amount: Optional[StrictInt] = Field(default=None, description="A positive integer in the smallest currency unit (e.g. 100 cents for $1.00) representing the total amount of the order. This is the sum of the order items' amounts.")
-    price: Optional[StrictInt] = Field(default=None, description="Unit price of an item. Value is multiplied by 100 to precisely represent 2 decimal places. For example `10000 cents` for `$100.00`.")
+    price: Optional[StrictInt] = Field(default=None, description="Unit price of an item. The value is multiplied by 100 to represent 2 decimal places. For example `10000 cents` for `$100.00`.")
     product: Optional[OrderItemProduct] = None
     sku: Optional[OrderItemSku] = None
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="A set of custom key/value pairs that you can attach to an order item. It can be useful for storing additional information about the order item in a structured format. It can be used to define business validation rules.")

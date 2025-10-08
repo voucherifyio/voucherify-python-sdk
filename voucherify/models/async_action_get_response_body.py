@@ -52,6 +52,16 @@ class AsyncActionGetResponseBody(BaseModel):
             raise ValueError("must be one of enum values ('DONE', 'ENQUEUED', 'FAILED', 'IN_PROGRESS')")
         return value
 
+    @field_validator('operation_status')
+    def operation_status_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['FAILED', 'SUCCESS', 'UNKNOWN']):
+            raise ValueError("must be one of enum values ('FAILED', 'SUCCESS', 'UNKNOWN')")
+        return value
+
     @field_validator('object')
     def object_validate_enum(cls, value):
         """Validates the enum"""

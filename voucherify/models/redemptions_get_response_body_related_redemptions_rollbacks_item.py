@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,9 +28,20 @@ class RedemptionsGetResponseBodyRelatedRedemptionsRollbacksItem(BaseModel):
     """
     RedemptionsGetResponseBodyRelatedRedemptionsRollbacksItem
     """ # noqa: E501
-    id: Optional[StrictStr] = None
+    id: Optional[StrictStr] = Field(default=None, description="Unique rollback redemption ID.")
     var_date: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the object was created. The value is shown in the ISO 8601 format.", alias="date")
-    __properties: ClassVar[List[str]] = ["id", "date"]
+    rollback_order_mode: Optional[StrictStr] = Field(default=None, description="Defines the rollback mode for the order. `WITH_ORDER` is a default setting. The redemption is rolled back together with the data about the order, including related discount values. `WITHOUT_ORDER` allows rolling the redemption back without affecting order data, including the applied discount values. This is returned only in GET `v1/redemptions/` and GET `v1/redemptions/{redemptionId}` endpoints.")
+    __properties: ClassVar[List[str]] = ["id", "date", "rollback_order_mode"]
+
+    @field_validator('rollback_order_mode')
+    def rollback_order_mode_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['WITH_ORDER', 'WITHOUT_ORDER']):
+            raise ValueError("must be one of enum values ('WITH_ORDER', 'WITHOUT_ORDER')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -84,7 +95,8 @@ class RedemptionsGetResponseBodyRelatedRedemptionsRollbacksItem(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
-            "date": obj.get("date")
+            "date": obj.get("date"),
+            "rollback_order_mode": obj.get("rollback_order_mode")
         })
         return _obj
 

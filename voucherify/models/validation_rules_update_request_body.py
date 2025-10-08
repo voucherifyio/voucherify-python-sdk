@@ -31,11 +31,12 @@ class ValidationRulesUpdateRequestBody(BaseModel):
     """ # noqa: E501
     name: Optional[StrictStr] = Field(default=None, description="Custom, unique name for set of validation rules.")
     rules: Optional[Dict[str, Any]] = Field(default=None, description="Contains all the rule definitions for the validation rule. It is a set of key value pairs representing the rules and logic between the rules. The keys are numbered consecutively beginning from `1`. The values are objects containing the rule conditions.")
+    bundle_rules: Optional[Dict[str, Any]] = Field(default=None, description="Contains all the definitions for the bundle rules. It is a set of key value pairs representing the rules and logic between them. The keys are numbered consecutively beginning from `1`. The values are objects containing the rule conditions.  While updating with the PUT method, you can pass `\"bundle_rules\": null` to delete the configuration; in the response, an empty object is then returned.")
     error: Optional[ValidationRulesUpdateRequestBodyError] = None
     applicable_to: Optional[ValidationRulesUpdateRequestBodyApplicableTo] = None
     type: Optional[StrictStr] = Field(default='expression', description="Type of validation rule.")
     context_type: Optional[StrictStr] = Field(default='global', description="Validation rule context type.    | **Context Type** | **Definition** | |:---|:---| | earning_rule.order.paid |  | | earning_rule.custom_event |  | | earning_rule.customer.segment.entered |  | | campaign.discount_coupons |  | | campaign.discount_coupons.discount.apply_to_order |  | | campaign.discount_coupons.discount.apply_to_items |  | | campaign.discount_coupons.discount.apply_to_items_proportionally |  | | campaign.discount_coupons.discount.apply_to_items_proportionally_by_quantity |  | | campaign.discount_coupons.discount.fixed.apply_to_items |  | | campaign.gift_vouchers |  | | campaign.gift_vouchers.gift.apply_to_order |  | | campaign.gift_vouchers.gift.apply_to_items |  | | campaign.referral_program |  | | campaign.referral_program.discount.apply_to_order |  | | campaign.referral_program.discount.apply_to_items |  | | campaign.referral_program.discount.apply_to_items_proportionally |  | | campaign.referral_program.discount.apply_to_items_proportionally_by_quantity |  | | campaign.referral_program.discount.fixed.apply_to_items |  | | campaign.promotion |  | | campaign.promotion.discount.apply_to_order |  | | campaign.promotion.discount.apply_to_items |  | | campaign.promotion.discount.apply_to_items_proportionally |  | | campaign.promotion.discount.apply_to_items_proportionally_by_quantity |  | | campaign.promotion.discount.fixed.apply_to_items |  | | campaign.loyalty_program |  | | voucher.discount_voucher |  | | voucher.discount_voucher.discount.apply_to_order |  | | voucher.discount_voucher.discount.apply_to_items |  | | voucher.discount_voucher.discount.apply_to_items_proportionally |  | | voucher.discount_voucher.discount.apply_to_items_proportionally_by_quantity |  | | voucher.discount_voucher.discount.fixed.apply_to_items |  | | voucher.gift_voucher |  | | voucher.gift_voucher.gift.apply_to_order |  | | voucher.gift_voucher.gift.apply_to_items |  | | voucher.loyalty_card |  | | distribution.custom_event |  | | reward_assignment.pay_with_points |  | | global |  |")
-    __properties: ClassVar[List[str]] = ["name", "rules", "error", "applicable_to", "type", "context_type"]
+    __properties: ClassVar[List[str]] = ["name", "rules", "bundle_rules", "error", "applicable_to", "type", "context_type"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -141,6 +142,7 @@ class ValidationRulesUpdateRequestBody(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "rules": obj.get("rules"),
+            "bundle_rules": obj.get("bundle_rules"),
             "error": ValidationRulesUpdateRequestBodyError.from_dict(obj["error"]) if obj.get("error") is not None else None,
             "applicable_to": ValidationRulesUpdateRequestBodyApplicableTo.from_dict(obj["applicable_to"]) if obj.get("applicable_to") is not None else None,
             "type": obj.get("type") if obj.get("type") is not None else 'expression',

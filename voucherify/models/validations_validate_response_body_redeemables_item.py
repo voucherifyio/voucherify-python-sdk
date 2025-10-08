@@ -23,7 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from voucherify.models.applicable_to_result_list import ApplicableToResultList
 from voucherify.models.category_with_stacking_rules_type import CategoryWithStackingRulesType
 from voucherify.models.inapplicable_to_result_list import InapplicableToResultList
-from voucherify.models.order_calculated import OrderCalculated
+from voucherify.models.validations_validate_response_body_redeemables_item_order import ValidationsValidateResponseBodyRedeemablesItemOrder
 from voucherify.models.validations_validate_response_body_redeemables_item_result import ValidationsValidateResponseBodyRedeemablesItemResult
 from typing import Optional, Set
 from typing_extensions import Self
@@ -35,7 +35,7 @@ class ValidationsValidateResponseBodyRedeemablesItem(BaseModel):
     status: Optional[StrictStr] = None
     id: Optional[StrictStr] = Field(default=None, description="Redeemable ID, i.e. the voucher code.")
     object: Optional[StrictStr] = Field(default=None, description="Redeemable's object type.")
-    order: Optional[OrderCalculated] = None
+    order: Optional[ValidationsValidateResponseBodyRedeemablesItemOrder] = None
     applicable_to: Optional[ApplicableToResultList] = None
     inapplicable_to: Optional[InapplicableToResultList] = None
     result: Optional[ValidationsValidateResponseBodyRedeemablesItemResult] = None
@@ -174,7 +174,7 @@ class ValidationsValidateResponseBodyRedeemablesItem(BaseModel):
             "status": obj.get("status"),
             "id": obj.get("id"),
             "object": obj.get("object"),
-            "order": OrderCalculated.from_dict(obj["order"]) if obj.get("order") is not None else None,
+            "order": ValidationsValidateResponseBodyRedeemablesItemOrder.from_dict(obj["order"]) if obj.get("order") is not None else None,
             "applicable_to": ApplicableToResultList.from_dict(obj["applicable_to"]) if obj.get("applicable_to") is not None else None,
             "inapplicable_to": InapplicableToResultList.from_dict(obj["inapplicable_to"]) if obj.get("inapplicable_to") is not None else None,
             "result": ValidationsValidateResponseBodyRedeemablesItemResult.from_dict(obj["result"]) if obj.get("result") is not None else None,

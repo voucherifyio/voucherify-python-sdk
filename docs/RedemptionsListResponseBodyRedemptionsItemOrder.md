@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 **customer** | [**RedemptionsListResponseBodyRedemptionsItemOrderCustomer**](RedemptionsListResponseBodyRedemptionsItemOrderCustomer.md) |  | [optional] 
 **referrer** | [**RedemptionsListResponseBodyRedemptionsItemOrderReferrer**](RedemptionsListResponseBodyRedemptionsItemOrderReferrer.md) |  | [optional] 
 **redemptions** | **object** |  | [optional] 
-**items** | [**List[OrderCalculatedItem]**](OrderCalculatedItem.md) | Array of items applied to the order. It can include up 500 items. | [optional] 
+**items** | [**List[RedemptionsListResponseBodyRedemptionsItemOrderItemsItem]**](RedemptionsListResponseBodyRedemptionsItemOrderItemsItem.md) | Array of items applied to the order. It can include up to 500 items. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

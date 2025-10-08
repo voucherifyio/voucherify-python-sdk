@@ -21,7 +21,9 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from voucherify.models.earning_rule_expiration_rules import EarningRuleExpirationRules
 from voucherify.models.loyalties_earning_rules_update_request_body_loyalty import LoyaltiesEarningRulesUpdateRequestBodyLoyalty
+from voucherify.models.loyalties_earning_rules_update_request_body_pending_points import LoyaltiesEarningRulesUpdateRequestBodyPendingPoints
 from voucherify.models.loyalties_earning_rules_update_request_body_source import LoyaltiesEarningRulesUpdateRequestBodySource
 from voucherify.models.validity_hours import ValidityHours
 from voucherify.models.validity_timeframe import ValidityTimeframe
@@ -36,13 +38,15 @@ class LoyaltiesEarningRulesUpdateRequestBody(BaseModel):
     loyalty: Optional[LoyaltiesEarningRulesUpdateRequestBodyLoyalty] = None
     source: Optional[LoyaltiesEarningRulesUpdateRequestBodySource] = None
     active: Optional[StrictBool] = Field(default=None, description="A flag to toggle the earning rule on or off. You can disable an earning rule even though it's within the active period defined by the `start_date` and `expiration_date` of the campaign or the earning rule's own `start_date` and `expiration_date`.    - `true` indicates an *active* earning rule - `false` indicates an *inactive* earning rule")
-    start_date: Optional[datetime] = Field(default=None, description="Start date defines when the earning rule starts to be active. Activation timestamp is presented in the ISO 8601 format. Earning rule is *inactive before* this date. If you don't define the start date for an earning rule, it'll inherit the campaign start date by default. ")
-    expiration_date: Optional[datetime] = Field(default=None, description="Expiration date defines when the earning rule expires. Expiration timestamp is presented in the ISO 8601 format.  Earning rule is *inactive after* this date.If you don't define the expiration date for an earning rule, it'll inherit the campaign expiration date by default.")
+    start_date: Optional[datetime] = Field(default=None, description="Start date defines when the earning rule starts to be active. Activation timestamp is presented in the ISO 8601 format. Earning rule is *inactive before* this date. If you don't define the start date for an earning rule, it will inherit the campaign start date by default. ")
+    expiration_date: Optional[datetime] = Field(default=None, description="Expiration date defines when the earning rule expires. Expiration timestamp is presented in the ISO 8601 format.  Earning rule is *inactive after* this date.If you don't define the expiration date for an earning rule, it will inherit the campaign expiration date by default.")
+    pending_points: Optional[LoyaltiesEarningRulesUpdateRequestBodyPendingPoints] = None
+    expiration_rules: Optional[EarningRuleExpirationRules] = None
     validity_timeframe: Optional[ValidityTimeframe] = None
     validity_day_of_week: Optional[List[StrictInt]] = Field(default=None, description="Integer array corresponding to the particular days of the week in which the voucher is valid.  - `0` Sunday - `1` Monday - `2` Tuesday - `3` Wednesday - `4` Thursday - `5` Friday - `6` Saturday")
     validity_hours: Optional[ValidityHours] = None
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the earning rule. A set of key/value pairs that you can attach to an earning rule object. It can be useful for storing additional information about the earning rule in a structured format.")
-    __properties: ClassVar[List[str]] = ["validation_rule_id", "loyalty", "source", "active", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "metadata"]
+    __properties: ClassVar[List[str]] = ["validation_rule_id", "loyalty", "source", "active", "start_date", "expiration_date", "pending_points", "expiration_rules", "validity_timeframe", "validity_day_of_week", "validity_hours", "metadata"]
 
     @field_validator('validity_day_of_week')
     def validity_day_of_week_validate_enum(cls, value):
@@ -100,6 +104,12 @@ class LoyaltiesEarningRulesUpdateRequestBody(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of source
         if self.source:
             _dict['source'] = self.source.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of pending_points
+        if self.pending_points:
+            _dict['pending_points'] = self.pending_points.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of expiration_rules
+        if self.expiration_rules:
+            _dict['expiration_rules'] = self.expiration_rules.to_dict()
         # override the default output from pydantic by calling `to_dict()` of validity_timeframe
         if self.validity_timeframe:
             _dict['validity_timeframe'] = self.validity_timeframe.to_dict()
@@ -136,6 +146,11 @@ class LoyaltiesEarningRulesUpdateRequestBody(BaseModel):
         if self.expiration_date is None and "expiration_date" in self.model_fields_set:
             _dict['expiration_date'] = None
 
+        # set to None if pending_points (nullable) is None
+        # and model_fields_set contains the field
+        if self.pending_points is None and "pending_points" in self.model_fields_set:
+            _dict['pending_points'] = None
+
         # set to None if metadata (nullable) is None
         # and model_fields_set contains the field
         if self.metadata is None and "metadata" in self.model_fields_set:
@@ -159,6 +174,8 @@ class LoyaltiesEarningRulesUpdateRequestBody(BaseModel):
             "active": obj.get("active"),
             "start_date": obj.get("start_date"),
             "expiration_date": obj.get("expiration_date"),
+            "pending_points": LoyaltiesEarningRulesUpdateRequestBodyPendingPoints.from_dict(obj["pending_points"]) if obj.get("pending_points") is not None else None,
+            "expiration_rules": EarningRuleExpirationRules.from_dict(obj["expiration_rules"]) if obj.get("expiration_rules") is not None else None,
             "validity_timeframe": ValidityTimeframe.from_dict(obj["validity_timeframe"]) if obj.get("validity_timeframe") is not None else None,
             "validity_day_of_week": obj.get("validity_day_of_week"),
             "validity_hours": ValidityHours.from_dict(obj["validity_hours"]) if obj.get("validity_hours") is not None else None,

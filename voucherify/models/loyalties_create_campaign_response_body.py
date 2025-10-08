@@ -42,7 +42,7 @@ class LoyaltiesCreateCampaignResponseBody(BaseModel):
     type: Optional[StrictStr] = Field(default=None, description="Defines whether the campaign can be updated with new vouchers after campaign creation.      - `AUTO_UPDATE`: the campaign is dynamic, i.e. vouchers will generate based on set criteria     -  `STATIC`: vouchers need to be manually published")
     voucher: Optional[LoyaltyCampaignVoucher] = None
     auto_join: Optional[StrictBool] = Field(default=None, description="Indicates whether customers will be able to auto-join a loyalty campaign if any earning rule is fulfilled.")
-    join_once: Optional[StrictBool] = Field(default=None, description="If this value is set to `true`, customers will be able to join the campaign only once.")
+    join_once: Optional[StrictBool] = Field(default=None, description="Always set to `true` for loyalty campaigns, meaning customers can join the campaign only once. It can't be changed to `false`.")
     use_voucher_metadata_schema: Optional[StrictBool] = Field(default=None, description="Flag indicating whether the campaign is to use the voucher's metadata schema instead of the campaign metadata schema.")
     validity_timeframe: Optional[ValidityTimeframe] = None
     validity_day_of_week: Optional[List[StrictInt]] = Field(default=None, description="Integer array corresponding to the particular days of the week in which the voucher is valid.  - `0` Sunday - `1` Monday - `2` Tuesday - `3` Wednesday - `4` Thursday - `5` Friday - `6` Saturday")

@@ -1,6 +1,6 @@
 # QualificationsOptionFiltersResourceTypeConditions
 
-Data filters used to narrow down the data records to be returned in the result.
+Data filters used to narrow down the data records to be returned in the result. - `campaign` refers to campaigns; - `voucher` refers to generic (standalone) vouchers or published vouchers; - `promotion_tier` refers to promotion tiers.
 
 ## Properties
 

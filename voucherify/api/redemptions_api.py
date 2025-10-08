@@ -575,7 +575,7 @@ class RedemptionsApi:
     def list_redemptions(
         self,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
-        page: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1.")] = None,
+        page: Annotated[Optional[Annotated[int, Field(le=99, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1, the highest value is 99.")] = None,
         result: Annotated[Optional[StrictStr], Field(description="A filter on the list based on the redemption result. Available options are: SUCCESS, FAILURE. You can provide multiple values by repeating the param.")] = None,
         campaign: Annotated[Optional[StrictStr], Field(description="A filter by the campaign **name** that the redemption resources originate from.")] = None,
         customer: Annotated[Optional[StrictStr], Field(description="Return redemptions performed by the customer with given id or source_id.")] = None,
@@ -601,7 +601,7 @@ class RedemptionsApi:
 
         :param limit: Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.
         :type limit: int
-        :param page: Which page of results to return. The lowest value is 1.
+        :param page: Which page of results to return. The lowest value is 1, the highest value is 99.
         :type page: int
         :param result: A filter on the list based on the redemption result. Available options are: SUCCESS, FAILURE. You can provide multiple values by repeating the param.
         :type result: str
@@ -670,7 +670,7 @@ class RedemptionsApi:
     def list_redemptions_with_http_info(
         self,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
-        page: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1.")] = None,
+        page: Annotated[Optional[Annotated[int, Field(le=99, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1, the highest value is 99.")] = None,
         result: Annotated[Optional[StrictStr], Field(description="A filter on the list based on the redemption result. Available options are: SUCCESS, FAILURE. You can provide multiple values by repeating the param.")] = None,
         campaign: Annotated[Optional[StrictStr], Field(description="A filter by the campaign **name** that the redemption resources originate from.")] = None,
         customer: Annotated[Optional[StrictStr], Field(description="Return redemptions performed by the customer with given id or source_id.")] = None,
@@ -696,7 +696,7 @@ class RedemptionsApi:
 
         :param limit: Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.
         :type limit: int
-        :param page: Which page of results to return. The lowest value is 1.
+        :param page: Which page of results to return. The lowest value is 1, the highest value is 99.
         :type page: int
         :param result: A filter on the list based on the redemption result. Available options are: SUCCESS, FAILURE. You can provide multiple values by repeating the param.
         :type result: str
@@ -765,7 +765,7 @@ class RedemptionsApi:
     def list_redemptions_without_preload_content(
         self,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
-        page: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1.")] = None,
+        page: Annotated[Optional[Annotated[int, Field(le=99, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1, the highest value is 99.")] = None,
         result: Annotated[Optional[StrictStr], Field(description="A filter on the list based on the redemption result. Available options are: SUCCESS, FAILURE. You can provide multiple values by repeating the param.")] = None,
         campaign: Annotated[Optional[StrictStr], Field(description="A filter by the campaign **name** that the redemption resources originate from.")] = None,
         customer: Annotated[Optional[StrictStr], Field(description="Return redemptions performed by the customer with given id or source_id.")] = None,
@@ -791,7 +791,7 @@ class RedemptionsApi:
 
         :param limit: Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.
         :type limit: int
-        :param page: Which page of results to return. The lowest value is 1.
+        :param page: Which page of results to return. The lowest value is 1, the highest value is 99.
         :type page: int
         :param result: A filter on the list based on the redemption result. Available options are: SUCCESS, FAILURE. You can provide multiple values by repeating the param.
         :type result: str
@@ -1247,7 +1247,7 @@ class RedemptionsApi:
     ) -> RedemptionsRollbackCreateResponseBody:
         """Rollback Redemption
 
-        Your business logic may include a case when you need to undo a redemption. You can revert a redemption by calling this API endpoint.  🚧  You can roll back a redemption up to 3 months back.   # Effect  The operation  - creates a rollback entry in vouchers redemption history (redemption.redemption_entries) and  - gives 1 redemption back to the pool (decreases redeemed_quantity by 1).  # Returned funds  In case of *gift card vouchers*, this method returns funds back according to the source redemption. In case of *loyalty card vouchers*, this method returns points back according to the source redemption.
+        Your business logic may include a case when you need to undo a redemption. You can revert a redemption by calling this API endpoint. This endpoint rolls back only single redemptions, meaning those that are not stacked. Stacked redemptions belong to a parent redemption. To roll back a parent redemption, including all of its individual redemptions, use the POST Rollback Stackable Redemptions  🚧  You can roll back a redemption up to 3 months back.   # Effect  The operation  - creates a rollback entry in vouchers redemption history (redemption.redemption_entries) and  - gives 1 redemption back to the pool (decreases redeemed_quantity by 1).  # Returned funds  In case of *gift card vouchers*, this method returns funds back according to the source redemption. In case of *loyalty card vouchers*, this method returns points back according to the source redemption.
 
         :param redemption_id: The original redemption ID to be rolled back (undone). (required)
         :type redemption_id: str
@@ -1326,7 +1326,7 @@ class RedemptionsApi:
     ) -> ApiResponse[RedemptionsRollbackCreateResponseBody]:
         """Rollback Redemption
 
-        Your business logic may include a case when you need to undo a redemption. You can revert a redemption by calling this API endpoint.  🚧  You can roll back a redemption up to 3 months back.   # Effect  The operation  - creates a rollback entry in vouchers redemption history (redemption.redemption_entries) and  - gives 1 redemption back to the pool (decreases redeemed_quantity by 1).  # Returned funds  In case of *gift card vouchers*, this method returns funds back according to the source redemption. In case of *loyalty card vouchers*, this method returns points back according to the source redemption.
+        Your business logic may include a case when you need to undo a redemption. You can revert a redemption by calling this API endpoint. This endpoint rolls back only single redemptions, meaning those that are not stacked. Stacked redemptions belong to a parent redemption. To roll back a parent redemption, including all of its individual redemptions, use the POST Rollback Stackable Redemptions  🚧  You can roll back a redemption up to 3 months back.   # Effect  The operation  - creates a rollback entry in vouchers redemption history (redemption.redemption_entries) and  - gives 1 redemption back to the pool (decreases redeemed_quantity by 1).  # Returned funds  In case of *gift card vouchers*, this method returns funds back according to the source redemption. In case of *loyalty card vouchers*, this method returns points back according to the source redemption.
 
         :param redemption_id: The original redemption ID to be rolled back (undone). (required)
         :type redemption_id: str
@@ -1405,7 +1405,7 @@ class RedemptionsApi:
     ) -> RESTResponseType:
         """Rollback Redemption
 
-        Your business logic may include a case when you need to undo a redemption. You can revert a redemption by calling this API endpoint.  🚧  You can roll back a redemption up to 3 months back.   # Effect  The operation  - creates a rollback entry in vouchers redemption history (redemption.redemption_entries) and  - gives 1 redemption back to the pool (decreases redeemed_quantity by 1).  # Returned funds  In case of *gift card vouchers*, this method returns funds back according to the source redemption. In case of *loyalty card vouchers*, this method returns points back according to the source redemption.
+        Your business logic may include a case when you need to undo a redemption. You can revert a redemption by calling this API endpoint. This endpoint rolls back only single redemptions, meaning those that are not stacked. Stacked redemptions belong to a parent redemption. To roll back a parent redemption, including all of its individual redemptions, use the POST Rollback Stackable Redemptions  🚧  You can roll back a redemption up to 3 months back.   # Effect  The operation  - creates a rollback entry in vouchers redemption history (redemption.redemption_entries) and  - gives 1 redemption back to the pool (decreases redeemed_quantity by 1).  # Returned funds  In case of *gift card vouchers*, this method returns funds back according to the source redemption. In case of *loyalty card vouchers*, this method returns points back according to the source redemption.
 
         :param redemption_id: The original redemption ID to be rolled back (undone). (required)
         :type redemption_id: str
@@ -1569,7 +1569,7 @@ class RedemptionsApi:
     ) -> RedemptionsRollbacksCreateResponseBody:
         """Rollback Stackable Redemptions
 
-        Rollback a stackable redemption. When you rollback a stacked redemption, all child redemptions will be rolled back. Provide the parent redemption ID as the path parameter.  🚧   You can roll back a redemption up to 3 months back.
+        Rollback a stackable redemption. When you roll back a stacked redemption, all child redemptions will be rolled back. Provide the parent redemption ID as the path parameter. However, you can use this endpoint to roll back a single redemption that does not have a parent, similarly to POST Rollback redemption. 🚧   You can roll back a redemption up to 3 months back.
 
         :param parent_redemption_id: Unique identifier of a parent redemption, e.g. r_JQfm73zWSJFQxs3bGxweYjgm. (required)
         :type parent_redemption_id: str
@@ -1648,7 +1648,7 @@ class RedemptionsApi:
     ) -> ApiResponse[RedemptionsRollbacksCreateResponseBody]:
         """Rollback Stackable Redemptions
 
-        Rollback a stackable redemption. When you rollback a stacked redemption, all child redemptions will be rolled back. Provide the parent redemption ID as the path parameter.  🚧   You can roll back a redemption up to 3 months back.
+        Rollback a stackable redemption. When you roll back a stacked redemption, all child redemptions will be rolled back. Provide the parent redemption ID as the path parameter. However, you can use this endpoint to roll back a single redemption that does not have a parent, similarly to POST Rollback redemption. 🚧   You can roll back a redemption up to 3 months back.
 
         :param parent_redemption_id: Unique identifier of a parent redemption, e.g. r_JQfm73zWSJFQxs3bGxweYjgm. (required)
         :type parent_redemption_id: str
@@ -1727,7 +1727,7 @@ class RedemptionsApi:
     ) -> RESTResponseType:
         """Rollback Stackable Redemptions
 
-        Rollback a stackable redemption. When you rollback a stacked redemption, all child redemptions will be rolled back. Provide the parent redemption ID as the path parameter.  🚧   You can roll back a redemption up to 3 months back.
+        Rollback a stackable redemption. When you roll back a stacked redemption, all child redemptions will be rolled back. Provide the parent redemption ID as the path parameter. However, you can use this endpoint to roll back a single redemption that does not have a parent, similarly to POST Rollback redemption. 🚧   You can roll back a redemption up to 3 months back.
 
         :param parent_redemption_id: Unique identifier of a parent redemption, e.g. r_JQfm73zWSJFQxs3bGxweYjgm. (required)
         :type parent_redemption_id: str

@@ -6,7 +6,7 @@ Contains the detailed information about the transaction.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**balance** | [**VoucherTransactionDetailsBalance**](VoucherTransactionDetailsBalance.md) |  | [optional] 
+**balance** | [**VoucherBalance**](VoucherBalance.md) |  | [optional] 
 **order** | [**VoucherTransactionDetailsOrder**](VoucherTransactionDetailsOrder.md) |  | [optional] 
 **event** | [**VoucherTransactionDetailsEvent**](VoucherTransactionDetailsEvent.md) |  | [optional] 
 **earning_rule** | [**VoucherTransactionDetailsEarningRule**](VoucherTransactionDetailsEarningRule.md) |  | [optional] 

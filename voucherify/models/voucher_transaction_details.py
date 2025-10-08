@@ -22,7 +22,7 @@ from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
 from voucherify.models.loyalty_pending_points import LoyaltyPendingPoints
 from voucherify.models.simple_voucher import SimpleVoucher
-from voucherify.models.voucher_transaction_details_balance import VoucherTransactionDetailsBalance
+from voucherify.models.voucher_balance import VoucherBalance
 from voucherify.models.voucher_transaction_details_custom_event import VoucherTransactionDetailsCustomEvent
 from voucherify.models.voucher_transaction_details_earning_rule import VoucherTransactionDetailsEarningRule
 from voucherify.models.voucher_transaction_details_event import VoucherTransactionDetailsEvent
@@ -41,7 +41,7 @@ class VoucherTransactionDetails(BaseModel):
     """
     Contains the detailed information about the transaction.
     """ # noqa: E501
-    balance: Optional[VoucherTransactionDetailsBalance] = None
+    balance: Optional[VoucherBalance] = None
     order: Optional[VoucherTransactionDetailsOrder] = None
     event: Optional[VoucherTransactionDetailsEvent] = None
     earning_rule: Optional[VoucherTransactionDetailsEarningRule] = None
@@ -209,7 +209,7 @@ class VoucherTransactionDetails(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "balance": VoucherTransactionDetailsBalance.from_dict(obj["balance"]) if obj.get("balance") is not None else None,
+            "balance": VoucherBalance.from_dict(obj["balance"]) if obj.get("balance") is not None else None,
             "order": VoucherTransactionDetailsOrder.from_dict(obj["order"]) if obj.get("order") is not None else None,
             "event": VoucherTransactionDetailsEvent.from_dict(obj["event"]) if obj.get("event") is not None else None,
             "earning_rule": VoucherTransactionDetailsEarningRule.from_dict(obj["earning_rule"]) if obj.get("earning_rule") is not None else None,

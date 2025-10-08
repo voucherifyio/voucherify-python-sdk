@@ -30,7 +30,7 @@ class ProductsSkusCreateRequestBody(BaseModel):
     id: Optional[StrictStr] = Field(default=None, description="Unique SKU ID.")
     source_id: Optional[StrictStr] = Field(default=None, description="A unique SKU identifier from your inventory system.")
     sku: Optional[StrictStr] = Field(default=None, description="Unique user-defined SKU name.")
-    price: Optional[StrictInt] = Field(default=None, description="SKU unit price. Value is multiplied by 100 to precisely represent 2 decimal places. For example `10000 cents` for `$100.00`.")
+    price: Optional[StrictInt] = Field(default=None, description="SKU unit price. The value is multiplied by 100 to represent 2 decimal places. For example `10000 cents` for `$100.00`.")
     currency: Optional[StrictStr] = Field(default=None, description="SKU price currency.")
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="The attributes object stores values for all custom attributes inherited by the SKU from the parent product. A set of key/value pairs that are attached to a SKU object and are unique to each SKU within a product family.")
     image_url: Optional[StrictStr] = Field(default=None, description="The HTTPS URL pointing to the .png or .jpg file that will be used to render the SKU image.")

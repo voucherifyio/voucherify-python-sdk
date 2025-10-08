@@ -6,7 +6,7 @@ Contains the detailed information about the transaction.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**balance** | [**LoyaltyCardTransactionDetailsBalance**](LoyaltyCardTransactionDetailsBalance.md) |  | [optional] 
+**balance** | [**VoucherBalance**](VoucherBalance.md) |  | [optional] 
 **order** | [**LoyaltyCardTransactionDetailsOrder**](LoyaltyCardTransactionDetailsOrder.md) |  | [optional] 
 **event** | [**LoyaltyCardTransactionDetailsEvent**](LoyaltyCardTransactionDetailsEvent.md) |  | [optional] 
 **earning_rule** | [**LoyaltyCardTransactionDetailsEarningRule**](LoyaltyCardTransactionDetailsEarningRule.md) |  | [optional] 

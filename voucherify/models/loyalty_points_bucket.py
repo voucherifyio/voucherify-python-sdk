@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import datetime
+from datetime import date, datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from voucherify.models.loyalty_points_bucket_bucket import LoyaltyPointsBucketBucket
@@ -34,7 +34,7 @@ class LoyaltyPointsBucket(BaseModel):
     campaign_id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the parent campaign.")
     bucket: Optional[LoyaltyPointsBucketBucket] = None
     status: Optional[StrictStr] = Field(default=None, description="Loyalty point point bucket status.")
-    expires_at: Optional[datetime] = Field(default=None, description="Date when the number of points defined in the bucket object are due to expire.")
+    expires_at: Optional[date] = Field(default=None, description="Date when the number of points defined in the bucket object are due to expire.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the loyalty point bucket object was created in ISO 8601 format.")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the loyalty point bucket object was updated in ISO 8601 format.")
     object: Optional[StrictStr] = Field(default='loyalty_points_bucket', description="The type of the object represented by JSON. This object stores information about the loyalty point bucket.")

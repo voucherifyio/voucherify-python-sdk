@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **redemption** | **str** | Unique redemption ID of the parent redemption. | [optional] 
 **result** | **str** | Redemption result. | [optional] 
 **status** | **str** |  | [optional] 
+**session** | [**RedemptionsGetResponseBodySession**](RedemptionsGetResponseBodySession.md) |  | [optional] 
 **related_redemptions** | [**RedemptionsGetResponseBodyRelatedRedemptions**](RedemptionsGetResponseBodyRelatedRedemptions.md) |  | [optional] 
 **failure_code** | **str** | If the result is &#x60;FAILURE&#x60;, this parameter will provide a generic reason as to why the redemption failed. | [optional] 
 **failure_message** | **str** | If the result is &#x60;FAILURE&#x60;, this parameter will provide a more expanded reason as to why the redemption failed. | [optional] 

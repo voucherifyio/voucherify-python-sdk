@@ -20,7 +20,6 @@ import json
 
 from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
-from voucherify.models.loyalty_card_transaction_details_balance import LoyaltyCardTransactionDetailsBalance
 from voucherify.models.loyalty_card_transaction_details_custom_event import LoyaltyCardTransactionDetailsCustomEvent
 from voucherify.models.loyalty_card_transaction_details_earning_rule import LoyaltyCardTransactionDetailsEarningRule
 from voucherify.models.loyalty_card_transaction_details_event import LoyaltyCardTransactionDetailsEvent
@@ -34,6 +33,7 @@ from voucherify.models.loyalty_card_transaction_details_rollback import LoyaltyC
 from voucherify.models.loyalty_card_transaction_details_segment import LoyaltyCardTransactionDetailsSegment
 from voucherify.models.loyalty_pending_points import LoyaltyPendingPoints
 from voucherify.models.simple_voucher import SimpleVoucher
+from voucherify.models.voucher_balance import VoucherBalance
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -41,7 +41,7 @@ class LoyaltyCardTransactionDetails(BaseModel):
     """
     Contains the detailed information about the transaction.
     """ # noqa: E501
-    balance: Optional[LoyaltyCardTransactionDetailsBalance] = None
+    balance: Optional[VoucherBalance] = None
     order: Optional[LoyaltyCardTransactionDetailsOrder] = None
     event: Optional[LoyaltyCardTransactionDetailsEvent] = None
     earning_rule: Optional[LoyaltyCardTransactionDetailsEarningRule] = None
@@ -209,7 +209,7 @@ class LoyaltyCardTransactionDetails(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "balance": LoyaltyCardTransactionDetailsBalance.from_dict(obj["balance"]) if obj.get("balance") is not None else None,
+            "balance": VoucherBalance.from_dict(obj["balance"]) if obj.get("balance") is not None else None,
             "order": LoyaltyCardTransactionDetailsOrder.from_dict(obj["order"]) if obj.get("order") is not None else None,
             "event": LoyaltyCardTransactionDetailsEvent.from_dict(obj["event"]) if obj.get("event") is not None else None,
             "earning_rule": LoyaltyCardTransactionDetailsEarningRule.from_dict(obj["earning_rule"]) if obj.get("earning_rule") is not None else None,

@@ -32,9 +32,9 @@ class FilterConditionsDateTime(BaseModel):
     before: Optional[datetime] = Field(default=None, description="Value is before this date. The value for this parameter is shown in the ISO 8601 format.", alias="$before")
     has_value: Optional[StrictStr] = Field(default=None, description="Value is NOT null. The value for this parameter is an empty string.", alias="$has_value")
     is_unknown: Optional[StrictStr] = Field(default=None, description="Value is null. The value for this parameter is an empty string.", alias="$is_unknown")
-    more_than: Optional[StrictInt] = Field(default=None, description="Value is more days ago before the current date and time, e.g. more than `10` days ago.")
-    less_than: Optional[StrictInt] = Field(default=None, description="Value is less days before the current date and time, e.g. less than `10` days ago.")
-    __properties: ClassVar[List[str]] = ["$after", "$before", "$has_value", "$is_unknown", "more_than", "less_than"]
+    more_than: Optional[StrictInt] = Field(default=None, description="Value is more days ago before the current date and time, e.g. more than `10` days ago.", alias="$more_than")
+    less_than: Optional[StrictInt] = Field(default=None, description="Value is less days before the current date and time, e.g. less than `10` days ago.", alias="$less_than")
+    __properties: ClassVar[List[str]] = ["$after", "$before", "$has_value", "$is_unknown", "$more_than", "$less_than"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -98,12 +98,12 @@ class FilterConditionsDateTime(BaseModel):
         # set to None if more_than (nullable) is None
         # and model_fields_set contains the field
         if self.more_than is None and "more_than" in self.model_fields_set:
-            _dict['more_than'] = None
+            _dict['$more_than'] = None
 
         # set to None if less_than (nullable) is None
         # and model_fields_set contains the field
         if self.less_than is None and "less_than" in self.model_fields_set:
-            _dict['less_than'] = None
+            _dict['$less_than'] = None
 
         return _dict
 
@@ -121,8 +121,8 @@ class FilterConditionsDateTime(BaseModel):
             "$before": obj.get("$before"),
             "$has_value": obj.get("$has_value"),
             "$is_unknown": obj.get("$is_unknown"),
-            "more_than": obj.get("more_than"),
-            "less_than": obj.get("less_than")
+            "$more_than": obj.get("$more_than"),
+            "$less_than": obj.get("$less_than")
         })
         return _obj
 

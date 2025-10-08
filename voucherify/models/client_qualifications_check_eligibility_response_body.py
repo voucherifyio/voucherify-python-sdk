@@ -20,7 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from voucherify.models.order_calculated import OrderCalculated
+from voucherify.models.client_qualifications_check_eligibility_response_body_order import ClientQualificationsCheckEligibilityResponseBodyOrder
 from voucherify.models.qualifications_redeemables import QualificationsRedeemables
 from voucherify.models.stacking_rules import StackingRules
 from typing import Optional, Set
@@ -32,7 +32,7 @@ class ClientQualificationsCheckEligibilityResponseBody(BaseModel):
     """ # noqa: E501
     redeemables: Optional[QualificationsRedeemables] = None
     tracking_id: Optional[StrictStr] = Field(default=None, description="This identifier is generated during voucher qualification based on your internal id (e.g., email, database ID). This is a hashed customer source ID.")
-    order: Optional[OrderCalculated] = None
+    order: Optional[ClientQualificationsCheckEligibilityResponseBodyOrder] = None
     stacking_rules: Optional[StackingRules] = None
     __properties: ClassVar[List[str]] = ["redeemables", "tracking_id", "order", "stacking_rules"]
 
@@ -89,6 +89,11 @@ class ClientQualificationsCheckEligibilityResponseBody(BaseModel):
         if self.tracking_id is None and "tracking_id" in self.model_fields_set:
             _dict['tracking_id'] = None
 
+        # set to None if order (nullable) is None
+        # and model_fields_set contains the field
+        if self.order is None and "order" in self.model_fields_set:
+            _dict['order'] = None
+
         return _dict
 
     @classmethod
@@ -103,7 +108,7 @@ class ClientQualificationsCheckEligibilityResponseBody(BaseModel):
         _obj = cls.model_validate({
             "redeemables": QualificationsRedeemables.from_dict(obj["redeemables"]) if obj.get("redeemables") is not None else None,
             "tracking_id": obj.get("tracking_id"),
-            "order": OrderCalculated.from_dict(obj["order"]) if obj.get("order") is not None else None,
+            "order": ClientQualificationsCheckEligibilityResponseBodyOrder.from_dict(obj["order"]) if obj.get("order") is not None else None,
             "stacking_rules": StackingRules.from_dict(obj["stacking_rules"]) if obj.get("stacking_rules") is not None else None
         })
         return _obj

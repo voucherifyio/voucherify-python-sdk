@@ -29,6 +29,7 @@ from voucherify.models.redemptions_get_response_body_loyalty_card import Redempt
 from voucherify.models.redemptions_get_response_body_order import RedemptionsGetResponseBodyOrder
 from voucherify.models.redemptions_get_response_body_promotion_tier import RedemptionsGetResponseBodyPromotionTier
 from voucherify.models.redemptions_get_response_body_related_redemptions import RedemptionsGetResponseBodyRelatedRedemptions
+from voucherify.models.redemptions_get_response_body_session import RedemptionsGetResponseBodySession
 from voucherify.models.redemptions_get_response_body_voucher import RedemptionsGetResponseBodyVoucher
 from typing import Optional, Set
 from typing_extensions import Self
@@ -47,6 +48,7 @@ class RedemptionsGetResponseBody(BaseModel):
     redemption: Optional[StrictStr] = Field(default=None, description="Unique redemption ID of the parent redemption.")
     result: Optional[StrictStr] = Field(default=None, description="Redemption result.")
     status: Optional[StrictStr] = None
+    session: Optional[RedemptionsGetResponseBodySession] = None
     related_redemptions: Optional[RedemptionsGetResponseBodyRelatedRedemptions] = None
     failure_code: Optional[StrictStr] = Field(default=None, description="If the result is `FAILURE`, this parameter will provide a generic reason as to why the redemption failed.")
     failure_message: Optional[StrictStr] = Field(default=None, description="If the result is `FAILURE`, this parameter will provide a more expanded reason as to why the redemption failed.")
@@ -61,7 +63,7 @@ class RedemptionsGetResponseBody(BaseModel):
     loyalty_card: Optional[RedemptionsGetResponseBodyLoyaltyCard] = None
     voucher: Optional[RedemptionsGetResponseBodyVoucher] = None
     reason: Optional[StrictStr] = Field(default=None, description="System generated cause for the redemption being invalid in the context of the provided parameters.")
-    __properties: ClassVar[List[str]] = ["id", "object", "date", "customer_id", "tracking_id", "metadata", "amount", "redemption", "result", "status", "related_redemptions", "failure_code", "failure_message", "order", "channel", "customer", "related_object_type", "related_object_id", "promotion_tier", "reward", "gift", "loyalty_card", "voucher", "reason"]
+    __properties: ClassVar[List[str]] = ["id", "object", "date", "customer_id", "tracking_id", "metadata", "amount", "redemption", "result", "status", "session", "related_redemptions", "failure_code", "failure_message", "order", "channel", "customer", "related_object_type", "related_object_id", "promotion_tier", "reward", "gift", "loyalty_card", "voucher", "reason"]
 
     @field_validator('object')
     def object_validate_enum(cls, value):
@@ -142,6 +144,9 @@ class RedemptionsGetResponseBody(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of session
+        if self.session:
+            _dict['session'] = self.session.to_dict()
         # override the default output from pydantic by calling `to_dict()` of related_redemptions
         if self.related_redemptions:
             _dict['related_redemptions'] = self.related_redemptions.to_dict()
@@ -218,6 +223,11 @@ class RedemptionsGetResponseBody(BaseModel):
         # and model_fields_set contains the field
         if self.status is None and "status" in self.model_fields_set:
             _dict['status'] = None
+
+        # set to None if session (nullable) is None
+        # and model_fields_set contains the field
+        if self.session is None and "session" in self.model_fields_set:
+            _dict['session'] = None
 
         # set to None if related_redemptions (nullable) is None
         # and model_fields_set contains the field
@@ -306,6 +316,7 @@ class RedemptionsGetResponseBody(BaseModel):
             "redemption": obj.get("redemption"),
             "result": obj.get("result"),
             "status": obj.get("status"),
+            "session": RedemptionsGetResponseBodySession.from_dict(obj["session"]) if obj.get("session") is not None else None,
             "related_redemptions": RedemptionsGetResponseBodyRelatedRedemptions.from_dict(obj["related_redemptions"]) if obj.get("related_redemptions") is not None else None,
             "failure_code": obj.get("failure_code"),
             "failure_message": obj.get("failure_message"),

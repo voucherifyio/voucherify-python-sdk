@@ -21,13 +21,12 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from voucherify.models.order_calculated import OrderCalculated
 from voucherify.models.promotion_tier import PromotionTier
 from voucherify.models.redemption_reward_result import RedemptionRewardResult
 from voucherify.models.redemptions_rollback_create_response_body_channel import RedemptionsRollbackCreateResponseBodyChannel
 from voucherify.models.redemptions_rollback_create_response_body_gift import RedemptionsRollbackCreateResponseBodyGift
 from voucherify.models.redemptions_rollback_create_response_body_loyalty_card import RedemptionsRollbackCreateResponseBodyLoyaltyCard
-from voucherify.models.redemptions_rollback_create_response_body_related_redemptions import RedemptionsRollbackCreateResponseBodyRelatedRedemptions
+from voucherify.models.redemptions_rollback_create_response_body_order import RedemptionsRollbackCreateResponseBodyOrder
 from voucherify.models.simple_customer import SimpleCustomer
 from voucherify.models.voucher import Voucher
 from typing import Optional, Set
@@ -48,10 +47,9 @@ class RedemptionsRollbackCreateResponseBody(BaseModel):
     reason: Optional[StrictStr] = Field(default=None, description="System generated cause for the redemption being invalid in the context of the provided parameters.")
     result: Optional[StrictStr] = Field(default=None, description="Redemption result.")
     status: Optional[StrictStr] = Field(default=None, description="Redemption status.")
-    related_redemptions: Optional[RedemptionsRollbackCreateResponseBodyRelatedRedemptions] = None
     failure_code: Optional[StrictStr] = Field(default=None, description="If the result is `FAILURE`, this parameter will provide a generic reason as to why the redemption failed.")
     failure_message: Optional[StrictStr] = Field(default=None, description="If the result is `FAILURE`, this parameter will provide a more expanded reason as to why the redemption failed.")
-    order: Optional[OrderCalculated] = None
+    order: Optional[RedemptionsRollbackCreateResponseBodyOrder] = None
     channel: Optional[RedemptionsRollbackCreateResponseBodyChannel] = None
     customer: Optional[SimpleCustomer] = None
     related_object_type: Optional[StrictStr] = Field(default=None, description="Defines the related object.")
@@ -61,7 +59,7 @@ class RedemptionsRollbackCreateResponseBody(BaseModel):
     reward: Optional[RedemptionRewardResult] = None
     gift: Optional[RedemptionsRollbackCreateResponseBodyGift] = None
     loyalty_card: Optional[RedemptionsRollbackCreateResponseBodyLoyaltyCard] = None
-    __properties: ClassVar[List[str]] = ["id", "object", "date", "customer_id", "tracking_id", "metadata", "amount", "redemption", "reason", "result", "status", "related_redemptions", "failure_code", "failure_message", "order", "channel", "customer", "related_object_type", "related_object_id", "voucher", "promotion_tier", "reward", "gift", "loyalty_card"]
+    __properties: ClassVar[List[str]] = ["id", "object", "date", "customer_id", "tracking_id", "metadata", "amount", "redemption", "reason", "result", "status", "failure_code", "failure_message", "order", "channel", "customer", "related_object_type", "related_object_id", "voucher", "promotion_tier", "reward", "gift", "loyalty_card"]
 
     @field_validator('object')
     def object_validate_enum(cls, value):
@@ -142,9 +140,6 @@ class RedemptionsRollbackCreateResponseBody(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of related_redemptions
-        if self.related_redemptions:
-            _dict['related_redemptions'] = self.related_redemptions.to_dict()
         # override the default output from pydantic by calling `to_dict()` of order
         if self.order:
             _dict['order'] = self.order.to_dict()
@@ -224,11 +219,6 @@ class RedemptionsRollbackCreateResponseBody(BaseModel):
         if self.status is None and "status" in self.model_fields_set:
             _dict['status'] = None
 
-        # set to None if related_redemptions (nullable) is None
-        # and model_fields_set contains the field
-        if self.related_redemptions is None and "related_redemptions" in self.model_fields_set:
-            _dict['related_redemptions'] = None
-
         # set to None if failure_code (nullable) is None
         # and model_fields_set contains the field
         if self.failure_code is None and "failure_code" in self.model_fields_set:
@@ -238,6 +228,11 @@ class RedemptionsRollbackCreateResponseBody(BaseModel):
         # and model_fields_set contains the field
         if self.failure_message is None and "failure_message" in self.model_fields_set:
             _dict['failure_message'] = None
+
+        # set to None if order (nullable) is None
+        # and model_fields_set contains the field
+        if self.order is None and "order" in self.model_fields_set:
+            _dict['order'] = None
 
         # set to None if channel (nullable) is None
         # and model_fields_set contains the field
@@ -287,10 +282,9 @@ class RedemptionsRollbackCreateResponseBody(BaseModel):
             "reason": obj.get("reason"),
             "result": obj.get("result"),
             "status": obj.get("status"),
-            "related_redemptions": RedemptionsRollbackCreateResponseBodyRelatedRedemptions.from_dict(obj["related_redemptions"]) if obj.get("related_redemptions") is not None else None,
             "failure_code": obj.get("failure_code"),
             "failure_message": obj.get("failure_message"),
-            "order": OrderCalculated.from_dict(obj["order"]) if obj.get("order") is not None else None,
+            "order": RedemptionsRollbackCreateResponseBodyOrder.from_dict(obj["order"]) if obj.get("order") is not None else None,
             "channel": RedemptionsRollbackCreateResponseBodyChannel.from_dict(obj["channel"]) if obj.get("channel") is not None else None,
             "customer": SimpleCustomer.from_dict(obj["customer"]) if obj.get("customer") is not None else None,
             "related_object_type": obj.get("related_object_type"),

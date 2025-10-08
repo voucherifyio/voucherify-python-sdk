@@ -53,7 +53,7 @@ configuration.api_key['X-App-Token'] = os.environ["API_KEY"]
 with voucherify.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = voucherify.ValidationsApi(api_client)
-    validations_validate_request_body = {"customer":{"source_id":"sample_customer","metadata":{"key":"value"}},"options":{"expand":["order","redeemable","category"]},"redeemables":[{"object":"voucher","id":"voucher-code"}],"session":{"type":"LOCK"},"order":{"amount":55000,"status":"PAID","items":[{"quantity":2,"price":20000,"source_id":"sample product1","related_object":"product","product":{"metadata":{"key":"value"}}},{"quantity":1,"price":15000,"source_id":"sample product2","related_object":"product","product":{"metadata":{"key":"value"}}}],"metadata":{"key":"value"}}} # ValidationsValidateRequestBody |  (optional)
+    validations_validate_request_body = {"redeemables":[{"object":"voucher","id":"BLCKFRDY"}],"order":{"amount":5500}} # ValidationsValidateRequestBody |  (optional)
 
     try:
         # Validate Stackable Discounts
