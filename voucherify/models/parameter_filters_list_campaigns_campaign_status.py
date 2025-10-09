@@ -26,7 +26,7 @@ from typing_extensions import Self
 
 class ParameterFiltersListCampaignsCampaignStatus(BaseModel):
     """
-    Type of the campaign. Allowed values: `DONE`, `IN_PROGRESS`, `DRAFT`, `FAILED` `MODIFYING`
+    Status of the campaign. Allowed values: `DONE`, `IN_PROGRESS`, `DRAFT`, `FAILED` `MODIFYING`
     """ # noqa: E501
     conditions: Optional[ParameterFiltersListCampaignsCampaignStatusConditions] = None
     __properties: ClassVar[List[str]] = ["conditions"]
@@ -73,6 +73,11 @@ class ParameterFiltersListCampaignsCampaignStatus(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of conditions
         if self.conditions:
             _dict['conditions'] = self.conditions.to_dict()
+        # set to None if conditions (nullable) is None
+        # and model_fields_set contains the field
+        if self.conditions is None and "conditions" in self.model_fields_set:
+            _dict['conditions'] = None
+
         return _dict
 
     @classmethod

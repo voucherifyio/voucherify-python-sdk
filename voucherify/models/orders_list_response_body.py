@@ -20,7 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from voucherify.models.order_calculated import OrderCalculated
+from voucherify.models.orders_list_response_body_orders_item import OrdersListResponseBodyOrdersItem
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,7 +30,7 @@ class OrdersListResponseBody(BaseModel):
     """ # noqa: E501
     object: Optional[StrictStr] = Field(default='list', description="The type of the object represented by JSON. This object stores information about orders in a dictionary.")
     data_ref: Optional[StrictStr] = Field(default='orders', description="Identifies the name of the attribute that contains the array of order objects.")
-    orders: Optional[List[OrderCalculated]] = Field(default=None, description="Contains array of order objects.")
+    orders: Optional[List[OrdersListResponseBodyOrdersItem]] = Field(default=None, description="Contains array of order objects.")
     total: Optional[StrictInt] = Field(default=None, description="Total number of orders.")
     __properties: ClassVar[List[str]] = ["object", "data_ref", "orders", "total"]
 
@@ -134,7 +134,7 @@ class OrdersListResponseBody(BaseModel):
         _obj = cls.model_validate({
             "object": obj.get("object") if obj.get("object") is not None else 'list',
             "data_ref": obj.get("data_ref") if obj.get("data_ref") is not None else 'orders',
-            "orders": [OrderCalculated.from_dict(_item) for _item in obj["orders"]] if obj.get("orders") is not None else None,
+            "orders": [OrdersListResponseBodyOrdersItem.from_dict(_item) for _item in obj["orders"]] if obj.get("orders") is not None else None,
             "total": obj.get("total")
         })
         return _obj

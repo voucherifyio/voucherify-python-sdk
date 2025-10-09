@@ -21,13 +21,14 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from voucherify.models.order_calculated import OrderCalculated
 from voucherify.models.promotion_tier import PromotionTier
 from voucherify.models.redemption_channel import RedemptionChannel
 from voucherify.models.redemption_gift import RedemptionGift
 from voucherify.models.redemption_loyalty_card import RedemptionLoyaltyCard
+from voucherify.models.redemption_order import RedemptionOrder
 from voucherify.models.redemption_related_redemptions import RedemptionRelatedRedemptions
 from voucherify.models.redemption_reward_result import RedemptionRewardResult
+from voucherify.models.redemption_session import RedemptionSession
 from voucherify.models.redemption_voucher import RedemptionVoucher
 from voucherify.models.simple_customer import SimpleCustomer
 from typing import Optional, Set
@@ -47,10 +48,11 @@ class Redemption(BaseModel):
     redemption: Optional[StrictStr] = Field(default=None, description="Unique redemption ID of the parent redemption.")
     result: Optional[StrictStr] = Field(default=None, description="Redemption result.")
     status: Optional[StrictStr] = Field(default=None, description="Redemption status.")
+    session: Optional[RedemptionSession] = None
     related_redemptions: Optional[RedemptionRelatedRedemptions] = None
     failure_code: Optional[StrictStr] = Field(default=None, description="If the result is `FAILURE`, this parameter will provide a generic reason as to why the redemption failed.")
     failure_message: Optional[StrictStr] = Field(default=None, description="If the result is `FAILURE`, this parameter will provide a more expanded reason as to why the redemption failed.")
-    order: Optional[OrderCalculated] = None
+    order: Optional[RedemptionOrder] = None
     channel: Optional[RedemptionChannel] = None
     customer: Optional[SimpleCustomer] = None
     related_object_type: Optional[StrictStr] = Field(default=None, description="Defines the related object.")
@@ -60,7 +62,7 @@ class Redemption(BaseModel):
     gift: Optional[RedemptionGift] = None
     loyalty_card: Optional[RedemptionLoyaltyCard] = None
     voucher: Optional[RedemptionVoucher] = None
-    __properties: ClassVar[List[str]] = ["id", "object", "date", "customer_id", "tracking_id", "metadata", "amount", "redemption", "result", "status", "related_redemptions", "failure_code", "failure_message", "order", "channel", "customer", "related_object_type", "related_object_id", "promotion_tier", "reward", "gift", "loyalty_card", "voucher"]
+    __properties: ClassVar[List[str]] = ["id", "object", "date", "customer_id", "tracking_id", "metadata", "amount", "redemption", "result", "status", "session", "related_redemptions", "failure_code", "failure_message", "order", "channel", "customer", "related_object_type", "related_object_id", "promotion_tier", "reward", "gift", "loyalty_card", "voucher"]
 
     @field_validator('object')
     def object_validate_enum(cls, value):
@@ -141,6 +143,9 @@ class Redemption(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of session
+        if self.session:
+            _dict['session'] = self.session.to_dict()
         # override the default output from pydantic by calling `to_dict()` of related_redemptions
         if self.related_redemptions:
             _dict['related_redemptions'] = self.related_redemptions.to_dict()
@@ -218,6 +223,11 @@ class Redemption(BaseModel):
         if self.status is None and "status" in self.model_fields_set:
             _dict['status'] = None
 
+        # set to None if session (nullable) is None
+        # and model_fields_set contains the field
+        if self.session is None and "session" in self.model_fields_set:
+            _dict['session'] = None
+
         # set to None if related_redemptions (nullable) is None
         # and model_fields_set contains the field
         if self.related_redemptions is None and "related_redemptions" in self.model_fields_set:
@@ -232,6 +242,11 @@ class Redemption(BaseModel):
         # and model_fields_set contains the field
         if self.failure_message is None and "failure_message" in self.model_fields_set:
             _dict['failure_message'] = None
+
+        # set to None if order (nullable) is None
+        # and model_fields_set contains the field
+        if self.order is None and "order" in self.model_fields_set:
+            _dict['order'] = None
 
         # set to None if channel (nullable) is None
         # and model_fields_set contains the field
@@ -285,10 +300,11 @@ class Redemption(BaseModel):
             "redemption": obj.get("redemption"),
             "result": obj.get("result"),
             "status": obj.get("status"),
+            "session": RedemptionSession.from_dict(obj["session"]) if obj.get("session") is not None else None,
             "related_redemptions": RedemptionRelatedRedemptions.from_dict(obj["related_redemptions"]) if obj.get("related_redemptions") is not None else None,
             "failure_code": obj.get("failure_code"),
             "failure_message": obj.get("failure_message"),
-            "order": OrderCalculated.from_dict(obj["order"]) if obj.get("order") is not None else None,
+            "order": RedemptionOrder.from_dict(obj["order"]) if obj.get("order") is not None else None,
             "channel": RedemptionChannel.from_dict(obj["channel"]) if obj.get("channel") is not None else None,
             "customer": SimpleCustomer.from_dict(obj["customer"]) if obj.get("customer") is not None else None,
             "related_object_type": obj.get("related_object_type"),

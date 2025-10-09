@@ -19,8 +19,9 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from voucherify.models.member_activity_data1 import MemberActivityData1
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,10 +31,20 @@ class MemberActivity(BaseModel):
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Unique event ID, assigned by Voucherify.")
     type: Optional[StrictStr] = Field(default=None, description="Event type.")
-    data: Optional[Dict[str, Any]] = Field(default=None, description="Contains details about the event. The objects that are returned in the data attribute differ based on the context of the event type.")
+    data: Optional[MemberActivityData1] = None
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the member activity occurred in ISO 8601 format.")
     group_id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the request that caused the event.")
     __properties: ClassVar[List[str]] = ["id", "type", "data", "created_at", "group_id"]
+
+    @field_validator('type')
+    def type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['customer.loyalty.tier.upgraded', 'customer.loyalty.tier.downgraded', 'customer.loyalty.tier.prolonged', 'customer.loyalty.tier.expiration.changed', 'customer.loyalty.tier.joined', 'customer.loyalty.tier.left', 'customer.publication.succeeded', 'customer.publication.failed', 'customer.redemption.failed', 'customer.redemption.succceeded', 'customer.redemption.rollback.failed', 'customer.redemption.rollback.succceeded', 'customer.rewarded', 'customer.rewarded.loyalty_points', 'customer.reward_redemptions.created', 'customer.reward_redemptions.pending', 'customer.reward_redemptions.completed', 'customer.reward_redemptions.rolledback', 'customer.voucher.deleted', 'customer.voucher.loyalty_card.pending_points.activated', 'customer.voucher.loyalty_card.pending_points.added', 'customer.voucher.loyalty_card.pending_points.canceled', 'customer.voucher.loyalty_card.pending_points.updated', 'customer.voucher.loyalty_card.points_added', 'customer.voucher.loyalty_card.points_transferred', 'customer.voucher.loyalty_card.points_expired']):
+            raise ValueError("must be one of enum values ('customer.loyalty.tier.upgraded', 'customer.loyalty.tier.downgraded', 'customer.loyalty.tier.prolonged', 'customer.loyalty.tier.expiration.changed', 'customer.loyalty.tier.joined', 'customer.loyalty.tier.left', 'customer.publication.succeeded', 'customer.publication.failed', 'customer.redemption.failed', 'customer.redemption.succceeded', 'customer.redemption.rollback.failed', 'customer.redemption.rollback.succceeded', 'customer.rewarded', 'customer.rewarded.loyalty_points', 'customer.reward_redemptions.created', 'customer.reward_redemptions.pending', 'customer.reward_redemptions.completed', 'customer.reward_redemptions.rolledback', 'customer.voucher.deleted', 'customer.voucher.loyalty_card.pending_points.activated', 'customer.voucher.loyalty_card.pending_points.added', 'customer.voucher.loyalty_card.pending_points.canceled', 'customer.voucher.loyalty_card.pending_points.updated', 'customer.voucher.loyalty_card.points_added', 'customer.voucher.loyalty_card.points_transferred', 'customer.voucher.loyalty_card.points_expired')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -74,6 +85,9 @@ class MemberActivity(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of data
+        if self.data:
+            _dict['data'] = self.data.to_dict()
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -113,7 +127,7 @@ class MemberActivity(BaseModel):
         _obj = cls.model_validate({
             "id": obj.get("id"),
             "type": obj.get("type"),
-            "data": obj.get("data"),
+            "data": MemberActivityData1.from_dict(obj["data"]) if obj.get("data") is not None else None,
             "created_at": obj.get("created_at"),
             "group_id": obj.get("group_id")
         })

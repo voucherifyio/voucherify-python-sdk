@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,9 +28,10 @@ class InapplicableToOrderItemUnitsItem(BaseModel):
     """
     InapplicableToOrderItemUnitsItem
     """ # noqa: E501
-    index: Optional[StrictInt] = Field(default=None, description="Number assigned to the order line item in accordance with the order sent in the request.")
-    units: Optional[List[StrictInt]] = Field(default=None, description="Numbers of units in the order line covered by the discount; e.g. `2, 5, 8` for 10 units with the setting `\"skip_initially\": 1`, `\"repeat\": 3`. The counting of units starts from `1`.")
-    __properties: ClassVar[List[str]] = ["index", "units"]
+    index: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Number assigned to the order line item in accordance with the order sent in the request.")
+    units: Optional[List[StrictInt]] = Field(default=None, description="Numbers of units in the order line covered by the discount; e.g. `2, 5, 8` for 10 units with the setting `\"skip_initially\": 1`, `\"repeat\": 3`. The counting of units starts from `1`. The maximum quantity of all handled units is 1000. If the quantity of all order items exceeds 1000, this array is not returned, but `units_limit_exceeded: true`. However, the discount is calculated properly for all relevant units.")
+    units_limit_exceeded: Optional[StrictBool] = Field(default=None, description="Returned as `true` only when the sum total of `quantity` of all order items exceeds 1000.")
+    __properties: ClassVar[List[str]] = ["index", "units", "units_limit_exceeded"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,7 +85,8 @@ class InapplicableToOrderItemUnitsItem(BaseModel):
 
         _obj = cls.model_validate({
             "index": obj.get("index"),
-            "units": obj.get("units")
+            "units": obj.get("units"),
+            "units_limit_exceeded": obj.get("units_limit_exceeded")
         })
         return _obj
 

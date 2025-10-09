@@ -27,7 +27,7 @@ class VouchersBalanceUpdateRequestBody(BaseModel):
     """
     Request body schema for `vouchers/{code}/balance`.
     """ # noqa: E501
-    amount: Optional[StrictInt] = Field(default=None, description="The incremental amount to be added to or removed from the current balance on the gift card or loyalty card. Value is multiplied by 100 to precisely represent 2 decimal places. For example, $100 amount is written as 10000. To remove balance, simply add a minus sign before the value, i.e. to remove $20, use -2000.")
+    amount: Optional[StrictInt] = Field(default=None, description="The incremental amount to be added to or removed from the current balance on the gift card or loyalty card. The value is multiplied by 100 to represent 2 decimal places. For example `10000 cents` for `$100.00`. To remove balance, simply add a minus sign before the value, i.e. to remove $20, use -2000.")
     source_id: Optional[StrictStr] = Field(default=None, description="The merchant's transaction ID if it is different from the Voucherify transaction ID. It is really useful in case of an integration between multiple systems. It can be a transaction ID from a CRM system, database or 3rd-party service.")
     reason: Optional[StrictStr] = Field(default=None, description="Reason why the transaction occurred.")
     __properties: ClassVar[List[str]] = ["amount", "source_id", "reason"]

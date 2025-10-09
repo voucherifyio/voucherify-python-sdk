@@ -25,7 +25,7 @@ from typing_extensions import Self
 
 class ClientValidationsValidateResponseBodyRedeemablesItemResultLoyaltyCard(BaseModel):
     """
-    ClientValidationsValidateResponseBodyRedeemablesItemResultLoyaltyCard
+    Stores the amount of loyalty card points to be applied in the redemption.
     """ # noqa: E501
     points: Optional[StrictInt] = Field(default=None, description="Total number of loyalty points to be applied in the redemption.")
     __properties: ClassVar[List[str]] = ["points"]

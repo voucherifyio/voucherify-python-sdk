@@ -24,9 +24,10 @@ from typing import Any, ClassVar, Dict, List, Optional
 from voucherify.models.loyalties_members_redemption_redeem_response_body_channel import LoyaltiesMembersRedemptionRedeemResponseBodyChannel
 from voucherify.models.loyalties_members_redemption_redeem_response_body_gift import LoyaltiesMembersRedemptionRedeemResponseBodyGift
 from voucherify.models.loyalties_members_redemption_redeem_response_body_loyalty_card import LoyaltiesMembersRedemptionRedeemResponseBodyLoyaltyCard
+from voucherify.models.loyalties_members_redemption_redeem_response_body_order import LoyaltiesMembersRedemptionRedeemResponseBodyOrder
 from voucherify.models.loyalties_members_redemption_redeem_response_body_related_redemptions import LoyaltiesMembersRedemptionRedeemResponseBodyRelatedRedemptions
+from voucherify.models.loyalties_members_redemption_redeem_response_body_session import LoyaltiesMembersRedemptionRedeemResponseBodySession
 from voucherify.models.loyalties_members_redemption_redeem_response_body_voucher import LoyaltiesMembersRedemptionRedeemResponseBodyVoucher
-from voucherify.models.order_calculated import OrderCalculated
 from voucherify.models.promotion_tier import PromotionTier
 from voucherify.models.redemption_reward_result import RedemptionRewardResult
 from voucherify.models.simple_customer import SimpleCustomer
@@ -47,10 +48,11 @@ class LoyaltiesMembersRedemptionRedeemResponseBody(BaseModel):
     redemption: Optional[StrictStr] = Field(default=None, description="Unique redemption ID of the parent redemption.")
     result: Optional[StrictStr] = Field(default=None, description="Redemption result.")
     status: Optional[StrictStr] = Field(default=None, description="Redemption status.")
+    session: Optional[LoyaltiesMembersRedemptionRedeemResponseBodySession] = None
     related_redemptions: Optional[LoyaltiesMembersRedemptionRedeemResponseBodyRelatedRedemptions] = None
     failure_code: Optional[StrictStr] = Field(default=None, description="If the result is `FAILURE`, this parameter will provide a generic reason as to why the redemption failed.")
     failure_message: Optional[StrictStr] = Field(default=None, description="If the result is `FAILURE`, this parameter will provide a more expanded reason as to why the redemption failed.")
-    order: Optional[OrderCalculated] = None
+    order: Optional[LoyaltiesMembersRedemptionRedeemResponseBodyOrder] = None
     channel: Optional[LoyaltiesMembersRedemptionRedeemResponseBodyChannel] = None
     customer: Optional[SimpleCustomer] = None
     related_object_type: Optional[StrictStr] = Field(default=None, description="Defines the related object.")
@@ -60,7 +62,7 @@ class LoyaltiesMembersRedemptionRedeemResponseBody(BaseModel):
     gift: Optional[LoyaltiesMembersRedemptionRedeemResponseBodyGift] = None
     loyalty_card: Optional[LoyaltiesMembersRedemptionRedeemResponseBodyLoyaltyCard] = None
     voucher: Optional[LoyaltiesMembersRedemptionRedeemResponseBodyVoucher] = None
-    __properties: ClassVar[List[str]] = ["id", "object", "date", "customer_id", "tracking_id", "metadata", "amount", "redemption", "result", "status", "related_redemptions", "failure_code", "failure_message", "order", "channel", "customer", "related_object_type", "related_object_id", "promotion_tier", "reward", "gift", "loyalty_card", "voucher"]
+    __properties: ClassVar[List[str]] = ["id", "object", "date", "customer_id", "tracking_id", "metadata", "amount", "redemption", "result", "status", "session", "related_redemptions", "failure_code", "failure_message", "order", "channel", "customer", "related_object_type", "related_object_id", "promotion_tier", "reward", "gift", "loyalty_card", "voucher"]
 
     @field_validator('object')
     def object_validate_enum(cls, value):
@@ -141,6 +143,9 @@ class LoyaltiesMembersRedemptionRedeemResponseBody(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of session
+        if self.session:
+            _dict['session'] = self.session.to_dict()
         # override the default output from pydantic by calling `to_dict()` of related_redemptions
         if self.related_redemptions:
             _dict['related_redemptions'] = self.related_redemptions.to_dict()
@@ -218,6 +223,11 @@ class LoyaltiesMembersRedemptionRedeemResponseBody(BaseModel):
         if self.status is None and "status" in self.model_fields_set:
             _dict['status'] = None
 
+        # set to None if session (nullable) is None
+        # and model_fields_set contains the field
+        if self.session is None and "session" in self.model_fields_set:
+            _dict['session'] = None
+
         # set to None if related_redemptions (nullable) is None
         # and model_fields_set contains the field
         if self.related_redemptions is None and "related_redemptions" in self.model_fields_set:
@@ -232,6 +242,11 @@ class LoyaltiesMembersRedemptionRedeemResponseBody(BaseModel):
         # and model_fields_set contains the field
         if self.failure_message is None and "failure_message" in self.model_fields_set:
             _dict['failure_message'] = None
+
+        # set to None if order (nullable) is None
+        # and model_fields_set contains the field
+        if self.order is None and "order" in self.model_fields_set:
+            _dict['order'] = None
 
         # set to None if channel (nullable) is None
         # and model_fields_set contains the field
@@ -285,10 +300,11 @@ class LoyaltiesMembersRedemptionRedeemResponseBody(BaseModel):
             "redemption": obj.get("redemption"),
             "result": obj.get("result"),
             "status": obj.get("status"),
+            "session": LoyaltiesMembersRedemptionRedeemResponseBodySession.from_dict(obj["session"]) if obj.get("session") is not None else None,
             "related_redemptions": LoyaltiesMembersRedemptionRedeemResponseBodyRelatedRedemptions.from_dict(obj["related_redemptions"]) if obj.get("related_redemptions") is not None else None,
             "failure_code": obj.get("failure_code"),
             "failure_message": obj.get("failure_message"),
-            "order": OrderCalculated.from_dict(obj["order"]) if obj.get("order") is not None else None,
+            "order": LoyaltiesMembersRedemptionRedeemResponseBodyOrder.from_dict(obj["order"]) if obj.get("order") is not None else None,
             "channel": LoyaltiesMembersRedemptionRedeemResponseBodyChannel.from_dict(obj["channel"]) if obj.get("channel") is not None else None,
             "customer": SimpleCustomer.from_dict(obj["customer"]) if obj.get("customer") is not None else None,
             "related_object_type": obj.get("related_object_type"),

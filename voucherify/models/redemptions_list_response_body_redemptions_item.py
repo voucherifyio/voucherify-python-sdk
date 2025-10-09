@@ -29,6 +29,7 @@ from voucherify.models.redemptions_list_response_body_redemptions_item_loyalty_c
 from voucherify.models.redemptions_list_response_body_redemptions_item_order import RedemptionsListResponseBodyRedemptionsItemOrder
 from voucherify.models.redemptions_list_response_body_redemptions_item_promotion_tier import RedemptionsListResponseBodyRedemptionsItemPromotionTier
 from voucherify.models.redemptions_list_response_body_redemptions_item_related_redemptions import RedemptionsListResponseBodyRedemptionsItemRelatedRedemptions
+from voucherify.models.redemptions_list_response_body_redemptions_item_session import RedemptionsListResponseBodyRedemptionsItemSession
 from voucherify.models.redemptions_list_response_body_redemptions_item_voucher import RedemptionsListResponseBodyRedemptionsItemVoucher
 from typing import Optional, Set
 from typing_extensions import Self
@@ -47,6 +48,7 @@ class RedemptionsListResponseBodyRedemptionsItem(BaseModel):
     redemption: Optional[StrictStr] = Field(default=None, description="Unique redemption ID of the parent redemption.")
     result: Optional[StrictStr] = Field(default=None, description="Redemption result.")
     status: Optional[StrictStr] = None
+    session: Optional[RedemptionsListResponseBodyRedemptionsItemSession] = None
     related_redemptions: Optional[RedemptionsListResponseBodyRedemptionsItemRelatedRedemptions] = None
     failure_code: Optional[StrictStr] = Field(default=None, description="If the result is `FAILURE`, this parameter will provide a generic reason as to why the redemption failed.")
     failure_message: Optional[StrictStr] = Field(default=None, description="If the result is `FAILURE`, this parameter will provide a more expanded reason as to why the redemption failed.")
@@ -61,7 +63,7 @@ class RedemptionsListResponseBodyRedemptionsItem(BaseModel):
     loyalty_card: Optional[RedemptionsListResponseBodyRedemptionsItemLoyaltyCard] = None
     voucher: Optional[RedemptionsListResponseBodyRedemptionsItemVoucher] = None
     reason: Optional[StrictStr] = Field(default=None, description="System generated cause for the redemption being invalid in the context of the provided parameters.")
-    __properties: ClassVar[List[str]] = ["id", "object", "date", "customer_id", "tracking_id", "metadata", "amount", "redemption", "result", "status", "related_redemptions", "failure_code", "failure_message", "order", "channel", "customer", "related_object_type", "related_object_id", "promotion_tier", "reward", "gift", "loyalty_card", "voucher", "reason"]
+    __properties: ClassVar[List[str]] = ["id", "object", "date", "customer_id", "tracking_id", "metadata", "amount", "redemption", "result", "status", "session", "related_redemptions", "failure_code", "failure_message", "order", "channel", "customer", "related_object_type", "related_object_id", "promotion_tier", "reward", "gift", "loyalty_card", "voucher", "reason"]
 
     @field_validator('object')
     def object_validate_enum(cls, value):
@@ -142,6 +144,9 @@ class RedemptionsListResponseBodyRedemptionsItem(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of session
+        if self.session:
+            _dict['session'] = self.session.to_dict()
         # override the default output from pydantic by calling `to_dict()` of related_redemptions
         if self.related_redemptions:
             _dict['related_redemptions'] = self.related_redemptions.to_dict()
@@ -199,6 +204,16 @@ class RedemptionsListResponseBodyRedemptionsItem(BaseModel):
         if self.result is None and "result" in self.model_fields_set:
             _dict['result'] = None
 
+        # set to None if session (nullable) is None
+        # and model_fields_set contains the field
+        if self.session is None and "session" in self.model_fields_set:
+            _dict['session'] = None
+
+        # set to None if related_redemptions (nullable) is None
+        # and model_fields_set contains the field
+        if self.related_redemptions is None and "related_redemptions" in self.model_fields_set:
+            _dict['related_redemptions'] = None
+
         # set to None if failure_code (nullable) is None
         # and model_fields_set contains the field
         if self.failure_code is None and "failure_code" in self.model_fields_set:
@@ -241,6 +256,7 @@ class RedemptionsListResponseBodyRedemptionsItem(BaseModel):
             "redemption": obj.get("redemption"),
             "result": obj.get("result"),
             "status": obj.get("status"),
+            "session": RedemptionsListResponseBodyRedemptionsItemSession.from_dict(obj["session"]) if obj.get("session") is not None else None,
             "related_redemptions": RedemptionsListResponseBodyRedemptionsItemRelatedRedemptions.from_dict(obj["related_redemptions"]) if obj.get("related_redemptions") is not None else None,
             "failure_code": obj.get("failure_code"),
             "failure_message": obj.get("failure_message"),

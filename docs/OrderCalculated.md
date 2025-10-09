@@ -27,7 +27,6 @@ Name | Type | Description | Notes
 **customer** | [**CustomerId**](CustomerId.md) |  | [optional] 
 **referrer** | [**ReferrerId**](ReferrerId.md) |  | [optional] 
 **redemptions** | **object** |  | [optional] 
-**items** | [**List[OrderCalculatedItem]**](OrderCalculatedItem.md) | Array of items applied to the order. It can include up 500 items. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -28,8 +28,8 @@ class RedeemableLoyaltyCard(BaseModel):
     """
     Redeemable loyalty card object response
     """ # noqa: E501
-    points: Optional[StrictInt] = Field(default=None, description="Total points incurred over the lifespan of the loyalty card, minus the expired points.")
-    balance: Optional[StrictInt] = Field(default=None, description="Points available for reward redemption.")
+    points: Optional[StrictInt] = Field(default=None, description="Total number of points added to the loyalty card over its lifespan.")
+    balance: Optional[StrictInt] = Field(default=None, description="Points available for reward redemption. This is calculated as follows: `balance` = `points` - `expired_points` - `subtracted_points` - `redemption.redeemed_points`.")
     exchange_ratio: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The cash equivalent of the points defined in the points_ratio property.")
     points_ratio: Optional[StrictInt] = Field(default=None, description="The number of loyalty points that will map to the predefined cash amount defined by the exchange_ratio property.")
     transfers: Optional[List[LoyaltiesTransferPoints]] = None

@@ -21,10 +21,20 @@ import json
 from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
 from voucherify.models.junction import Junction
+from voucherify.models.parameter_filters_list_campaigns_active import ParameterFiltersListCampaignsActive
 from voucherify.models.parameter_filters_list_campaigns_campaign_status import ParameterFiltersListCampaignsCampaignStatus
+from voucherify.models.parameter_filters_list_campaigns_campaigns import ParameterFiltersListCampaignsCampaigns
+from voucherify.models.parameter_filters_list_campaigns_campaigns_id import ParameterFiltersListCampaignsCampaignsId
 from voucherify.models.parameter_filters_list_campaigns_categories import ParameterFiltersListCampaignsCategories
 from voucherify.models.parameter_filters_list_campaigns_category_ids import ParameterFiltersListCampaignsCategoryIds
+from voucherify.models.parameter_filters_list_campaigns_created_date import ParameterFiltersListCampaignsCreatedDate
+from voucherify.models.parameter_filters_list_campaigns_expiration_date import ParameterFiltersListCampaignsExpirationDate
 from voucherify.models.parameter_filters_list_campaigns_is_referral_code import ParameterFiltersListCampaignsIsReferralCode
+from voucherify.models.parameter_filters_list_campaigns_start_date import ParameterFiltersListCampaignsStartDate
+from voucherify.models.parameter_filters_list_campaigns_status import ParameterFiltersListCampaignsStatus
+from voucherify.models.parameter_filters_list_campaigns_type import ParameterFiltersListCampaignsType
+from voucherify.models.parameter_filters_list_campaigns_updated_at import ParameterFiltersListCampaignsUpdatedAt
+from voucherify.models.parameter_filters_list_campaigns_validity_day_of_week import ParameterFiltersListCampaignsValidityDayOfWeek
 from voucherify.models.parameter_filters_list_campaigns_validity_timeframe import ParameterFiltersListCampaignsValidityTimeframe
 from voucherify.models.parameter_filters_list_campaigns_voucher_type import ParameterFiltersListCampaignsVoucherType
 from typing import Optional, Set
@@ -34,14 +44,24 @@ class ParameterFiltersListCampaigns(BaseModel):
     """
     ParameterFiltersListCampaigns
     """ # noqa: E501
+    campaigns: Optional[ParameterFiltersListCampaignsCampaigns] = None
+    campaigns_id: Optional[ParameterFiltersListCampaignsCampaignsId] = None
     campaign_status: Optional[ParameterFiltersListCampaignsCampaignStatus] = None
+    status: Optional[ParameterFiltersListCampaignsStatus] = None
+    active: Optional[ParameterFiltersListCampaignsActive] = None
     is_referral_code: Optional[ParameterFiltersListCampaignsIsReferralCode] = None
     validity_timeframe: Optional[ParameterFiltersListCampaignsValidityTimeframe] = None
     voucher_type: Optional[ParameterFiltersListCampaignsVoucherType] = None
     categories: Optional[ParameterFiltersListCampaignsCategories] = None
     category_ids: Optional[ParameterFiltersListCampaignsCategoryIds] = None
+    type: Optional[ParameterFiltersListCampaignsType] = None
+    created_date: Optional[ParameterFiltersListCampaignsCreatedDate] = None
+    updated_at: Optional[ParameterFiltersListCampaignsUpdatedAt] = None
+    start_date: Optional[ParameterFiltersListCampaignsStartDate] = None
+    expiration_date: Optional[ParameterFiltersListCampaignsExpirationDate] = None
+    validity_day_of_week: Optional[ParameterFiltersListCampaignsValidityDayOfWeek] = None
     junction: Optional[Junction] = None
-    __properties: ClassVar[List[str]] = ["campaign_status", "is_referral_code", "validity_timeframe", "voucher_type", "categories", "category_ids", "junction"]
+    __properties: ClassVar[List[str]] = ["campaigns", "campaigns_id", "campaign_status", "status", "active", "is_referral_code", "validity_timeframe", "voucher_type", "categories", "category_ids", "type", "created_date", "updated_at", "start_date", "expiration_date", "validity_day_of_week", "junction"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -82,9 +102,21 @@ class ParameterFiltersListCampaigns(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of campaigns
+        if self.campaigns:
+            _dict['campaigns'] = self.campaigns.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of campaigns_id
+        if self.campaigns_id:
+            _dict['campaigns_id'] = self.campaigns_id.to_dict()
         # override the default output from pydantic by calling `to_dict()` of campaign_status
         if self.campaign_status:
             _dict['campaign_status'] = self.campaign_status.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of status
+        if self.status:
+            _dict['status'] = self.status.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of active
+        if self.active:
+            _dict['active'] = self.active.to_dict()
         # override the default output from pydantic by calling `to_dict()` of is_referral_code
         if self.is_referral_code:
             _dict['is_referral_code'] = self.is_referral_code.to_dict()
@@ -100,10 +132,48 @@ class ParameterFiltersListCampaigns(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of category_ids
         if self.category_ids:
             _dict['category_ids'] = self.category_ids.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of type
+        if self.type:
+            _dict['type'] = self.type.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of created_date
+        if self.created_date:
+            _dict['created_date'] = self.created_date.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of updated_at
+        if self.updated_at:
+            _dict['updated_at'] = self.updated_at.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of start_date
+        if self.start_date:
+            _dict['start_date'] = self.start_date.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of expiration_date
+        if self.expiration_date:
+            _dict['expiration_date'] = self.expiration_date.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of validity_day_of_week
+        if self.validity_day_of_week:
+            _dict['validity_day_of_week'] = self.validity_day_of_week.to_dict()
+        # set to None if campaigns (nullable) is None
+        # and model_fields_set contains the field
+        if self.campaigns is None and "campaigns" in self.model_fields_set:
+            _dict['campaigns'] = None
+
+        # set to None if campaigns_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.campaigns_id is None and "campaigns_id" in self.model_fields_set:
+            _dict['campaigns_id'] = None
+
         # set to None if campaign_status (nullable) is None
         # and model_fields_set contains the field
         if self.campaign_status is None and "campaign_status" in self.model_fields_set:
             _dict['campaign_status'] = None
+
+        # set to None if status (nullable) is None
+        # and model_fields_set contains the field
+        if self.status is None and "status" in self.model_fields_set:
+            _dict['status'] = None
+
+        # set to None if active (nullable) is None
+        # and model_fields_set contains the field
+        if self.active is None and "active" in self.model_fields_set:
+            _dict['active'] = None
 
         # set to None if is_referral_code (nullable) is None
         # and model_fields_set contains the field
@@ -130,6 +200,36 @@ class ParameterFiltersListCampaigns(BaseModel):
         if self.category_ids is None and "category_ids" in self.model_fields_set:
             _dict['category_ids'] = None
 
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['type'] = None
+
+        # set to None if created_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.created_date is None and "created_date" in self.model_fields_set:
+            _dict['created_date'] = None
+
+        # set to None if updated_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.updated_at is None and "updated_at" in self.model_fields_set:
+            _dict['updated_at'] = None
+
+        # set to None if start_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.start_date is None and "start_date" in self.model_fields_set:
+            _dict['start_date'] = None
+
+        # set to None if expiration_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.expiration_date is None and "expiration_date" in self.model_fields_set:
+            _dict['expiration_date'] = None
+
+        # set to None if validity_day_of_week (nullable) is None
+        # and model_fields_set contains the field
+        if self.validity_day_of_week is None and "validity_day_of_week" in self.model_fields_set:
+            _dict['validity_day_of_week'] = None
+
         return _dict
 
     @classmethod
@@ -142,12 +242,22 @@ class ParameterFiltersListCampaigns(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "campaigns": ParameterFiltersListCampaignsCampaigns.from_dict(obj["campaigns"]) if obj.get("campaigns") is not None else None,
+            "campaigns_id": ParameterFiltersListCampaignsCampaignsId.from_dict(obj["campaigns_id"]) if obj.get("campaigns_id") is not None else None,
             "campaign_status": ParameterFiltersListCampaignsCampaignStatus.from_dict(obj["campaign_status"]) if obj.get("campaign_status") is not None else None,
+            "status": ParameterFiltersListCampaignsStatus.from_dict(obj["status"]) if obj.get("status") is not None else None,
+            "active": ParameterFiltersListCampaignsActive.from_dict(obj["active"]) if obj.get("active") is not None else None,
             "is_referral_code": ParameterFiltersListCampaignsIsReferralCode.from_dict(obj["is_referral_code"]) if obj.get("is_referral_code") is not None else None,
             "validity_timeframe": ParameterFiltersListCampaignsValidityTimeframe.from_dict(obj["validity_timeframe"]) if obj.get("validity_timeframe") is not None else None,
             "voucher_type": ParameterFiltersListCampaignsVoucherType.from_dict(obj["voucher_type"]) if obj.get("voucher_type") is not None else None,
             "categories": ParameterFiltersListCampaignsCategories.from_dict(obj["categories"]) if obj.get("categories") is not None else None,
             "category_ids": ParameterFiltersListCampaignsCategoryIds.from_dict(obj["category_ids"]) if obj.get("category_ids") is not None else None,
+            "type": ParameterFiltersListCampaignsType.from_dict(obj["type"]) if obj.get("type") is not None else None,
+            "created_date": ParameterFiltersListCampaignsCreatedDate.from_dict(obj["created_date"]) if obj.get("created_date") is not None else None,
+            "updated_at": ParameterFiltersListCampaignsUpdatedAt.from_dict(obj["updated_at"]) if obj.get("updated_at") is not None else None,
+            "start_date": ParameterFiltersListCampaignsStartDate.from_dict(obj["start_date"]) if obj.get("start_date") is not None else None,
+            "expiration_date": ParameterFiltersListCampaignsExpirationDate.from_dict(obj["expiration_date"]) if obj.get("expiration_date") is not None else None,
+            "validity_day_of_week": ParameterFiltersListCampaignsValidityDayOfWeek.from_dict(obj["validity_day_of_week"]) if obj.get("validity_day_of_week") is not None else None,
             "junction": obj.get("junction")
         })
         return _obj

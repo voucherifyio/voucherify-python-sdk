@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
+from voucherify.models.bundle import Bundle
 from voucherify.models.error import Error
 from voucherify.models.validations_redeemable_inapplicable_result_details import ValidationsRedeemableInapplicableResultDetails
 from typing import Optional, Set
@@ -31,7 +32,8 @@ class ValidationsRedeemableInapplicableResult(BaseModel):
     """ # noqa: E501
     error: Optional[Error] = None
     details: Optional[ValidationsRedeemableInapplicableResultDetails] = None
-    __properties: ClassVar[List[str]] = ["error", "details"]
+    bundle: Optional[Bundle] = None
+    __properties: ClassVar[List[str]] = ["error", "details", "bundle"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -78,6 +80,9 @@ class ValidationsRedeemableInapplicableResult(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of details
         if self.details:
             _dict['details'] = self.details.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of bundle
+        if self.bundle:
+            _dict['bundle'] = self.bundle.to_dict()
         # set to None if details (nullable) is None
         # and model_fields_set contains the field
         if self.details is None and "details" in self.model_fields_set:
@@ -96,7 +101,8 @@ class ValidationsRedeemableInapplicableResult(BaseModel):
 
         _obj = cls.model_validate({
             "error": Error.from_dict(obj["error"]) if obj.get("error") is not None else None,
-            "details": ValidationsRedeemableInapplicableResultDetails.from_dict(obj["details"]) if obj.get("details") is not None else None
+            "details": ValidationsRedeemableInapplicableResultDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
+            "bundle": Bundle.from_dict(obj["bundle"]) if obj.get("bundle") is not None else None
         })
         return _obj
 

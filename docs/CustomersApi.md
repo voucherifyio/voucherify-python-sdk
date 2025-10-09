@@ -463,6 +463,7 @@ import voucherify
 from voucherify.models.customers_activity_list_response_body import CustomersActivityListResponseBody
 from voucherify.models.parameter_activity_category import ParameterActivityCategory
 from voucherify.models.parameter_campaign_type import ParameterCampaignType
+from voucherify.models.parameter_customer_event import ParameterCustomerEvent
 from voucherify.models.parameter_order_created_at import ParameterOrderCreatedAt
 from voucherify.rest import ApiException
 from pprint import pprint
@@ -503,7 +504,7 @@ with voucherify.ApiClient(configuration) as api_client:
     campaign_id = 'campaign_id_example' # str | Requests only events related to specific campaign identified by its ID. (optional)
     campaign_type = voucherify.ParameterCampaignType() # ParameterCampaignType | Filters related customers activity for the selected campaign types. Allowed values:  DISCOUNT_COUPONS, REFERRAL_PROGRAM, GIFT_VOUCHERS, PROMOTION, LOYALTY_PROGRAM. (optional)
     category = voucherify.ParameterActivityCategory() # ParameterActivityCategory | Filters activities for actions or effects. Allowed values:  ACTION, EFFECT. (optional)
-    type = 'type_example' # str | Event name of the customer event. (optional)
+    type = voucherify.ParameterCustomerEvent() # ParameterCustomerEvent | Event name of the customer event. (optional)
 
     try:
         # List Customer Activity
@@ -530,7 +531,7 @@ Name | Type | Description  | Notes
  **campaign_id** | **str**| Requests only events related to specific campaign identified by its ID. | [optional] 
  **campaign_type** | [**ParameterCampaignType**](.md)| Filters related customers activity for the selected campaign types. Allowed values:  DISCOUNT_COUPONS, REFERRAL_PROGRAM, GIFT_VOUCHERS, PROMOTION, LOYALTY_PROGRAM. | [optional] 
  **category** | [**ParameterActivityCategory**](.md)| Filters activities for actions or effects. Allowed values:  ACTION, EFFECT. | [optional] 
- **type** | **str**| Event name of the customer event. | [optional] 
+ **type** | [**ParameterCustomerEvent**](.md)| Event name of the customer event. | [optional] 
 
 ### Return type
 
@@ -782,7 +783,7 @@ with voucherify.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = voucherify.CustomersApi(api_client)
     limit = 56 # int | Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items. (optional)
-    page = 56 # int | Which page of results to return. The lowest value is 1. (optional)
+    page = 56 # int | Which page of results to return. The lowest value is 1, the highest value is 99. (optional)
     email = 'email_example' # str | Limit the customers to the ones that have this specific email address. (optional)
     city = 'city_example' # str | Limit the customers to the ones that are located in the specified city. (optional)
     name = 'name_example' # str | Filter customers by the name property. (optional)
@@ -811,7 +812,7 @@ with voucherify.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int**| Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items. | [optional] 
- **page** | **int**| Which page of results to return. The lowest value is 1. | [optional] 
+ **page** | **int**| Which page of results to return. The lowest value is 1, the highest value is 99. | [optional] 
  **email** | **str**| Limit the customers to the ones that have this specific email address. | [optional] 
  **city** | **str**| Limit the customers to the ones that are located in the specified city. | [optional] 
  **name** | **str**| Filter customers by the name property. | [optional] 

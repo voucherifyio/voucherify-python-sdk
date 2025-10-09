@@ -1,6 +1,6 @@
 # ParameterFiltersListCampaignsCategoryIds
 
-Filter by categories ids
+Filter by categories IDs
 
 ## Properties
 

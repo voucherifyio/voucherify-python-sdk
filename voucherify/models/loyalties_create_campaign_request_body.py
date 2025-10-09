@@ -21,7 +21,6 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
 from voucherify.models.access_settings import AccessSettings
 from voucherify.models.campaign_loyalty_voucher import CampaignLoyaltyVoucher
 from voucherify.models.validity_hours import ValidityHours
@@ -35,8 +34,8 @@ class LoyaltiesCreateCampaignRequestBody(BaseModel):
     """ # noqa: E501
     name: Optional[StrictStr] = Field(default=None, description="Campaign name.")
     description: Optional[StrictStr] = Field(default=None, description="An optional field to keep any extra textual information about the campaign such as a campaign description and details.")
-    type: Optional[StrictStr] = Field(default=None, description="Defines whether the campaign can be updated with new vouchers after campaign creation or if the campaign consists of standalone vouchers.  - `AUTO_UPDATE`: the campaign is dynamic, i.e. vouchers will generate based on set criteria -  `STATIC`: vouchers need to be manually published")
-    join_once: Optional[StrictBool] = Field(default=None, description="If this value is set to `true`, customers will be able to join the campaign only once.")
+    type: Optional[StrictStr] = Field(default=None, description="Defines whether the campaign can be updated with new vouchers after campaign creation or if the campaign consists of generic (standalone) voucherss.  - `AUTO_UPDATE`: the campaign is dynamic, i.e. vouchers will generate based on set criteria -  `STATIC`: vouchers need to be manually published")
+    join_once: Optional[StrictBool] = Field(default=None, description="If this value is set to `true`, customers will be able to join the campaign only once. For loyalty campaigns, it's forced to `true`, even if `join_once: false` is passed in the request.")
     auto_join: Optional[StrictBool] = Field(default=None, description="Indicates whether customers will be able to auto-join a loyalty campaign if any earning rule is fulfilled.")
     use_voucher_metadata_schema: Optional[StrictBool] = Field(default=None, description="Flag indicating whether the campaign is to use the voucher's metadata schema instead of the campaign metadata schema.")
     vouchers_count: Optional[StrictInt] = Field(default=None, description="Total number of unique vouchers in campaign (size of campaign).")
@@ -50,10 +49,9 @@ class LoyaltiesCreateCampaignRequestBody(BaseModel):
     category: Optional[StrictStr] = Field(default=None, description="The category assigned to the campaign. Either pass this parameter OR the `category_id`.")
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the campaign. A set of key/value pairs that you can attach to a campaign object. It can be useful for storing additional information about the campaign in a structured format.")
     access_settings: Optional[AccessSettings] = None
-    validation_rules: Optional[Annotated[List[StrictStr], Field(max_length=1)]] = Field(default=None, description="Array containing the ID of the validation rule associated with the promotion tier.")
     campaign_type: Optional[StrictStr] = Field(default='LOYALTY_PROGRAM', description="Type of campaign.")
     voucher: Optional[CampaignLoyaltyVoucher] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "type", "join_once", "auto_join", "use_voucher_metadata_schema", "vouchers_count", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "activity_duration_after_publishing", "category_id", "category", "metadata", "access_settings", "validation_rules", "campaign_type", "voucher"]
+    __properties: ClassVar[List[str]] = ["name", "description", "type", "join_once", "auto_join", "use_voucher_metadata_schema", "vouchers_count", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "activity_duration_after_publishing", "category_id", "category", "metadata", "access_settings", "campaign_type", "voucher"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -202,11 +200,6 @@ class LoyaltiesCreateCampaignRequestBody(BaseModel):
         if self.metadata is None and "metadata" in self.model_fields_set:
             _dict['metadata'] = None
 
-        # set to None if validation_rules (nullable) is None
-        # and model_fields_set contains the field
-        if self.validation_rules is None and "validation_rules" in self.model_fields_set:
-            _dict['validation_rules'] = None
-
         # set to None if campaign_type (nullable) is None
         # and model_fields_set contains the field
         if self.campaign_type is None and "campaign_type" in self.model_fields_set:
@@ -241,7 +234,6 @@ class LoyaltiesCreateCampaignRequestBody(BaseModel):
             "category": obj.get("category"),
             "metadata": obj.get("metadata"),
             "access_settings": AccessSettings.from_dict(obj["access_settings"]) if obj.get("access_settings") is not None else None,
-            "validation_rules": obj.get("validation_rules"),
             "campaign_type": obj.get("campaign_type") if obj.get("campaign_type") is not None else 'LOYALTY_PROGRAM',
             "voucher": CampaignLoyaltyVoucher.from_dict(obj["voucher"]) if obj.get("voucher") is not None else None
         })

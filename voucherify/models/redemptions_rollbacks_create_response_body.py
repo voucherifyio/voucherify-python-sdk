@@ -20,8 +20,8 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
-from voucherify.models.order_calculated import OrderCalculated
 from voucherify.models.redemption_rollback import RedemptionRollback
+from voucherify.models.redemptions_rollbacks_create_response_body_order import RedemptionsRollbacksCreateResponseBodyOrder
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -31,7 +31,7 @@ class RedemptionsRollbacksCreateResponseBody(BaseModel):
     """ # noqa: E501
     rollbacks: Optional[List[RedemptionRollback]] = Field(default=None, description="Contains the rollback redemption objects of the particular incentives.")
     parent_rollback: Optional[RedemptionRollback] = None
-    order: Optional[OrderCalculated] = None
+    order: Optional[RedemptionsRollbacksCreateResponseBodyOrder] = None
     __properties: ClassVar[List[str]] = ["rollbacks", "parent_rollback", "order"]
 
     model_config = ConfigDict(
@@ -91,6 +91,11 @@ class RedemptionsRollbacksCreateResponseBody(BaseModel):
         if self.rollbacks is None and "rollbacks" in self.model_fields_set:
             _dict['rollbacks'] = None
 
+        # set to None if order (nullable) is None
+        # and model_fields_set contains the field
+        if self.order is None and "order" in self.model_fields_set:
+            _dict['order'] = None
+
         return _dict
 
     @classmethod
@@ -105,7 +110,7 @@ class RedemptionsRollbacksCreateResponseBody(BaseModel):
         _obj = cls.model_validate({
             "rollbacks": [RedemptionRollback.from_dict(_item) for _item in obj["rollbacks"]] if obj.get("rollbacks") is not None else None,
             "parent_rollback": RedemptionRollback.from_dict(obj["parent_rollback"]) if obj.get("parent_rollback") is not None else None,
-            "order": OrderCalculated.from_dict(obj["order"]) if obj.get("order") is not None else None
+            "order": RedemptionsRollbacksCreateResponseBodyOrder.from_dict(obj["order"]) if obj.get("order") is not None else None
         })
         return _obj
 

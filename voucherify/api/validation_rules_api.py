@@ -375,7 +375,7 @@ class ValidationRulesApi:
     ) -> ValidationRulesCreateResponseBody:
         """Create Validation Rules
 
-        Create validation rules.
+        Create a validation rule.  🚧 Managing validation rules  It is recommended to [create validation rules](https://support.voucherify.io/article/148-how-to-build-a-rule) in the Voucherify dashboard. The rule builder in the dashboard helps configuring the desired conditions in a convenient way. The API should not be used as a preferable way to create and manage validation rules.
 
         :param validation_rules_create_request_body: Specify the validation rules parameters.
         :type validation_rules_create_request_body: ValidationRulesCreateRequestBody
@@ -442,7 +442,7 @@ class ValidationRulesApi:
     ) -> ApiResponse[ValidationRulesCreateResponseBody]:
         """Create Validation Rules
 
-        Create validation rules.
+        Create a validation rule.  🚧 Managing validation rules  It is recommended to [create validation rules](https://support.voucherify.io/article/148-how-to-build-a-rule) in the Voucherify dashboard. The rule builder in the dashboard helps configuring the desired conditions in a convenient way. The API should not be used as a preferable way to create and manage validation rules.
 
         :param validation_rules_create_request_body: Specify the validation rules parameters.
         :type validation_rules_create_request_body: ValidationRulesCreateRequestBody
@@ -509,7 +509,7 @@ class ValidationRulesApi:
     ) -> RESTResponseType:
         """Create Validation Rules
 
-        Create validation rules.
+        Create a validation rule.  🚧 Managing validation rules  It is recommended to [create validation rules](https://support.voucherify.io/article/148-how-to-build-a-rule) in the Voucherify dashboard. The rule builder in the dashboard helps configuring the desired conditions in a convenient way. The API should not be used as a preferable way to create and manage validation rules.
 
         :param validation_rules_create_request_body: Specify the validation rules parameters.
         :type validation_rules_create_request_body: ValidationRulesCreateRequestBody

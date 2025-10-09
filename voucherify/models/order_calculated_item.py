@@ -20,7 +20,6 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from voucherify.models.application_details_item import ApplicationDetailsItem
 from voucherify.models.order_calculated_item_product import OrderCalculatedItemProduct
 from voucherify.models.order_calculated_item_sku import OrderCalculatedItemSku
 from typing import Optional, Set
@@ -45,14 +44,13 @@ class OrderCalculatedItem(BaseModel):
     applied_quantity: Optional[StrictInt] = Field(default=None, description="Quantity of items changed by the application of a new quantity items. It can be positive when an item is added or negative if an item is replaced.")
     applied_quantity_amount: Optional[StrictInt] = Field(default=None, description="Amount for the items changed by the application of a new quantity items. It can be positive when an item is added or negative if an item is replaced.")
     initial_amount: Optional[StrictInt] = Field(default=None, description="A positive integer in the smallest currency unit (e.g. 100 cents for $1.00) representing the total amount of the order. This is the sum of the order items' amounts.")
-    price: Optional[StrictInt] = Field(default=None, description="Unit price of an item. Value is multiplied by 100 to precisely represent 2 decimal places. For example `10000 cents` for `$100.00`.")
+    price: Optional[StrictInt] = Field(default=None, description="Unit price of an item. The value is multiplied by 100 to represent 2 decimal places. For example `10000 cents` for `$100.00`.")
     subtotal_amount: Optional[StrictInt] = Field(default=None, description="Final order item amount after the applied item-level discount.  If there are no item-level discounts applied, this item is equal to the `amount`.    `subtotal_amount`=`amount`-`applied_discount_amount`")
     product: Optional[OrderCalculatedItemProduct] = None
     sku: Optional[OrderCalculatedItemSku] = None
     object: Optional[StrictStr] = Field(default='order_item', description="The type of the object represented by JSON.")
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="A set of custom key/value pairs that you can attach to an item object. It can be useful for storing additional information about the item in a structured format. It can be used to define business validation rules or discount formulas.")
-    application_details: Optional[List[ApplicationDetailsItem]] = Field(default=None, description="Array containing details about the items that are replaced and the items that are replacements for discounts with the `REPLACE_ITEMS` effect.")
-    __properties: ClassVar[List[str]] = ["id", "sku_id", "product_id", "related_object", "source_id", "quantity", "discount_quantity", "initial_quantity", "amount", "discount_amount", "applied_discount_amount", "applied_discount_quantity", "applied_quantity", "applied_quantity_amount", "initial_amount", "price", "subtotal_amount", "product", "sku", "object", "metadata", "application_details"]
+    __properties: ClassVar[List[str]] = ["id", "sku_id", "product_id", "related_object", "source_id", "quantity", "discount_quantity", "initial_quantity", "amount", "discount_amount", "applied_discount_amount", "applied_discount_quantity", "applied_quantity", "applied_quantity_amount", "initial_amount", "price", "subtotal_amount", "product", "sku", "object", "metadata"]
 
     @field_validator('related_object')
     def related_object_validate_enum(cls, value):
@@ -119,13 +117,6 @@ class OrderCalculatedItem(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of sku
         if self.sku:
             _dict['sku'] = self.sku.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in application_details (list)
-        _items = []
-        if self.application_details:
-            for _item_application_details in self.application_details:
-                if _item_application_details:
-                    _items.append(_item_application_details.to_dict())
-            _dict['application_details'] = _items
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -263,8 +254,7 @@ class OrderCalculatedItem(BaseModel):
             "product": OrderCalculatedItemProduct.from_dict(obj["product"]) if obj.get("product") is not None else None,
             "sku": OrderCalculatedItemSku.from_dict(obj["sku"]) if obj.get("sku") is not None else None,
             "object": obj.get("object") if obj.get("object") is not None else 'order_item',
-            "metadata": obj.get("metadata"),
-            "application_details": [ApplicationDetailsItem.from_dict(_item) for _item in obj["application_details"]] if obj.get("application_details") is not None else None
+            "metadata": obj.get("metadata")
         })
         return _obj
 

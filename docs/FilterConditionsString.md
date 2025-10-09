@@ -14,6 +14,8 @@ Name | Type | Description | Notes
 **is_unknown** | **str** | Value is null. The value for this parameter is an empty string. | [optional] 
 **starts_with** | **str** | Value starts with the specified string. | [optional] 
 **ends_with** | **str** | Value ends with the specified string. | [optional] 
+**contains** | **str** | Value includes the specified string. | [optional] 
+**not_contain** | **str** | Value does NOT include the specified string. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

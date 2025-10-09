@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
+from voucherify.models.bundle import Bundle
 from voucherify.models.client_validations_validate_response_body_redeemables_item_result_details import ClientValidationsValidateResponseBodyRedeemablesItemResultDetails
 from voucherify.models.client_validations_validate_response_body_redeemables_item_result_discount import ClientValidationsValidateResponseBodyRedeemablesItemResultDiscount
 from voucherify.models.client_validations_validate_response_body_redeemables_item_result_gift import ClientValidationsValidateResponseBodyRedeemablesItemResultGift
@@ -33,11 +34,12 @@ class ClientValidationsValidateResponseBodyRedeemablesItemResult(BaseModel):
     ClientValidationsValidateResponseBodyRedeemablesItemResult
     """ # noqa: E501
     discount: Optional[ClientValidationsValidateResponseBodyRedeemablesItemResultDiscount] = None
+    bundle: Optional[Bundle] = None
     gift: Optional[ClientValidationsValidateResponseBodyRedeemablesItemResultGift] = None
     loyalty_card: Optional[ClientValidationsValidateResponseBodyRedeemablesItemResultLoyaltyCard] = None
     error: Optional[Error] = None
     details: Optional[ClientValidationsValidateResponseBodyRedeemablesItemResultDetails] = None
-    __properties: ClassVar[List[str]] = ["discount", "gift", "loyalty_card", "error", "details"]
+    __properties: ClassVar[List[str]] = ["discount", "bundle", "gift", "loyalty_card", "error", "details"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -81,6 +83,9 @@ class ClientValidationsValidateResponseBodyRedeemablesItemResult(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of discount
         if self.discount:
             _dict['discount'] = self.discount.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of bundle
+        if self.bundle:
+            _dict['bundle'] = self.bundle.to_dict()
         # override the default output from pydantic by calling `to_dict()` of gift
         if self.gift:
             _dict['gift'] = self.gift.to_dict()
@@ -98,6 +103,11 @@ class ClientValidationsValidateResponseBodyRedeemablesItemResult(BaseModel):
         if self.gift is None and "gift" in self.model_fields_set:
             _dict['gift'] = None
 
+        # set to None if loyalty_card (nullable) is None
+        # and model_fields_set contains the field
+        if self.loyalty_card is None and "loyalty_card" in self.model_fields_set:
+            _dict['loyalty_card'] = None
+
         return _dict
 
     @classmethod
@@ -111,6 +121,7 @@ class ClientValidationsValidateResponseBodyRedeemablesItemResult(BaseModel):
 
         _obj = cls.model_validate({
             "discount": ClientValidationsValidateResponseBodyRedeemablesItemResultDiscount.from_dict(obj["discount"]) if obj.get("discount") is not None else None,
+            "bundle": Bundle.from_dict(obj["bundle"]) if obj.get("bundle") is not None else None,
             "gift": ClientValidationsValidateResponseBodyRedeemablesItemResultGift.from_dict(obj["gift"]) if obj.get("gift") is not None else None,
             "loyalty_card": ClientValidationsValidateResponseBodyRedeemablesItemResultLoyaltyCard.from_dict(obj["loyalty_card"]) if obj.get("loyalty_card") is not None else None,
             "error": Error.from_dict(obj["error"]) if obj.get("error") is not None else None,

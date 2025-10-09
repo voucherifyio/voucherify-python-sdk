@@ -20,18 +20,21 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
 class CampaignLoyaltyCardExpirationRules(BaseModel):
     """
-    CampaignLoyaltyCardExpirationRules
+    Defines the loyalty point expiration rule. This expiration rule applies when there are no `expiration_rules` defined for an earning rule.
     """ # noqa: E501
-    period_type: Optional[StrictStr] = Field(default='MONTH', description="Type of period")
-    period_value: Optional[StrictInt] = Field(default=None, description="Value of the period")
-    rounding_type: Optional[StrictStr] = Field(default=None, description="Type of rounding")
-    rounding_value: Optional[StrictInt] = Field(default=None, description="Value of rounding")
-    __properties: ClassVar[List[str]] = ["period_type", "period_value", "rounding_type", "rounding_value"]
+    period_type: Optional[StrictStr] = Field(default=None, description="Type of period. Can be set for `MONTH` or `FIXED_DAY_OF_YEAR`. `MONTH` requires the `period_value` field. `FIXED_DAY_OF_YEAR` requires the `fixed_month` and `fixed_day` fields.")
+    period_value: Optional[StrictInt] = Field(default=None, description="Value of the period. Required for the `period_type: MONTH`.")
+    rounding_type: Optional[StrictStr] = Field(default=None, description="Type of rounding of the expiration period. Optional for the `period_type: MONTH`.")
+    rounding_value: Optional[StrictInt] = Field(default=None, description="Value of rounding of the expiration period. Required for the `rounding_type`.")
+    fixed_month: Optional[Annotated[int, Field(le=12, strict=True, ge=1)]] = Field(default=None, description="Determines the month when the points expire; `1` is January, `2` is February, and so on. Required for the `period_type: FIXED_DAY_OF_YEAR`.")
+    fixed_day: Optional[Annotated[int, Field(le=31, strict=True, ge=1)]] = Field(default=None, description="Determines the day of the month when the points expire. Required for the `period_type: FIXED_DAY_OF_YEAR`.")
+    __properties: ClassVar[List[str]] = ["period_type", "period_value", "rounding_type", "rounding_value", "fixed_month", "fixed_day"]
 
     @field_validator('period_type')
     def period_type_validate_enum(cls, value):
@@ -39,8 +42,8 @@ class CampaignLoyaltyCardExpirationRules(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['MONTH']):
-            raise ValueError("must be one of enum values ('MONTH')")
+        if value not in set(['FIXED_DAY_OF_YEAR', 'MONTH']):
+            raise ValueError("must be one of enum values ('FIXED_DAY_OF_YEAR', 'MONTH')")
         return value
 
     @field_validator('rounding_type')
@@ -112,6 +115,16 @@ class CampaignLoyaltyCardExpirationRules(BaseModel):
         if self.rounding_value is None and "rounding_value" in self.model_fields_set:
             _dict['rounding_value'] = None
 
+        # set to None if fixed_month (nullable) is None
+        # and model_fields_set contains the field
+        if self.fixed_month is None and "fixed_month" in self.model_fields_set:
+            _dict['fixed_month'] = None
+
+        # set to None if fixed_day (nullable) is None
+        # and model_fields_set contains the field
+        if self.fixed_day is None and "fixed_day" in self.model_fields_set:
+            _dict['fixed_day'] = None
+
         return _dict
 
     @classmethod
@@ -124,10 +137,12 @@ class CampaignLoyaltyCardExpirationRules(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "period_type": obj.get("period_type") if obj.get("period_type") is not None else 'MONTH',
+            "period_type": obj.get("period_type"),
             "period_value": obj.get("period_value"),
             "rounding_type": obj.get("rounding_type"),
-            "rounding_value": obj.get("rounding_value")
+            "rounding_value": obj.get("rounding_value"),
+            "fixed_month": obj.get("fixed_month"),
+            "fixed_day": obj.get("fixed_day")
         })
         return _obj
 

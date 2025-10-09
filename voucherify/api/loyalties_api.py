@@ -20,6 +20,7 @@ from typing_extensions import Annotated
 from pydantic import Field, StrictBool, StrictStr
 from typing import List, Optional
 from typing_extensions import Annotated
+from voucherify.models.campaigns_transactions_export_create_response_body import CampaignsTransactionsExportCreateResponseBody
 from voucherify.models.loyalties_create_campaign_request_body import LoyaltiesCreateCampaignRequestBody
 from voucherify.models.loyalties_create_campaign_response_body import LoyaltiesCreateCampaignResponseBody
 from voucherify.models.loyalties_delete_response_body import LoyaltiesDeleteResponseBody
@@ -41,6 +42,8 @@ from voucherify.models.loyalties_members_create_request_body import LoyaltiesMem
 from voucherify.models.loyalties_members_create_response_body import LoyaltiesMembersCreateResponseBody
 from voucherify.models.loyalties_members_get_response_body import LoyaltiesMembersGetResponseBody
 from voucherify.models.loyalties_members_pending_points_activate_response_body import LoyaltiesMembersPendingPointsActivateResponseBody
+from voucherify.models.loyalties_members_pending_points_balance_request_body import LoyaltiesMembersPendingPointsBalanceRequestBody
+from voucherify.models.loyalties_members_pending_points_balance_response_body import LoyaltiesMembersPendingPointsBalanceResponseBody
 from voucherify.models.loyalties_members_pending_points_list_response_body import LoyaltiesMembersPendingPointsListResponseBody
 from voucherify.models.loyalties_members_points_expiration_list_response_body import LoyaltiesMembersPointsExpirationListResponseBody
 from voucherify.models.loyalties_members_redemption_redeem_request_body import LoyaltiesMembersRedemptionRedeemRequestBody
@@ -68,11 +71,15 @@ from voucherify.models.loyalties_tiers_earning_rules_list_response_body import L
 from voucherify.models.loyalties_tiers_get_response_body import LoyaltiesTiersGetResponseBody
 from voucherify.models.loyalties_tiers_list_response_body import LoyaltiesTiersListResponseBody
 from voucherify.models.loyalties_tiers_rewards_list_response_body import LoyaltiesTiersRewardsListResponseBody
+from voucherify.models.loyalties_transactions_export_create_request_body import LoyaltiesTransactionsExportCreateRequestBody
+from voucherify.models.loyalties_transactions_list_response_body import LoyaltiesTransactionsListResponseBody
 from voucherify.models.loyalties_transfer_points import LoyaltiesTransferPoints
 from voucherify.models.loyalties_update_campaign_request_body import LoyaltiesUpdateCampaignRequestBody
 from voucherify.models.loyalties_update_campaign_response_body import LoyaltiesUpdateCampaignResponseBody
 from voucherify.models.loyalty_tier import LoyaltyTier
 from voucherify.models.parameter_created_before_after import ParameterCreatedBeforeAfter
+from voucherify.models.parameter_expand_list_campaigns import ParameterExpandListCampaigns
+from voucherify.models.parameter_filters_list_member_transactions import ParameterFiltersListMemberTransactions
 from voucherify.models.parameter_order_created_at import ParameterOrderCreatedAt
 from voucherify.models.parameter_order_list_campaigns import ParameterOrderListCampaigns
 from voucherify.models.parameter_order_list_earning_rules import ParameterOrderListEarningRules
@@ -81,6 +88,7 @@ from voucherify.models.parameter_order_list_pending_points import ParameterOrder
 from voucherify.models.parameter_order_list_transactions import ParameterOrderListTransactions
 from voucherify.models.parameter_order_vouchers import ParameterOrderVouchers
 from voucherify.models.parameter_updated_before_after import ParameterUpdatedBeforeAfter
+from voucherify.models.parameters_filters_list_campaign_transactions import ParametersFiltersListCampaignTransactions
 
 from voucherify.api_client import ApiClient, RequestSerialized
 from voucherify.api_response import ApiResponse
@@ -120,7 +128,7 @@ class LoyaltiesApi:
     ) -> LoyaltiesMembersPendingPointsActivateResponseBody:
         """Activate Member Pending Points
 
-        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Activate manually the pending points and add them to the loyalty card. The pending points are determined by the pending point ID. Once activated, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body.
+        Activate manually the pending points and add them to the loyalty card. The pending points are determined by the pending point ID. Once activated, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -191,7 +199,7 @@ class LoyaltiesApi:
     ) -> ApiResponse[LoyaltiesMembersPendingPointsActivateResponseBody]:
         """Activate Member Pending Points
 
-        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Activate manually the pending points and add them to the loyalty card. The pending points are determined by the pending point ID. Once activated, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body.
+        Activate manually the pending points and add them to the loyalty card. The pending points are determined by the pending point ID. Once activated, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -262,7 +270,7 @@ class LoyaltiesApi:
     ) -> RESTResponseType:
         """Activate Member Pending Points
 
-        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Activate manually the pending points and add them to the loyalty card. The pending points are determined by the pending point ID. Once activated, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body.
+        Activate manually the pending points and add them to the loyalty card. The pending points are determined by the pending point ID. Once activated, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -664,6 +672,309 @@ class LoyaltiesApi:
 
 
     @validate_call
+    def adjust_member_pending_points(
+        self,
+        member_id: Annotated[StrictStr, Field(description="Unique loyalty card code assigned to a particular customer.")],
+        pending_points_id: Annotated[StrictStr, Field(description="Unique pending point identifier, assigned by Voucherify.")],
+        loyalties_members_pending_points_balance_request_body: Annotated[Optional[LoyaltiesMembersPendingPointsBalanceRequestBody], Field(description="Define the number of pending points to be added or subtracted.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> LoyaltiesMembersPendingPointsBalanceResponseBody:
+        """Adjust Member Pending Points
+
+        Adjusts the pending points with a given ID. You can add or subtract the number of points. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+
+        :param member_id: Unique loyalty card code assigned to a particular customer. (required)
+        :type member_id: str
+        :param pending_points_id: Unique pending point identifier, assigned by Voucherify. (required)
+        :type pending_points_id: str
+        :param loyalties_members_pending_points_balance_request_body: Define the number of pending points to be added or subtracted.
+        :type loyalties_members_pending_points_balance_request_body: LoyaltiesMembersPendingPointsBalanceRequestBody
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._adjust_member_pending_points_serialize(
+            member_id=member_id,
+            pending_points_id=pending_points_id,
+            loyalties_members_pending_points_balance_request_body=loyalties_members_pending_points_balance_request_body,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "LoyaltiesMembersPendingPointsBalanceResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def adjust_member_pending_points_with_http_info(
+        self,
+        member_id: Annotated[StrictStr, Field(description="Unique loyalty card code assigned to a particular customer.")],
+        pending_points_id: Annotated[StrictStr, Field(description="Unique pending point identifier, assigned by Voucherify.")],
+        loyalties_members_pending_points_balance_request_body: Annotated[Optional[LoyaltiesMembersPendingPointsBalanceRequestBody], Field(description="Define the number of pending points to be added or subtracted.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[LoyaltiesMembersPendingPointsBalanceResponseBody]:
+        """Adjust Member Pending Points
+
+        Adjusts the pending points with a given ID. You can add or subtract the number of points. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+
+        :param member_id: Unique loyalty card code assigned to a particular customer. (required)
+        :type member_id: str
+        :param pending_points_id: Unique pending point identifier, assigned by Voucherify. (required)
+        :type pending_points_id: str
+        :param loyalties_members_pending_points_balance_request_body: Define the number of pending points to be added or subtracted.
+        :type loyalties_members_pending_points_balance_request_body: LoyaltiesMembersPendingPointsBalanceRequestBody
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._adjust_member_pending_points_serialize(
+            member_id=member_id,
+            pending_points_id=pending_points_id,
+            loyalties_members_pending_points_balance_request_body=loyalties_members_pending_points_balance_request_body,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "LoyaltiesMembersPendingPointsBalanceResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def adjust_member_pending_points_without_preload_content(
+        self,
+        member_id: Annotated[StrictStr, Field(description="Unique loyalty card code assigned to a particular customer.")],
+        pending_points_id: Annotated[StrictStr, Field(description="Unique pending point identifier, assigned by Voucherify.")],
+        loyalties_members_pending_points_balance_request_body: Annotated[Optional[LoyaltiesMembersPendingPointsBalanceRequestBody], Field(description="Define the number of pending points to be added or subtracted.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Adjust Member Pending Points
+
+        Adjusts the pending points with a given ID. You can add or subtract the number of points. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+
+        :param member_id: Unique loyalty card code assigned to a particular customer. (required)
+        :type member_id: str
+        :param pending_points_id: Unique pending point identifier, assigned by Voucherify. (required)
+        :type pending_points_id: str
+        :param loyalties_members_pending_points_balance_request_body: Define the number of pending points to be added or subtracted.
+        :type loyalties_members_pending_points_balance_request_body: LoyaltiesMembersPendingPointsBalanceRequestBody
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._adjust_member_pending_points_serialize(
+            member_id=member_id,
+            pending_points_id=pending_points_id,
+            loyalties_members_pending_points_balance_request_body=loyalties_members_pending_points_balance_request_body,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "LoyaltiesMembersPendingPointsBalanceResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _adjust_member_pending_points_serialize(
+        self,
+        member_id,
+        pending_points_id,
+        loyalties_members_pending_points_balance_request_body,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[str, Union[str, bytes]] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if member_id is not None:
+            _path_params['memberId'] = member_id
+        if pending_points_id is not None:
+            _path_params['pendingPointsId'] = pending_points_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if loyalties_members_pending_points_balance_request_body is not None:
+            _body_params = loyalties_members_pending_points_balance_request_body
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'X-App-Id', 
+            'X-App-Token'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/v1/loyalties/members/{memberId}/pending-points/{pendingPointsId}/balance',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def cancel_member_pending_points(
         self,
         member_id: Annotated[StrictStr, Field(description="Unique loyalty card code assigned to a particular customer.")],
@@ -683,7 +994,7 @@ class LoyaltiesApi:
     ) -> None:
         """Cancel Member Pending Points
 
-        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Cancel manually the pending points for the loyalty card. The pending points are determined by the pending point ID. Once canceled, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body and it returns an empty, 204, response.
+        Cancel manually the pending points for the loyalty card. The pending points are determined by the pending point ID. Once canceled, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body and it returns an empty, 204, response. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -754,7 +1065,7 @@ class LoyaltiesApi:
     ) -> ApiResponse[None]:
         """Cancel Member Pending Points
 
-        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Cancel manually the pending points for the loyalty card. The pending points are determined by the pending point ID. Once canceled, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body and it returns an empty, 204, response.
+        Cancel manually the pending points for the loyalty card. The pending points are determined by the pending point ID. Once canceled, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body and it returns an empty, 204, response. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -825,7 +1136,7 @@ class LoyaltiesApi:
     ) -> RESTResponseType:
         """Cancel Member Pending Points
 
-        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Cancel manually the pending points for the loyalty card. The pending points are determined by the pending point ID. Once canceled, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body and it returns an empty, 204, response.
+        Cancel manually the pending points for the loyalty card. The pending points are determined by the pending point ID. Once canceled, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body and it returns an empty, 204, response. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -951,7 +1262,7 @@ class LoyaltiesApi:
     ) -> List[LoyaltiesEarningRulesCreateResponseBody]:
         """Create Earning Rule
 
-        Create earning rules for a loyalty campaign.
+        Create earning rules for a loyalty campaign.  🚧 Maximum number of earning rules  You can create up to 100 earning rules per project. The limit can be customized for clients with a single-tenant setup.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -1022,7 +1333,7 @@ class LoyaltiesApi:
     ) -> ApiResponse[List[LoyaltiesEarningRulesCreateResponseBody]]:
         """Create Earning Rule
 
-        Create earning rules for a loyalty campaign.
+        Create earning rules for a loyalty campaign.  🚧 Maximum number of earning rules  You can create up to 100 earning rules per project. The limit can be customized for clients with a single-tenant setup.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -1093,7 +1404,7 @@ class LoyaltiesApi:
     ) -> RESTResponseType:
         """Create Earning Rule
 
-        Create earning rules for a loyalty campaign.
+        Create earning rules for a loyalty campaign.  🚧 Maximum number of earning rules  You can create up to 100 earning rules per project. The limit can be customized for clients with a single-tenant setup.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -1528,7 +1839,7 @@ class LoyaltiesApi:
     ) -> LoyaltiesCreateCampaignResponseBody:
         """Create Loyalty Campaign
 
-        Creates a batch of loyalty cards aggregated in a single loyalty campaign. It also allows you to define a custom codes pattern.    📘 Global uniqueness  All codes are unique across the whole project. Voucherify wont allow to generate the same codes in any of your campaigns.  🚧 Asyncronous action!  This is an asynchronous action, you cant read or modify a newly created campaign until the code generation is completed. See creation_status field in the loyalty campaign object description.
+        Creates a batch of loyalty cards aggregated in a single loyalty campaign. It also allows you to define a custom codes pattern.    📘 Global uniqueness  All codes are unique across the whole project. Voucherify wont allow to generate the same codes in any of your campaigns.  🚧 Asynchronous action!  This is an asynchronous action, you cant read or modify a newly created campaign until the code generation is completed. See creation_status field in the loyalty campaign object description.
 
         :param loyalties_create_campaign_request_body: Specify the loyalty campaign details.
         :type loyalties_create_campaign_request_body: LoyaltiesCreateCampaignRequestBody
@@ -1595,7 +1906,7 @@ class LoyaltiesApi:
     ) -> ApiResponse[LoyaltiesCreateCampaignResponseBody]:
         """Create Loyalty Campaign
 
-        Creates a batch of loyalty cards aggregated in a single loyalty campaign. It also allows you to define a custom codes pattern.    📘 Global uniqueness  All codes are unique across the whole project. Voucherify wont allow to generate the same codes in any of your campaigns.  🚧 Asyncronous action!  This is an asynchronous action, you cant read or modify a newly created campaign until the code generation is completed. See creation_status field in the loyalty campaign object description.
+        Creates a batch of loyalty cards aggregated in a single loyalty campaign. It also allows you to define a custom codes pattern.    📘 Global uniqueness  All codes are unique across the whole project. Voucherify wont allow to generate the same codes in any of your campaigns.  🚧 Asynchronous action!  This is an asynchronous action, you cant read or modify a newly created campaign until the code generation is completed. See creation_status field in the loyalty campaign object description.
 
         :param loyalties_create_campaign_request_body: Specify the loyalty campaign details.
         :type loyalties_create_campaign_request_body: LoyaltiesCreateCampaignRequestBody
@@ -1662,7 +1973,7 @@ class LoyaltiesApi:
     ) -> RESTResponseType:
         """Create Loyalty Campaign
 
-        Creates a batch of loyalty cards aggregated in a single loyalty campaign. It also allows you to define a custom codes pattern.    📘 Global uniqueness  All codes are unique across the whole project. Voucherify wont allow to generate the same codes in any of your campaigns.  🚧 Asyncronous action!  This is an asynchronous action, you cant read or modify a newly created campaign until the code generation is completed. See creation_status field in the loyalty campaign object description.
+        Creates a batch of loyalty cards aggregated in a single loyalty campaign. It also allows you to define a custom codes pattern.    📘 Global uniqueness  All codes are unique across the whole project. Voucherify wont allow to generate the same codes in any of your campaigns.  🚧 Asynchronous action!  This is an asynchronous action, you cant read or modify a newly created campaign until the code generation is completed. See creation_status field in the loyalty campaign object description.
 
         :param loyalties_create_campaign_request_body: Specify the loyalty campaign details.
         :type loyalties_create_campaign_request_body: LoyaltiesCreateCampaignRequestBody
@@ -1802,7 +2113,7 @@ class LoyaltiesApi:
     ) -> LoyaltiesPointsExpirationExportCreateResponseBody:
         """Export Loyalty Campaign Point Expiration
 
-        Schedule the generation of a points expiration CSV file for a particular campaign.
+        Schedule the generation of a point expiration CSV file for a particular campaign. It can list point buckets, which can have an ACTIVE or EXPIRED status.
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
@@ -1873,7 +2184,7 @@ class LoyaltiesApi:
     ) -> ApiResponse[LoyaltiesPointsExpirationExportCreateResponseBody]:
         """Export Loyalty Campaign Point Expiration
 
-        Schedule the generation of a points expiration CSV file for a particular campaign.
+        Schedule the generation of a point expiration CSV file for a particular campaign. It can list point buckets, which can have an ACTIVE or EXPIRED status.
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
@@ -1944,7 +2255,7 @@ class LoyaltiesApi:
     ) -> RESTResponseType:
         """Export Loyalty Campaign Point Expiration
 
-        Schedule the generation of a points expiration CSV file for a particular campaign.
+        Schedule the generation of a point expiration CSV file for a particular campaign. It can list point buckets, which can have an ACTIVE or EXPIRED status.
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
@@ -3707,6 +4018,294 @@ class LoyaltiesApi:
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/v1/loyalties/{campaignId}/earning-rules/{earningRuleId}/enable',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def export_loyalty_campaign_transactions(
+        self,
+        campaign_id: Annotated[StrictStr, Field(description="You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.")],
+        loyalties_transactions_export_create_request_body: Annotated[Optional[LoyaltiesTransactionsExportCreateRequestBody], Field(description="Specify the parameters for the transaction export.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> CampaignsTransactionsExportCreateResponseBody:
+        """Export Loyalty Campaign Transactions
+
+        Export transactions is an asynchronous process that generates a CSV file with the data about or point movements on all loyalty cards in a given campaign. To export transactions: 1. In the export request, use parameters to select which fields will be exported, in what order, and which data will be filtered. 2. Use the returned id to track the export status with the GET Export method. 3. In the GET Export method, when the returned status field has the DONE value, the export file has been generated. 4. Use the URL in the result property to download the file. You must be logged to your Voucherify account on a given cluster in the browser to be able to download the file. An export request will almost always result in a single file being generated by the system. However, when the data volume is large, the system may split the results into multiple files. An example export file can look as follows:    👍 Export Campaign Transactions  This method works in the same way the POST Export Campaign Transactions does, but it is limited to loyalty campaigns only. The POST Export Campaign Transactions method can also export gift card campaign transactions.
+
+        :param campaign_id: You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. (required)
+        :type campaign_id: str
+        :param loyalties_transactions_export_create_request_body: Specify the parameters for the transaction export.
+        :type loyalties_transactions_export_create_request_body: LoyaltiesTransactionsExportCreateRequestBody
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._export_loyalty_campaign_transactions_serialize(
+            campaign_id=campaign_id,
+            loyalties_transactions_export_create_request_body=loyalties_transactions_export_create_request_body,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "CampaignsTransactionsExportCreateResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def export_loyalty_campaign_transactions_with_http_info(
+        self,
+        campaign_id: Annotated[StrictStr, Field(description="You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.")],
+        loyalties_transactions_export_create_request_body: Annotated[Optional[LoyaltiesTransactionsExportCreateRequestBody], Field(description="Specify the parameters for the transaction export.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[CampaignsTransactionsExportCreateResponseBody]:
+        """Export Loyalty Campaign Transactions
+
+        Export transactions is an asynchronous process that generates a CSV file with the data about or point movements on all loyalty cards in a given campaign. To export transactions: 1. In the export request, use parameters to select which fields will be exported, in what order, and which data will be filtered. 2. Use the returned id to track the export status with the GET Export method. 3. In the GET Export method, when the returned status field has the DONE value, the export file has been generated. 4. Use the URL in the result property to download the file. You must be logged to your Voucherify account on a given cluster in the browser to be able to download the file. An export request will almost always result in a single file being generated by the system. However, when the data volume is large, the system may split the results into multiple files. An example export file can look as follows:    👍 Export Campaign Transactions  This method works in the same way the POST Export Campaign Transactions does, but it is limited to loyalty campaigns only. The POST Export Campaign Transactions method can also export gift card campaign transactions.
+
+        :param campaign_id: You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. (required)
+        :type campaign_id: str
+        :param loyalties_transactions_export_create_request_body: Specify the parameters for the transaction export.
+        :type loyalties_transactions_export_create_request_body: LoyaltiesTransactionsExportCreateRequestBody
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._export_loyalty_campaign_transactions_serialize(
+            campaign_id=campaign_id,
+            loyalties_transactions_export_create_request_body=loyalties_transactions_export_create_request_body,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "CampaignsTransactionsExportCreateResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def export_loyalty_campaign_transactions_without_preload_content(
+        self,
+        campaign_id: Annotated[StrictStr, Field(description="You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.")],
+        loyalties_transactions_export_create_request_body: Annotated[Optional[LoyaltiesTransactionsExportCreateRequestBody], Field(description="Specify the parameters for the transaction export.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Export Loyalty Campaign Transactions
+
+        Export transactions is an asynchronous process that generates a CSV file with the data about or point movements on all loyalty cards in a given campaign. To export transactions: 1. In the export request, use parameters to select which fields will be exported, in what order, and which data will be filtered. 2. Use the returned id to track the export status with the GET Export method. 3. In the GET Export method, when the returned status field has the DONE value, the export file has been generated. 4. Use the URL in the result property to download the file. You must be logged to your Voucherify account on a given cluster in the browser to be able to download the file. An export request will almost always result in a single file being generated by the system. However, when the data volume is large, the system may split the results into multiple files. An example export file can look as follows:    👍 Export Campaign Transactions  This method works in the same way the POST Export Campaign Transactions does, but it is limited to loyalty campaigns only. The POST Export Campaign Transactions method can also export gift card campaign transactions.
+
+        :param campaign_id: You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. (required)
+        :type campaign_id: str
+        :param loyalties_transactions_export_create_request_body: Specify the parameters for the transaction export.
+        :type loyalties_transactions_export_create_request_body: LoyaltiesTransactionsExportCreateRequestBody
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._export_loyalty_campaign_transactions_serialize(
+            campaign_id=campaign_id,
+            loyalties_transactions_export_create_request_body=loyalties_transactions_export_create_request_body,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "CampaignsTransactionsExportCreateResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _export_loyalty_campaign_transactions_serialize(
+        self,
+        campaign_id,
+        loyalties_transactions_export_create_request_body,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[str, Union[str, bytes]] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if campaign_id is not None:
+            _path_params['campaignId'] = campaign_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if loyalties_transactions_export_create_request_body is not None:
+            _body_params = loyalties_transactions_export_create_request_body
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'X-App-Id', 
+            'X-App-Token'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/v1/loyalties/{campaignId}/transactions/export',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -6505,7 +7104,7 @@ class LoyaltiesApi:
     ) -> LoyaltiesPendingPointsListResponseBody:
         """List Campaign Pending Points
 
-        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Lists all pending points that are currently assigned to all loyalty cards in a campaign. Once the points are added to the card, the entry is no longer returned.
+        Lists all pending points that are currently assigned to all loyalty cards in a campaign. Once the points are added to the card, the entry is no longer returned. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -6584,7 +7183,7 @@ class LoyaltiesApi:
     ) -> ApiResponse[LoyaltiesPendingPointsListResponseBody]:
         """List Campaign Pending Points
 
-        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Lists all pending points that are currently assigned to all loyalty cards in a campaign. Once the points are added to the card, the entry is no longer returned.
+        Lists all pending points that are currently assigned to all loyalty cards in a campaign. Once the points are added to the card, the entry is no longer returned. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -6663,7 +7262,7 @@ class LoyaltiesApi:
     ) -> RESTResponseType:
         """List Campaign Pending Points
 
-        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Lists all pending points that are currently assigned to all loyalty cards in a campaign. Once the points are added to the card, the entry is no longer returned.
+        Lists all pending points that are currently assigned to all loyalty cards in a campaign. Once the points are added to the card, the entry is no longer returned. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -7106,11 +7705,340 @@ class LoyaltiesApi:
 
 
     @validate_call
+    def list_loyalty_campaign_transactions(
+        self,
+        campaign_id: Annotated[StrictStr, Field(description="You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.")],
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
+        order: Annotated[Optional[ParameterOrderListTransactions], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
+        starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.")] = None,
+        filters: Annotated[Optional[ParametersFiltersListCampaignTransactions], Field(description="Filters for listing responses. The id filter denotes the unique transaction identifier.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> LoyaltiesTransactionsListResponseBody:
+        """List Loyalty Campaign Transactions
+
+        Retrieves all transactions for the campaign with the given campaign ID or campaign name.
+
+        :param campaign_id: You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. (required)
+        :type campaign_id: str
+        :param limit: Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.
+        :type limit: int
+        :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
+        :type order: ParameterOrderListTransactions
+        :param starting_after_id: A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.
+        :type starting_after_id: str
+        :param filters: Filters for listing responses. The id filter denotes the unique transaction identifier.
+        :type filters: ParametersFiltersListCampaignTransactions
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_loyalty_campaign_transactions_serialize(
+            campaign_id=campaign_id,
+            limit=limit,
+            order=order,
+            starting_after_id=starting_after_id,
+            filters=filters,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "LoyaltiesTransactionsListResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def list_loyalty_campaign_transactions_with_http_info(
+        self,
+        campaign_id: Annotated[StrictStr, Field(description="You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.")],
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
+        order: Annotated[Optional[ParameterOrderListTransactions], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
+        starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.")] = None,
+        filters: Annotated[Optional[ParametersFiltersListCampaignTransactions], Field(description="Filters for listing responses. The id filter denotes the unique transaction identifier.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[LoyaltiesTransactionsListResponseBody]:
+        """List Loyalty Campaign Transactions
+
+        Retrieves all transactions for the campaign with the given campaign ID or campaign name.
+
+        :param campaign_id: You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. (required)
+        :type campaign_id: str
+        :param limit: Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.
+        :type limit: int
+        :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
+        :type order: ParameterOrderListTransactions
+        :param starting_after_id: A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.
+        :type starting_after_id: str
+        :param filters: Filters for listing responses. The id filter denotes the unique transaction identifier.
+        :type filters: ParametersFiltersListCampaignTransactions
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_loyalty_campaign_transactions_serialize(
+            campaign_id=campaign_id,
+            limit=limit,
+            order=order,
+            starting_after_id=starting_after_id,
+            filters=filters,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "LoyaltiesTransactionsListResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def list_loyalty_campaign_transactions_without_preload_content(
+        self,
+        campaign_id: Annotated[StrictStr, Field(description="You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.")],
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
+        order: Annotated[Optional[ParameterOrderListTransactions], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
+        starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.")] = None,
+        filters: Annotated[Optional[ParametersFiltersListCampaignTransactions], Field(description="Filters for listing responses. The id filter denotes the unique transaction identifier.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List Loyalty Campaign Transactions
+
+        Retrieves all transactions for the campaign with the given campaign ID or campaign name.
+
+        :param campaign_id: You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. (required)
+        :type campaign_id: str
+        :param limit: Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.
+        :type limit: int
+        :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
+        :type order: ParameterOrderListTransactions
+        :param starting_after_id: A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.
+        :type starting_after_id: str
+        :param filters: Filters for listing responses. The id filter denotes the unique transaction identifier.
+        :type filters: ParametersFiltersListCampaignTransactions
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_loyalty_campaign_transactions_serialize(
+            campaign_id=campaign_id,
+            limit=limit,
+            order=order,
+            starting_after_id=starting_after_id,
+            filters=filters,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "LoyaltiesTransactionsListResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _list_loyalty_campaign_transactions_serialize(
+        self,
+        campaign_id,
+        limit,
+        order,
+        starting_after_id,
+        filters,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[str, Union[str, bytes]] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if campaign_id is not None:
+            _path_params['campaignId'] = campaign_id
+        # process the query parameters
+        if limit is not None:
+            
+            _query_params.append(('limit', limit))
+            
+        if order is not None:
+            
+            _query_params.append(('order', order.value))
+            
+        if starting_after_id is not None:
+            
+            _query_params.append(('starting_after_id', starting_after_id))
+            
+        if filters is not None:
+            
+            _query_params.append(('filters', filters))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'X-App-Id', 
+            'X-App-Token'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v1/loyalties/{campaignId}/transactions',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def list_loyalty_card_transactions(
         self,
         member_id: Annotated[StrictStr, Field(description="A unique code identifying the loyalty card that you are looking to retrieve transaction data for.")],
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
         order: Annotated[Optional[ParameterOrderListTransactions], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
+        filters: Annotated[Optional[ParameterFiltersListMemberTransactions], Field(description="Filters for listing member transactions. id is the unique identifier of the transaction.")] = None,
         starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.")] = None,
         _request_timeout: Union[
             None,
@@ -7135,6 +8063,8 @@ class LoyaltiesApi:
         :type limit: int
         :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListTransactions
+        :param filters: Filters for listing member transactions. id is the unique identifier of the transaction.
+        :type filters: ParameterFiltersListMemberTransactions
         :param starting_after_id: A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.
         :type starting_after_id: str
         :param _request_timeout: timeout setting for this request. If one
@@ -7163,6 +8093,7 @@ class LoyaltiesApi:
             member_id=member_id,
             limit=limit,
             order=order,
+            filters=filters,
             starting_after_id=starting_after_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -7190,6 +8121,7 @@ class LoyaltiesApi:
         member_id: Annotated[StrictStr, Field(description="A unique code identifying the loyalty card that you are looking to retrieve transaction data for.")],
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
         order: Annotated[Optional[ParameterOrderListTransactions], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
+        filters: Annotated[Optional[ParameterFiltersListMemberTransactions], Field(description="Filters for listing member transactions. id is the unique identifier of the transaction.")] = None,
         starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.")] = None,
         _request_timeout: Union[
             None,
@@ -7214,6 +8146,8 @@ class LoyaltiesApi:
         :type limit: int
         :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListTransactions
+        :param filters: Filters for listing member transactions. id is the unique identifier of the transaction.
+        :type filters: ParameterFiltersListMemberTransactions
         :param starting_after_id: A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.
         :type starting_after_id: str
         :param _request_timeout: timeout setting for this request. If one
@@ -7242,6 +8176,7 @@ class LoyaltiesApi:
             member_id=member_id,
             limit=limit,
             order=order,
+            filters=filters,
             starting_after_id=starting_after_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -7269,6 +8204,7 @@ class LoyaltiesApi:
         member_id: Annotated[StrictStr, Field(description="A unique code identifying the loyalty card that you are looking to retrieve transaction data for.")],
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
         order: Annotated[Optional[ParameterOrderListTransactions], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
+        filters: Annotated[Optional[ParameterFiltersListMemberTransactions], Field(description="Filters for listing member transactions. id is the unique identifier of the transaction.")] = None,
         starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.")] = None,
         _request_timeout: Union[
             None,
@@ -7293,6 +8229,8 @@ class LoyaltiesApi:
         :type limit: int
         :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListTransactions
+        :param filters: Filters for listing member transactions. id is the unique identifier of the transaction.
+        :type filters: ParameterFiltersListMemberTransactions
         :param starting_after_id: A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.
         :type starting_after_id: str
         :param _request_timeout: timeout setting for this request. If one
@@ -7321,6 +8259,7 @@ class LoyaltiesApi:
             member_id=member_id,
             limit=limit,
             order=order,
+            filters=filters,
             starting_after_id=starting_after_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -7343,6 +8282,7 @@ class LoyaltiesApi:
         member_id,
         limit,
         order,
+        filters,
         starting_after_id,
         _request_auth,
         _content_type,
@@ -7373,6 +8313,10 @@ class LoyaltiesApi:
         if order is not None:
             
             _query_params.append(('order', order.value))
+            
+        if filters is not None:
+            
+            _query_params.append(('filters', filters))
             
         if starting_after_id is not None:
             
@@ -7423,6 +8367,7 @@ class LoyaltiesApi:
         member_id: Annotated[StrictStr, Field(description="A unique code identifying the loyalty card that you are looking to retrieve transaction data for.")],
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
         order: Annotated[Optional[ParameterOrderListTransactions], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
+        filters: Annotated[Optional[ParameterFiltersListMemberTransactions], Field(description="Filters for listing member transactions. id is the unique identifier of the transaction.")] = None,
         starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.")] = None,
         _request_timeout: Union[
             None,
@@ -7449,6 +8394,8 @@ class LoyaltiesApi:
         :type limit: int
         :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListTransactions
+        :param filters: Filters for listing member transactions. id is the unique identifier of the transaction.
+        :type filters: ParameterFiltersListMemberTransactions
         :param starting_after_id: A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.
         :type starting_after_id: str
         :param _request_timeout: timeout setting for this request. If one
@@ -7478,6 +8425,7 @@ class LoyaltiesApi:
             member_id=member_id,
             limit=limit,
             order=order,
+            filters=filters,
             starting_after_id=starting_after_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -7506,6 +8454,7 @@ class LoyaltiesApi:
         member_id: Annotated[StrictStr, Field(description="A unique code identifying the loyalty card that you are looking to retrieve transaction data for.")],
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
         order: Annotated[Optional[ParameterOrderListTransactions], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
+        filters: Annotated[Optional[ParameterFiltersListMemberTransactions], Field(description="Filters for listing member transactions. id is the unique identifier of the transaction.")] = None,
         starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.")] = None,
         _request_timeout: Union[
             None,
@@ -7532,6 +8481,8 @@ class LoyaltiesApi:
         :type limit: int
         :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListTransactions
+        :param filters: Filters for listing member transactions. id is the unique identifier of the transaction.
+        :type filters: ParameterFiltersListMemberTransactions
         :param starting_after_id: A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.
         :type starting_after_id: str
         :param _request_timeout: timeout setting for this request. If one
@@ -7561,6 +8512,7 @@ class LoyaltiesApi:
             member_id=member_id,
             limit=limit,
             order=order,
+            filters=filters,
             starting_after_id=starting_after_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -7589,6 +8541,7 @@ class LoyaltiesApi:
         member_id: Annotated[StrictStr, Field(description="A unique code identifying the loyalty card that you are looking to retrieve transaction data for.")],
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
         order: Annotated[Optional[ParameterOrderListTransactions], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
+        filters: Annotated[Optional[ParameterFiltersListMemberTransactions], Field(description="Filters for listing member transactions. id is the unique identifier of the transaction.")] = None,
         starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.")] = None,
         _request_timeout: Union[
             None,
@@ -7615,6 +8568,8 @@ class LoyaltiesApi:
         :type limit: int
         :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListTransactions
+        :param filters: Filters for listing member transactions. id is the unique identifier of the transaction.
+        :type filters: ParameterFiltersListMemberTransactions
         :param starting_after_id: A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.
         :type starting_after_id: str
         :param _request_timeout: timeout setting for this request. If one
@@ -7644,6 +8599,7 @@ class LoyaltiesApi:
             member_id=member_id,
             limit=limit,
             order=order,
+            filters=filters,
             starting_after_id=starting_after_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -7667,6 +8623,7 @@ class LoyaltiesApi:
         member_id,
         limit,
         order,
+        filters,
         starting_after_id,
         _request_auth,
         _content_type,
@@ -7699,6 +8656,10 @@ class LoyaltiesApi:
         if order is not None:
             
             _query_params.append(('order', order.value))
+            
+        if filters is not None:
+            
+            _query_params.append(('filters', filters))
             
         if starting_after_id is not None:
             
@@ -7747,6 +8708,7 @@ class LoyaltiesApi:
         self,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
         page: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1.")] = None,
+        expand: Annotated[Optional[ParameterExpandListCampaigns], Field(description="Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.")] = None,
         order: Annotated[Optional[ParameterOrderListCampaigns], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
         _request_timeout: Union[
             None,
@@ -7769,6 +8731,8 @@ class LoyaltiesApi:
         :type limit: int
         :param page: Which page of results to return. The lowest value is 1.
         :type page: int
+        :param expand: Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.
+        :type expand: ParameterExpandListCampaigns
         :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListCampaigns
         :param _request_timeout: timeout setting for this request. If one
@@ -7796,6 +8760,7 @@ class LoyaltiesApi:
         _param = self._list_loyalty_programs_serialize(
             limit=limit,
             page=page,
+            expand=expand,
             order=order,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -7822,6 +8787,7 @@ class LoyaltiesApi:
         self,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
         page: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1.")] = None,
+        expand: Annotated[Optional[ParameterExpandListCampaigns], Field(description="Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.")] = None,
         order: Annotated[Optional[ParameterOrderListCampaigns], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
         _request_timeout: Union[
             None,
@@ -7844,6 +8810,8 @@ class LoyaltiesApi:
         :type limit: int
         :param page: Which page of results to return. The lowest value is 1.
         :type page: int
+        :param expand: Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.
+        :type expand: ParameterExpandListCampaigns
         :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListCampaigns
         :param _request_timeout: timeout setting for this request. If one
@@ -7871,6 +8839,7 @@ class LoyaltiesApi:
         _param = self._list_loyalty_programs_serialize(
             limit=limit,
             page=page,
+            expand=expand,
             order=order,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -7897,6 +8866,7 @@ class LoyaltiesApi:
         self,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
         page: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1.")] = None,
+        expand: Annotated[Optional[ParameterExpandListCampaigns], Field(description="Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.")] = None,
         order: Annotated[Optional[ParameterOrderListCampaigns], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
         _request_timeout: Union[
             None,
@@ -7919,6 +8889,8 @@ class LoyaltiesApi:
         :type limit: int
         :param page: Which page of results to return. The lowest value is 1.
         :type page: int
+        :param expand: Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.
+        :type expand: ParameterExpandListCampaigns
         :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListCampaigns
         :param _request_timeout: timeout setting for this request. If one
@@ -7946,6 +8918,7 @@ class LoyaltiesApi:
         _param = self._list_loyalty_programs_serialize(
             limit=limit,
             page=page,
+            expand=expand,
             order=order,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -7967,6 +8940,7 @@ class LoyaltiesApi:
         self,
         limit,
         page,
+        expand,
         order,
         _request_auth,
         _content_type,
@@ -7995,6 +8969,10 @@ class LoyaltiesApi:
         if page is not None:
             
             _query_params.append(('page', page))
+            
+        if expand is not None:
+            
+            _query_params.append(('expand', expand.value))
             
         if order is not None:
             
@@ -9835,7 +10813,7 @@ class LoyaltiesApi:
     ) -> LoyaltiesMembersPendingPointsListResponseBody:
         """List Member Pending Points
 
-        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to list member pending points without having to provide the campaignId as a path parameter. Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned.
+          📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to list member pending points without having to provide the campaignId as a path parameter. Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -9914,7 +10892,7 @@ class LoyaltiesApi:
     ) -> ApiResponse[LoyaltiesMembersPendingPointsListResponseBody]:
         """List Member Pending Points
 
-        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to list member pending points without having to provide the campaignId as a path parameter. Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned.
+          📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to list member pending points without having to provide the campaignId as a path parameter. Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -9993,7 +10971,7 @@ class LoyaltiesApi:
     ) -> RESTResponseType:
         """List Member Pending Points
 
-        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to list member pending points without having to provide the campaignId as a path parameter. Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned.
+          📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to list member pending points without having to provide the campaignId as a path parameter. Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -10147,7 +11125,7 @@ class LoyaltiesApi:
     ) -> LoyaltiesMembersPendingPointsListResponseBody:
         """List Member Pending Points
 
-        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned.
+        Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -10230,7 +11208,7 @@ class LoyaltiesApi:
     ) -> ApiResponse[LoyaltiesMembersPendingPointsListResponseBody]:
         """List Member Pending Points
 
-        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned.
+        Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -10313,7 +11291,7 @@ class LoyaltiesApi:
     ) -> RESTResponseType:
         """List Member Pending Points
 
-        >🚧 Beta endpoint The endpoint is behind a feature flag as it is still in development. Contact [Voucherify support](https://www.voucherify.io/contact-support) to unlock the feature for your organization. All current parameters and fields are listed and described. Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned.
+        Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -12667,7 +13645,7 @@ class LoyaltiesApi:
     ) -> LoyaltiesMembersTransfersCreateResponseBody:
         """Transfer Loyalty Points
 
-        Transfer points between different loyalty cards. You need to provide the campaign ID and the loyalty card ID you want the points to be transferred to as path parameters in the URL. In the request body, you provide the loyalty cards you want the points to be transferred from and the number of points to transfer from each card.
+        Transfer points between different loyalty cards which have holders. You need to provide the campaign ID and the loyalty card ID you want the points to be transferred to as path parameters in the URL. In the request body, you provide the loyalty cards you want the points to be transferred from and the number of points to transfer from each card. Transfer works only for loyalty cards that have holders, meaning they were published to customers.
 
         :param campaign_id: A unique identifier of the loyalty campaign containing the voucher to which the loyalty points will be sent (destination). (required)
         :type campaign_id: str
@@ -12742,7 +13720,7 @@ class LoyaltiesApi:
     ) -> ApiResponse[LoyaltiesMembersTransfersCreateResponseBody]:
         """Transfer Loyalty Points
 
-        Transfer points between different loyalty cards. You need to provide the campaign ID and the loyalty card ID you want the points to be transferred to as path parameters in the URL. In the request body, you provide the loyalty cards you want the points to be transferred from and the number of points to transfer from each card.
+        Transfer points between different loyalty cards which have holders. You need to provide the campaign ID and the loyalty card ID you want the points to be transferred to as path parameters in the URL. In the request body, you provide the loyalty cards you want the points to be transferred from and the number of points to transfer from each card. Transfer works only for loyalty cards that have holders, meaning they were published to customers.
 
         :param campaign_id: A unique identifier of the loyalty campaign containing the voucher to which the loyalty points will be sent (destination). (required)
         :type campaign_id: str
@@ -12817,7 +13795,7 @@ class LoyaltiesApi:
     ) -> RESTResponseType:
         """Transfer Loyalty Points
 
-        Transfer points between different loyalty cards. You need to provide the campaign ID and the loyalty card ID you want the points to be transferred to as path parameters in the URL. In the request body, you provide the loyalty cards you want the points to be transferred from and the number of points to transfer from each card.
+        Transfer points between different loyalty cards which have holders. You need to provide the campaign ID and the loyalty card ID you want the points to be transferred to as path parameters in the URL. In the request body, you provide the loyalty cards you want the points to be transferred from and the number of points to transfer from each card. Transfer works only for loyalty cards that have holders, meaning they were published to customers.
 
         :param campaign_id: A unique identifier of the loyalty campaign containing the voucher to which the loyalty points will be sent (destination). (required)
         :type campaign_id: str
@@ -13271,9 +14249,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersBalanceUpdateResponseBody:
-        """Add or Remove Loyalty Card Balance
+        """Adjust Loyalty Card Balance
 
-        This method gives adds or removes balance to an existing loyalty card. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to allow you to add or remove loyalty card balance without having to provide the campaignId as a path parameter.
+        This method gives adds or removes balance to an existing loyalty card that is assigned to a holder. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to allow you to add or remove loyalty card balance without having to provide the campaignId as a path parameter.
 
         :param member_id: Unique loyalty card assigned to a particular customer. (required)
         :type member_id: str
@@ -13342,9 +14320,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersBalanceUpdateResponseBody]:
-        """Add or Remove Loyalty Card Balance
+        """Adjust Loyalty Card Balance
 
-        This method gives adds or removes balance to an existing loyalty card. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to allow you to add or remove loyalty card balance without having to provide the campaignId as a path parameter.
+        This method gives adds or removes balance to an existing loyalty card that is assigned to a holder. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to allow you to add or remove loyalty card balance without having to provide the campaignId as a path parameter.
 
         :param member_id: Unique loyalty card assigned to a particular customer. (required)
         :type member_id: str
@@ -13413,9 +14391,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Add or Remove Loyalty Card Balance
+        """Adjust Loyalty Card Balance
 
-        This method gives adds or removes balance to an existing loyalty card. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to allow you to add or remove loyalty card balance without having to provide the campaignId as a path parameter.
+        This method gives adds or removes balance to an existing loyalty card that is assigned to a holder. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to allow you to add or remove loyalty card balance without having to provide the campaignId as a path parameter.
 
         :param member_id: Unique loyalty card assigned to a particular customer. (required)
         :type member_id: str
@@ -13560,9 +14538,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersBalanceUpdateResponseBody:
-        """Add or Remove Loyalty Card Balance
+        """Adjust Loyalty Card Balance
 
-        This method adds or removes balance to an existing loyalty card. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.
+        This method adds or removes balance to an existing loyalty card that is assigned to a holder. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -13635,9 +14613,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersBalanceUpdateResponseBody]:
-        """Add or Remove Loyalty Card Balance
+        """Adjust Loyalty Card Balance
 
-        This method adds or removes balance to an existing loyalty card. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.
+        This method adds or removes balance to an existing loyalty card that is assigned to a holder. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -13710,9 +14688,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Add or Remove Loyalty Card Balance
+        """Adjust Loyalty Card Balance
 
-        This method adds or removes balance to an existing loyalty card. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.
+        This method adds or removes balance to an existing loyalty card that is assigned to a holder. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str

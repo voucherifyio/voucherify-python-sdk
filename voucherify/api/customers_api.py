@@ -38,6 +38,7 @@ from voucherify.models.customers_update_request_body import CustomersUpdateReque
 from voucherify.models.customers_update_response_body import CustomersUpdateResponseBody
 from voucherify.models.parameter_activity_category import ParameterActivityCategory
 from voucherify.models.parameter_campaign_type import ParameterCampaignType
+from voucherify.models.parameter_customer_event import ParameterCustomerEvent
 from voucherify.models.parameter_filters_list_customer_redeemables import ParameterFiltersListCustomerRedeemables
 from voucherify.models.parameter_order_created_at import ParameterOrderCreatedAt
 from voucherify.models.parameter_order_list_customers import ParameterOrderListCustomers
@@ -1392,7 +1393,7 @@ class CustomersApi:
         campaign_id: Annotated[Optional[StrictStr], Field(description="Requests only events related to specific campaign identified by its ID.")] = None,
         campaign_type: Annotated[Optional[ParameterCampaignType], Field(description="Filters related customers activity for the selected campaign types. Allowed values:  DISCOUNT_COUPONS, REFERRAL_PROGRAM, GIFT_VOUCHERS, PROMOTION, LOYALTY_PROGRAM.")] = None,
         category: Annotated[Optional[ParameterActivityCategory], Field(description="Filters activities for actions or effects. Allowed values:  ACTION, EFFECT.")] = None,
-        type: Annotated[Optional[StrictStr], Field(description="Event name of the customer event.")] = None,
+        type: Annotated[Optional[ParameterCustomerEvent], Field(description="Event name of the customer event.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1429,7 +1430,7 @@ class CustomersApi:
         :param category: Filters activities for actions or effects. Allowed values:  ACTION, EFFECT.
         :type category: ParameterActivityCategory
         :param type: Event name of the customer event.
-        :type type: str
+        :type type: ParameterCustomerEvent
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1495,7 +1496,7 @@ class CustomersApi:
         campaign_id: Annotated[Optional[StrictStr], Field(description="Requests only events related to specific campaign identified by its ID.")] = None,
         campaign_type: Annotated[Optional[ParameterCampaignType], Field(description="Filters related customers activity for the selected campaign types. Allowed values:  DISCOUNT_COUPONS, REFERRAL_PROGRAM, GIFT_VOUCHERS, PROMOTION, LOYALTY_PROGRAM.")] = None,
         category: Annotated[Optional[ParameterActivityCategory], Field(description="Filters activities for actions or effects. Allowed values:  ACTION, EFFECT.")] = None,
-        type: Annotated[Optional[StrictStr], Field(description="Event name of the customer event.")] = None,
+        type: Annotated[Optional[ParameterCustomerEvent], Field(description="Event name of the customer event.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1532,7 +1533,7 @@ class CustomersApi:
         :param category: Filters activities for actions or effects. Allowed values:  ACTION, EFFECT.
         :type category: ParameterActivityCategory
         :param type: Event name of the customer event.
-        :type type: str
+        :type type: ParameterCustomerEvent
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1598,7 +1599,7 @@ class CustomersApi:
         campaign_id: Annotated[Optional[StrictStr], Field(description="Requests only events related to specific campaign identified by its ID.")] = None,
         campaign_type: Annotated[Optional[ParameterCampaignType], Field(description="Filters related customers activity for the selected campaign types. Allowed values:  DISCOUNT_COUPONS, REFERRAL_PROGRAM, GIFT_VOUCHERS, PROMOTION, LOYALTY_PROGRAM.")] = None,
         category: Annotated[Optional[ParameterActivityCategory], Field(description="Filters activities for actions or effects. Allowed values:  ACTION, EFFECT.")] = None,
-        type: Annotated[Optional[StrictStr], Field(description="Event name of the customer event.")] = None,
+        type: Annotated[Optional[ParameterCustomerEvent], Field(description="Event name of the customer event.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1635,7 +1636,7 @@ class CustomersApi:
         :param category: Filters activities for actions or effects. Allowed values:  ACTION, EFFECT.
         :type category: ParameterActivityCategory
         :param type: Event name of the customer event.
-        :type type: str
+        :type type: ParameterCustomerEvent
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1771,7 +1772,7 @@ class CustomersApi:
             
         if type is not None:
             
-            _query_params.append(('type', type))
+            _query_params.append(('type', type.value))
             
         # process the header parameters
         # process the form parameters
@@ -2403,7 +2404,7 @@ class CustomersApi:
     def list_customers(
         self,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
-        page: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1.")] = None,
+        page: Annotated[Optional[Annotated[int, Field(le=99, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1, the highest value is 99.")] = None,
         email: Annotated[Optional[StrictStr], Field(description="Limit the customers to the ones that have this specific email address.")] = None,
         city: Annotated[Optional[StrictStr], Field(description="Limit the customers to the ones that are located in the specified city.")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter customers by the name property.")] = None,
@@ -2433,7 +2434,7 @@ class CustomersApi:
 
         :param limit: Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.
         :type limit: int
-        :param page: Which page of results to return. The lowest value is 1.
+        :param page: Which page of results to return. The lowest value is 1, the highest value is 99.
         :type page: int
         :param email: Limit the customers to the ones that have this specific email address.
         :type email: str
@@ -2514,7 +2515,7 @@ class CustomersApi:
     def list_customers_with_http_info(
         self,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
-        page: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1.")] = None,
+        page: Annotated[Optional[Annotated[int, Field(le=99, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1, the highest value is 99.")] = None,
         email: Annotated[Optional[StrictStr], Field(description="Limit the customers to the ones that have this specific email address.")] = None,
         city: Annotated[Optional[StrictStr], Field(description="Limit the customers to the ones that are located in the specified city.")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter customers by the name property.")] = None,
@@ -2544,7 +2545,7 @@ class CustomersApi:
 
         :param limit: Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.
         :type limit: int
-        :param page: Which page of results to return. The lowest value is 1.
+        :param page: Which page of results to return. The lowest value is 1, the highest value is 99.
         :type page: int
         :param email: Limit the customers to the ones that have this specific email address.
         :type email: str
@@ -2625,7 +2626,7 @@ class CustomersApi:
     def list_customers_without_preload_content(
         self,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
-        page: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1.")] = None,
+        page: Annotated[Optional[Annotated[int, Field(le=99, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1, the highest value is 99.")] = None,
         email: Annotated[Optional[StrictStr], Field(description="Limit the customers to the ones that have this specific email address.")] = None,
         city: Annotated[Optional[StrictStr], Field(description="Limit the customers to the ones that are located in the specified city.")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter customers by the name property.")] = None,
@@ -2655,7 +2656,7 @@ class CustomersApi:
 
         :param limit: Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.
         :type limit: int
-        :param page: Which page of results to return. The lowest value is 1.
+        :param page: Which page of results to return. The lowest value is 1, the highest value is 99.
         :type page: int
         :param email: Limit the customers to the ones that have this specific email address.
         :type email: str

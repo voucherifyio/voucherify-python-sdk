@@ -35,7 +35,9 @@ class FilterConditionsString(BaseModel):
     is_unknown: Optional[StrictStr] = Field(default=None, description="Value is null. The value for this parameter is an empty string.", alias="$is_unknown")
     starts_with: Optional[StrictStr] = Field(default=None, description="Value starts with the specified string.", alias="$starts_with")
     ends_with: Optional[StrictStr] = Field(default=None, description="Value ends with the specified string.", alias="$ends_with")
-    __properties: ClassVar[List[str]] = ["$in", "$not_in", "$is", "$is_not", "$has_value", "$is_unknown", "$starts_with", "$ends_with"]
+    contains: Optional[StrictStr] = Field(default=None, description="Value includes the specified string.", alias="$contains")
+    not_contain: Optional[StrictStr] = Field(default=None, description="Value does NOT include the specified string.", alias="$not_contain")
+    __properties: ClassVar[List[str]] = ["$in", "$not_in", "$is", "$is_not", "$has_value", "$is_unknown", "$starts_with", "$ends_with", "$contains", "$not_contain"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -116,6 +118,16 @@ class FilterConditionsString(BaseModel):
         if self.ends_with is None and "ends_with" in self.model_fields_set:
             _dict['$ends_with'] = None
 
+        # set to None if contains (nullable) is None
+        # and model_fields_set contains the field
+        if self.contains is None and "contains" in self.model_fields_set:
+            _dict['$contains'] = None
+
+        # set to None if not_contain (nullable) is None
+        # and model_fields_set contains the field
+        if self.not_contain is None and "not_contain" in self.model_fields_set:
+            _dict['$not_contain'] = None
+
         return _dict
 
     @classmethod
@@ -135,7 +147,9 @@ class FilterConditionsString(BaseModel):
             "$has_value": obj.get("$has_value"),
             "$is_unknown": obj.get("$is_unknown"),
             "$starts_with": obj.get("$starts_with"),
-            "$ends_with": obj.get("$ends_with")
+            "$ends_with": obj.get("$ends_with"),
+            "$contains": obj.get("$contains"),
+            "$not_contain": obj.get("$not_contain")
         })
         return _obj
 

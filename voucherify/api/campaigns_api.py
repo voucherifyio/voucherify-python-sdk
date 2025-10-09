@@ -17,6 +17,7 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
+from datetime import date
 from pydantic import Field, StrictBool, StrictBytes, StrictInt, StrictStr
 from typing import Any, Dict, List, Optional, Union
 from typing_extensions import Annotated
@@ -28,16 +29,24 @@ from voucherify.models.campaigns_import_create_response_body import CampaignsImp
 from voucherify.models.campaigns_import_csv_create_response_body import CampaignsImportCsvCreateResponseBody
 from voucherify.models.campaigns_import_voucher_item import CampaignsImportVoucherItem
 from voucherify.models.campaigns_list_response_body import CampaignsListResponseBody
+from voucherify.models.campaigns_summary_get_response_body import CampaignsSummaryGetResponseBody
+from voucherify.models.campaigns_transactions_export_create_request_body import CampaignsTransactionsExportCreateRequestBody
+from voucherify.models.campaigns_transactions_export_create_response_body import CampaignsTransactionsExportCreateResponseBody
+from voucherify.models.campaigns_transactions_list_response_body import CampaignsTransactionsListResponseBody
 from voucherify.models.campaigns_update_request_body import CampaignsUpdateRequestBody
 from voucherify.models.campaigns_update_response_body import CampaignsUpdateResponseBody
 from voucherify.models.campaigns_vouchers_create_combined_response_body import CampaignsVouchersCreateCombinedResponseBody
 from voucherify.models.campaigns_vouchers_create_in_bulk_request_body import CampaignsVouchersCreateInBulkRequestBody
 from voucherify.models.campaigns_vouchers_create_request_body import CampaignsVouchersCreateRequestBody
 from voucherify.models.campaigns_vouchers_create_response_body import CampaignsVouchersCreateResponseBody
+from voucherify.models.parameter_campaign_status_list_campaigns import ParameterCampaignStatusListCampaigns
 from voucherify.models.parameter_campaign_type import ParameterCampaignType
+from voucherify.models.parameter_campaigns_access_setttings import ParameterCampaignsAccessSetttings
 from voucherify.models.parameter_expand_list_campaigns import ParameterExpandListCampaigns
 from voucherify.models.parameter_filters_list_campaigns import ParameterFiltersListCampaigns
 from voucherify.models.parameter_order_list_campaigns import ParameterOrderListCampaigns
+from voucherify.models.parameter_order_list_transactions import ParameterOrderListTransactions
+from voucherify.models.parameters_filters_list_campaign_transactions import ParametersFiltersListCampaignTransactions
 
 from voucherify.api_client import ApiClient, RequestSerialized
 from voucherify.api_response import ApiResponse
@@ -684,7 +693,7 @@ class CampaignsApi:
     ) -> CampaignsCreateResponseBody:
         """Create Campaign
 
-        Method to create a batch of vouchers aggregated in one campaign. You can choose a variety of voucher types and define a unique pattern for generating codes.    📘 Global uniqueness  All campaign codes are unique across the whole project. Voucherify will not allow you to generate 2 campaigns with the same coupon code.    🚧 Code generation status  This is an asynchronous action; you cant read or modify a newly created campaign until the code generation is completed. See the creation_status field in the campaign object description. 🚧 Standalone Vouchers and Campaigns In version [v20241004](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004), standalone vouchers created through the Voucherify dashboard create a campaign for that voucher. However, you cannot create a standalone discount or gift voucher campaign with the type: STANDALONE through the API. Voucherify developers work on adding that feature. Follow the [Voucherify Release Notes](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004) for more details about released features.
+        Method to create a batch of vouchers aggregated in one campaign. You can choose a variety of voucher types and define a unique pattern for generating codes.    📘 Global uniqueness  All campaign codes are unique across the whole project. Voucherify will not allow you to generate 2 campaigns with the same coupon code.    🚧 Code generation status  This is an asynchronous action; you cant read or modify a newly created campaign until the code generation is completed. See the creation_status field in the campaign object description. 🚧 Standalone Vouchers and Campaigns In version [v20241004](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004), generic (standalone) voucherss created through the Voucherify dashboard create a campaign for that voucher. However, you cannot create a standalone discount or gift voucher campaign with the type: STANDALONE through the API. Voucherify developers work on adding that feature. Follow the [Voucherify Release Notes](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004) for more details about released features.
 
         :param campaigns_create_request_body: Specify the details of the campaign that you would like to create.
         :type campaigns_create_request_body: CampaignsCreateRequestBody
@@ -751,7 +760,7 @@ class CampaignsApi:
     ) -> ApiResponse[CampaignsCreateResponseBody]:
         """Create Campaign
 
-        Method to create a batch of vouchers aggregated in one campaign. You can choose a variety of voucher types and define a unique pattern for generating codes.    📘 Global uniqueness  All campaign codes are unique across the whole project. Voucherify will not allow you to generate 2 campaigns with the same coupon code.    🚧 Code generation status  This is an asynchronous action; you cant read or modify a newly created campaign until the code generation is completed. See the creation_status field in the campaign object description. 🚧 Standalone Vouchers and Campaigns In version [v20241004](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004), standalone vouchers created through the Voucherify dashboard create a campaign for that voucher. However, you cannot create a standalone discount or gift voucher campaign with the type: STANDALONE through the API. Voucherify developers work on adding that feature. Follow the [Voucherify Release Notes](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004) for more details about released features.
+        Method to create a batch of vouchers aggregated in one campaign. You can choose a variety of voucher types and define a unique pattern for generating codes.    📘 Global uniqueness  All campaign codes are unique across the whole project. Voucherify will not allow you to generate 2 campaigns with the same coupon code.    🚧 Code generation status  This is an asynchronous action; you cant read or modify a newly created campaign until the code generation is completed. See the creation_status field in the campaign object description. 🚧 Standalone Vouchers and Campaigns In version [v20241004](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004), generic (standalone) voucherss created through the Voucherify dashboard create a campaign for that voucher. However, you cannot create a standalone discount or gift voucher campaign with the type: STANDALONE through the API. Voucherify developers work on adding that feature. Follow the [Voucherify Release Notes](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004) for more details about released features.
 
         :param campaigns_create_request_body: Specify the details of the campaign that you would like to create.
         :type campaigns_create_request_body: CampaignsCreateRequestBody
@@ -818,7 +827,7 @@ class CampaignsApi:
     ) -> RESTResponseType:
         """Create Campaign
 
-        Method to create a batch of vouchers aggregated in one campaign. You can choose a variety of voucher types and define a unique pattern for generating codes.    📘 Global uniqueness  All campaign codes are unique across the whole project. Voucherify will not allow you to generate 2 campaigns with the same coupon code.    🚧 Code generation status  This is an asynchronous action; you cant read or modify a newly created campaign until the code generation is completed. See the creation_status field in the campaign object description. 🚧 Standalone Vouchers and Campaigns In version [v20241004](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004), standalone vouchers created through the Voucherify dashboard create a campaign for that voucher. However, you cannot create a standalone discount or gift voucher campaign with the type: STANDALONE through the API. Voucherify developers work on adding that feature. Follow the [Voucherify Release Notes](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004) for more details about released features.
+        Method to create a batch of vouchers aggregated in one campaign. You can choose a variety of voucher types and define a unique pattern for generating codes.    📘 Global uniqueness  All campaign codes are unique across the whole project. Voucherify will not allow you to generate 2 campaigns with the same coupon code.    🚧 Code generation status  This is an asynchronous action; you cant read or modify a newly created campaign until the code generation is completed. See the creation_status field in the campaign object description. 🚧 Standalone Vouchers and Campaigns In version [v20241004](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004), generic (standalone) voucherss created through the Voucherify dashboard create a campaign for that voucher. However, you cannot create a standalone discount or gift voucher campaign with the type: STANDALONE through the API. Voucherify developers work on adding that feature. Follow the [Voucherify Release Notes](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20241004) for more details about released features.
 
         :param campaigns_create_request_body: Specify the details of the campaign that you would like to create.
         :type campaigns_create_request_body: CampaignsCreateRequestBody
@@ -1736,6 +1745,294 @@ class CampaignsApi:
 
 
     @validate_call
+    def export_campaign_transactions(
+        self,
+        campaign_id: Annotated[StrictStr, Field(description="You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.")],
+        campaigns_transactions_export_create_request_body: Annotated[Optional[CampaignsTransactionsExportCreateRequestBody], Field(description="Specify the parameters for the transaction export.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> CampaignsTransactionsExportCreateResponseBody:
+        """Export Campaign Transactions
+
+        Export transactions is an asynchronous process that generates a CSV file with the data about credit movements on all gift cards or point movements on all loyalty cards in a given campaign. To export transactions: 1. In the export request, use parameters to select which fields will be exported, in what order, and which data will be filtered. 2. Use the returned id to track the export status with the GET Export method. 3. In the GET Export method, when the returned status field has the DONE value, the export file has been generated. 4. Use the URL in the result property to download the file. You must be logged to your Voucherify account on a given cluster in the browser to be able to download the file. An export request will almost always result in a single file being generated by the system. However, when the data volume is large, the system may split the results into multiple files. An example export file can look as follows:    👍 Export Loyalty Campaign Transactions  For loyalty campaigns, this method works in the same way the POST Export Loyalty Campaign Transactions does.
+
+        :param campaign_id: You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. (required)
+        :type campaign_id: str
+        :param campaigns_transactions_export_create_request_body: Specify the parameters for the transaction export.
+        :type campaigns_transactions_export_create_request_body: CampaignsTransactionsExportCreateRequestBody
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._export_campaign_transactions_serialize(
+            campaign_id=campaign_id,
+            campaigns_transactions_export_create_request_body=campaigns_transactions_export_create_request_body,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "CampaignsTransactionsExportCreateResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def export_campaign_transactions_with_http_info(
+        self,
+        campaign_id: Annotated[StrictStr, Field(description="You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.")],
+        campaigns_transactions_export_create_request_body: Annotated[Optional[CampaignsTransactionsExportCreateRequestBody], Field(description="Specify the parameters for the transaction export.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[CampaignsTransactionsExportCreateResponseBody]:
+        """Export Campaign Transactions
+
+        Export transactions is an asynchronous process that generates a CSV file with the data about credit movements on all gift cards or point movements on all loyalty cards in a given campaign. To export transactions: 1. In the export request, use parameters to select which fields will be exported, in what order, and which data will be filtered. 2. Use the returned id to track the export status with the GET Export method. 3. In the GET Export method, when the returned status field has the DONE value, the export file has been generated. 4. Use the URL in the result property to download the file. You must be logged to your Voucherify account on a given cluster in the browser to be able to download the file. An export request will almost always result in a single file being generated by the system. However, when the data volume is large, the system may split the results into multiple files. An example export file can look as follows:    👍 Export Loyalty Campaign Transactions  For loyalty campaigns, this method works in the same way the POST Export Loyalty Campaign Transactions does.
+
+        :param campaign_id: You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. (required)
+        :type campaign_id: str
+        :param campaigns_transactions_export_create_request_body: Specify the parameters for the transaction export.
+        :type campaigns_transactions_export_create_request_body: CampaignsTransactionsExportCreateRequestBody
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._export_campaign_transactions_serialize(
+            campaign_id=campaign_id,
+            campaigns_transactions_export_create_request_body=campaigns_transactions_export_create_request_body,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "CampaignsTransactionsExportCreateResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def export_campaign_transactions_without_preload_content(
+        self,
+        campaign_id: Annotated[StrictStr, Field(description="You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.")],
+        campaigns_transactions_export_create_request_body: Annotated[Optional[CampaignsTransactionsExportCreateRequestBody], Field(description="Specify the parameters for the transaction export.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Export Campaign Transactions
+
+        Export transactions is an asynchronous process that generates a CSV file with the data about credit movements on all gift cards or point movements on all loyalty cards in a given campaign. To export transactions: 1. In the export request, use parameters to select which fields will be exported, in what order, and which data will be filtered. 2. Use the returned id to track the export status with the GET Export method. 3. In the GET Export method, when the returned status field has the DONE value, the export file has been generated. 4. Use the URL in the result property to download the file. You must be logged to your Voucherify account on a given cluster in the browser to be able to download the file. An export request will almost always result in a single file being generated by the system. However, when the data volume is large, the system may split the results into multiple files. An example export file can look as follows:    👍 Export Loyalty Campaign Transactions  For loyalty campaigns, this method works in the same way the POST Export Loyalty Campaign Transactions does.
+
+        :param campaign_id: You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. (required)
+        :type campaign_id: str
+        :param campaigns_transactions_export_create_request_body: Specify the parameters for the transaction export.
+        :type campaigns_transactions_export_create_request_body: CampaignsTransactionsExportCreateRequestBody
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._export_campaign_transactions_serialize(
+            campaign_id=campaign_id,
+            campaigns_transactions_export_create_request_body=campaigns_transactions_export_create_request_body,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "CampaignsTransactionsExportCreateResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _export_campaign_transactions_serialize(
+        self,
+        campaign_id,
+        campaigns_transactions_export_create_request_body,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[str, Union[str, bytes]] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if campaign_id is not None:
+            _path_params['campaignId'] = campaign_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if campaigns_transactions_export_create_request_body is not None:
+            _body_params = campaigns_transactions_export_create_request_body
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'X-App-Id', 
+            'X-App-Token'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/v1/campaigns/{campaignId}/transactions/export',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def get_campaign(
         self,
         campaign_id: Annotated[StrictStr, Field(description="You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.")],
@@ -1980,6 +2277,318 @@ class CampaignsApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/v1/campaigns/{campaignId}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_campaign_summary(
+        self,
+        campaign_id: Annotated[StrictStr, Field(description="You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.")],
+        start_date: Annotated[Optional[date], Field(description="Timestamp representing the date which results must begin on. Represented in ISO 8601 format.")] = None,
+        end_date: Annotated[Optional[date], Field(description="Timestamp representing the date which results must end on. Represented in ISO 8601 format.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> CampaignsSummaryGetResponseBody:
+        """Get Campaign Summary
+
+        Returns data for campaign analytics, covering validations, redemptions, publications, and other details specific to a given campaign type. Use start_date and end_date to narrow down the data to specific periods. 🚧 Campaigns created before v20250602 version This endpoint returns analytics data for campaigns that were created after the [v20250602 version](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20250602) was released on 17 June 2025. Older campaigns return empty data.
+
+        :param campaign_id: You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. (required)
+        :type campaign_id: str
+        :param start_date: Timestamp representing the date which results must begin on. Represented in ISO 8601 format.
+        :type start_date: date
+        :param end_date: Timestamp representing the date which results must end on. Represented in ISO 8601 format.
+        :type end_date: date
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_campaign_summary_serialize(
+            campaign_id=campaign_id,
+            start_date=start_date,
+            end_date=end_date,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "CampaignsSummaryGetResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_campaign_summary_with_http_info(
+        self,
+        campaign_id: Annotated[StrictStr, Field(description="You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.")],
+        start_date: Annotated[Optional[date], Field(description="Timestamp representing the date which results must begin on. Represented in ISO 8601 format.")] = None,
+        end_date: Annotated[Optional[date], Field(description="Timestamp representing the date which results must end on. Represented in ISO 8601 format.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[CampaignsSummaryGetResponseBody]:
+        """Get Campaign Summary
+
+        Returns data for campaign analytics, covering validations, redemptions, publications, and other details specific to a given campaign type. Use start_date and end_date to narrow down the data to specific periods. 🚧 Campaigns created before v20250602 version This endpoint returns analytics data for campaigns that were created after the [v20250602 version](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20250602) was released on 17 June 2025. Older campaigns return empty data.
+
+        :param campaign_id: You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. (required)
+        :type campaign_id: str
+        :param start_date: Timestamp representing the date which results must begin on. Represented in ISO 8601 format.
+        :type start_date: date
+        :param end_date: Timestamp representing the date which results must end on. Represented in ISO 8601 format.
+        :type end_date: date
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_campaign_summary_serialize(
+            campaign_id=campaign_id,
+            start_date=start_date,
+            end_date=end_date,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "CampaignsSummaryGetResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_campaign_summary_without_preload_content(
+        self,
+        campaign_id: Annotated[StrictStr, Field(description="You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.")],
+        start_date: Annotated[Optional[date], Field(description="Timestamp representing the date which results must begin on. Represented in ISO 8601 format.")] = None,
+        end_date: Annotated[Optional[date], Field(description="Timestamp representing the date which results must end on. Represented in ISO 8601 format.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get Campaign Summary
+
+        Returns data for campaign analytics, covering validations, redemptions, publications, and other details specific to a given campaign type. Use start_date and end_date to narrow down the data to specific periods. 🚧 Campaigns created before v20250602 version This endpoint returns analytics data for campaigns that were created after the [v20250602 version](https://support.voucherify.io/article/23-whats-new-in-voucherify#v20250602) was released on 17 June 2025. Older campaigns return empty data.
+
+        :param campaign_id: You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. (required)
+        :type campaign_id: str
+        :param start_date: Timestamp representing the date which results must begin on. Represented in ISO 8601 format.
+        :type start_date: date
+        :param end_date: Timestamp representing the date which results must end on. Represented in ISO 8601 format.
+        :type end_date: date
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_campaign_summary_serialize(
+            campaign_id=campaign_id,
+            start_date=start_date,
+            end_date=end_date,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "CampaignsSummaryGetResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_campaign_summary_serialize(
+        self,
+        campaign_id,
+        start_date,
+        end_date,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[str, Union[str, bytes]] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if campaign_id is not None:
+            _path_params['campaignId'] = campaign_id
+        # process the query parameters
+        if start_date is not None:
+            if isinstance(start_date, date):
+                _query_params.append(
+                    (
+                        'start_date',
+                        start_date.strftime(
+                            self.api_client.configuration.date_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('start_date', start_date))
+            
+        if end_date is not None:
+            if isinstance(end_date, date):
+                _query_params.append(
+                    (
+                        'end_date',
+                        end_date.strftime(
+                            self.api_client.configuration.date_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('end_date', end_date))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'X-App-Id', 
+            'X-App-Token'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v1/campaigns/{campaignId}/summary',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -2573,14 +3182,345 @@ class CampaignsApi:
 
 
     @validate_call
+    def list_campaign_transactions(
+        self,
+        campaign_id: Annotated[StrictStr, Field(description="You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.")],
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
+        order: Annotated[Optional[ParameterOrderListTransactions], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
+        starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.")] = None,
+        filters: Annotated[Optional[ParametersFiltersListCampaignTransactions], Field(description="Filters for listing responses.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> CampaignsTransactionsListResponseBody:
+        """List Campaign Transactions
+
+        Retrieves all transactions for the campaign with the given campaign ID or campaign name. The id filter denotes the unique transaction identifier.  🚧  The endpoint works only for gift card and loyalty campaigns.
+
+        :param campaign_id: You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. (required)
+        :type campaign_id: str
+        :param limit: Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.
+        :type limit: int
+        :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
+        :type order: ParameterOrderListTransactions
+        :param starting_after_id: A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.
+        :type starting_after_id: str
+        :param filters: Filters for listing responses.
+        :type filters: ParametersFiltersListCampaignTransactions
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_campaign_transactions_serialize(
+            campaign_id=campaign_id,
+            limit=limit,
+            order=order,
+            starting_after_id=starting_after_id,
+            filters=filters,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "CampaignsTransactionsListResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def list_campaign_transactions_with_http_info(
+        self,
+        campaign_id: Annotated[StrictStr, Field(description="You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.")],
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
+        order: Annotated[Optional[ParameterOrderListTransactions], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
+        starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.")] = None,
+        filters: Annotated[Optional[ParametersFiltersListCampaignTransactions], Field(description="Filters for listing responses.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[CampaignsTransactionsListResponseBody]:
+        """List Campaign Transactions
+
+        Retrieves all transactions for the campaign with the given campaign ID or campaign name. The id filter denotes the unique transaction identifier.  🚧  The endpoint works only for gift card and loyalty campaigns.
+
+        :param campaign_id: You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. (required)
+        :type campaign_id: str
+        :param limit: Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.
+        :type limit: int
+        :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
+        :type order: ParameterOrderListTransactions
+        :param starting_after_id: A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.
+        :type starting_after_id: str
+        :param filters: Filters for listing responses.
+        :type filters: ParametersFiltersListCampaignTransactions
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_campaign_transactions_serialize(
+            campaign_id=campaign_id,
+            limit=limit,
+            order=order,
+            starting_after_id=starting_after_id,
+            filters=filters,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "CampaignsTransactionsListResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def list_campaign_transactions_without_preload_content(
+        self,
+        campaign_id: Annotated[StrictStr, Field(description="You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value.")],
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
+        order: Annotated[Optional[ParameterOrderListTransactions], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
+        starting_after_id: Annotated[Optional[StrictStr], Field(description="A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.")] = None,
+        filters: Annotated[Optional[ParametersFiltersListCampaignTransactions], Field(description="Filters for listing responses.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List Campaign Transactions
+
+        Retrieves all transactions for the campaign with the given campaign ID or campaign name. The id filter denotes the unique transaction identifier.  🚧  The endpoint works only for gift card and loyalty campaigns.
+
+        :param campaign_id: You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. (required)
+        :type campaign_id: str
+        :param limit: Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.
+        :type limit: int
+        :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
+        :type order: ParameterOrderListTransactions
+        :param starting_after_id: A cursor for pagination. It retrieves the transactions starting after a transaction with the given ID.
+        :type starting_after_id: str
+        :param filters: Filters for listing responses.
+        :type filters: ParametersFiltersListCampaignTransactions
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_campaign_transactions_serialize(
+            campaign_id=campaign_id,
+            limit=limit,
+            order=order,
+            starting_after_id=starting_after_id,
+            filters=filters,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '2XX': "CampaignsTransactionsListResponseBody",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _list_campaign_transactions_serialize(
+        self,
+        campaign_id,
+        limit,
+        order,
+        starting_after_id,
+        filters,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[str, Union[str, bytes]] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if campaign_id is not None:
+            _path_params['campaignId'] = campaign_id
+        # process the query parameters
+        if limit is not None:
+            
+            _query_params.append(('limit', limit))
+            
+        if order is not None:
+            
+            _query_params.append(('order', order.value))
+            
+        if starting_after_id is not None:
+            
+            _query_params.append(('starting_after_id', starting_after_id))
+            
+        if filters is not None:
+            
+            _query_params.append(('filters', filters))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'X-App-Id', 
+            'X-App-Token'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v1/campaigns/{campaignId}/transactions',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def list_campaigns(
         self,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
         page: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1.")] = None,
         campaign_type: Annotated[Optional[ParameterCampaignType], Field(description="This attribute allows filtering by campaign type.")] = None,
         expand: Annotated[Optional[ParameterExpandListCampaigns], Field(description="Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.")] = None,
+        campaign_status: Annotated[Optional[ParameterCampaignStatusListCampaigns], Field(description="Sorts the results by the status of the campaign.")] = None,
+        is_referral_code: Annotated[Optional[StrictBool], Field(description="Sorts the results that are or are not referral campaigns.")] = None,
         order: Annotated[Optional[ParameterOrderListCampaigns], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
-        filters: Annotated[Optional[ParameterFiltersListCampaigns], Field(description="Filters the results by campaign status or whether the campaign is a referral campaign.")] = None,
+        filters: Annotated[Optional[ParameterFiltersListCampaigns], Field(description="Filters the results by various campaign properties.")] = None,
+        access_settings: Annotated[Optional[ParameterCampaignsAccessSetttings], Field(description="Filter by areas and stores IDs to return campaigns that are assigned to areas, stores, and all stores in an area.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2606,10 +3546,16 @@ class CampaignsApi:
         :type campaign_type: ParameterCampaignType
         :param expand: Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.
         :type expand: ParameterExpandListCampaigns
+        :param campaign_status: Sorts the results by the status of the campaign.
+        :type campaign_status: ParameterCampaignStatusListCampaigns
+        :param is_referral_code: Sorts the results that are or are not referral campaigns.
+        :type is_referral_code: bool
         :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListCampaigns
-        :param filters: Filters the results by campaign status or whether the campaign is a referral campaign.
+        :param filters: Filters the results by various campaign properties.
         :type filters: ParameterFiltersListCampaigns
+        :param access_settings: Filter by areas and stores IDs to return campaigns that are assigned to areas, stores, and all stores in an area.
+        :type access_settings: ParameterCampaignsAccessSetttings
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2637,8 +3583,11 @@ class CampaignsApi:
             page=page,
             campaign_type=campaign_type,
             expand=expand,
+            campaign_status=campaign_status,
+            is_referral_code=is_referral_code,
             order=order,
             filters=filters,
+            access_settings=access_settings,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2666,8 +3615,11 @@ class CampaignsApi:
         page: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1.")] = None,
         campaign_type: Annotated[Optional[ParameterCampaignType], Field(description="This attribute allows filtering by campaign type.")] = None,
         expand: Annotated[Optional[ParameterExpandListCampaigns], Field(description="Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.")] = None,
+        campaign_status: Annotated[Optional[ParameterCampaignStatusListCampaigns], Field(description="Sorts the results by the status of the campaign.")] = None,
+        is_referral_code: Annotated[Optional[StrictBool], Field(description="Sorts the results that are or are not referral campaigns.")] = None,
         order: Annotated[Optional[ParameterOrderListCampaigns], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
-        filters: Annotated[Optional[ParameterFiltersListCampaigns], Field(description="Filters the results by campaign status or whether the campaign is a referral campaign.")] = None,
+        filters: Annotated[Optional[ParameterFiltersListCampaigns], Field(description="Filters the results by various campaign properties.")] = None,
+        access_settings: Annotated[Optional[ParameterCampaignsAccessSetttings], Field(description="Filter by areas and stores IDs to return campaigns that are assigned to areas, stores, and all stores in an area.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2693,10 +3645,16 @@ class CampaignsApi:
         :type campaign_type: ParameterCampaignType
         :param expand: Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.
         :type expand: ParameterExpandListCampaigns
+        :param campaign_status: Sorts the results by the status of the campaign.
+        :type campaign_status: ParameterCampaignStatusListCampaigns
+        :param is_referral_code: Sorts the results that are or are not referral campaigns.
+        :type is_referral_code: bool
         :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListCampaigns
-        :param filters: Filters the results by campaign status or whether the campaign is a referral campaign.
+        :param filters: Filters the results by various campaign properties.
         :type filters: ParameterFiltersListCampaigns
+        :param access_settings: Filter by areas and stores IDs to return campaigns that are assigned to areas, stores, and all stores in an area.
+        :type access_settings: ParameterCampaignsAccessSetttings
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2724,8 +3682,11 @@ class CampaignsApi:
             page=page,
             campaign_type=campaign_type,
             expand=expand,
+            campaign_status=campaign_status,
+            is_referral_code=is_referral_code,
             order=order,
             filters=filters,
+            access_settings=access_settings,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2753,8 +3714,11 @@ class CampaignsApi:
         page: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1.")] = None,
         campaign_type: Annotated[Optional[ParameterCampaignType], Field(description="This attribute allows filtering by campaign type.")] = None,
         expand: Annotated[Optional[ParameterExpandListCampaigns], Field(description="Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.")] = None,
+        campaign_status: Annotated[Optional[ParameterCampaignStatusListCampaigns], Field(description="Sorts the results by the status of the campaign.")] = None,
+        is_referral_code: Annotated[Optional[StrictBool], Field(description="Sorts the results that are or are not referral campaigns.")] = None,
         order: Annotated[Optional[ParameterOrderListCampaigns], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
-        filters: Annotated[Optional[ParameterFiltersListCampaigns], Field(description="Filters the results by campaign status or whether the campaign is a referral campaign.")] = None,
+        filters: Annotated[Optional[ParameterFiltersListCampaigns], Field(description="Filters the results by various campaign properties.")] = None,
+        access_settings: Annotated[Optional[ParameterCampaignsAccessSetttings], Field(description="Filter by areas and stores IDs to return campaigns that are assigned to areas, stores, and all stores in an area.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2780,10 +3744,16 @@ class CampaignsApi:
         :type campaign_type: ParameterCampaignType
         :param expand: Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.
         :type expand: ParameterExpandListCampaigns
+        :param campaign_status: Sorts the results by the status of the campaign.
+        :type campaign_status: ParameterCampaignStatusListCampaigns
+        :param is_referral_code: Sorts the results that are or are not referral campaigns.
+        :type is_referral_code: bool
         :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListCampaigns
-        :param filters: Filters the results by campaign status or whether the campaign is a referral campaign.
+        :param filters: Filters the results by various campaign properties.
         :type filters: ParameterFiltersListCampaigns
+        :param access_settings: Filter by areas and stores IDs to return campaigns that are assigned to areas, stores, and all stores in an area.
+        :type access_settings: ParameterCampaignsAccessSetttings
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2811,8 +3781,11 @@ class CampaignsApi:
             page=page,
             campaign_type=campaign_type,
             expand=expand,
+            campaign_status=campaign_status,
+            is_referral_code=is_referral_code,
             order=order,
             filters=filters,
+            access_settings=access_settings,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2835,8 +3808,11 @@ class CampaignsApi:
         page,
         campaign_type,
         expand,
+        campaign_status,
+        is_referral_code,
         order,
         filters,
+        access_settings,
         _request_auth,
         _content_type,
         _headers,
@@ -2873,6 +3849,14 @@ class CampaignsApi:
             
             _query_params.append(('expand', expand.value))
             
+        if campaign_status is not None:
+            
+            _query_params.append(('campaign_status', campaign_status.value))
+            
+        if is_referral_code is not None:
+            
+            _query_params.append(('is_referral_code', is_referral_code))
+            
         if order is not None:
             
             _query_params.append(('order', order.value))
@@ -2880,6 +3864,10 @@ class CampaignsApi:
         if filters is not None:
             
             _query_params.append(('filters', filters))
+            
+        if access_settings is not None:
+            
+            _query_params.append(('access_settings', access_settings))
             
         # process the header parameters
         # process the form parameters

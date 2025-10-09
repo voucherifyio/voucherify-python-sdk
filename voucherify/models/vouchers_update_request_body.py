@@ -22,8 +22,6 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from voucherify.models.discount import Discount
-from voucherify.models.gift import Gift
-from voucherify.models.simple_loyalty_card import SimpleLoyaltyCard
 from voucherify.models.validity_hours import ValidityHours
 from voucherify.models.validity_timeframe import ValidityTimeframe
 from typing import Optional, Set
@@ -43,11 +41,9 @@ class VouchersUpdateRequestBody(BaseModel):
     active: Optional[StrictBool] = Field(default=None, description="A flag to toggle the voucher on or off. You can disable a voucher even though it's within the active period defined by the `start_date` and `expiration_date`.    - `true` indicates an *active* voucher - `false` indicates an *inactive* voucher")
     additional_info: Optional[StrictStr] = Field(default=None, description="An optional field to keep any extra textual information about the code such as a code description and details.")
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the code. A set of key/value pairs that you can attach to a voucher object. It can be useful for storing additional information about the voucher in a structured format.")
-    type: Optional[StrictStr] = None
-    loyalty_card: Optional[SimpleLoyaltyCard] = None
-    gift: Optional[Gift] = None
+    type: Optional[StrictStr] = Field(default='DISCOUNT_VOUCHER', description="Defines the type of the voucher. ")
     discount: Optional[Discount] = None
-    __properties: ClassVar[List[str]] = ["category", "category_id", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "active", "additional_info", "metadata", "type", "loyalty_card", "gift", "discount"]
+    __properties: ClassVar[List[str]] = ["category", "category_id", "start_date", "expiration_date", "validity_timeframe", "validity_day_of_week", "validity_hours", "active", "additional_info", "metadata", "type", "discount"]
 
     @field_validator('validity_day_of_week')
     def validity_day_of_week_validate_enum(cls, value):
@@ -66,8 +62,8 @@ class VouchersUpdateRequestBody(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['LOYALTY_CARD', 'GIFT_VOUCHER', 'DISCOUNT_VOUCHER']):
-            raise ValueError("must be one of enum values ('LOYALTY_CARD', 'GIFT_VOUCHER', 'DISCOUNT_VOUCHER')")
+        if value not in set(['DISCOUNT_VOUCHER']):
+            raise ValueError("must be one of enum values ('DISCOUNT_VOUCHER')")
         return value
 
     model_config = ConfigDict(
@@ -115,12 +111,6 @@ class VouchersUpdateRequestBody(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of validity_hours
         if self.validity_hours:
             _dict['validity_hours'] = self.validity_hours.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of loyalty_card
-        if self.loyalty_card:
-            _dict['loyalty_card'] = self.loyalty_card.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of gift
-        if self.gift:
-            _dict['gift'] = self.gift.to_dict()
         # override the default output from pydantic by calling `to_dict()` of discount
         if self.discount:
             _dict['discount'] = self.discount.to_dict()
@@ -186,9 +176,7 @@ class VouchersUpdateRequestBody(BaseModel):
             "active": obj.get("active"),
             "additional_info": obj.get("additional_info"),
             "metadata": obj.get("metadata"),
-            "type": obj.get("type"),
-            "loyalty_card": SimpleLoyaltyCard.from_dict(obj["loyalty_card"]) if obj.get("loyalty_card") is not None else None,
-            "gift": Gift.from_dict(obj["gift"]) if obj.get("gift") is not None else None,
+            "type": obj.get("type") if obj.get("type") is not None else 'DISCOUNT_VOUCHER',
             "discount": Discount.from_dict(obj["discount"]) if obj.get("discount") is not None else None
         })
         return _obj

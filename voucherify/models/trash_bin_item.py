@@ -34,7 +34,7 @@ class TrashBinItem(BaseModel):
     resource_id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the resource moved to the bin, i.e. an ID of a campaign, product, SKU, or voucher.")
     resource_type: Optional[StrictStr] = Field(default=None, description="Type of the resource moved to the bin.")
     resource_name: Optional[StrictStr] = Field(default=None, description="Name of the resouce moved to the bin. It is the name of the campaign, product or SKU, or the voucher code.")
-    resource_parent_id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the parent resource. For a voucher, it is a campaign ID, except for standalone vouchers. For an SKU, it is the product ID. It returns `null` for campaigns and base products.")
+    resource_parent_id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the parent resource. For a voucher, it is a campaign ID, except for generic (standalone) voucherss. For an SKU, it is the product ID. It returns `null` for campaigns and base products.")
     object: Optional[StrictStr] = Field(default=None, description="The type of the object represented by JSON. It is equal to the `resource_type`.")
     __properties: ClassVar[List[str]] = ["id", "created_at", "deleted_by_user_id", "resource_id", "resource_type", "resource_name", "resource_parent_id", "object"]
 

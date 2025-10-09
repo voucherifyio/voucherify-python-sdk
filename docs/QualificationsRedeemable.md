@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **object** | **str** | Object type of the redeemable. | [optional] 
 **created_at** | **datetime** | Timestamp representing the date and time when the object was created. The value is shown in the ISO 8601 format. | [optional] 
 **result** | [**RedeemableResult**](RedeemableResult.md) |  | [optional] 
-**order** | [**OrderCalculated**](OrderCalculated.md) |  | [optional] 
+**order** | [**QualificationsRedeemableOrder**](QualificationsRedeemableOrder.md) |  | [optional] 
 **validation_rule_id** | **str** | A unique validation rule identifier assigned by the Voucherify API. The validation rule is verified before points are added to the balance. | [optional] 
 **applicable_to** | [**ApplicableToResultList**](ApplicableToResultList.md) |  | [optional] 
 **inapplicable_to** | [**InapplicableToResultList**](InapplicableToResultList.md) |  | [optional] 

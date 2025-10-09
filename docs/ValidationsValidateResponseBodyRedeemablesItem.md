@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **status** | **str** |  | [optional] 
 **id** | **str** | Redeemable ID, i.e. the voucher code. | [optional] 
 **object** | **str** | Redeemable&#39;s object type. | [optional] 
-**order** | [**OrderCalculated**](OrderCalculated.md) |  | [optional] 
+**order** | [**ValidationsValidateResponseBodyRedeemablesItemOrder**](ValidationsValidateResponseBodyRedeemablesItemOrder.md) |  | [optional] 
 **applicable_to** | [**ApplicableToResultList**](ApplicableToResultList.md) |  | [optional] 
 **inapplicable_to** | [**InapplicableToResultList**](InapplicableToResultList.md) |  | [optional] 
 **result** | [**ValidationsValidateResponseBodyRedeemablesItemResult**](ValidationsValidateResponseBodyRedeemablesItemResult.md) |  | [optional] 

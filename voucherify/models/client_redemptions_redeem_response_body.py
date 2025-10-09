@@ -20,7 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
-from voucherify.models.order_calculated import OrderCalculated
+from voucherify.models.client_redemptions_redeem_response_body_order import ClientRedemptionsRedeemResponseBodyOrder
 from voucherify.models.redemption import Redemption
 from voucherify.models.validations_redeemable_inapplicable import ValidationsRedeemableInapplicable
 from voucherify.models.validations_redeemable_skipped import ValidationsRedeemableSkipped
@@ -33,7 +33,7 @@ class ClientRedemptionsRedeemResponseBody(BaseModel):
     """ # noqa: E501
     redemptions: Optional[List[Redemption]] = None
     parent_redemption: Optional[Redemption] = None
-    order: Optional[OrderCalculated] = None
+    order: Optional[ClientRedemptionsRedeemResponseBodyOrder] = None
     inapplicable_redeemables: Optional[List[ValidationsRedeemableInapplicable]] = Field(default=None, description="Lists validation results of each inapplicable redeemable.")
     skipped_redeemables: Optional[List[ValidationsRedeemableSkipped]] = Field(default=None, description="Lists validation results of each redeemable. If a redeemable can be applied, the API returns `\"status\": \"APPLICABLE\"`.")
     __properties: ClassVar[List[str]] = ["redemptions", "parent_redemption", "order", "inapplicable_redeemables", "skipped_redeemables"]
@@ -109,6 +109,11 @@ class ClientRedemptionsRedeemResponseBody(BaseModel):
         if self.redemptions is None and "redemptions" in self.model_fields_set:
             _dict['redemptions'] = None
 
+        # set to None if order (nullable) is None
+        # and model_fields_set contains the field
+        if self.order is None and "order" in self.model_fields_set:
+            _dict['order'] = None
+
         # set to None if inapplicable_redeemables (nullable) is None
         # and model_fields_set contains the field
         if self.inapplicable_redeemables is None and "inapplicable_redeemables" in self.model_fields_set:
@@ -133,7 +138,7 @@ class ClientRedemptionsRedeemResponseBody(BaseModel):
         _obj = cls.model_validate({
             "redemptions": [Redemption.from_dict(_item) for _item in obj["redemptions"]] if obj.get("redemptions") is not None else None,
             "parent_redemption": Redemption.from_dict(obj["parent_redemption"]) if obj.get("parent_redemption") is not None else None,
-            "order": OrderCalculated.from_dict(obj["order"]) if obj.get("order") is not None else None,
+            "order": ClientRedemptionsRedeemResponseBodyOrder.from_dict(obj["order"]) if obj.get("order") is not None else None,
             "inapplicable_redeemables": [ValidationsRedeemableInapplicable.from_dict(_item) for _item in obj["inapplicable_redeemables"]] if obj.get("inapplicable_redeemables") is not None else None,
             "skipped_redeemables": [ValidationsRedeemableSkipped.from_dict(_item) for _item in obj["skipped_redeemables"]] if obj.get("skipped_redeemables") is not None else None
         })

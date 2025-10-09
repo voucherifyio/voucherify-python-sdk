@@ -21,8 +21,8 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from voucherify.models.order_calculated_item import OrderCalculatedItem
 from voucherify.models.redemptions_get_response_body_order_customer import RedemptionsGetResponseBodyOrderCustomer
+from voucherify.models.redemptions_get_response_body_order_items_item import RedemptionsGetResponseBodyOrderItemsItem
 from voucherify.models.redemptions_get_response_body_order_referrer import RedemptionsGetResponseBodyOrderReferrer
 from typing import Optional, Set
 from typing_extensions import Self
@@ -52,7 +52,7 @@ class RedemptionsGetResponseBodyOrder(BaseModel):
     customer: Optional[RedemptionsGetResponseBodyOrderCustomer] = None
     referrer: Optional[RedemptionsGetResponseBodyOrderReferrer] = None
     redemptions: Optional[Dict[str, Any]] = None
-    items: Optional[List[OrderCalculatedItem]] = Field(default=None, description="Array of items applied to the order. It can include up 500 items.")
+    items: Optional[List[RedemptionsGetResponseBodyOrderItemsItem]] = Field(default=None, description="Array of items applied to the order. It can include up to 500 items.")
     __properties: ClassVar[List[str]] = ["id", "source_id", "status", "amount", "initial_amount", "discount_amount", "items_discount_amount", "total_discount_amount", "total_amount", "applied_discount_amount", "items_applied_discount_amount", "total_applied_discount_amount", "metadata", "object", "created_at", "updated_at", "customer_id", "referrer_id", "customer", "referrer", "redemptions", "items"]
 
     @field_validator('status')
@@ -270,7 +270,7 @@ class RedemptionsGetResponseBodyOrder(BaseModel):
             "customer": RedemptionsGetResponseBodyOrderCustomer.from_dict(obj["customer"]) if obj.get("customer") is not None else None,
             "referrer": RedemptionsGetResponseBodyOrderReferrer.from_dict(obj["referrer"]) if obj.get("referrer") is not None else None,
             "redemptions": obj.get("redemptions"),
-            "items": [OrderCalculatedItem.from_dict(_item) for _item in obj["items"]] if obj.get("items") is not None else None
+            "items": [RedemptionsGetResponseBodyOrderItemsItem.from_dict(_item) for _item in obj["items"]] if obj.get("items") is not None else None
         })
         return _obj
 

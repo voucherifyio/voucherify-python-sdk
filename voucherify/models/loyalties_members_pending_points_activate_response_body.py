@@ -30,7 +30,7 @@ class LoyaltiesMembersPendingPointsActivateResponseBody(BaseModel):
     """ # noqa: E501
     points: Optional[StrictInt] = Field(default=None, description="The number of pending points added to the loyalty card.")
     total: Optional[StrictInt] = Field(default=None, description="Total number of points incurred over the lifespan of the loyalty card, minus the expired points.")
-    balance: Optional[StrictInt] = Field(default=None, description="The current number of loyalty points after the pendint points have been added.")
+    balance: Optional[StrictInt] = Field(default=None, description="The current number of loyalty points after the pending points have been added.")
     type: Optional[StrictStr] = Field(default='loyalty_card', description="The type of the voucher being modified. For pending points, it is always `loyalty_card`.")
     object: Optional[StrictStr] = Field(default='balance', description="The type of the object represented by JSON. Default is `balance`.")
     related_object: Optional[LoyaltiesMembersPendingPointsActivateResponseBodyRelatedObject] = None

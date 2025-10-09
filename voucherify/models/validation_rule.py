@@ -32,6 +32,7 @@ class ValidationRule(BaseModel):
     """ # noqa: E501
     name: Optional[StrictStr] = Field(default=None, description="Custom, unique name for set of validation rules.")
     rules: Optional[Dict[str, Any]] = Field(default=None, description="Contains all the rule definitions for the validation rule. It is a set of key value pairs representing the rules and logic between the rules. The keys are numbered consecutively beginning from `1`. The values are objects containing the rule conditions.")
+    bundle_rules: Optional[Dict[str, Any]] = Field(default=None, description="Contains all the definitions for the bundle rules. It is a set of key value pairs representing the rules and logic between them. The keys are numbered consecutively beginning from `1`. The values are objects containing the rule conditions.  While updating with the PUT method, you can pass `\"bundle_rules\": null` to delete the configuration; in the response, an empty object is then returned.")
     error: Optional[ValidationRuleError] = None
     applicable_to: Optional[ValidationRuleApplicableTo] = None
     type: Optional[StrictStr] = Field(default='expression', description="Type of validation rule.")
@@ -41,7 +42,7 @@ class ValidationRule(BaseModel):
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the validation rule was updated. The value is shown in the ISO 8601 format.")
     assignments_count: Optional[StrictInt] = Field(default=None, description="The number of instances the validation rule has been assigned to different types of redeemables.")
     object: Optional[StrictStr] = Field(default='validation_rules', description="The type of the object represented by JSON. This object stores information about the validation rule.")
-    __properties: ClassVar[List[str]] = ["name", "rules", "error", "applicable_to", "type", "context_type", "id", "created_at", "updated_at", "assignments_count", "object"]
+    __properties: ClassVar[List[str]] = ["name", "rules", "bundle_rules", "error", "applicable_to", "type", "context_type", "id", "created_at", "updated_at", "assignments_count", "object"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -172,6 +173,7 @@ class ValidationRule(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "rules": obj.get("rules"),
+            "bundle_rules": obj.get("bundle_rules"),
             "error": ValidationRuleError.from_dict(obj["error"]) if obj.get("error") is not None else None,
             "applicable_to": ValidationRuleApplicableTo.from_dict(obj["applicable_to"]) if obj.get("applicable_to") is not None else None,
             "type": obj.get("type") if obj.get("type") is not None else 'expression',

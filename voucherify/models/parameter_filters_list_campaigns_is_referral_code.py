@@ -18,38 +18,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
+from voucherify.models.parameter_filters_list_campaigns_is_referral_code_conditions import ParameterFiltersListCampaignsIsReferralCodeConditions
 from typing import Optional, Set
 from typing_extensions import Self
 
 class ParameterFiltersListCampaignsIsReferralCode(BaseModel):
     """
-    
+    Determines if the campaign is or is not a referral campaign.
     """ # noqa: E501
-    var_is: Optional[StrictStr] = Field(default=None, description="Value is exactly this value (single value).", alias="$is")
-    is_not: Optional[StrictStr] = Field(default=None, description="Results omit this value (single value).", alias="$is_not")
-    __properties: ClassVar[List[str]] = ["$is", "$is_not"]
-
-    @field_validator('var_is')
-    def var_is_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['TRUE', 'FALSE']):
-            raise ValueError("must be one of enum values ('TRUE', 'FALSE')")
-        return value
-
-    @field_validator('is_not')
-    def is_not_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['TRUE', 'FALSE']):
-            raise ValueError("must be one of enum values ('TRUE', 'FALSE')")
-        return value
+    conditions: Optional[ParameterFiltersListCampaignsIsReferralCodeConditions] = None
+    __properties: ClassVar[List[str]] = ["conditions"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,15 +70,13 @@ class ParameterFiltersListCampaignsIsReferralCode(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if var_is (nullable) is None
+        # override the default output from pydantic by calling `to_dict()` of conditions
+        if self.conditions:
+            _dict['conditions'] = self.conditions.to_dict()
+        # set to None if conditions (nullable) is None
         # and model_fields_set contains the field
-        if self.var_is is None and "var_is" in self.model_fields_set:
-            _dict['$is'] = None
-
-        # set to None if is_not (nullable) is None
-        # and model_fields_set contains the field
-        if self.is_not is None and "is_not" in self.model_fields_set:
-            _dict['$is_not'] = None
+        if self.conditions is None and "conditions" in self.model_fields_set:
+            _dict['conditions'] = None
 
         return _dict
 
@@ -112,8 +90,7 @@ class ParameterFiltersListCampaignsIsReferralCode(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "$is": obj.get("$is"),
-            "$is_not": obj.get("$is_not")
+            "conditions": ParameterFiltersListCampaignsIsReferralCodeConditions.from_dict(obj["conditions"]) if obj.get("conditions") is not None else None
         })
         return _obj
 

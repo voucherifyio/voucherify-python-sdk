@@ -28,18 +28,21 @@ class StackingRules(BaseModel):
     """
     Defines stacking rules for redeemables. Read more in the [Stacking Rule Documentation](https://support.voucherify.io/article/604-stacking-rules).
     """ # noqa: E501
-    redeemables_limit: Optional[Annotated[int, Field(le=30, strict=True, ge=1)]] = Field(default=30, description="Defines how many redeemables can be sent in one stacking request (note: more redeemables means more processing time!).")
-    applicable_redeemables_limit: Optional[Annotated[int, Field(le=30, strict=True, ge=1)]] = Field(default=5, description="Defines how many of the sent redeemables will be applied to the order. For example, a user can select 30 discounts but only 5 will be applied to the order and the remaining will be labelled as SKIPPED.")
-    applicable_redeemables_per_category_limit: Optional[Annotated[int, Field(le=5, strict=True, ge=1)]] = Field(default=1, description="Defines how many redeemables per category can be applied in one request.")
-    applicable_exclusive_redeemables_limit: Optional[Annotated[int, Field(le=5, strict=True, ge=1)]] = Field(default=1, description="Defines how many redeemables with an exclusive category can be applied in one request.")
-    applicable_exclusive_redeemables_per_category_limit: Optional[Annotated[int, Field(le=5, strict=True, ge=1)]] = Field(default=1, description="Defines how many redeemables with an exclusive category per category in stacking rules can be applied in one request.")
-    exclusive_categories: Optional[List[StrictStr]] = Field(default=None, description="Lists all exclusive categories. A redeemable from a campaign with an exclusive category is the only redeemable to be redeemed when applied with redeemables from other campaigns unless these campaigns are exclusive or joint.")
-    joint_categories: Optional[List[StrictStr]] = Field(default=None, description="Lists all joint categories. A campaign with a joint category is always applied regardless of the exclusivity of other campaigns.")
-    redeemables_application_mode: Optional[StrictStr] = Field(default=None, description="Defines redeemables application mode.")
-    redeemables_sorting_rule: Optional[StrictStr] = Field(default='REQUESTED_ORDER', description="Defines redeemables sorting rule.")
-    redeemables_products_application_mode: Optional[StrictStr] = Field(default=None, description="Defines redeemables products application mode.")
-    redeemables_no_effect_rule: Optional[StrictStr] = Field(default=None, description="Defines redeemables no effect rule.")
-    __properties: ClassVar[List[str]] = ["redeemables_limit", "applicable_redeemables_limit", "applicable_redeemables_per_category_limit", "applicable_exclusive_redeemables_limit", "applicable_exclusive_redeemables_per_category_limit", "exclusive_categories", "joint_categories", "redeemables_application_mode", "redeemables_sorting_rule", "redeemables_products_application_mode", "redeemables_no_effect_rule"]
+    redeemables_limit: Optional[Annotated[int, Field(le=30, strict=True, ge=1)]] = Field(default=30, description="Defines how many redeemables can be sent in one request. Note: more redeemables means more processing time.")
+    applicable_redeemables_limit: Optional[Annotated[int, Field(le=30, strict=True, ge=1)]] = Field(default=5, description="Defines how many redeemables can be applied in one request. The number must be less than or equal to `redeemables_limit`. For example, a user can select 30 discounts but only 5 will be applied to the order and the remaining will be `SKIPPED` according to the `redeemables_sorting_rule`.")
+    applicable_redeemables_per_category_limit: Optional[Annotated[int, Field(le=30, strict=True, ge=1)]] = Field(default=1, description="Defines how many redeemables with the same category can be applied in one request. The number must be less than or equal to `applicable_redeemables_limit`. The ones above the limit will be `SKIPPED` according to the `redeemables_sorting_rule`.")
+    applicable_exclusive_redeemables_limit: Optional[Annotated[int, Field(le=5, strict=True, ge=1)]] = Field(default=1, description="Defines how many redeemables with an assigned exclusive category can be applied in one request. The ones above the limit will be `SKIPPED` according to the `redeemables_sorting_rule`.")
+    applicable_exclusive_redeemables_per_category_limit: Optional[Annotated[int, Field(le=5, strict=True, ge=1)]] = Field(default=1, description="Defines how many redeemables with an exclusive category per category in stacking rules can be applied in one request. The ones above the limit will be `SKIPPED` according to the `redeemables_sorting_rule`.")
+    exclusive_categories: Optional[List[StrictStr]] = Field(default=None, description="Lists the IDs of exclusive categories. A redeemable from a campaign with an exclusive category is the only redeemable to be redeemed when applied with redeemables from other campaigns unless these campaigns are exclusive or joint.")
+    joint_categories: Optional[List[StrictStr]] = Field(default=None, description="Lists the IDs of the joint categories. A campaign with a joint category is always applied regardless of the exclusivity of other campaigns.")
+    redeemables_application_mode: Optional[StrictStr] = Field(default=None, description="Defines the application mode for redeemables. `\"ALL\"` means that all redeemables must be validated for the redemption to be successful. `\"PARTIAL\"` means that only those redeemables that can be validated will be redeemed. The redeemables that fail validaton will be skipped.")
+    redeemables_sorting_rule: Optional[StrictStr] = Field(default='REQUESTED_ORDER', description="Defines redeemables sorting rule. `CATEGORY_HIERARCHY` means that redeemables are applied oaccording to the category priority. `REQUESTED_ORDER` means that redeemables are applied in the sequence provided in the request.")
+    redeemables_products_application_mode: Optional[StrictStr] = Field(default=None, description="Defines redeemables products application mode. `STACK` means that multiple discounts can be applied to a product. `ONCE` means that only one discount can be applied to the same product.")
+    redeemables_no_effect_rule: Optional[StrictStr] = Field(default=None, description="Defines redeemables no effect rule. `REDEEM_ANYWAY` means that the redeemable will be redeemed regardless of any restrictions or conditions in place. `SKIP` means that the redeemable will be processed only when an applicable effect is calculated.")
+    no_effect_skip_categories: Optional[List[StrictStr]] = Field(default=None, description="Lists category IDs. Redeemables with a given category are skipped even if the `redeemables_no_effect_rule` is set to `REDEEM_ANYWAY`. Category IDs can't overlap with the IDs in `no_effect_redeem_anyway_categories`.")
+    no_effect_redeem_anyway_categories: Optional[List[StrictStr]] = Field(default=None, description="Lists category IDs. Redeemables with a given category are redeemed anyway even if the `redeemables_no_effect_rule` is set to `SKIP`. Category IDs can't overlap with the IDs in `no_effect_skip_categories`.")
+    redeemables_rollback_order_mode: Optional[StrictStr] = Field(default=None, description="Defines the rollback mode for the order. `WITH_ORDER` is a default setting. The redemption is rolled back together with the data about the order, including related discount values. `WITHOUT_ORDER` allows rolling the redemption back without affecting order data, including the applied discount values.")
+    __properties: ClassVar[List[str]] = ["redeemables_limit", "applicable_redeemables_limit", "applicable_redeemables_per_category_limit", "applicable_exclusive_redeemables_limit", "applicable_exclusive_redeemables_per_category_limit", "exclusive_categories", "joint_categories", "redeemables_application_mode", "redeemables_sorting_rule", "redeemables_products_application_mode", "redeemables_no_effect_rule", "no_effect_skip_categories", "no_effect_redeem_anyway_categories", "redeemables_rollback_order_mode"]
 
     @field_validator('redeemables_application_mode')
     def redeemables_application_mode_validate_enum(cls, value):
@@ -79,6 +82,16 @@ class StackingRules(BaseModel):
 
         if value not in set(['REDEEM_ANYWAY', 'SKIP']):
             raise ValueError("must be one of enum values ('REDEEM_ANYWAY', 'SKIP')")
+        return value
+
+    @field_validator('redeemables_rollback_order_mode')
+    def redeemables_rollback_order_mode_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['WITH_ORDER', 'WITHOUT_ORDER']):
+            raise ValueError("must be one of enum values ('WITH_ORDER', 'WITHOUT_ORDER')")
         return value
 
     model_config = ConfigDict(
@@ -175,6 +188,21 @@ class StackingRules(BaseModel):
         if self.redeemables_no_effect_rule is None and "redeemables_no_effect_rule" in self.model_fields_set:
             _dict['redeemables_no_effect_rule'] = None
 
+        # set to None if no_effect_skip_categories (nullable) is None
+        # and model_fields_set contains the field
+        if self.no_effect_skip_categories is None and "no_effect_skip_categories" in self.model_fields_set:
+            _dict['no_effect_skip_categories'] = None
+
+        # set to None if no_effect_redeem_anyway_categories (nullable) is None
+        # and model_fields_set contains the field
+        if self.no_effect_redeem_anyway_categories is None and "no_effect_redeem_anyway_categories" in self.model_fields_set:
+            _dict['no_effect_redeem_anyway_categories'] = None
+
+        # set to None if redeemables_rollback_order_mode (nullable) is None
+        # and model_fields_set contains the field
+        if self.redeemables_rollback_order_mode is None and "redeemables_rollback_order_mode" in self.model_fields_set:
+            _dict['redeemables_rollback_order_mode'] = None
+
         return _dict
 
     @classmethod
@@ -197,7 +225,10 @@ class StackingRules(BaseModel):
             "redeemables_application_mode": obj.get("redeemables_application_mode"),
             "redeemables_sorting_rule": obj.get("redeemables_sorting_rule") if obj.get("redeemables_sorting_rule") is not None else 'REQUESTED_ORDER',
             "redeemables_products_application_mode": obj.get("redeemables_products_application_mode"),
-            "redeemables_no_effect_rule": obj.get("redeemables_no_effect_rule")
+            "redeemables_no_effect_rule": obj.get("redeemables_no_effect_rule"),
+            "no_effect_skip_categories": obj.get("no_effect_skip_categories"),
+            "no_effect_redeem_anyway_categories": obj.get("no_effect_redeem_anyway_categories"),
+            "redeemables_rollback_order_mode": obj.get("redeemables_rollback_order_mode")
         })
         return _obj
 

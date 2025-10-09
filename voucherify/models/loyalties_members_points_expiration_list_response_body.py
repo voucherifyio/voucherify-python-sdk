@@ -21,7 +21,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
-from voucherify.models.loyalties_members_points_expiration_list_response_body_data_item import LoyaltiesMembersPointsExpirationListResponseBodyDataItem
+from voucherify.models.loyalty_points_bucket import LoyaltyPointsBucket
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -31,7 +31,7 @@ class LoyaltiesMembersPointsExpirationListResponseBody(BaseModel):
     """ # noqa: E501
     object: Optional[Annotated[str, Field(strict=True)]] = Field(default='list', description="The type of the object represented by JSON. This object stores information about loyalty points expiration buckets in a dictionary.")
     data_ref: Optional[Annotated[str, Field(strict=True)]] = Field(default='data', description="Identifies the name of the attribute that contains the array of loyalty points expiration bucket objects.")
-    data: Optional[List[LoyaltiesMembersPointsExpirationListResponseBodyDataItem]] = Field(default=None, description="Contains array of loyalty points expiration buckets.")
+    data: Optional[List[LoyaltyPointsBucket]] = Field(default=None, description="Contains array of loyalty points expiration buckets.")
     total: Optional[StrictInt] = Field(default=None, description="Total number of point expiration buckets.")
     __properties: ClassVar[List[str]] = ["object", "data_ref", "data", "total"]
 
@@ -155,7 +155,7 @@ class LoyaltiesMembersPointsExpirationListResponseBody(BaseModel):
         _obj = cls.model_validate({
             "object": obj.get("object") if obj.get("object") is not None else 'list',
             "data_ref": obj.get("data_ref") if obj.get("data_ref") is not None else 'data',
-            "data": [LoyaltiesMembersPointsExpirationListResponseBodyDataItem.from_dict(_item) for _item in obj["data"]] if obj.get("data") is not None else None,
+            "data": [LoyaltyPointsBucket.from_dict(_item) for _item in obj["data"]] if obj.get("data") is not None else None,
             "total": obj.get("total")
         })
         return _obj
