@@ -30,7 +30,6 @@ For more info, here are some useful places to visit:
 - 🐛 Caught a bug? [Add an issue](https://github.com/voucherifyio/voucherify-python-sdk/issues "Visit issues in Voucherify Python SDK")!
 - 🧑‍💻 Need help? [Contact support](https://www.voucherify.io/contact-support "Visit contact support page").
 
-
 ## 🧱 Requirements
 
 Python 3.9+.
@@ -114,6 +113,8 @@ To run tests locally with docker:
 1. Copy `.env.example` to `.env` and fill in the values.
 2. Run `docker build -t python .` to build the image.
 3. Run `docker run --rm python` to run the tests and delete container immediately after.
+
+## 🛠️ Contribute
 
 Do you want to contribute?
 
@@ -688,9 +689,9 @@ DOCS:
 
 *Changelog for previous versions could be found in [here](./DEPRECATED_CHANGELOG.md)*
 
-## 🌐 Documentation for API endpoints
+## 🌐 Documentation of API endpoints
 
-All URIs are relative to *https://api.voucherify.io*
+All URIs are relative to `https://api.voucherify.io`.
 
 | Class                   | Method                                                                                                            | HTTP request                                                                               | Description                                |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------ |
@@ -937,7 +938,7 @@ All URIs are relative to *https://api.voucherify.io*
 | *VouchersApi*           | [**update_vouchers_metadata_in_bulk**](docs/VouchersApi.md#update_vouchers_metadata_in_bulk)                      | **POST** /v1/vouchers/metadata/async                                                       | Update Vouchers&#39; Metadata in Bulk      |
 
 
-## Documentation For Models
+## 📚 Documentation of models
 
  - [AccessSettings](docs/AccessSettings.md)
  - [AccessSettingsAssign](docs/AccessSettingsAssign.md)
