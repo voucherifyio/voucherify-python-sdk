@@ -58,7 +58,6 @@ Get your Voucherify keys for valid authorization and setting the basePath (clust
    - Asia (Singapore): `https://as1.api.voucherify.io`
 3. Scroll down to **Application Keys** to grab your Application ID and Secret key.
 
-
 ## 🚀 Run code
 
 Once installed, run:
@@ -66,9 +65,6 @@ Once installed, run:
 ```python
 import os
 import voucherify
-from dotenv import load_dotenv
-
-load_dotenv()
 
 HOST = os.getenv('VOUCHERIFY_HOST', 'https://api.voucherify.io')
 X_APP_ID = os.getenv('X_APP_ID')
@@ -84,25 +80,20 @@ configuration = voucherify.Configuration(
             "X-App-Token": X_APP_TOKEN
         }
 )
-# Debugging line
-api_key_id = configuration.get_api_key_with_prefix('X-App-Id')
-api_key_token = configuration.get_api_key_with_prefix('X-App-Token')
 
-# Print whether both API keys are present and valid
-are_keys_present = bool(api_key_id) and bool(api_key_token)
-print(f"Configuration loaded: {are_keys_present}")
+with voucherify.ApiClient(configuration) as api_client:
+    campaigns_api_instance = voucherify.CampaignsApi(api_client)
 
-if(are_keys_present):
-    with voucherify.ApiClient(configuration) as api_client:
-        customers_api_instance = voucherify.CustomersApi(api_client)
-
-        try:
-            result = customers_api_instance.list_customers()
-            print(result)
-
-        except voucherifyClient.ApiException as e:
-            self.fail(e)
+    try:
+        result = campaigns_api_instance.list_campaigns()
+        print(result)
+    except voucherify.ApiException as e:
+        print(f"Exception when calling CampaignsApi->list_campaigns: {e}")
 ```
+
+> [!NOTE]
+>
+> This code just lists campaigns, so it won't affect your Voucherify data.
 
 > [!TIP]
 >
@@ -2282,5 +2273,4 @@ Class | Method | HTTP request | Description
  - [VouchersUpdateResponseBodyLoyaltyCard](docs/VouchersUpdateResponseBodyLoyaltyCard.md)
  - [VouchersUpdateResponseBodyPublish](docs/VouchersUpdateResponseBodyPublish.md)
  - [VouchersUpdateResponseBodyRedemption](docs/VouchersUpdateResponseBodyRedemption.md)
-
 
