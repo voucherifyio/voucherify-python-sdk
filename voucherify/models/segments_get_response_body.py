@@ -26,16 +26,17 @@ from typing_extensions import Self
 
 class SegmentsGetResponseBody(BaseModel):
     """
-    Response body schema for **GET** `v1/v1/segments/{segmentId}`.
+    Response body schema for **GET** `v1/segments/{segmentId}`.
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Unique segment ID.")
     name: Optional[StrictStr] = Field(default=None, description="Segment name.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the segment was created. The value is shown in the ISO 8601 format.")
-    type: Optional[StrictStr] = Field(default=None, description="Describes whether the segment is dynamic (customers come in and leave based on set criteria) or static (manually selected customers).")
-    filter: Optional[Dict[str, Any]] = Field(default=None, description="Defines a set of criteria for an `auto-update` segment type.  ")
-    initial_sync_status: Optional[StrictStr] = None
+    updated_at: Optional[datetime] = Field(default=None, description="Timestamp in ISO 8601 format indicating when the segment was updated.")
+    type: Optional[StrictStr] = Field(default=None, description="Defines whether the segment is: - Active (`auto-update`): customers enter and leave the segment based on the defined filters and the `customer.segment.entered` and `customer.segment.left` events are triggered, - Passive (`passive`): customers enter and leave the segment based on the defined filters, but the `customer.segment.entered` and `customer.segment.left` events are not triggered, - Static (`static`): manually selected customers.")
+    filter: Optional[Dict[str, Any]] = Field(default=None, description="Defines a set of criteria for an `auto-update` or `passive` segment type.")
     object: Optional[StrictStr] = Field(default='segment', description="The type of the object represented by JSON. This object stores information about the customer segment.")
-    __properties: ClassVar[List[str]] = ["id", "name", "created_at", "type", "filter", "initial_sync_status", "object"]
+    initial_sync_status: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["id", "name", "created_at", "updated_at", "type", "filter", "object", "initial_sync_status"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -43,18 +44,8 @@ class SegmentsGetResponseBody(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['auto-update', 'static', 'passive']):
-            raise ValueError("must be one of enum values ('auto-update', 'static', 'passive')")
-        return value
-
-    @field_validator('initial_sync_status')
-    def initial_sync_status_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['IN_PROGRESS', 'DONE']):
-            raise ValueError("must be one of enum values ('IN_PROGRESS', 'DONE')")
+        if value not in set(['auto-update', 'passive', 'static']):
+            raise ValueError("must be one of enum values ('auto-update', 'passive', 'static')")
         return value
 
     @field_validator('object')
@@ -65,6 +56,16 @@ class SegmentsGetResponseBody(BaseModel):
 
         if value not in set(['segment']):
             raise ValueError("must be one of enum values ('segment')")
+        return value
+
+    @field_validator('initial_sync_status')
+    def initial_sync_status_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['IN_PROGRESS', 'DONE']):
+            raise ValueError("must be one of enum values ('IN_PROGRESS', 'DONE')")
         return value
 
     model_config = ConfigDict(
@@ -121,6 +122,11 @@ class SegmentsGetResponseBody(BaseModel):
         if self.created_at is None and "created_at" in self.model_fields_set:
             _dict['created_at'] = None
 
+        # set to None if updated_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.updated_at is None and "updated_at" in self.model_fields_set:
+            _dict['updated_at'] = None
+
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
@@ -131,15 +137,15 @@ class SegmentsGetResponseBody(BaseModel):
         if self.filter is None and "filter" in self.model_fields_set:
             _dict['filter'] = None
 
-        # set to None if initial_sync_status (nullable) is None
-        # and model_fields_set contains the field
-        if self.initial_sync_status is None and "initial_sync_status" in self.model_fields_set:
-            _dict['initial_sync_status'] = None
-
         # set to None if object (nullable) is None
         # and model_fields_set contains the field
         if self.object is None and "object" in self.model_fields_set:
             _dict['object'] = None
+
+        # set to None if initial_sync_status (nullable) is None
+        # and model_fields_set contains the field
+        if self.initial_sync_status is None and "initial_sync_status" in self.model_fields_set:
+            _dict['initial_sync_status'] = None
 
         return _dict
 
@@ -156,10 +162,11 @@ class SegmentsGetResponseBody(BaseModel):
             "id": obj.get("id"),
             "name": obj.get("name"),
             "created_at": obj.get("created_at"),
+            "updated_at": obj.get("updated_at"),
             "type": obj.get("type"),
             "filter": obj.get("filter"),
-            "initial_sync_status": obj.get("initial_sync_status"),
-            "object": obj.get("object") if obj.get("object") is not None else 'segment'
+            "object": obj.get("object") if obj.get("object") is not None else 'segment',
+            "initial_sync_status": obj.get("initial_sync_status")
         })
         return _obj
 

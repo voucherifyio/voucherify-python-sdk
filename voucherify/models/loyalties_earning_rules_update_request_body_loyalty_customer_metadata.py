@@ -29,8 +29,9 @@ class LoyaltiesEarningRulesUpdateRequestBodyLoyaltyCustomerMetadata(BaseModel):
     """ # noqa: E501
     every: Optional[StrictInt] = Field(default=None, description="For how many increments of the customer metadata property to grant points for.")
     points: Optional[StrictInt] = Field(default=None, description="Number of points to be awarded, i.e. how many points to be added to the loyalty card.")
+    points_formula: Optional[StrictStr] = Field(default=None, description="Formula used to dynamically calculate the rewarded points.")
     var_property: Optional[StrictStr] = Field(default=None, description="Customer metadata property.", alias="property")
-    __properties: ClassVar[List[str]] = ["every", "points", "property"]
+    __properties: ClassVar[List[str]] = ["every", "points", "points_formula", "property"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -81,6 +82,11 @@ class LoyaltiesEarningRulesUpdateRequestBodyLoyaltyCustomerMetadata(BaseModel):
         if self.points is None and "points" in self.model_fields_set:
             _dict['points'] = None
 
+        # set to None if points_formula (nullable) is None
+        # and model_fields_set contains the field
+        if self.points_formula is None and "points_formula" in self.model_fields_set:
+            _dict['points_formula'] = None
+
         # set to None if var_property (nullable) is None
         # and model_fields_set contains the field
         if self.var_property is None and "var_property" in self.model_fields_set:
@@ -100,6 +106,7 @@ class LoyaltiesEarningRulesUpdateRequestBodyLoyaltyCustomerMetadata(BaseModel):
         _obj = cls.model_validate({
             "every": obj.get("every"),
             "points": obj.get("points"),
+            "points_formula": obj.get("points_formula"),
             "property": obj.get("property")
         })
         return _obj

@@ -33,12 +33,13 @@ class EarningRuleLoyalty(BaseModel):
     """ # noqa: E501
     type: Optional[StrictStr] = None
     points: Optional[StrictInt] = Field(default=None, description="Defines how the points will be added to the loyalty card. FIXED adds a fixed number of points.")
+    points_formula: Optional[StrictStr] = Field(default=None, description="Formula used to dynamically calculate the rewarded points.")
     calculation_type: Optional[StrictStr] = None
     order: Optional[EarningRuleLoyaltyOrder] = None
     order_items: Optional[EarningRuleLoyaltyOrderItems] = None
     customer: Optional[EarningRuleLoyaltyCustomer] = None
     custom_event: Optional[EarningRuleLoyaltyCustomEvent] = None
-    __properties: ClassVar[List[str]] = ["type", "points", "calculation_type", "order", "order_items", "customer", "custom_event"]
+    __properties: ClassVar[List[str]] = ["type", "points", "points_formula", "calculation_type", "order", "order_items", "customer", "custom_event"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -121,6 +122,11 @@ class EarningRuleLoyalty(BaseModel):
         if self.points is None and "points" in self.model_fields_set:
             _dict['points'] = None
 
+        # set to None if points_formula (nullable) is None
+        # and model_fields_set contains the field
+        if self.points_formula is None and "points_formula" in self.model_fields_set:
+            _dict['points_formula'] = None
+
         # set to None if calculation_type (nullable) is None
         # and model_fields_set contains the field
         if self.calculation_type is None and "calculation_type" in self.model_fields_set:
@@ -160,6 +166,7 @@ class EarningRuleLoyalty(BaseModel):
         _obj = cls.model_validate({
             "type": obj.get("type"),
             "points": obj.get("points"),
+            "points_formula": obj.get("points_formula"),
             "calculation_type": obj.get("calculation_type"),
             "order": EarningRuleLoyaltyOrder.from_dict(obj["order"]) if obj.get("order") is not None else None,
             "order_items": EarningRuleLoyaltyOrderItems.from_dict(obj["order_items"]) if obj.get("order_items") is not None else None,

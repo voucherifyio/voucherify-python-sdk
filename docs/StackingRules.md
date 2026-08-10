@@ -1,6 +1,6 @@
 # StackingRules
 
-Defines stacking rules for redeemables. Read more in the [Stacking Rule Documentation](https://support.voucherify.io/article/604-stacking-rules).
+Defines stacking rules for redeemables. Read more in the [Stacking Rule Documentation](/orchestrate/stacking-rules).
 
 ## Properties
 
@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **redeemables_limit** | **int** | Defines how many redeemables can be sent in one request. Note: more redeemables means more processing time. | [optional] [default to 30]
 **applicable_redeemables_limit** | **int** | Defines how many redeemables can be applied in one request. The number must be less than or equal to &#x60;redeemables_limit&#x60;. For example, a user can select 30 discounts but only 5 will be applied to the order and the remaining will be &#x60;SKIPPED&#x60; according to the &#x60;redeemables_sorting_rule&#x60;. | [optional] [default to 5]
 **applicable_redeemables_per_category_limit** | **int** | Defines how many redeemables with the same category can be applied in one request. The number must be less than or equal to &#x60;applicable_redeemables_limit&#x60;. The ones above the limit will be &#x60;SKIPPED&#x60; according to the &#x60;redeemables_sorting_rule&#x60;. | [optional] [default to 1]
+**applicable_redeemables_category_limits** | **object** | Lists categories by category IDs (keys) and defines their limits (values) of applicable redeemables that belong to campaigns with that category. | [optional] 
 **applicable_exclusive_redeemables_limit** | **int** | Defines how many redeemables with an assigned exclusive category can be applied in one request. The ones above the limit will be &#x60;SKIPPED&#x60; according to the &#x60;redeemables_sorting_rule&#x60;. | [optional] [default to 1]
 **applicable_exclusive_redeemables_per_category_limit** | **int** | Defines how many redeemables with an exclusive category per category in stacking rules can be applied in one request. The ones above the limit will be &#x60;SKIPPED&#x60; according to the &#x60;redeemables_sorting_rule&#x60;. | [optional] [default to 1]
 **exclusive_categories** | **List[str]** | Lists the IDs of exclusive categories. A redeemable from a campaign with an exclusive category is the only redeemable to be redeemed when applied with redeemables from other campaigns unless these campaigns are exclusive or joint. | [optional] 

@@ -30,7 +30,7 @@ from typing_extensions import Self
 
 class ClientValidationsValidateRequestBody(BaseModel):
     """
-    Response body schema for **POST** `v1/validations`.
+    Request body schema for **POST** `v1/validations`.
     """ # noqa: E501
     options: Optional[ClientValidationsValidateRequestBodyOptions] = None
     redeemables: Optional[List[ClientValidationsValidateRequestBodyRedeemablesItem]] = None

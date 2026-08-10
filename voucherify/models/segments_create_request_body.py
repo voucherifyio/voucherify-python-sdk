@@ -30,7 +30,7 @@ class SegmentsCreateRequestBody(BaseModel):
     name: Optional[StrictStr] = Field(default=None, description="Segment name.")
     type: Optional[StrictStr] = None
     customers: Optional[List[StrictStr]] = Field(default=None, description="Array of customer IDs.")
-    filter: Optional[Dict[str, Any]] = Field(default=None, description="Defines a set of criteria for an `auto-update` segment type.")
+    filter: Optional[Dict[str, Any]] = Field(default=None, description="Defines a set of criteria for an `auto-update` or `passive` segment type.")
     __properties: ClassVar[List[str]] = ["name", "type", "customers", "filter"]
 
     @field_validator('type')
@@ -39,8 +39,8 @@ class SegmentsCreateRequestBody(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['static', 'auto-update']):
-            raise ValueError("must be one of enum values ('static', 'auto-update')")
+        if value not in set(['static', 'auto-update', 'passive']):
+            raise ValueError("must be one of enum values ('static', 'auto-update', 'passive')")
         return value
 
     model_config = ConfigDict(

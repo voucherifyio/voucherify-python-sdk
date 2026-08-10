@@ -32,7 +32,7 @@ class OrdersCreateRequestBody(BaseModel):
     Request body schema for **POST** `v1/orders`.
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Unique ID assigned by Voucherify of an existing order that will be linked to the redemption of this request.")
-    source_id: Optional[StrictStr] = Field(default=None, description="Unique source ID of an existing order that will be linked to the redemption of this request.")
+    source_id: Optional[StrictStr] = Field(default=None, description="Unique source ID of an existing order that will be linked to the redemption of this request.  For validation and redemption, if `source_id` is used with an existing order, the original order data will be used, like `items`, `amount`, and so on, not the one sent in the new request.")
     status: Optional[StrictStr] = Field(default=None, description="The order status.")
     amount: Optional[StrictInt] = Field(default=None, description="A positive integer in the smallest currency unit (e.g. 100 cents for $1.00) representing the total amount of the order. This is the sum of the order items' amounts.")
     initial_amount: Optional[StrictInt] = Field(default=None, description="A positive integer in the smallest currency unit (e.g. 100 cents for $1.00) representing the total amount of the order. This is the sum of the order items' amounts.")

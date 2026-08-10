@@ -375,7 +375,7 @@ class ValidationRulesApi:
     ) -> ValidationRulesCreateResponseBody:
         """Create Validation Rules
 
-        Create a validation rule.  🚧 Managing validation rules  It is recommended to [create validation rules](https://support.voucherify.io/article/148-how-to-build-a-rule) in the Voucherify dashboard. The rule builder in the dashboard helps configuring the desired conditions in a convenient way. The API should not be used as a preferable way to create and manage validation rules.
+        Create a validation rule.  🚧 Managing validation rules  It is recommended to [create or update validation rules](/personalize/create-validation-rules) in the Voucherify dashboard. The rule builder in the dashboard helps configuring the desired conditions in a convenient way. The API should not be used as a preferable way to create and manage validation rules.
 
         :param validation_rules_create_request_body: Specify the validation rules parameters.
         :type validation_rules_create_request_body: ValidationRulesCreateRequestBody
@@ -442,7 +442,7 @@ class ValidationRulesApi:
     ) -> ApiResponse[ValidationRulesCreateResponseBody]:
         """Create Validation Rules
 
-        Create a validation rule.  🚧 Managing validation rules  It is recommended to [create validation rules](https://support.voucherify.io/article/148-how-to-build-a-rule) in the Voucherify dashboard. The rule builder in the dashboard helps configuring the desired conditions in a convenient way. The API should not be used as a preferable way to create and manage validation rules.
+        Create a validation rule.  🚧 Managing validation rules  It is recommended to [create or update validation rules](/personalize/create-validation-rules) in the Voucherify dashboard. The rule builder in the dashboard helps configuring the desired conditions in a convenient way. The API should not be used as a preferable way to create and manage validation rules.
 
         :param validation_rules_create_request_body: Specify the validation rules parameters.
         :type validation_rules_create_request_body: ValidationRulesCreateRequestBody
@@ -509,7 +509,7 @@ class ValidationRulesApi:
     ) -> RESTResponseType:
         """Create Validation Rules
 
-        Create a validation rule.  🚧 Managing validation rules  It is recommended to [create validation rules](https://support.voucherify.io/article/148-how-to-build-a-rule) in the Voucherify dashboard. The rule builder in the dashboard helps configuring the desired conditions in a convenient way. The API should not be used as a preferable way to create and manage validation rules.
+        Create a validation rule.  🚧 Managing validation rules  It is recommended to [create or update validation rules](/personalize/create-validation-rules) in the Voucherify dashboard. The rule builder in the dashboard helps configuring the desired conditions in a convenient way. The API should not be used as a preferable way to create and manage validation rules.
 
         :param validation_rules_create_request_body: Specify the validation rules parameters.
         :type validation_rules_create_request_body: ValidationRulesCreateRequestBody
@@ -2092,7 +2092,7 @@ class ValidationRulesApi:
     ) -> ValidationRulesAssignmentsListResponseBody:
         """List Validation Rules' Assignment(s)
 
-        List all validation rules assignments or filter the results using the related object ID or the validation rule ID query parameters.  # How to retrieve specific validation rule assignments(s) ## Related object ID To find an assignment for a particular resource, you can use the ID of the object to which the validation rule was assigned. This could be, for example, an ID of a: voucher, campaign, distribution, reward assignment, earning rule, promotion tier.    ## Validation rule ID You can use the validation rule ID to find assignment(s) for a specific validation rule.  
+        List all validation rules assignments or filter the results using the related object ID or the validation rule ID query parameters.
 
         :param related_object_id: The resource ID to which the validation rule was assigned; this could be, for example, a resource ID of a voucher, campaign, earning rule, reward assignment, promotion tier, or distribution.
         :type related_object_id: str
@@ -2175,7 +2175,7 @@ class ValidationRulesApi:
     ) -> ApiResponse[ValidationRulesAssignmentsListResponseBody]:
         """List Validation Rules' Assignment(s)
 
-        List all validation rules assignments or filter the results using the related object ID or the validation rule ID query parameters.  # How to retrieve specific validation rule assignments(s) ## Related object ID To find an assignment for a particular resource, you can use the ID of the object to which the validation rule was assigned. This could be, for example, an ID of a: voucher, campaign, distribution, reward assignment, earning rule, promotion tier.    ## Validation rule ID You can use the validation rule ID to find assignment(s) for a specific validation rule.  
+        List all validation rules assignments or filter the results using the related object ID or the validation rule ID query parameters.
 
         :param related_object_id: The resource ID to which the validation rule was assigned; this could be, for example, a resource ID of a voucher, campaign, earning rule, reward assignment, promotion tier, or distribution.
         :type related_object_id: str
@@ -2258,7 +2258,7 @@ class ValidationRulesApi:
     ) -> RESTResponseType:
         """List Validation Rules' Assignment(s)
 
-        List all validation rules assignments or filter the results using the related object ID or the validation rule ID query parameters.  # How to retrieve specific validation rule assignments(s) ## Related object ID To find an assignment for a particular resource, you can use the ID of the object to which the validation rule was assigned. This could be, for example, an ID of a: voucher, campaign, distribution, reward assignment, earning rule, promotion tier.    ## Validation rule ID You can use the validation rule ID to find assignment(s) for a specific validation rule.  
+        List all validation rules assignments or filter the results using the related object ID or the validation rule ID query parameters.
 
         :param related_object_id: The resource ID to which the validation rule was assigned; this could be, for example, a resource ID of a voucher, campaign, earning rule, reward assignment, promotion tier, or distribution.
         :type related_object_id: str
@@ -2419,7 +2419,7 @@ class ValidationRulesApi:
     ) -> ValidationRulesUpdateResponseBody:
         """Update Validation Rule
 
-        Update validation rule parameters.
+        Update validation rule parameters.  🚧 Managing validation rules  It is recommended to [create or update validation rules](/personalize/create-validation-rules) in the Voucherify dashboard. The rule builder in the dashboard helps configuring the desired conditions in a convenient way. The API should not be used as a preferable way to create and manage validation rules.
 
         :param validation_rule_id: A unique validation rule ID. (required)
         :type validation_rule_id: str
@@ -2490,7 +2490,7 @@ class ValidationRulesApi:
     ) -> ApiResponse[ValidationRulesUpdateResponseBody]:
         """Update Validation Rule
 
-        Update validation rule parameters.
+        Update validation rule parameters.  🚧 Managing validation rules  It is recommended to [create or update validation rules](/personalize/create-validation-rules) in the Voucherify dashboard. The rule builder in the dashboard helps configuring the desired conditions in a convenient way. The API should not be used as a preferable way to create and manage validation rules.
 
         :param validation_rule_id: A unique validation rule ID. (required)
         :type validation_rule_id: str
@@ -2561,7 +2561,7 @@ class ValidationRulesApi:
     ) -> RESTResponseType:
         """Update Validation Rule
 
-        Update validation rule parameters.
+        Update validation rule parameters.  🚧 Managing validation rules  It is recommended to [create or update validation rules](/personalize/create-validation-rules) in the Voucherify dashboard. The rule builder in the dashboard helps configuring the desired conditions in a convenient way. The API should not be used as a preferable way to create and manage validation rules.
 
         :param validation_rule_id: A unique validation rule ID. (required)
         :type validation_rule_id: str

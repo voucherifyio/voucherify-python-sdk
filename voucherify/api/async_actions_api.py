@@ -61,7 +61,7 @@ class AsyncActionsApi:
     ) -> AsyncActionGetResponseBody:
         """Get Async Action
 
-        Check the result of a scheduled asynchronous operation.   The table below lists the possible types of async actions. The types are different for each endpoint generating the async action. If you would like to learn more about importing data into Voucherify, read more [here](https://support.voucherify.io/article/574-data-import).       
+        Check the result of a scheduled asynchronous operation.   The table below lists the possible types of async actions. The types are different for each endpoint generating the async action.        
 
         :param async_action_id: Unique ID of the asynchronous operation. (required)
         :type async_action_id: str
@@ -128,7 +128,7 @@ class AsyncActionsApi:
     ) -> ApiResponse[AsyncActionGetResponseBody]:
         """Get Async Action
 
-        Check the result of a scheduled asynchronous operation.   The table below lists the possible types of async actions. The types are different for each endpoint generating the async action. If you would like to learn more about importing data into Voucherify, read more [here](https://support.voucherify.io/article/574-data-import).       
+        Check the result of a scheduled asynchronous operation.   The table below lists the possible types of async actions. The types are different for each endpoint generating the async action.        
 
         :param async_action_id: Unique ID of the asynchronous operation. (required)
         :type async_action_id: str
@@ -195,7 +195,7 @@ class AsyncActionsApi:
     ) -> RESTResponseType:
         """Get Async Action
 
-        Check the result of a scheduled asynchronous operation.   The table below lists the possible types of async actions. The types are different for each endpoint generating the async action. If you would like to learn more about importing data into Voucherify, read more [here](https://support.voucherify.io/article/574-data-import).       
+        Check the result of a scheduled asynchronous operation.   The table below lists the possible types of async actions. The types are different for each endpoint generating the async action.        
 
         :param async_action_id: Unique ID of the asynchronous operation. (required)
         :type async_action_id: str
@@ -322,7 +322,7 @@ class AsyncActionsApi:
     ) -> AsyncActionsListResponseBody:
         """List Async Actions
 
-        Track asynchronous operations scheduled in your project.   The table below lists the possible types of async actions. The types are different for each endpoint generating the async action. If you would like to learn more about importing data into Voucherify, read more [here](https://support.voucherify.io/article/574-data-import).       
+        Track asynchronous operations scheduled in your project.   The table below lists the possible types of async actions. The types are different for each endpoint generating the async action.       
 
         :param limit: Limit the number of asynchronous actions that the API returns in the response.
         :type limit: int
@@ -393,7 +393,7 @@ class AsyncActionsApi:
     ) -> ApiResponse[AsyncActionsListResponseBody]:
         """List Async Actions
 
-        Track asynchronous operations scheduled in your project.   The table below lists the possible types of async actions. The types are different for each endpoint generating the async action. If you would like to learn more about importing data into Voucherify, read more [here](https://support.voucherify.io/article/574-data-import).       
+        Track asynchronous operations scheduled in your project.   The table below lists the possible types of async actions. The types are different for each endpoint generating the async action.       
 
         :param limit: Limit the number of asynchronous actions that the API returns in the response.
         :type limit: int
@@ -464,7 +464,7 @@ class AsyncActionsApi:
     ) -> RESTResponseType:
         """List Async Actions
 
-        Track asynchronous operations scheduled in your project.   The table below lists the possible types of async actions. The types are different for each endpoint generating the async action. If you would like to learn more about importing data into Voucherify, read more [here](https://support.voucherify.io/article/574-data-import).       
+        Track asynchronous operations scheduled in your project.   The table below lists the possible types of async actions. The types are different for each endpoint generating the async action.       
 
         :param limit: Limit the number of asynchronous actions that the API returns in the response.
         :type limit: int

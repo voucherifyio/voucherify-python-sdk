@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,7 +29,8 @@ class LoyaltiesEarningRulesCreateResponseBodyLoyaltyOrderTotalAmount(BaseModel):
     """ # noqa: E501
     every: Optional[StrictInt] = Field(default=None, description="Value is multiplied by 100 to precisely represent 2 decimal places. For example, a $10 order amount is written as 1000.")
     points: Optional[StrictInt] = Field(default=None, description="Number of points to be awarded, i.e. how many points to be added to the loyalty card.")
-    __properties: ClassVar[List[str]] = ["every", "points"]
+    points_formula: Optional[StrictStr] = Field(default=None, description="Formula used to dynamically calculate the rewarded points.")
+    __properties: ClassVar[List[str]] = ["every", "points", "points_formula"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -80,6 +81,11 @@ class LoyaltiesEarningRulesCreateResponseBodyLoyaltyOrderTotalAmount(BaseModel):
         if self.points is None and "points" in self.model_fields_set:
             _dict['points'] = None
 
+        # set to None if points_formula (nullable) is None
+        # and model_fields_set contains the field
+        if self.points_formula is None and "points_formula" in self.model_fields_set:
+            _dict['points_formula'] = None
+
         return _dict
 
     @classmethod
@@ -93,7 +99,8 @@ class LoyaltiesEarningRulesCreateResponseBodyLoyaltyOrderTotalAmount(BaseModel):
 
         _obj = cls.model_validate({
             "every": obj.get("every"),
-            "points": obj.get("points")
+            "points": obj.get("points"),
+            "points_formula": obj.get("points_formula")
         })
         return _obj
 

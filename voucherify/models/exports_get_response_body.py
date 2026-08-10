@@ -28,7 +28,7 @@ from typing_extensions import Self
 
 class ExportsGetResponseBody(BaseModel):
     """
-    Response body schema for **GET** `v1/exports/{exportId}`.
+    ExportsGetResponseBody
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Unique export ID.")
     object: Optional[StrictStr] = Field(default='export', description="The type of object being represented. This object stores information about the export.")

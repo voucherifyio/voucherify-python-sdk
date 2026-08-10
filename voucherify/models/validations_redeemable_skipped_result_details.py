@@ -37,8 +37,8 @@ class ValidationsRedeemableSkippedResultDetails(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['applicable_redeemables_limit_exceeded', 'applicable_redeemables_per_category_limit_exceeded', 'applicable_exclusive_redeemables_limit_exceeded', 'applicable_exclusive_redeemables_per_category_limit_exceeded', 'exclusion_rules_not_met', 'preceding_validation_failed']):
-            raise ValueError("must be one of enum values ('applicable_redeemables_limit_exceeded', 'applicable_redeemables_per_category_limit_exceeded', 'applicable_exclusive_redeemables_limit_exceeded', 'applicable_exclusive_redeemables_per_category_limit_exceeded', 'exclusion_rules_not_met', 'preceding_validation_failed')")
+        if value not in set(['applicable_redeemables_limit_exceeded', 'applicable_redeemables_per_category_limit_exceeded', 'applicable_exclusive_redeemables_limit_exceeded', 'applicable_exclusive_redeemables_per_category_limit_exceeded', 'exclusion_rules_not_met', 'preceding_validation_failed', 'no_effect']):
+            raise ValueError("must be one of enum values ('applicable_redeemables_limit_exceeded', 'applicable_redeemables_per_category_limit_exceeded', 'applicable_exclusive_redeemables_limit_exceeded', 'applicable_exclusive_redeemables_per_category_limit_exceeded', 'exclusion_rules_not_met', 'preceding_validation_failed', 'no_effect')")
         return value
 
     model_config = ConfigDict(

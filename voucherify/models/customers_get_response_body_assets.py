@@ -25,10 +25,11 @@ from typing_extensions import Self
 
 class CustomersGetResponseBodyAssets(BaseModel):
     """
-    Contains information about the customer's cockpit.
+    Contains information about the customer's cockpit.  ⚠️ Warning: Customer cockpits were removed. The customer cockpit URLs redirect to customer preference center.
     """ # noqa: E501
-    cockpit_url: Optional[StrictStr] = Field(default=None, description="Customer's cockpit URL address.")
-    __properties: ClassVar[List[str]] = ["cockpit_url"]
+    cockpit_url: Optional[StrictStr] = Field(default=None, description="URL address to customer preference center. Previously, a customer's cockpit URL address.")
+    cockpit_preference_center_url: Optional[StrictStr] = Field(default=None, description="URL address to customer preference center.")
+    __properties: ClassVar[List[str]] = ["cockpit_url", "cockpit_preference_center_url"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -74,6 +75,11 @@ class CustomersGetResponseBodyAssets(BaseModel):
         if self.cockpit_url is None and "cockpit_url" in self.model_fields_set:
             _dict['cockpit_url'] = None
 
+        # set to None if cockpit_preference_center_url (nullable) is None
+        # and model_fields_set contains the field
+        if self.cockpit_preference_center_url is None and "cockpit_preference_center_url" in self.model_fields_set:
+            _dict['cockpit_preference_center_url'] = None
+
         return _dict
 
     @classmethod
@@ -86,7 +92,8 @@ class CustomersGetResponseBodyAssets(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "cockpit_url": obj.get("cockpit_url")
+            "cockpit_url": obj.get("cockpit_url"),
+            "cockpit_preference_center_url": obj.get("cockpit_preference_center_url")
         })
         return _obj
 

@@ -30,7 +30,8 @@ class ExportsCreateResponseBodyParameters(BaseModel):
     order: Optional[StrictStr] = None
     fields: Optional[List[StrictStr]] = Field(default=None, description="Array of strings containing the data in the export. These fields define the headers in the CSV file.")
     filters: Optional[Dict[str, Any]] = Field(default=None, description="Allowed additional properties must start with \"metadata.\" or \"redemption.\" and Allowed additional properties must start with \"metadata.\" and Allowed additional properties must start with \"metadata.\" or \"address.\" or \"summary.\" or \"loyalty.\" or \"loyalty_tier.\" or \"loyalty_points.\" or \"system_metadata.\"")
-    __properties: ClassVar[List[str]] = ["order", "fields", "filters"]
+    campaign_id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the campaign. It is assigned by Voucherify. The campaign ID defines the campaign for which the voucher export will be triggered.")
+    __properties: ClassVar[List[str]] = ["order", "fields", "filters", "campaign_id"]
 
     @field_validator('order')
     def order_validate_enum(cls, value):
@@ -107,6 +108,11 @@ class ExportsCreateResponseBodyParameters(BaseModel):
         if self.filters is None and "filters" in self.model_fields_set:
             _dict['filters'] = None
 
+        # set to None if campaign_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.campaign_id is None and "campaign_id" in self.model_fields_set:
+            _dict['campaign_id'] = None
+
         return _dict
 
     @classmethod
@@ -121,7 +127,8 @@ class ExportsCreateResponseBodyParameters(BaseModel):
         _obj = cls.model_validate({
             "order": obj.get("order"),
             "fields": obj.get("fields"),
-            "filters": obj.get("filters")
+            "filters": obj.get("filters"),
+            "campaign_id": obj.get("campaign_id")
         })
         return _obj
 

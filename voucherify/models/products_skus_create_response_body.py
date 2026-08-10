@@ -26,7 +26,7 @@ from typing_extensions import Self
 
 class ProductsSkusCreateResponseBody(BaseModel):
     """
-    Response body schema for **PUT** `v1/products/{productId}/skus`.
+    Response body schema for **PUT** `v1/products/{productId}/SKUs`.
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="A unique identifier that represents the SKU and is assigned by Voucherify.")
     source_id: Optional[StrictStr] = Field(default=None, description="A unique SKU identifier from your inventory system.")

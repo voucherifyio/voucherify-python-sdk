@@ -32,18 +32,18 @@ class OrdersImportCreateRequestBodyItem(BaseModel):
     OrdersImportCreateRequestBodyItem
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Unique ID assigned by Voucherify of an existing order that will be linked to the redemption of this request.")
-    source_id: Optional[StrictStr] = Field(default=None, description="Unique source ID of an existing order that will be linked to the redemption of this request.")
+    source_id: Optional[StrictStr] = Field(default=None, description="Unique source ID of an existing order that will be linked to the redemption of this request.  For validation and redemption, if `source_id` is used with an existing order, the original order data will be used, like `items`, `amount`, and so on, not the one sent in the new request.")
     status: Optional[StrictStr] = Field(default=None, description="The order status.")
     amount: Optional[StrictInt] = Field(default=None, description="A positive integer in the smallest currency unit (e.g. 100 cents for $1.00) representing the total amount of the order. This is the sum of the order items' amounts.")
     initial_amount: Optional[StrictInt] = Field(default=None, description="A positive integer in the smallest currency unit (e.g. 100 cents for $1.00) representing the total amount of the order. This is the sum of the order items' amounts.")
     discount_amount: Optional[StrictInt] = Field(default=None, description="Sum of all order-level discounts applied to the order. It is expressed as an integer in the smallest currency unit (e.g. 100 cents for $1.00).")
     items: Optional[List[OrderItem]] = Field(default=None, description="Array of items applied to the order. It can include up to 500 items.")
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="A set of custom key/value pairs that you can attach to an order. It can be useful for storing additional information about the order in a structured format. It can be used to define business validation rules or discount formulas.")
-    created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the order was created. The value is shown in the ISO 8601 format.")
     referrer_id: Optional[StrictStr] = Field(default=None, description="Unique referrer ID.")
     customer: Optional[Customer] = None
     referrer: Optional[Referrer] = None
-    __properties: ClassVar[List[str]] = ["id", "source_id", "status", "amount", "initial_amount", "discount_amount", "items", "metadata", "created_at", "referrer_id", "customer", "referrer"]
+    created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the order was created. The value is shown in the ISO 8601 format.")
+    __properties: ClassVar[List[str]] = ["id", "source_id", "status", "amount", "initial_amount", "discount_amount", "items", "metadata", "referrer_id", "customer", "referrer", "created_at"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -172,10 +172,10 @@ class OrdersImportCreateRequestBodyItem(BaseModel):
             "discount_amount": obj.get("discount_amount"),
             "items": [OrderItem.from_dict(_item) for _item in obj["items"]] if obj.get("items") is not None else None,
             "metadata": obj.get("metadata"),
-            "created_at": obj.get("created_at"),
             "referrer_id": obj.get("referrer_id"),
             "customer": Customer.from_dict(obj["customer"]) if obj.get("customer") is not None else None,
-            "referrer": Referrer.from_dict(obj["referrer"]) if obj.get("referrer") is not None else None
+            "referrer": Referrer.from_dict(obj["referrer"]) if obj.get("referrer") is not None else None,
+            "created_at": obj.get("created_at")
         })
         return _obj
 

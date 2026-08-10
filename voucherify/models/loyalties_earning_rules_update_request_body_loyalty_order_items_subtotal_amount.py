@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from voucherify.models.loyalties_earning_rules_update_request_body_loyalty_order_items_subtotal_amount_applicable_to_item import LoyaltiesEarningRulesUpdateRequestBodyLoyaltyOrderItemsSubtotalAmountApplicableToItem
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -29,9 +30,11 @@ class LoyaltiesEarningRulesUpdateRequestBodyLoyaltyOrderItemsSubtotalAmount(Base
     """ # noqa: E501
     every: Optional[StrictInt] = Field(default=None, description="Value is multiplied by 100 to precisely represent 2 decimal places. For example, a $10 order amount is written as 1000.")
     points: Optional[StrictInt] = Field(default=None, description="Number of points to be awarded, i.e. how many points to be added to the loyalty card.")
-    object: Optional[StrictStr] = Field(default=None, description="Type of object taken under consideration.")
-    id: Optional[StrictStr] = Field(default=None, description="Unique ID of the resource, i.e. pc_75U0dHlr7u75BJodrW1AE3t6, prod_0bae32322150fd0546, or sku_0b7d7dfb090be5c619.")
-    __properties: ClassVar[List[str]] = ["every", "points", "object", "id"]
+    points_formula: Optional[StrictStr] = Field(default=None, description="Formula used to dynamically calculate the rewarded points.")
+    object: Optional[StrictStr] = Field(default=None, description="Type of object which will be covered by the earning rule. This is required together with `id`. Can be replaced by the `applicable_to` array. In response, the value of the first object is returned even if `applicable_to` array was used.")
+    id: Optional[StrictStr] = Field(default=None, description="Unique ID of the resource assigned by Voucherify. This is required together with `object`. Can be replaced by the `applicable_to` array. In response, the value of the first object is returned even if `applicable_to` array was used. Values are, for example, `pc_75U0dHlr7u75BJodrW1AE3t6` for product collection, `prod_0bae32322150fd0546` for a product, or `sku_0b7d7dfb090be5c619` for a SKU.")
+    applicable_to: Optional[List[LoyaltiesEarningRulesUpdateRequestBodyLoyaltyOrderItemsSubtotalAmountApplicableToItem]] = Field(default=None, description="Defines products, SKUs, or product collections covered by the earning rule. Can be replaced by `object` and `id` to define only one object.")
+    __properties: ClassVar[List[str]] = ["every", "points", "points_formula", "object", "id", "applicable_to"]
 
     @field_validator('object')
     def object_validate_enum(cls, value):
@@ -82,6 +85,13 @@ class LoyaltiesEarningRulesUpdateRequestBodyLoyaltyOrderItemsSubtotalAmount(Base
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in applicable_to (list)
+        _items = []
+        if self.applicable_to:
+            for _item_applicable_to in self.applicable_to:
+                if _item_applicable_to:
+                    _items.append(_item_applicable_to.to_dict())
+            _dict['applicable_to'] = _items
         # set to None if every (nullable) is None
         # and model_fields_set contains the field
         if self.every is None and "every" in self.model_fields_set:
@@ -92,6 +102,11 @@ class LoyaltiesEarningRulesUpdateRequestBodyLoyaltyOrderItemsSubtotalAmount(Base
         if self.points is None and "points" in self.model_fields_set:
             _dict['points'] = None
 
+        # set to None if points_formula (nullable) is None
+        # and model_fields_set contains the field
+        if self.points_formula is None and "points_formula" in self.model_fields_set:
+            _dict['points_formula'] = None
+
         # set to None if object (nullable) is None
         # and model_fields_set contains the field
         if self.object is None and "object" in self.model_fields_set:
@@ -101,6 +116,11 @@ class LoyaltiesEarningRulesUpdateRequestBodyLoyaltyOrderItemsSubtotalAmount(Base
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
             _dict['id'] = None
+
+        # set to None if applicable_to (nullable) is None
+        # and model_fields_set contains the field
+        if self.applicable_to is None and "applicable_to" in self.model_fields_set:
+            _dict['applicable_to'] = None
 
         return _dict
 
@@ -116,8 +136,10 @@ class LoyaltiesEarningRulesUpdateRequestBodyLoyaltyOrderItemsSubtotalAmount(Base
         _obj = cls.model_validate({
             "every": obj.get("every"),
             "points": obj.get("points"),
+            "points_formula": obj.get("points_formula"),
             "object": obj.get("object"),
-            "id": obj.get("id")
+            "id": obj.get("id"),
+            "applicable_to": [LoyaltiesEarningRulesUpdateRequestBodyLoyaltyOrderItemsSubtotalAmountApplicableToItem.from_dict(_item) for _item in obj["applicable_to"]] if obj.get("applicable_to") is not None else None
         })
         return _obj
 

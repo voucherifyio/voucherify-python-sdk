@@ -27,7 +27,7 @@ class CampaignsTransactionsExportCreateResponseBodyResult(BaseModel):
     """
     Contains the URL of the CSV file.
     """ # noqa: E501
-    url: Optional[StrictStr] = Field(default=None, description="URL of the CSV file location. It contains the `token` used for authorization in the [Download export](ref:download-export) method.")
+    url: Optional[StrictStr] = Field(default=None, description="URL of the CSV file location. It contains the `token` used for authorization in the [Download export](/api-reference/exports/download-export) method.")
     __properties: ClassVar[List[str]] = ["url"]
 
     model_config = ConfigDict(

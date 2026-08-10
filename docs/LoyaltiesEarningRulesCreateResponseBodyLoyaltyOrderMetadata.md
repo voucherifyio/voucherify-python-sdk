@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **every** | **int** | For how many increments of the order metadata property to grant points for. | [optional] 
 **points** | **int** | Number of points to be awarded, i.e. how many points to be added to the loyalty card. | [optional] 
+**points_formula** | **str** | Formula used to dynamically calculate the rewarded points. | [optional] 
 **var_property** | **str** | Order metadata property. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -31,11 +31,12 @@ class VoucherBalance(BaseModel):
     type: Optional[StrictStr] = Field(default=None, description="The type of voucher whose balance is being adjusted due to the transaction.")
     total: Optional[StrictInt] = Field(default=None, description="The number of all points or credits accumulated on the card as affected by add or subtract operations.")
     object: Optional[StrictStr] = Field(default='balance', description="The type of the object represented by the JSON.")
+    amount: Optional[StrictInt] = Field(default=None, description="Credits added or subtracted on a gift card.")
     points: Optional[StrictInt] = Field(default=None, description="Points added or subtracted in the transaction of a loyalty card.")
     balance: Optional[StrictInt] = Field(default=None, description="The available points or credits on the card after the transaction as affected by redemption or rollback.")
     operation_type: Optional[StrictStr] = Field(default=None, description="The type of the operation being performed. The operation type is `AUTOMATIC` if it is an automatic redemption.")
     related_object: Optional[VoucherBalanceRelatedObject] = None
-    __properties: ClassVar[List[str]] = ["type", "total", "object", "points", "balance", "operation_type", "related_object"]
+    __properties: ClassVar[List[str]] = ["type", "total", "object", "amount", "points", "balance", "operation_type", "related_object"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -124,6 +125,11 @@ class VoucherBalance(BaseModel):
         if self.object is None and "object" in self.model_fields_set:
             _dict['object'] = None
 
+        # set to None if amount (nullable) is None
+        # and model_fields_set contains the field
+        if self.amount is None and "amount" in self.model_fields_set:
+            _dict['amount'] = None
+
         # set to None if points (nullable) is None
         # and model_fields_set contains the field
         if self.points is None and "points" in self.model_fields_set:
@@ -159,6 +165,7 @@ class VoucherBalance(BaseModel):
             "type": obj.get("type"),
             "total": obj.get("total"),
             "object": obj.get("object") if obj.get("object") is not None else 'balance',
+            "amount": obj.get("amount"),
             "points": obj.get("points"),
             "balance": obj.get("balance"),
             "operation_type": obj.get("operation_type"),

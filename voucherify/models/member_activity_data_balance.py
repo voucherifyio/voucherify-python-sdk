@@ -28,7 +28,7 @@ class MemberActivityDataBalance(BaseModel):
     """
     MemberActivityDataBalance
     """ # noqa: E501
-    amount: Optional[StrictInt] = None
+    amount: Optional[StrictInt] = Field(default=None, description="Credits added or subtracted on a gift card.")
     points: Optional[StrictInt] = Field(default=None, description="Points added or subtracted in the transaction of a loyalty card.")
     type: Optional[StrictStr] = Field(default=None, description="The type of voucher whose balance is being adjusted due to the transaction.")
     total: Optional[StrictInt] = Field(default=None, description="The number of all points or credits accumulated on the card as affected by add or subtract operations.")

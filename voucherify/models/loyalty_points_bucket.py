@@ -33,7 +33,7 @@ class LoyaltyPointsBucket(BaseModel):
     voucher_id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the parent loyalty card.")
     campaign_id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the parent campaign.")
     bucket: Optional[LoyaltyPointsBucketBucket] = None
-    status: Optional[StrictStr] = Field(default=None, description="Loyalty point point bucket status.")
+    status: Optional[StrictStr] = Field(default=None, description="Loyalty point bucket status.")
     expires_at: Optional[date] = Field(default=None, description="Date when the number of points defined in the bucket object are due to expire.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the loyalty point bucket object was created in ISO 8601 format.")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the loyalty point bucket object was updated in ISO 8601 format.")

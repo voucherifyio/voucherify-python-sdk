@@ -34,7 +34,7 @@ class SimpleCampaign(BaseModel):
     id: Optional[StrictStr] = Field(default=None, description="Campaign ID.")
     name: Optional[StrictStr] = Field(default=None, description="Campaign name.")
     campaign_type: Optional[StrictStr] = Field(default=None, description="Type of campaign.")
-    type: Optional[StrictStr] = Field(default=None, description="Defines whether the campaign can be updated with new vouchers after campaign creation or if the campaign consists of generic (standalone) voucherss.  - `AUTO_UPDATE`: the campaign is dynamic, i.e. vouchers will generate based on set criteria -  `STATIC`: vouchers need to be manually published - `STANDALONE`: campaign for single vouchers")
+    type: Optional[StrictStr] = Field(default=None, description="Defines whether the campaign can be updated with new vouchers after campaign creation or if the campaign consists of generic (standalone) vouchers.  - `AUTO_UPDATE`: the campaign is dynamic, i.e. vouchers will generate based on set criteria -  `STATIC`: vouchers need to be manually published - `STANDALONE`: campaign for single vouchers")
     is_referral_code: Optional[StrictBool] = Field(default=None, description="Flag indicating whether this voucher is a referral code; `true` for campaign type `REFERRAL_PROGRAM`.")
     voucher: Optional[SimpleCampaignVoucher] = None
     referral_program: Optional[ReferralProgram] = None

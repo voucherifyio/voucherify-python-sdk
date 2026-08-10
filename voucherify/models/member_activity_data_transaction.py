@@ -33,7 +33,7 @@ class MemberActivityDataTransaction(BaseModel):
     source_id: Optional[StrictStr] = Field(default=None, description="The merchant's transaction ID if it is different from the Voucherify transaction ID. It is really useful in case of an integration between multiple systems. It can be a transaction ID from a CRM system, database or 3rd-party service. In case of a redemption, this value is null.")
     voucher_id: Optional[StrictStr] = Field(default=None, description="Unique voucher ID.")
     campaign_id: Optional[StrictStr] = Field(default=None, description="Unqiue campaign ID of the voucher's parent campaign if it is part of campaign that generates bulk codes.")
-    source: Optional[StrictStr] = Field(default=None, description="The channel through which the transaction took place, whether through the API or the the Dashboard. In case of a redemption, this value is null.")
+    source: Optional[StrictStr] = Field(default=None, description="The channel through which the transaction took place, whether through the API or the Dashboard. In case of a redemption, this value is null.")
     reason: Optional[StrictStr] = Field(default=None, description="Reason why the transaction occurred. In case of a redemption, this value is null.")
     related_transaction_id: Optional[StrictStr] = Field(default=None, description="The related transaction ID on the receiving card.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the transaction was created. The value is shown in the ISO 8601 format.")

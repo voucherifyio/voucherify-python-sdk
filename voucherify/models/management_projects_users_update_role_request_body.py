@@ -27,7 +27,7 @@ class ManagementProjectsUsersUpdateRoleRequestBody(BaseModel):
     """
     ManagementProjectsUsersUpdateRoleRequestBody
     """ # noqa: E501
-    role: Optional[StrictStr] = Field(default=None, description="The role of the user to be added. It can be a custom role or one of following predefined roles: `ADMIN`, `USER`, `VIEWER`, `MERCHANT` or an ID of a custom role..")
+    role: Optional[StrictStr] = Field(default=None, description="The role of the user to be added. It can be a custom role or one of following predefined roles: - `ADMIN`, `USER`, `VIEWER`, `MERCHANT` - or an ID of a custom role.")
     __properties: ClassVar[List[str]] = ["role"]
 
     model_config = ConfigDict(

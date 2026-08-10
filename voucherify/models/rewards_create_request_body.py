@@ -32,7 +32,7 @@ class RewardsCreateRequestBody(BaseModel):
     name: Optional[StrictStr] = Field(default=None, description="Reward name.")
     parameters: Optional[RewardsCreateRequestBodyParameters] = None
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the reward. A set of key/value pairs that you can attach to a reward object. It can be useful for storing additional information about the reward in a structured format.")
-    stock: Optional[StrictInt] = Field(default=None, description="The number of units of the product that you want to share as a reward.")
+    stock: Optional[StrictInt] = Field(default=None, description="The number of units of the product that you want to share as a reward. Use this parameter to code a stock-taking logic.")
     attributes: Optional[RewardsCreateRequestBodyAttributes] = None
     __properties: ClassVar[List[str]] = ["name", "parameters", "metadata", "stock", "attributes"]
 
