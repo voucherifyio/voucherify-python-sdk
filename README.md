@@ -116,11 +116,33 @@ This SDK is generated automatically from our [OpenAPI specification](https://git
 
 ## 📅 Changelog
 
-- **2026-08-10** - `6.0.1`
+- **2026-08-10** - `6.1.0`
+ADDED:
+New models:
+  - `*OrderItems*ApplicableToItem` models (24) for loyalty earning rules — typed items for `applicable_to` on order-items amount, quantity, and subtotal amount schemas across create/get/update/enable/disable request and response bodies.
+
+New properties:
+  - `points_formula` across loyalty earning rule schemas (base, custom event/customer/order metadata, order amount/total amount, order items amount/quantity/subtotal amount, and Loyalties earning-rules create/update/get/enable/disable request/response variants).
+  - `applicable_to` on order-items-based loyalty earning rule schemas (amount, quantity, subtotal amount) — alternative to single `object` + `id` targeting.
+  - Campaign budget limit fields on `ApplicableTo` and `InapplicableTo` (`product_*_quantity_limit`, `product_*_quantity_limit_formula`, and promotion-tier/collection variants).
+  - `applicable_redeemables_category_limits` on `StackingRules` and `ManagementProjectsStackingRules*` models.
+  - `updated_at` on `SegmentsCreateResponseBody` and `SegmentsGetResponseBody`.
+  - `cockpit_preference_center_url` on customer assets models (`CustomerWithSummaryLoyaltyReferralsAssets`, `CustomersCreateResponseBodyAssets`, `CustomersGetResponseBodyAssets`, `CustomersUpdateResponseBodyAssets`).
+  - `campaign_id` on export parameter models (`ExportParameters`, `ExportsCreateRequestBodyParameters`, `ExportsCreateResponseBodyParameters`, `ExportsGetResponseBodyParameters`).
+  - `amount` on `VoucherBalance` (gift card credits added/subtracted in a transaction).
+
+New enum values:
+  - `STANDALONE` on campaign create request bodies (`CampaignsCreateRequestBody`, `LoyaltiesCreateCampaignRequestBody`, `TemplatesCampaignsCampaignSetupCreateRequestBody`).
+  - `passive` on `SegmentsCreateRequestBody.type`.
+  - `ADD_SAME_ITEMS` on `Discount.effect` and validation response discount models (`ValidationsValidateResponseBodyRedeemablesItemResultDiscount`, `ClientValidationsValidateResponseBodyRedeemablesItemResultDiscount`).
+  - `no_effect` on `ValidationsRedeemableSkippedResultDetails.key`.
+
+UPDATED:
+  - `CreatePublicationCampaign.count` maximum raised from 20 to 50.
+
 FIXED:
-- `ValidationsRedeemableSkippedResultDetails.key` enum was missing `no_effect`, so deserializing a skipped redeemable with `"key": "no_effect"` raised `ValueError` from the field validator (entire validations/redemptions response failed to parse).
-- This affects `POST /v1/validations` and stackable `POST /v1/redemptions` when `redeemables_no_effect_rule` is `SKIP` (globally or via `no_effect_skip_categories`).
-- New enum value: `no_effect` - Redeemable cannot be applied due to no effect.
+- `ValidationsRedeemableSkippedResultDetails.key` was missing `no_effect`, so deserializing a skipped redeemable with `"key": "no_effect"` raised `ValueError` and failed the entire `POST /v1/validations` or stackable `POST /v1/redemptions` response (when `redeemables_no_effect_rule` is `SKIP`, globally or via `no_effect_skip_categories`).
+- `Discount.effect` (and validation response discount models) were missing `ADD_SAME_ITEMS`, so unit-discount responses using that effect failed deserialization.
 
 - **2025-08-21** - `6.0.0`
 ADDED:
