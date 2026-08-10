@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-HOST = os.getenv("VOUCHERIFY_HOST", "https://api.voucherify.io")
+HOST = os.getenv("VOUCHERIFY_HOST", "https://api.voucherify.io").strip().rstrip("/")
 X_APP_ID = os.getenv("X_APP_ID")
 X_APP_TOKEN = os.getenv("X_APP_TOKEN")
 
