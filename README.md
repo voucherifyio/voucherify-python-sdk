@@ -141,6 +141,7 @@ UPDATED:
   - `CreatePublicationCampaign.count` maximum raised from 20 to 50.
 
 FIXED:
+- `RedemptionRewardResultParametersCoin.exchange_ratio` was typed as `int`, but the API returns fractional COIN reward ratios (e.g. `0.01` for pay-with-points). `list_redemptions` and other endpoints could fail Pydantic deserialization on real project data.
 - `ValidationsRedeemableSkippedResultDetails.key` was missing `no_effect`, so deserializing a skipped redeemable with `"key": "no_effect"` raised `ValueError` and failed the entire `POST /v1/validations` or stackable `POST /v1/redemptions` response (when `redeemables_no_effect_rule` is `SKIP`, globally or via `no_effect_skip_categories`).
 - `Discount.effect` (and validation response discount models) were missing `ADD_SAME_ITEMS`, so unit-discount responses using that effect failed deserialization.
 
