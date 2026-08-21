@@ -26,7 +26,7 @@ from typing_extensions import Self
 
 class ProductsSkusListResponseBody(BaseModel):
     """
-    Response body schema for **GET** `v1/products/{productId}/skus`.
+    Response body schema for **GET** `v1/products/{productId}/SKUs`.
     """ # noqa: E501
     object: Optional[StrictStr] = Field(default='list', description="The type of the object represented by JSON. This object stores information about SKUs.")
     data_ref: Optional[StrictStr] = Field(default='data', description="Identifies the name of the JSON property that contains the array of SKUs.")

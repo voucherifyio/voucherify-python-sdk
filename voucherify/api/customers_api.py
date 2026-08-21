@@ -81,7 +81,7 @@ class CustomersApi:
     ) -> CustomersCreateResponseBody:
         """Create Customer
 
-        Creates a customer object.  📘 Upsert Mode  If you pass an id or a source_id that already exists in the customer database, Voucherify will return a related customer object with updated fields.
+        Creates a customer object. <Note> <Badge color blue>Upsert Mode</Badge> If you pass an id or a source_id that already exists in the customer database, Voucherify will return a related customer object with updated fields. </Note>
 
         :param customers_create_request_body: Create a customer with specified parameters.
         :type customers_create_request_body: CustomersCreateRequestBody
@@ -148,7 +148,7 @@ class CustomersApi:
     ) -> ApiResponse[CustomersCreateResponseBody]:
         """Create Customer
 
-        Creates a customer object.  📘 Upsert Mode  If you pass an id or a source_id that already exists in the customer database, Voucherify will return a related customer object with updated fields.
+        Creates a customer object. <Note> <Badge color blue>Upsert Mode</Badge> If you pass an id or a source_id that already exists in the customer database, Voucherify will return a related customer object with updated fields. </Note>
 
         :param customers_create_request_body: Create a customer with specified parameters.
         :type customers_create_request_body: CustomersCreateRequestBody
@@ -215,7 +215,7 @@ class CustomersApi:
     ) -> RESTResponseType:
         """Create Customer
 
-        Creates a customer object.  📘 Upsert Mode  If you pass an id or a source_id that already exists in the customer database, Voucherify will return a related customer object with updated fields.
+        Creates a customer object. <Note> <Badge color blue>Upsert Mode</Badge> If you pass an id or a source_id that already exists in the customer database, Voucherify will return a related customer object with updated fields. </Note>
 
         :param customers_create_request_body: Create a customer with specified parameters.
         :type customers_create_request_body: CustomersCreateRequestBody
@@ -867,7 +867,7 @@ class CustomersApi:
     ) -> CustomersGetResponseBody:
         """Get Customer
 
-        Retrieve customer details.
+        Retrieves details of a given customer by customers id or source_id.
 
         :param customer_id: A Voucherify customers id or source_id. (required)
         :type customer_id: str
@@ -934,7 +934,7 @@ class CustomersApi:
     ) -> ApiResponse[CustomersGetResponseBody]:
         """Get Customer
 
-        Retrieve customer details.
+        Retrieves details of a given customer by customers id or source_id.
 
         :param customer_id: A Voucherify customers id or source_id. (required)
         :type customer_id: str
@@ -1001,7 +1001,7 @@ class CustomersApi:
     ) -> RESTResponseType:
         """Get Customer
 
-        Retrieve customer details.
+        Retrieves details of a given customer by customers id or source_id.
 
         :param customer_id: A Voucherify customers id or source_id. (required)
         :type customer_id: str
@@ -1127,7 +1127,7 @@ class CustomersApi:
     ) -> CustomersImportCsvCreateResponseBody:
         """Import and Update Customers using CSV
 
-        This API method lets you import or update customer data. To get a proper and valid response, please send a CSV file with data separated by commas.   # Request Example # CSV File Format The CSV file has to include headers in the first line. All properties which cannot be mapped to standard customer fields will be added to the metadata object.  📘 Standard customer fields mapping  **No spaces allowed in field names**    Id, Name, Email, Phone, Birthdate, Source_id, Address_line_1, Address_line_2, Address_Postal_Code, Address_City, Address_State, Address_Country, Description, Metadata_name_1, Metadata_name_2 # Update Customers using CSV If you would like to update customers data, you can do it using the CSV file with new data. However, remember to include a source_id in your CSV file to manage the update successfully. This API request starts a process that affects Voucherify data in bulk.  In case of small jobs (like bulk update) the request is put into a queue and processed once every other bulk request placed in the queue prior to this request is finished. However, when the job takes a longer time (like vouchers generation) then it is processed in small portions in a round-robin fashion. When there is a list of vouchers generation scheduled, then they will all have the IN_PROGRESS status shortly. This way, small jobs added just after scheduling big jobs of the same type will be processed in a short time window.  The result will return the async ID. You can verify the status of your request via this API request.
+        This API method lets you import or update customer data. To get a proper and valid response, please send a CSV file with data separated by commas.   # Request Example # CSV File Format The CSV file has to include headers in the first line. All properties which cannot be mapped to standard customer fields will be added to the metadata object. <Note> <Badge color blue>Standard customer fields mapping</Badge> **No spaces allowed in field names** Id, Name, Email, Phone, Birthdate, Source_id, Address_line_1, Address_line_2, Address_Postal_Code, Address_City, Address_State, Address_Country, Description, Metadata_name_1, Metadata_name_2 </Note> # Update Customers using CSV If you would like to update customers data, you can do it using the CSV file with new data. However, remember to include a source_id in your CSV file to manage the update successfully. This API request starts a process that affects Voucherify data in bulk.  In case of small jobs (like bulk update) the request is put into a queue and processed once every other bulk request placed in the queue prior to this request is finished. However, when the job takes a longer time (like vouchers generation) then it is processed in small portions in a round-robin fashion. When there is a list of vouchers generation scheduled, then they will all have the IN_PROGRESS status shortly. This way, small jobs added just after scheduling big jobs of the same type will be processed in a short time window.  The result will return the async ID. You can verify the status of your request via this [API request](/api-reference/async-actions/get-async-action).
 
         :param file: File path.
         :type file: bytearray
@@ -1194,7 +1194,7 @@ class CustomersApi:
     ) -> ApiResponse[CustomersImportCsvCreateResponseBody]:
         """Import and Update Customers using CSV
 
-        This API method lets you import or update customer data. To get a proper and valid response, please send a CSV file with data separated by commas.   # Request Example # CSV File Format The CSV file has to include headers in the first line. All properties which cannot be mapped to standard customer fields will be added to the metadata object.  📘 Standard customer fields mapping  **No spaces allowed in field names**    Id, Name, Email, Phone, Birthdate, Source_id, Address_line_1, Address_line_2, Address_Postal_Code, Address_City, Address_State, Address_Country, Description, Metadata_name_1, Metadata_name_2 # Update Customers using CSV If you would like to update customers data, you can do it using the CSV file with new data. However, remember to include a source_id in your CSV file to manage the update successfully. This API request starts a process that affects Voucherify data in bulk.  In case of small jobs (like bulk update) the request is put into a queue and processed once every other bulk request placed in the queue prior to this request is finished. However, when the job takes a longer time (like vouchers generation) then it is processed in small portions in a round-robin fashion. When there is a list of vouchers generation scheduled, then they will all have the IN_PROGRESS status shortly. This way, small jobs added just after scheduling big jobs of the same type will be processed in a short time window.  The result will return the async ID. You can verify the status of your request via this API request.
+        This API method lets you import or update customer data. To get a proper and valid response, please send a CSV file with data separated by commas.   # Request Example # CSV File Format The CSV file has to include headers in the first line. All properties which cannot be mapped to standard customer fields will be added to the metadata object. <Note> <Badge color blue>Standard customer fields mapping</Badge> **No spaces allowed in field names** Id, Name, Email, Phone, Birthdate, Source_id, Address_line_1, Address_line_2, Address_Postal_Code, Address_City, Address_State, Address_Country, Description, Metadata_name_1, Metadata_name_2 </Note> # Update Customers using CSV If you would like to update customers data, you can do it using the CSV file with new data. However, remember to include a source_id in your CSV file to manage the update successfully. This API request starts a process that affects Voucherify data in bulk.  In case of small jobs (like bulk update) the request is put into a queue and processed once every other bulk request placed in the queue prior to this request is finished. However, when the job takes a longer time (like vouchers generation) then it is processed in small portions in a round-robin fashion. When there is a list of vouchers generation scheduled, then they will all have the IN_PROGRESS status shortly. This way, small jobs added just after scheduling big jobs of the same type will be processed in a short time window.  The result will return the async ID. You can verify the status of your request via this [API request](/api-reference/async-actions/get-async-action).
 
         :param file: File path.
         :type file: bytearray
@@ -1261,7 +1261,7 @@ class CustomersApi:
     ) -> RESTResponseType:
         """Import and Update Customers using CSV
 
-        This API method lets you import or update customer data. To get a proper and valid response, please send a CSV file with data separated by commas.   # Request Example # CSV File Format The CSV file has to include headers in the first line. All properties which cannot be mapped to standard customer fields will be added to the metadata object.  📘 Standard customer fields mapping  **No spaces allowed in field names**    Id, Name, Email, Phone, Birthdate, Source_id, Address_line_1, Address_line_2, Address_Postal_Code, Address_City, Address_State, Address_Country, Description, Metadata_name_1, Metadata_name_2 # Update Customers using CSV If you would like to update customers data, you can do it using the CSV file with new data. However, remember to include a source_id in your CSV file to manage the update successfully. This API request starts a process that affects Voucherify data in bulk.  In case of small jobs (like bulk update) the request is put into a queue and processed once every other bulk request placed in the queue prior to this request is finished. However, when the job takes a longer time (like vouchers generation) then it is processed in small portions in a round-robin fashion. When there is a list of vouchers generation scheduled, then they will all have the IN_PROGRESS status shortly. This way, small jobs added just after scheduling big jobs of the same type will be processed in a short time window.  The result will return the async ID. You can verify the status of your request via this API request.
+        This API method lets you import or update customer data. To get a proper and valid response, please send a CSV file with data separated by commas.   # Request Example # CSV File Format The CSV file has to include headers in the first line. All properties which cannot be mapped to standard customer fields will be added to the metadata object. <Note> <Badge color blue>Standard customer fields mapping</Badge> **No spaces allowed in field names** Id, Name, Email, Phone, Birthdate, Source_id, Address_line_1, Address_line_2, Address_Postal_Code, Address_City, Address_State, Address_Country, Description, Metadata_name_1, Metadata_name_2 </Note> # Update Customers using CSV If you would like to update customers data, you can do it using the CSV file with new data. However, remember to include a source_id in your CSV file to manage the update successfully. This API request starts a process that affects Voucherify data in bulk.  In case of small jobs (like bulk update) the request is put into a queue and processed once every other bulk request placed in the queue prior to this request is finished. However, when the job takes a longer time (like vouchers generation) then it is processed in small portions in a round-robin fashion. When there is a list of vouchers generation scheduled, then they will all have the IN_PROGRESS status shortly. This way, small jobs added just after scheduling big jobs of the same type will be processed in a short time window.  The result will return the async ID. You can verify the status of your request via this [API request](/api-reference/async-actions/get-async-action).
 
         :param file: File path.
         :type file: bytearray
@@ -1409,7 +1409,7 @@ class CustomersApi:
     ) -> CustomersActivityListResponseBody:
         """List Customer Activity
 
-        Retrieve customer activities.
+        Retrieves activity details of a given customer by customers id or source_id.
 
         :param customer_id: A Voucherify customers id or source ID of the customer who performed the activities. (required)
         :type customer_id: str
@@ -1512,7 +1512,7 @@ class CustomersApi:
     ) -> ApiResponse[CustomersActivityListResponseBody]:
         """List Customer Activity
 
-        Retrieve customer activities.
+        Retrieves activity details of a given customer by customers id or source_id.
 
         :param customer_id: A Voucherify customers id or source ID of the customer who performed the activities. (required)
         :type customer_id: str
@@ -1615,7 +1615,7 @@ class CustomersApi:
     ) -> RESTResponseType:
         """List Customer Activity
 
-        Retrieve customer activities.
+        Retrieves activity details of a given customer by customers id or source_id.
 
         :param customer_id: A Voucherify customers id or source ID of the customer who performed the activities. (required)
         :type customer_id: str
@@ -2408,7 +2408,7 @@ class CustomersApi:
         email: Annotated[Optional[StrictStr], Field(description="Limit the customers to the ones that have this specific email address.")] = None,
         city: Annotated[Optional[StrictStr], Field(description="Limit the customers to the ones that are located in the specified city.")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter customers by the name property.")] = None,
-        segment_id: Annotated[Optional[StrictStr], Field(description="Filter customers by the segment id.")] = None,
+        segment_id: Annotated[Optional[StrictStr], Field(description="Filter customers by the segment ID. Warning: Passing additional query parameter filters that are in conflict with the segment filters may return unexpected results.")] = None,
         created_at_before: Annotated[Optional[datetime], Field(description="Filter customers by date customer was created.")] = None,
         created_at_after: Annotated[Optional[datetime], Field(description="Filter customers by date customer was created.")] = None,
         updated_at_before: Annotated[Optional[datetime], Field(description="Filter customers by date customer was updated last time.")] = None,
@@ -2442,7 +2442,7 @@ class CustomersApi:
         :type city: str
         :param name: Filter customers by the name property.
         :type name: str
-        :param segment_id: Filter customers by the segment id.
+        :param segment_id: Filter customers by the segment ID. Warning: Passing additional query parameter filters that are in conflict with the segment filters may return unexpected results.
         :type segment_id: str
         :param created_at_before: Filter customers by date customer was created.
         :type created_at_before: datetime
@@ -2519,7 +2519,7 @@ class CustomersApi:
         email: Annotated[Optional[StrictStr], Field(description="Limit the customers to the ones that have this specific email address.")] = None,
         city: Annotated[Optional[StrictStr], Field(description="Limit the customers to the ones that are located in the specified city.")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter customers by the name property.")] = None,
-        segment_id: Annotated[Optional[StrictStr], Field(description="Filter customers by the segment id.")] = None,
+        segment_id: Annotated[Optional[StrictStr], Field(description="Filter customers by the segment ID. Warning: Passing additional query parameter filters that are in conflict with the segment filters may return unexpected results.")] = None,
         created_at_before: Annotated[Optional[datetime], Field(description="Filter customers by date customer was created.")] = None,
         created_at_after: Annotated[Optional[datetime], Field(description="Filter customers by date customer was created.")] = None,
         updated_at_before: Annotated[Optional[datetime], Field(description="Filter customers by date customer was updated last time.")] = None,
@@ -2553,7 +2553,7 @@ class CustomersApi:
         :type city: str
         :param name: Filter customers by the name property.
         :type name: str
-        :param segment_id: Filter customers by the segment id.
+        :param segment_id: Filter customers by the segment ID. Warning: Passing additional query parameter filters that are in conflict with the segment filters may return unexpected results.
         :type segment_id: str
         :param created_at_before: Filter customers by date customer was created.
         :type created_at_before: datetime
@@ -2630,7 +2630,7 @@ class CustomersApi:
         email: Annotated[Optional[StrictStr], Field(description="Limit the customers to the ones that have this specific email address.")] = None,
         city: Annotated[Optional[StrictStr], Field(description="Limit the customers to the ones that are located in the specified city.")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter customers by the name property.")] = None,
-        segment_id: Annotated[Optional[StrictStr], Field(description="Filter customers by the segment id.")] = None,
+        segment_id: Annotated[Optional[StrictStr], Field(description="Filter customers by the segment ID. Warning: Passing additional query parameter filters that are in conflict with the segment filters may return unexpected results.")] = None,
         created_at_before: Annotated[Optional[datetime], Field(description="Filter customers by date customer was created.")] = None,
         created_at_after: Annotated[Optional[datetime], Field(description="Filter customers by date customer was created.")] = None,
         updated_at_before: Annotated[Optional[datetime], Field(description="Filter customers by date customer was updated last time.")] = None,
@@ -2664,7 +2664,7 @@ class CustomersApi:
         :type city: str
         :param name: Filter customers by the name property.
         :type name: str
-        :param segment_id: Filter customers by the segment id.
+        :param segment_id: Filter customers by the segment ID. Warning: Passing additional query parameter filters that are in conflict with the segment filters may return unexpected results.
         :type segment_id: str
         :param created_at_before: Filter customers by date customer was created.
         :type created_at_before: datetime
@@ -3201,7 +3201,7 @@ class CustomersApi:
     ) -> CustomersUpdateInBulkResponseBody:
         """Update Customers in Bulk
 
-        Updates customers in one asynchronous operation. The request can include up to **10 MB** of data. The response returns a unique asynchronous action ID. Use this ID in the query paramater of the GET Async Action endpoint to check, e.g.: - The status of your request (in queue, in progress, done, or failed) - Resources that failed to be updated - The report file with details about the update If a customer object is not found, it is **upserted**. This is shown in the report file in the **GET** Async Action endpoint. The upserted resources have value false in the found column and true in the updated column. This API request starts a process that affects Voucherify data in bulk. In the case of small jobs (like bulk update), the request is put into a queue and processed when every other bulk request placed in the queue prior to this request is finished.
+        Updates customers in one asynchronous operation. The request can include up to **10 MB** of data. The response returns a unique asynchronous action ID. Use this ID in the query paramater of the [GET Async Action](/api-reference/async-actions/get-async-action) endpoint to check, e.g.: - The status of your request (in queue, in progress, done, or failed) - Resources that failed to be updated - The report file with details about the update If a customer object is not found, it is **upserted**. This is shown in the report file in the **GET** Async Action endpoint. The upserted resources have value false in the found column and true in the updated column. This API request starts a process that affects Voucherify data in bulk. In the case of small jobs (like bulk update), the request is put into a queue and processed when every other bulk request placed in the queue prior to this request is finished.
 
         :param customers_update_in_bulk_request_body: List the customer fields to be updated in each customer object.
         :type customers_update_in_bulk_request_body: List[CustomersUpdateInBulkRequestBody]
@@ -3268,7 +3268,7 @@ class CustomersApi:
     ) -> ApiResponse[CustomersUpdateInBulkResponseBody]:
         """Update Customers in Bulk
 
-        Updates customers in one asynchronous operation. The request can include up to **10 MB** of data. The response returns a unique asynchronous action ID. Use this ID in the query paramater of the GET Async Action endpoint to check, e.g.: - The status of your request (in queue, in progress, done, or failed) - Resources that failed to be updated - The report file with details about the update If a customer object is not found, it is **upserted**. This is shown in the report file in the **GET** Async Action endpoint. The upserted resources have value false in the found column and true in the updated column. This API request starts a process that affects Voucherify data in bulk. In the case of small jobs (like bulk update), the request is put into a queue and processed when every other bulk request placed in the queue prior to this request is finished.
+        Updates customers in one asynchronous operation. The request can include up to **10 MB** of data. The response returns a unique asynchronous action ID. Use this ID in the query paramater of the [GET Async Action](/api-reference/async-actions/get-async-action) endpoint to check, e.g.: - The status of your request (in queue, in progress, done, or failed) - Resources that failed to be updated - The report file with details about the update If a customer object is not found, it is **upserted**. This is shown in the report file in the **GET** Async Action endpoint. The upserted resources have value false in the found column and true in the updated column. This API request starts a process that affects Voucherify data in bulk. In the case of small jobs (like bulk update), the request is put into a queue and processed when every other bulk request placed in the queue prior to this request is finished.
 
         :param customers_update_in_bulk_request_body: List the customer fields to be updated in each customer object.
         :type customers_update_in_bulk_request_body: List[CustomersUpdateInBulkRequestBody]
@@ -3335,7 +3335,7 @@ class CustomersApi:
     ) -> RESTResponseType:
         """Update Customers in Bulk
 
-        Updates customers in one asynchronous operation. The request can include up to **10 MB** of data. The response returns a unique asynchronous action ID. Use this ID in the query paramater of the GET Async Action endpoint to check, e.g.: - The status of your request (in queue, in progress, done, or failed) - Resources that failed to be updated - The report file with details about the update If a customer object is not found, it is **upserted**. This is shown in the report file in the **GET** Async Action endpoint. The upserted resources have value false in the found column and true in the updated column. This API request starts a process that affects Voucherify data in bulk. In the case of small jobs (like bulk update), the request is put into a queue and processed when every other bulk request placed in the queue prior to this request is finished.
+        Updates customers in one asynchronous operation. The request can include up to **10 MB** of data. The response returns a unique asynchronous action ID. Use this ID in the query paramater of the [GET Async Action](/api-reference/async-actions/get-async-action) endpoint to check, e.g.: - The status of your request (in queue, in progress, done, or failed) - Resources that failed to be updated - The report file with details about the update If a customer object is not found, it is **upserted**. This is shown in the report file in the **GET** Async Action endpoint. The upserted resources have value false in the found column and true in the updated column. This API request starts a process that affects Voucherify data in bulk. In the case of small jobs (like bulk update), the request is put into a queue and processed when every other bulk request placed in the queue prior to this request is finished.
 
         :param customers_update_in_bulk_request_body: List the customer fields to be updated in each customer object.
         :type customers_update_in_bulk_request_body: List[CustomersUpdateInBulkRequestBody]
@@ -3475,7 +3475,7 @@ class CustomersApi:
     ) -> CustomersMetadataUpdateInBulkResponseBody:
         """Update Customers' Metadata in Bulk
 
-        Updates metadata parameters for a list of customers. Every resource in the list will receive the metadata defined in the request. The request can include up to **10 MB** of data. The response returns a unique asynchronous action ID. Use this ID in the query paramater of the GET Async Action endpoint to check, e.g.: - The status of your request (in queue, in progress, done, or failed) - Resources that failed to be updated - The report file with details about the update If a product object is not found, it is **upserted**. This is shown in the report file in the **GET** Async Action endpoint. The upserted resources have value false in the found column and true in the updated column. This API request starts a process that affects Voucherify data in bulk. In the case of small jobs (like bulk update), the request is put into a queue and processed when every other bulk request placed in the queue prior to this request is finished.
+        Updates metadata parameters for a list of customers. Every resource in the list will receive the metadata defined in the request. The request can include up to **10 MB** of data. The response returns a unique asynchronous action ID. Use this ID in the query paramater of the [GET Async Action](/api-reference/async-actions/get-async-action) endpoint to check, e.g.: - The status of your request (in queue, in progress, done, or failed) - Resources that failed to be updated - The report file with details about the update If a customer object is not found, it is **upserted**. This is shown in the report file in the **GET** Async Action endpoint. The upserted resources have value false in the found column and true in the updated column. This API request starts a process that affects Voucherify data in bulk. In the case of small jobs (like bulk update), the request is put into a queue and processed when every other bulk request placed in the queue prior to this request is finished.
 
         :param customers_metadata_update_in_bulk_request_body: List the source_ids of the customers you would like to update with the metadata key/value pairs.
         :type customers_metadata_update_in_bulk_request_body: CustomersMetadataUpdateInBulkRequestBody
@@ -3542,7 +3542,7 @@ class CustomersApi:
     ) -> ApiResponse[CustomersMetadataUpdateInBulkResponseBody]:
         """Update Customers' Metadata in Bulk
 
-        Updates metadata parameters for a list of customers. Every resource in the list will receive the metadata defined in the request. The request can include up to **10 MB** of data. The response returns a unique asynchronous action ID. Use this ID in the query paramater of the GET Async Action endpoint to check, e.g.: - The status of your request (in queue, in progress, done, or failed) - Resources that failed to be updated - The report file with details about the update If a product object is not found, it is **upserted**. This is shown in the report file in the **GET** Async Action endpoint. The upserted resources have value false in the found column and true in the updated column. This API request starts a process that affects Voucherify data in bulk. In the case of small jobs (like bulk update), the request is put into a queue and processed when every other bulk request placed in the queue prior to this request is finished.
+        Updates metadata parameters for a list of customers. Every resource in the list will receive the metadata defined in the request. The request can include up to **10 MB** of data. The response returns a unique asynchronous action ID. Use this ID in the query paramater of the [GET Async Action](/api-reference/async-actions/get-async-action) endpoint to check, e.g.: - The status of your request (in queue, in progress, done, or failed) - Resources that failed to be updated - The report file with details about the update If a customer object is not found, it is **upserted**. This is shown in the report file in the **GET** Async Action endpoint. The upserted resources have value false in the found column and true in the updated column. This API request starts a process that affects Voucherify data in bulk. In the case of small jobs (like bulk update), the request is put into a queue and processed when every other bulk request placed in the queue prior to this request is finished.
 
         :param customers_metadata_update_in_bulk_request_body: List the source_ids of the customers you would like to update with the metadata key/value pairs.
         :type customers_metadata_update_in_bulk_request_body: CustomersMetadataUpdateInBulkRequestBody
@@ -3609,7 +3609,7 @@ class CustomersApi:
     ) -> RESTResponseType:
         """Update Customers' Metadata in Bulk
 
-        Updates metadata parameters for a list of customers. Every resource in the list will receive the metadata defined in the request. The request can include up to **10 MB** of data. The response returns a unique asynchronous action ID. Use this ID in the query paramater of the GET Async Action endpoint to check, e.g.: - The status of your request (in queue, in progress, done, or failed) - Resources that failed to be updated - The report file with details about the update If a product object is not found, it is **upserted**. This is shown in the report file in the **GET** Async Action endpoint. The upserted resources have value false in the found column and true in the updated column. This API request starts a process that affects Voucherify data in bulk. In the case of small jobs (like bulk update), the request is put into a queue and processed when every other bulk request placed in the queue prior to this request is finished.
+        Updates metadata parameters for a list of customers. Every resource in the list will receive the metadata defined in the request. The request can include up to **10 MB** of data. The response returns a unique asynchronous action ID. Use this ID in the query paramater of the [GET Async Action](/api-reference/async-actions/get-async-action) endpoint to check, e.g.: - The status of your request (in queue, in progress, done, or failed) - Resources that failed to be updated - The report file with details about the update If a customer object is not found, it is **upserted**. This is shown in the report file in the **GET** Async Action endpoint. The upserted resources have value false in the found column and true in the updated column. This API request starts a process that affects Voucherify data in bulk. In the case of small jobs (like bulk update), the request is put into a queue and processed when every other bulk request placed in the queue prior to this request is finished.
 
         :param customers_metadata_update_in_bulk_request_body: List the source_ids of the customers you would like to update with the metadata key/value pairs.
         :type customers_metadata_update_in_bulk_request_body: CustomersMetadataUpdateInBulkRequestBody

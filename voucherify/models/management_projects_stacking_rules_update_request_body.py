@@ -33,6 +33,7 @@ class ManagementProjectsStackingRulesUpdateRequestBody(BaseModel):
     redeemables_limit: Optional[Annotated[int, Field(le=30, strict=True, ge=1)]] = Field(default=None, description="Defines how many redeemables can be sent in one request. Note: more redeemables means more processing time.")
     applicable_redeemables_limit: Optional[Annotated[int, Field(le=30, strict=True, ge=1)]] = Field(default=None, description="Defines how many redeemables can be applied in one request. The number must be less than or equal to `redeemables_limit`. For example, a user can select 30 discounts but only 5 will be applied to the order and the remaining will be `SKIPPED` according to the `redeemables_sorting_rule`.")
     applicable_redeemables_per_category_limit: Optional[Annotated[int, Field(le=30, strict=True, ge=1)]] = Field(default=None, description="Defines how many redeemables with the same category can be applied in one request. The number must be less than or equal to `applicable_redeemables_limit`. The ones above the limit will be `SKIPPED` according to the `redeemables_sorting_rule`.")
+    applicable_redeemables_category_limits: Optional[Dict[str, Any]] = Field(default=None, description="Lists categories by category IDs (keys) and defines their limits (values) of applicable redeemables that belong to campaigns with that category.")
     applicable_exclusive_redeemables_limit: Optional[Annotated[int, Field(le=5, strict=True, ge=1)]] = Field(default=None, description="Defines how many redeemables with an assigned exclusive category can be applied in one request. The ones above the limit will be `SKIPPED` according to the `redeemables_sorting_rule`.")
     applicable_exclusive_redeemables_per_category_limit: Optional[Annotated[int, Field(le=30, strict=True, ge=1)]] = Field(default=None, description="Defines how many redeemables with an assigned exclusive category can be applied in one request. The ones above the limit will be `SKIPPED` according to the `redeemables_sorting_rule`. The number must be less than or equal to `applicable_exclusive_redeemables_limit`.")
     discount_calculation_mode: Optional[StrictStr] = Field(default=None, description="Defines if the discounts are applied by taking into account the initial order amount or the discounted order amount.")
@@ -45,7 +46,7 @@ class ManagementProjectsStackingRulesUpdateRequestBody(BaseModel):
     no_effect_skip_categories: Optional[List[StrictStr]] = Field(default=None, description="Lists category IDs. Redeemables with a given category are skipped even if the `redeemables_no_effect_rule` is set to `REDEEM_ANYWAY`. Category IDs can't overlap with the IDs in `no_effect_redeem_anyway_categories`.")
     no_effect_redeem_anyway_categories: Optional[List[StrictStr]] = Field(default=None, description="Lists category IDs. Redeemables with a given category are redeemed anyway even if the `redeemables_no_effect_rule` is set to `SKIP`. Category IDs can't overlap with the IDs in `no_effect_skip_categories`.")
     redeemables_rollback_order_mode: Optional[StrictStr] = Field(default=None, description="Defines the rollback mode for the order. `WITH_ORDER` is a default setting. The redemption is rolled back together with the data about the order, including related discount values. `WITHOUT_ORDER` allows rolling the redemption back without affecting order data, including the applied discount values.")
-    __properties: ClassVar[List[str]] = ["exclusive_categories", "joint_categories", "redeemables_limit", "applicable_redeemables_limit", "applicable_redeemables_per_category_limit", "applicable_exclusive_redeemables_limit", "applicable_exclusive_redeemables_per_category_limit", "discount_calculation_mode", "initial_amount_mode_categories", "discounted_amount_mode_categories", "redeemables_application_mode", "redeemables_sorting_rule", "redeemables_products_application_mode", "redeemables_no_effect_rule", "no_effect_skip_categories", "no_effect_redeem_anyway_categories", "redeemables_rollback_order_mode"]
+    __properties: ClassVar[List[str]] = ["exclusive_categories", "joint_categories", "redeemables_limit", "applicable_redeemables_limit", "applicable_redeemables_per_category_limit", "applicable_redeemables_category_limits", "applicable_exclusive_redeemables_limit", "applicable_exclusive_redeemables_per_category_limit", "discount_calculation_mode", "initial_amount_mode_categories", "discounted_amount_mode_categories", "redeemables_application_mode", "redeemables_sorting_rule", "redeemables_products_application_mode", "redeemables_no_effect_rule", "no_effect_skip_categories", "no_effect_redeem_anyway_categories", "redeemables_rollback_order_mode"]
 
     @field_validator('discount_calculation_mode')
     def discount_calculation_mode_validate_enum(cls, value):
@@ -171,6 +172,11 @@ class ManagementProjectsStackingRulesUpdateRequestBody(BaseModel):
         if self.applicable_redeemables_per_category_limit is None and "applicable_redeemables_per_category_limit" in self.model_fields_set:
             _dict['applicable_redeemables_per_category_limit'] = None
 
+        # set to None if applicable_redeemables_category_limits (nullable) is None
+        # and model_fields_set contains the field
+        if self.applicable_redeemables_category_limits is None and "applicable_redeemables_category_limits" in self.model_fields_set:
+            _dict['applicable_redeemables_category_limits'] = None
+
         # set to None if applicable_exclusive_redeemables_limit (nullable) is None
         # and model_fields_set contains the field
         if self.applicable_exclusive_redeemables_limit is None and "applicable_exclusive_redeemables_limit" in self.model_fields_set:
@@ -248,6 +254,7 @@ class ManagementProjectsStackingRulesUpdateRequestBody(BaseModel):
             "redeemables_limit": obj.get("redeemables_limit"),
             "applicable_redeemables_limit": obj.get("applicable_redeemables_limit"),
             "applicable_redeemables_per_category_limit": obj.get("applicable_redeemables_per_category_limit"),
+            "applicable_redeemables_category_limits": obj.get("applicable_redeemables_category_limits"),
             "applicable_exclusive_redeemables_limit": obj.get("applicable_exclusive_redeemables_limit"),
             "applicable_exclusive_redeemables_per_category_limit": obj.get("applicable_exclusive_redeemables_per_category_limit"),
             "discount_calculation_mode": obj.get("discount_calculation_mode"),

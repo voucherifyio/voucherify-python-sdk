@@ -7,7 +7,7 @@ Order information.
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Unique ID assigned by Voucherify of an existing order that will be linked to the redemption of this request. | [optional] 
-**source_id** | **str** | Unique source ID of an existing order that will be linked to the redemption of this request. | [optional] 
+**source_id** | **str** | Unique source ID of an existing order that will be linked to the redemption of this request.  For validation and redemption, if &#x60;source_id&#x60; is used with an existing order, the original order data will be used, like &#x60;items&#x60;, &#x60;amount&#x60;, and so on, not the one sent in the new request. | [optional] 
 **status** | **str** | The order status. | [optional] 
 **amount** | **int** | A positive integer in the smallest currency unit (e.g. 100 cents for $1.00) representing the total amount of the order. This is the sum of the order items&#39; amounts. | [optional] 
 **initial_amount** | **int** | A positive integer in the smallest currency unit (e.g. 100 cents for $1.00) representing the total amount of the order. This is the sum of the order items&#39; amounts. | [optional] 

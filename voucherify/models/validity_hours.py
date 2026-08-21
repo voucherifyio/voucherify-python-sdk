@@ -28,7 +28,7 @@ class ValidityHours(BaseModel):
     """
     Determines the hours of validity, e.g. to create a happy hours scenario.
     """ # noqa: E501
-    daily: Optional[List[ValidityHoursDailyItem]] = Field(default=None, description="Defines the reccuring period(s) when the resource is active. The periods should not overlap.")
+    daily: Optional[List[ValidityHoursDailyItem]] = Field(default=None, description="Defines the recurring period(s) when the resource is active. The periods should not overlap.")
     __properties: ClassVar[List[str]] = ["daily"]
 
     model_config = ConfigDict(

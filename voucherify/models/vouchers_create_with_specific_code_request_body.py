@@ -36,8 +36,8 @@ class VouchersCreateWithSpecificCodeRequestBody(BaseModel):
     """ # noqa: E501
     campaign: Optional[StrictStr] = Field(default=None, description="Identifies the voucher's parent campaign using a unique campaign name.")
     campaign_id: Optional[StrictStr] = Field(default=None, description="Identifies the voucher's parent campaign using a unique campaign ID assigned by the Voucherify API.")
-    category: Optional[StrictStr] = Field(default=None, description="The name of the category that this voucher belongs to. Useful when listing vouchers with the [List Vouchers](ref:list-vouchers) endpoint.")
-    category_id: Optional[StrictStr] = Field(default=None, description="Unique identifier assigned by Voucherify to the name of the category that this voucher belongs to. Useful when listing vouchers with the [List Vouchers](ref:list-vouchers) endpoint.")
+    category: Optional[StrictStr] = Field(default=None, description="The name of the category that this voucher belongs to. Useful when listing vouchers with the [List Vouchers](/api-reference/vouchers/list-vouchers) endpoint.")
+    category_id: Optional[StrictStr] = Field(default=None, description="Unique identifier assigned by Voucherify to the name of the category that this voucher belongs to. Useful when listing vouchers with the [List Vouchers](/api-reference/vouchers/list-vouchers) endpoint.")
     start_date: Optional[datetime] = Field(default=None, description="Start date defines when the code starts to be active. Activation timestamp is presented in the ISO 8601 format. Voucher is *inactive before* this date.")
     expiration_date: Optional[datetime] = Field(default=None, description="Expiration date defines when the code expires. Expiration timestamp is presented in the ISO 8601 format.  Voucher is *inactive after* this date.")
     validity_timeframe: Optional[ValidityTimeframe] = None

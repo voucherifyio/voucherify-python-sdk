@@ -27,7 +27,7 @@ class MemberActivityDataRedemptionRewardParametersCoin(BaseModel):
     """
     MemberActivityDataRedemptionRewardParametersCoin
     """ # noqa: E501
-    exchange_ratio: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The cash equivalent of the points defined in the points_ratio property.")
+    exchange_ratio: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The cash equivalent of the points defined in the points_ratio property. and The cash equivalent of the points defined in the `points_ratio` property.")
     points_ratio: Optional[StrictInt] = Field(default=None, description="The number of loyalty points that will map to the predefined cash amount defined by the exchange_ratio property. and The number of loyalty points that will map to the predefined cash amount defined by the `exchange_ratio` property.")
     __properties: ClassVar[List[str]] = ["exchange_ratio", "points_ratio"]
 

@@ -6,7 +6,7 @@ Data of single redeemable which was properly qualified.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | Id of the redeemable. | [optional] 
+**id** | **str** | ID of the redeemable. For a voucher, it&#39;s its &#x60;code&#x60; value. | [optional] 
 **object** | **str** | Object type of the redeemable. | [optional] 
 **created_at** | **datetime** | Timestamp representing the date and time when the object was created. The value is shown in the ISO 8601 format. | [optional] 
 **result** | [**RedeemableResult**](RedeemableResult.md) |  | [optional] 

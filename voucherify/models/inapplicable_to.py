@@ -35,18 +35,34 @@ class InapplicableTo(BaseModel):
     product_id: Optional[StrictStr] = Field(default=None, description="Parent product's unique ID assigned by Voucherify.")
     product_source_id: Optional[StrictStr] = Field(default=None, description="Parent product's source ID from your inventory system.")
     price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="New fixed price of an item. Value is multiplied by 100 to precisely represent 2 decimal places. For example, a $10 price is written as 1000. In case of the fixed price being calculated by the formula, i.e. the price_formula parameter is present in the fixed price definition, this value becomes the fallback value. Such that in a case where the formula cannot be calculated due to missing metadata, for example, this value will be used as the fixed price.")
-    price_formula: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Formula used to calculate the discounted price of an item.")
+    price_formula: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Formula used to dynamically calculate the discounted price of an item.")
     effect: ApplicableToEffect
     quantity_limit: Optional[StrictInt] = Field(default=None, description="The maximum number of units allowed to be discounted per order line item.")
     aggregated_quantity_limit: Optional[StrictInt] = Field(default=None, description="The maximum number of units allowed to be discounted combined across all matched order line items.")
     amount_limit: Optional[StrictInt] = Field(default=None, description="Upper limit allowed to be applied as a discount per order line item. Value is multiplied by 100 to precisely represent 2 decimal places. For example, a $6 maximum discount is written as 600.")
     aggregated_amount_limit: Optional[StrictInt] = Field(default=None, description="Maximum discount amount per order. Value is multiplied by 100 to precisely represent 2 decimal places. For example, a $6 maximum discount on the entire order is written as 600. This value is definable for the following discount effects: - `APPLY_TO_ITEMS` (each item subtotal is discounted equally) - `APPLY_TO_ITEMS_BY_QUANTITY` (each unit of matched products has the same discount value)")
+    product_campaign_quantity_limit: Optional[StrictInt] = Field(default=None, description="Limits the number of discounted item units (product, SKU, collection) that all customers can receive in a given campaign. If a product is selected, the limit covers all discounts across all SKUs belonging to that product. If a product collection is selected, the limit covers all products/SKUs within the collection.  This limit is available on demand as part of campaign budget limits. Contact [Voucherify support](https://www.voucherify.io/contact-support) or your account manager to learn more.")
+    product_campaign_quantity_limit_formula: Optional[StrictStr] = Field(default=None, description="Formula used to dynamically calculate the maximum units per campaign.  This limit is available on demand as part of campaign budget limits. Contact [Voucherify support](https://www.voucherify.io/contact-support) or your account manager to learn more.")
+    product_customer_campaign_quantity_limit: Optional[StrictInt] = Field(default=None, description="Limits the number of discounted item units (product, SKU, collection) that one customer can receive in a given campaign.  This limit is available on demand as part of campaign budget limits. Contact [Voucherify support](https://www.voucherify.io/contact-support) or your account manager to learn more.")
+    product_customer_campaign_quantity_limit_formula: Optional[StrictStr] = Field(default=None, description="Formula used to dynamically calculate the maximum units per customer in a campaign.  This limit is available on demand as part of campaign budget limits. Contact [Voucherify support](https://www.voucherify.io/contact-support) or your account manager to learn more.")
+    product_in_collection_campaign_quantity_limit: Optional[StrictInt] = Field(default=None, description="Limits the number of discounted item units of a given product in a collection that all customers can receive in a given campaign.  This limit is available on demand as part of campaign budget limits. Contact [Voucherify support](https://www.voucherify.io/contact-support) or your account manager to learn more.")
+    product_in_collection_campaign_quantity_limit_formula: Optional[StrictStr] = Field(default=None, description="Formula used to dynamically calculate the maximum units per campaign for a product in a collection.  This limit is available on demand as part of campaign budget limits. Contact [Voucherify support](https://www.voucherify.io/contact-support) or your account manager to learn more.")
+    product_in_collection_customer_campaign_quantity_limit: Optional[StrictInt] = Field(default=None, description="Limits the number of discounted item units of a given product in a collection that one customer can receive in a campaign.  This limit is available on demand as part of campaign budget limits. Contact [Voucherify support](https://www.voucherify.io/contact-support) or your account manager to learn more.")
+    product_in_collection_customer_campaign_quantity_limit_formula: Optional[StrictStr] = Field(default=None, description="Formula used to dynamically calculate the maximum units per customer for a product in a collection.  This limit is available on demand as part of campaign budget limits. Contact [Voucherify support](https://www.voucherify.io/contact-support) or your account manager to learn more.")
+    product_promotion_tier_quantity_limit: Optional[StrictInt] = Field(default=None, description="Limits the number of discounted item units that all customers can receive in a promotion tier.  This limit is available on demand as part of campaign budget limits. Contact [Voucherify support](https://www.voucherify.io/contact-support) or your account manager to learn more.")
+    product_promotion_tier_quantity_limit_formula: Optional[StrictStr] = Field(default=None, description="Formula used to dynamically calculate the maximum units per promotion tier.  This limit is available on demand as part of campaign budget limits. Contact [Voucherify support](https://www.voucherify.io/contact-support) or your account manager to learn more.")
+    product_customer_promotion_tier_quantity_limit: Optional[StrictInt] = Field(default=None, description="Limits the number of discounted item units that one customer can receive in a given promotion tier.  This limit is available on demand as part of campaign budget limits. Contact [Voucherify support](https://www.voucherify.io/contact-support) or your account manager to learn more.")
+    product_customer_promotion_tier_quantity_limit_formula: Optional[StrictStr] = Field(default=None, description="Formula used to dynamically calculate the maximum units per customer in a promotion tier.  This limit is available on demand as part of campaign budget limits. Contact [Voucherify support](https://www.voucherify.io/contact-support) or your account manager to learn more.")
+    product_in_collection_promotion_tier_quantity_limit: Optional[StrictInt] = Field(default=None, description="Limits the number of discounted item units of a given product in a collection that all customers can receive in a given promotion tier.  This limit is available on demand as part of campaign budget limits. Contact [Voucherify support](https://www.voucherify.io/contact-support) or your account manager to learn more.")
+    product_in_collection_promotion_tier_quantity_limit_formula: Optional[StrictStr] = Field(default=None, description="Formula used to dynamically calculate the maximum units per promotion tier for a product in a collection.  This limit is available on demand as part of campaign budget limits. Contact [Voucherify support](https://www.voucherify.io/contact-support) or your account manager to learn more.")
+    product_in_collection_customer_promotion_tier_quantity_limit: Optional[StrictInt] = Field(default=None, description="Limits the number of discounted item units of a given product in a collection that one customer can receive in a promotion tier.  This limit is available on demand as part of campaign budget limits. Contact [Voucherify support](https://www.voucherify.io/contact-support) or your account manager to learn more.")
+    product_in_collection_customer_promotion_tier_quantity_limit_formula: Optional[StrictStr] = Field(default=None, description="Formula used to dynamically calculate the maximum units per customer in a promotion tier for a product in a collection.  This limit is available on demand as part of campaign budget limits. Contact [Voucherify support](https://www.voucherify.io/contact-support) or your account manager to learn more.")
     order_item_indices: Optional[List[StrictInt]] = Field(default=None, description="Lists which order lines are (not) covered by the discount. The order in the array is determined by the sequence of applied discounts, while the numbers correspond to the order lines sent in the `order` object in the request. The first order line is assigned `0`, the second order line is assigned `1`, and so on.")
     order_item_units: Optional[List[InapplicableToOrderItemUnitsItem]] = Field(default=None, description="Lists which units within order lines are covered by the discount. The order line items are listed according to sequence of applied discounts while the `index` corresponds to the order line sent in the `order` object in the request.")
     repeat: Optional[StrictInt] = Field(default=None, description="Determines the recurrence of the discount, e.g. `\"repeat\": 3` means that the discount is applied to every third item.")
     skip_initially: Optional[StrictInt] = Field(default=None, description="Determines how many items are skipped before the discount is applied.")
     target: Optional[StrictStr] = Field(default=None, description="Determines to which kinds of objects the discount is applicable. `ITEM` includes products and SKUs. `UNIT` means particular units within an order line.")
-    __properties: ClassVar[List[str]] = ["object", "id", "source_id", "product_id", "product_source_id", "price", "price_formula", "effect", "quantity_limit", "aggregated_quantity_limit", "amount_limit", "aggregated_amount_limit", "order_item_indices", "order_item_units", "repeat", "skip_initially", "target"]
+    __properties: ClassVar[List[str]] = ["object", "id", "source_id", "product_id", "product_source_id", "price", "price_formula", "effect", "quantity_limit", "aggregated_quantity_limit", "amount_limit", "aggregated_amount_limit", "product_campaign_quantity_limit", "product_campaign_quantity_limit_formula", "product_customer_campaign_quantity_limit", "product_customer_campaign_quantity_limit_formula", "product_in_collection_campaign_quantity_limit", "product_in_collection_campaign_quantity_limit_formula", "product_in_collection_customer_campaign_quantity_limit", "product_in_collection_customer_campaign_quantity_limit_formula", "product_promotion_tier_quantity_limit", "product_promotion_tier_quantity_limit_formula", "product_customer_promotion_tier_quantity_limit", "product_customer_promotion_tier_quantity_limit_formula", "product_in_collection_promotion_tier_quantity_limit", "product_in_collection_promotion_tier_quantity_limit_formula", "product_in_collection_customer_promotion_tier_quantity_limit", "product_in_collection_customer_promotion_tier_quantity_limit_formula", "order_item_indices", "order_item_units", "repeat", "skip_initially", "target"]
 
     @field_validator('object')
     def object_validate_enum(cls, value):
@@ -169,6 +185,86 @@ class InapplicableTo(BaseModel):
         if self.aggregated_amount_limit is None and "aggregated_amount_limit" in self.model_fields_set:
             _dict['aggregated_amount_limit'] = None
 
+        # set to None if product_campaign_quantity_limit (nullable) is None
+        # and model_fields_set contains the field
+        if self.product_campaign_quantity_limit is None and "product_campaign_quantity_limit" in self.model_fields_set:
+            _dict['product_campaign_quantity_limit'] = None
+
+        # set to None if product_campaign_quantity_limit_formula (nullable) is None
+        # and model_fields_set contains the field
+        if self.product_campaign_quantity_limit_formula is None and "product_campaign_quantity_limit_formula" in self.model_fields_set:
+            _dict['product_campaign_quantity_limit_formula'] = None
+
+        # set to None if product_customer_campaign_quantity_limit (nullable) is None
+        # and model_fields_set contains the field
+        if self.product_customer_campaign_quantity_limit is None and "product_customer_campaign_quantity_limit" in self.model_fields_set:
+            _dict['product_customer_campaign_quantity_limit'] = None
+
+        # set to None if product_customer_campaign_quantity_limit_formula (nullable) is None
+        # and model_fields_set contains the field
+        if self.product_customer_campaign_quantity_limit_formula is None and "product_customer_campaign_quantity_limit_formula" in self.model_fields_set:
+            _dict['product_customer_campaign_quantity_limit_formula'] = None
+
+        # set to None if product_in_collection_campaign_quantity_limit (nullable) is None
+        # and model_fields_set contains the field
+        if self.product_in_collection_campaign_quantity_limit is None and "product_in_collection_campaign_quantity_limit" in self.model_fields_set:
+            _dict['product_in_collection_campaign_quantity_limit'] = None
+
+        # set to None if product_in_collection_campaign_quantity_limit_formula (nullable) is None
+        # and model_fields_set contains the field
+        if self.product_in_collection_campaign_quantity_limit_formula is None and "product_in_collection_campaign_quantity_limit_formula" in self.model_fields_set:
+            _dict['product_in_collection_campaign_quantity_limit_formula'] = None
+
+        # set to None if product_in_collection_customer_campaign_quantity_limit (nullable) is None
+        # and model_fields_set contains the field
+        if self.product_in_collection_customer_campaign_quantity_limit is None and "product_in_collection_customer_campaign_quantity_limit" in self.model_fields_set:
+            _dict['product_in_collection_customer_campaign_quantity_limit'] = None
+
+        # set to None if product_in_collection_customer_campaign_quantity_limit_formula (nullable) is None
+        # and model_fields_set contains the field
+        if self.product_in_collection_customer_campaign_quantity_limit_formula is None and "product_in_collection_customer_campaign_quantity_limit_formula" in self.model_fields_set:
+            _dict['product_in_collection_customer_campaign_quantity_limit_formula'] = None
+
+        # set to None if product_promotion_tier_quantity_limit (nullable) is None
+        # and model_fields_set contains the field
+        if self.product_promotion_tier_quantity_limit is None and "product_promotion_tier_quantity_limit" in self.model_fields_set:
+            _dict['product_promotion_tier_quantity_limit'] = None
+
+        # set to None if product_promotion_tier_quantity_limit_formula (nullable) is None
+        # and model_fields_set contains the field
+        if self.product_promotion_tier_quantity_limit_formula is None and "product_promotion_tier_quantity_limit_formula" in self.model_fields_set:
+            _dict['product_promotion_tier_quantity_limit_formula'] = None
+
+        # set to None if product_customer_promotion_tier_quantity_limit (nullable) is None
+        # and model_fields_set contains the field
+        if self.product_customer_promotion_tier_quantity_limit is None and "product_customer_promotion_tier_quantity_limit" in self.model_fields_set:
+            _dict['product_customer_promotion_tier_quantity_limit'] = None
+
+        # set to None if product_customer_promotion_tier_quantity_limit_formula (nullable) is None
+        # and model_fields_set contains the field
+        if self.product_customer_promotion_tier_quantity_limit_formula is None and "product_customer_promotion_tier_quantity_limit_formula" in self.model_fields_set:
+            _dict['product_customer_promotion_tier_quantity_limit_formula'] = None
+
+        # set to None if product_in_collection_promotion_tier_quantity_limit (nullable) is None
+        # and model_fields_set contains the field
+        if self.product_in_collection_promotion_tier_quantity_limit is None and "product_in_collection_promotion_tier_quantity_limit" in self.model_fields_set:
+            _dict['product_in_collection_promotion_tier_quantity_limit'] = None
+
+        # set to None if product_in_collection_promotion_tier_quantity_limit_formula (nullable) is None
+        # and model_fields_set contains the field
+        if self.product_in_collection_promotion_tier_quantity_limit_formula is None and "product_in_collection_promotion_tier_quantity_limit_formula" in self.model_fields_set:
+            _dict['product_in_collection_promotion_tier_quantity_limit_formula'] = None
+
+        # set to None if product_in_collection_customer_promotion_tier_quantity_limit (nullable) is None
+        # and model_fields_set contains the field
+        if self.product_in_collection_customer_promotion_tier_quantity_limit is None and "product_in_collection_customer_promotion_tier_quantity_limit" in self.model_fields_set:
+            _dict['product_in_collection_customer_promotion_tier_quantity_limit'] = None
+
+        # set to None if product_in_collection_customer_promotion_tier_quantity_limit_formula (nullable) is None
+        # and model_fields_set contains the field
+        if self.product_in_collection_customer_promotion_tier_quantity_limit_formula is None and "product_in_collection_customer_promotion_tier_quantity_limit_formula" in self.model_fields_set:
+            _dict['product_in_collection_customer_promotion_tier_quantity_limit_formula'] = None
+
         # set to None if order_item_indices (nullable) is None
         # and model_fields_set contains the field
         if self.order_item_indices is None and "order_item_indices" in self.model_fields_set:
@@ -218,6 +314,22 @@ class InapplicableTo(BaseModel):
             "aggregated_quantity_limit": obj.get("aggregated_quantity_limit"),
             "amount_limit": obj.get("amount_limit"),
             "aggregated_amount_limit": obj.get("aggregated_amount_limit"),
+            "product_campaign_quantity_limit": obj.get("product_campaign_quantity_limit"),
+            "product_campaign_quantity_limit_formula": obj.get("product_campaign_quantity_limit_formula"),
+            "product_customer_campaign_quantity_limit": obj.get("product_customer_campaign_quantity_limit"),
+            "product_customer_campaign_quantity_limit_formula": obj.get("product_customer_campaign_quantity_limit_formula"),
+            "product_in_collection_campaign_quantity_limit": obj.get("product_in_collection_campaign_quantity_limit"),
+            "product_in_collection_campaign_quantity_limit_formula": obj.get("product_in_collection_campaign_quantity_limit_formula"),
+            "product_in_collection_customer_campaign_quantity_limit": obj.get("product_in_collection_customer_campaign_quantity_limit"),
+            "product_in_collection_customer_campaign_quantity_limit_formula": obj.get("product_in_collection_customer_campaign_quantity_limit_formula"),
+            "product_promotion_tier_quantity_limit": obj.get("product_promotion_tier_quantity_limit"),
+            "product_promotion_tier_quantity_limit_formula": obj.get("product_promotion_tier_quantity_limit_formula"),
+            "product_customer_promotion_tier_quantity_limit": obj.get("product_customer_promotion_tier_quantity_limit"),
+            "product_customer_promotion_tier_quantity_limit_formula": obj.get("product_customer_promotion_tier_quantity_limit_formula"),
+            "product_in_collection_promotion_tier_quantity_limit": obj.get("product_in_collection_promotion_tier_quantity_limit"),
+            "product_in_collection_promotion_tier_quantity_limit_formula": obj.get("product_in_collection_promotion_tier_quantity_limit_formula"),
+            "product_in_collection_customer_promotion_tier_quantity_limit": obj.get("product_in_collection_customer_promotion_tier_quantity_limit"),
+            "product_in_collection_customer_promotion_tier_quantity_limit_formula": obj.get("product_in_collection_customer_promotion_tier_quantity_limit_formula"),
             "order_item_indices": obj.get("order_item_indices"),
             "order_item_units": [InapplicableToOrderItemUnitsItem.from_dict(_item) for _item in obj["order_item_units"]] if obj.get("order_item_units") is not None else None,
             "repeat": obj.get("repeat"),

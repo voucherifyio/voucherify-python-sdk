@@ -1096,7 +1096,7 @@ class CategoriesApi:
     ) -> CategoriesUpdateResponseBody:
         """Update Category
 
-        Update category using the category ID.
+        Update a category using the category ID.
 
         :param category_id: Unique category ID assigned by Voucherify. (required)
         :type category_id: str
@@ -1167,7 +1167,7 @@ class CategoriesApi:
     ) -> ApiResponse[CategoriesUpdateResponseBody]:
         """Update Category
 
-        Update category using the category ID.
+        Update a category using the category ID.
 
         :param category_id: Unique category ID assigned by Voucherify. (required)
         :type category_id: str
@@ -1238,7 +1238,7 @@ class CategoriesApi:
     ) -> RESTResponseType:
         """Update Category
 
-        Update category using the category ID.
+        Update a category using the category ID.
 
         :param category_id: Unique category ID assigned by Voucherify. (required)
         :type category_id: str

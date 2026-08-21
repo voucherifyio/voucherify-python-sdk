@@ -57,7 +57,7 @@ configuration.api_key['X-App-Token'] = os.environ["API_KEY"]
 with voucherify.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = voucherify.ProductCollectionsApi(api_client)
-    product_collections_create_request_body = voucherify.ProductCollectionsCreateRequestBody() # ProductCollectionsCreateRequestBody |  (optional)
+    product_collections_create_request_body = {"type":"STATIC","name":"Static collection example","products":[{"id":"prod_0a41dd45dc85fcab40","object":"product"}]} # ProductCollectionsCreateRequestBody |  (optional)
 
     try:
         # Create Product Collection

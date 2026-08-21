@@ -33,12 +33,13 @@ class LoyaltiesEarningRulesCreateRequestBodyItemLoyalty(BaseModel):
     """ # noqa: E501
     type: Optional[StrictStr] = None
     points: Optional[StrictInt] = Field(default=None, description="Defines how the points will be added to the loyalty card. FIXED adds a fixed number of points.")
+    points_formula: Optional[StrictStr] = Field(default=None, description="Formula used to dynamically calculate the rewarded points.")
     calculation_type: Optional[StrictStr] = None
     order: Optional[LoyaltiesEarningRulesCreateRequestBodyItemLoyaltyOrder] = None
     order_items: Optional[LoyaltiesEarningRulesCreateRequestBodyItemLoyaltyOrderItems] = None
     customer: Optional[LoyaltiesEarningRulesCreateRequestBodyItemLoyaltyCustomer] = None
     custom_event: Optional[LoyaltiesEarningRulesCreateRequestBodyItemLoyaltyCustomEvent] = None
-    __properties: ClassVar[List[str]] = ["type", "points", "calculation_type", "order", "order_items", "customer", "custom_event"]
+    __properties: ClassVar[List[str]] = ["type", "points", "points_formula", "calculation_type", "order", "order_items", "customer", "custom_event"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -116,6 +117,11 @@ class LoyaltiesEarningRulesCreateRequestBodyItemLoyalty(BaseModel):
         if self.points is None and "points" in self.model_fields_set:
             _dict['points'] = None
 
+        # set to None if points_formula (nullable) is None
+        # and model_fields_set contains the field
+        if self.points_formula is None and "points_formula" in self.model_fields_set:
+            _dict['points_formula'] = None
+
         # set to None if customer (nullable) is None
         # and model_fields_set contains the field
         if self.customer is None and "customer" in self.model_fields_set:
@@ -140,6 +146,7 @@ class LoyaltiesEarningRulesCreateRequestBodyItemLoyalty(BaseModel):
         _obj = cls.model_validate({
             "type": obj.get("type"),
             "points": obj.get("points"),
+            "points_formula": obj.get("points_formula"),
             "calculation_type": obj.get("calculation_type"),
             "order": LoyaltiesEarningRulesCreateRequestBodyItemLoyaltyOrder.from_dict(obj["order"]) if obj.get("order") is not None else None,
             "order_items": LoyaltiesEarningRulesCreateRequestBodyItemLoyaltyOrderItems.from_dict(obj["order_items"]) if obj.get("order_items") is not None else None,

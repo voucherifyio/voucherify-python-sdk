@@ -25,7 +25,7 @@ from typing_extensions import Self
 
 class ValidityHoursDailyItem(BaseModel):
     """
-    Defines the reccuring period(s) when the resource will be active.
+    Defines the recurring period(s) when the resource will be active.
     """ # noqa: E501
     start_time: Optional[StrictStr] = Field(default=None, description="Defines the starting hour of validity in the HH:mm format. The resource is *inactive before* this time.")
     days_of_week: Optional[List[StrictInt]] = Field(default=None, description="Integer array corresponding to the particular days of the week in which the resource is valid.  - `0` Sunday - `1` Monday - `2` Tuesday - `3`  Wednesday - `4` Thursday - `5` Friday - `6` Saturday")

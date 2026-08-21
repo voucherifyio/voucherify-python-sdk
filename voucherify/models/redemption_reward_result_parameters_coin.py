@@ -18,8 +18,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +27,7 @@ class RedemptionRewardResultParametersCoin(BaseModel):
     """
     Defines the ratio by mapping the number of loyalty points in `points_ratio` to a predefined cash amount in `exchange_ratio`.
     """ # noqa: E501
-    exchange_ratio: Optional[StrictInt] = Field(default=None, description="The cash equivalent of the points defined in the `points_ratio` property.")
+    exchange_ratio: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The cash equivalent of the points defined in the `points_ratio` property.")
     points_ratio: Optional[StrictInt] = Field(default=None, description="The number of loyalty points that will map to the predefined cash amount defined by the `exchange_ratio` property.")
     __properties: ClassVar[List[str]] = ["exchange_ratio", "points_ratio"]
 

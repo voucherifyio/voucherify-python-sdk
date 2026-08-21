@@ -32,21 +32,21 @@ class Discount(BaseModel):
     """ # noqa: E501
     type: Optional[StrictStr] = None
     amount_off: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Amount taken off the subtotal of a price. Value is multiplied by 100 to precisely represent 2 decimal places. For example, a $10 discount is written as 1000.")
-    amount_off_formula: Optional[StrictStr] = None
+    amount_off_formula: Optional[StrictStr] = Field(default=None, description="Formula used to dynamically calculate the discount.")
     aggregated_amount_limit: Optional[StrictInt] = Field(default=None, description="Maximum discount amount per order.")
     effect: Optional[StrictStr] = None
     is_dynamic: Optional[StrictBool] = Field(default=None, description="Flag indicating whether the discount was calculated using a formula.")
     unit_off: Optional[StrictInt] = Field(default=None, description="Number of units to be granted a full value discount.")
-    unit_off_formula: Optional[StrictStr] = Field(default=None, description="Formula used to calculate the number of units.")
+    unit_off_formula: Optional[StrictStr] = Field(default=None, description="Formula used to dynamically calculate the number of units.")
     unit_type: Optional[StrictStr] = Field(default=None, description="The product deemed as free, chosen from product inventory (e.g. time, items).")
     product: Optional[DiscountProduct] = None
     sku: Optional[SimpleSkuDiscountUnit] = None
     units: Optional[List[DiscountUnitMultipleOneUnit]] = None
     percent_off: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The percent discount that the customer will receive.")
-    percent_off_formula: Optional[StrictStr] = None
+    percent_off_formula: Optional[StrictStr] = Field(default=None, description="Formula used to dynamically calculate the discount.")
     amount_limit: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Upper limit allowed to be applied as a discount. Value is multiplied by 100 to precisely represent 2 decimal places. For example, a $6 maximum discount is written as 600.")
     fixed_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Sets a fixed value for an order total or the item price. The value is multiplied by 100 to precisely represent 2 decimal places. For example, a $10 discount is written as 1000. If the fixed amount is calculated by the formula, i.e. the `fixed_amount_formula` parameter is present in the fixed amount definition, this value becomes the **fallback value**. As a result, if the formula cannot be calculated due to missing metadata, for example, this value will be used as the fixed value.")
-    fixed_amount_formula: Optional[StrictStr] = None
+    fixed_amount_formula: Optional[StrictStr] = Field(default=None, description="Formula used to dynamically calculate the discount.")
     __properties: ClassVar[List[str]] = ["type", "amount_off", "amount_off_formula", "aggregated_amount_limit", "effect", "is_dynamic", "unit_off", "unit_off_formula", "unit_type", "product", "sku", "units", "percent_off", "percent_off_formula", "amount_limit", "fixed_amount", "fixed_amount_formula"]
 
     @field_validator('type')
@@ -65,8 +65,8 @@ class Discount(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['APPLY_TO_ORDER', 'APPLY_TO_ITEMS', 'APPLY_TO_ITEMS_PROPORTIONALLY', 'APPLY_TO_ITEMS_PROPORTIONALLY_BY_QUANTITY', 'APPLY_TO_ITEMS_BY_QUANTITY', 'ADD_MISSING_ITEMS', 'ADD_NEW_ITEMS', 'ADD_MANY_ITEMS']):
-            raise ValueError("must be one of enum values ('APPLY_TO_ORDER', 'APPLY_TO_ITEMS', 'APPLY_TO_ITEMS_PROPORTIONALLY', 'APPLY_TO_ITEMS_PROPORTIONALLY_BY_QUANTITY', 'APPLY_TO_ITEMS_BY_QUANTITY', 'ADD_MISSING_ITEMS', 'ADD_NEW_ITEMS', 'ADD_MANY_ITEMS')")
+        if value not in set(['APPLY_TO_ORDER', 'APPLY_TO_ITEMS', 'APPLY_TO_ITEMS_PROPORTIONALLY', 'APPLY_TO_ITEMS_PROPORTIONALLY_BY_QUANTITY', 'APPLY_TO_ITEMS_BY_QUANTITY', 'ADD_MISSING_ITEMS', 'ADD_NEW_ITEMS', 'ADD_MANY_ITEMS', 'ADD_SAME_ITEMS']):
+            raise ValueError("must be one of enum values ('APPLY_TO_ORDER', 'APPLY_TO_ITEMS', 'APPLY_TO_ITEMS_PROPORTIONALLY', 'APPLY_TO_ITEMS_PROPORTIONALLY_BY_QUANTITY', 'APPLY_TO_ITEMS_BY_QUANTITY', 'ADD_MISSING_ITEMS', 'ADD_NEW_ITEMS', 'ADD_MANY_ITEMS', 'ADD_SAME_ITEMS')")
         return value
 
     model_config = ConfigDict(

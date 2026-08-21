@@ -126,9 +126,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersPendingPointsActivateResponseBody:
-        """Activate Member Pending Points
+        """(Deprecated) Activate Member Pending Points
 
-        Activate manually the pending points and add them to the loyalty card. The pending points are determined by the pending point ID. Once activated, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Activate manually the pending points and add them to the loyalty card. The pending points are determined by the pending point ID. Once activated, the pending point entry with that ID is not listed by the endpoints: List member ([with campaign ID](/api-reference/loyalties/list-member-pending-points-with-campaign-id), [without campaign ID](/api-reference/loyalties/list-member-pending-points)), [List campaign pending points](/api-reference/loyalties/list-campaign-pending-points). This **POST** method does not require a request body. <Tip> <Badge color green>Configuring pending points</Badge> Pending points are configured as part of an earning rule with [POST Create earning rule](/api-reference/loyalties/create-earning-rule) or [PUT Update earning rule](/api-reference/loyalties/update-earning-rule). </Tip>
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -155,6 +155,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/members/{memberId}/pending-points/{pendingPointsId}/activate is deprecated.", DeprecationWarning)
 
         _param = self._activate_member_pending_points_serialize(
             member_id=member_id,
@@ -197,9 +198,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersPendingPointsActivateResponseBody]:
-        """Activate Member Pending Points
+        """(Deprecated) Activate Member Pending Points
 
-        Activate manually the pending points and add them to the loyalty card. The pending points are determined by the pending point ID. Once activated, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Activate manually the pending points and add them to the loyalty card. The pending points are determined by the pending point ID. Once activated, the pending point entry with that ID is not listed by the endpoints: List member ([with campaign ID](/api-reference/loyalties/list-member-pending-points-with-campaign-id), [without campaign ID](/api-reference/loyalties/list-member-pending-points)), [List campaign pending points](/api-reference/loyalties/list-campaign-pending-points). This **POST** method does not require a request body. <Tip> <Badge color green>Configuring pending points</Badge> Pending points are configured as part of an earning rule with [POST Create earning rule](/api-reference/loyalties/create-earning-rule) or [PUT Update earning rule](/api-reference/loyalties/update-earning-rule). </Tip>
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -226,6 +227,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/members/{memberId}/pending-points/{pendingPointsId}/activate is deprecated.", DeprecationWarning)
 
         _param = self._activate_member_pending_points_serialize(
             member_id=member_id,
@@ -268,9 +270,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Activate Member Pending Points
+        """(Deprecated) Activate Member Pending Points
 
-        Activate manually the pending points and add them to the loyalty card. The pending points are determined by the pending point ID. Once activated, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Activate manually the pending points and add them to the loyalty card. The pending points are determined by the pending point ID. Once activated, the pending point entry with that ID is not listed by the endpoints: List member ([with campaign ID](/api-reference/loyalties/list-member-pending-points-with-campaign-id), [without campaign ID](/api-reference/loyalties/list-member-pending-points)), [List campaign pending points](/api-reference/loyalties/list-campaign-pending-points). This **POST** method does not require a request body. <Tip> <Badge color green>Configuring pending points</Badge> Pending points are configured as part of an earning rule with [POST Create earning rule](/api-reference/loyalties/create-earning-rule) or [PUT Update earning rule](/api-reference/loyalties/update-earning-rule). </Tip>
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -297,6 +299,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/members/{memberId}/pending-points/{pendingPointsId}/activate is deprecated.", DeprecationWarning)
 
         _param = self._activate_member_pending_points_serialize(
             member_id=member_id,
@@ -387,7 +390,7 @@ class LoyaltiesApi:
     def add_member(
         self,
         campaign_id: Annotated[StrictStr, Field(description="Unique campaign ID of the loyalty program.")],
-        loyalties_members_create_request_body: Annotated[Optional[LoyaltiesMembersCreateRequestBody], Field(description="Provide details to whom the loyalty card should be assigned.     You can choose to either specify the exact loyalty card code that you want to publish from existin (non-assigned) codes, or choose not to specify a voucher code. If you choose not to specify a code in the request paylaod, then the system will choose the next available voucher code available to be assigned to a customer.   You can also include metadata in the request payload. This metadata will be assigned to the publication object, but will not be returned in the response to this endpoint. To see of publications (assignments of particular codes to customers) and publication metadata, use the List Publications endpoint.")] = None,
+        loyalties_members_create_request_body: Annotated[Optional[LoyaltiesMembersCreateRequestBody], Field(description="Provide details to whom the loyalty card should be assigned.     You can choose to either specify the exact loyalty card code that you want to publish from existin (non-assigned) codes, or choose not to specify a voucher code. If you choose not to specify a code in the request paylaod, then the system will choose the next available voucher code available to be assigned to a customer.   You can also include metadata in the request payload. This metadata will be assigned to the publication object, but will not be returned in the response to this endpoint. To see of publications (assignments of particular codes to customers) and publication metadata, use the [List Publications](/api-reference/publications/list-publications) endpoint.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -401,13 +404,13 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersCreateResponseBody:
-        """Add Member
+        """(Deprecated) Add Member
 
-        This method assigns a loyalty card to a customer. It selects a loyalty card suitable for publication, adds a publish entry, and returns the published voucher.   A voucher is suitable for publication when its active and hasnt been published yet.    📘 Auto-update campaign  In case you want to ensure the number of publishable codes increases automatically with the number of customers, you should use **auto-update** campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> This method assigns a loyalty card to a customer. It selects a [loyalty card](/api-reference/vouchers/get-voucher) suitable for publication, adds a publish entry, and returns the published voucher.   A voucher is suitable for publication when its active and hasnt been published yet.   <Note> <Badge color blue>Auto-update campaign</Badge> In case you want to ensure the number of publishable codes increases automatically with the number of customers, you should use **auto-update** campaign. </Note>
 
         :param campaign_id: Unique campaign ID of the loyalty program. (required)
         :type campaign_id: str
-        :param loyalties_members_create_request_body: Provide details to whom the loyalty card should be assigned.     You can choose to either specify the exact loyalty card code that you want to publish from existin (non-assigned) codes, or choose not to specify a voucher code. If you choose not to specify a code in the request paylaod, then the system will choose the next available voucher code available to be assigned to a customer.   You can also include metadata in the request payload. This metadata will be assigned to the publication object, but will not be returned in the response to this endpoint. To see of publications (assignments of particular codes to customers) and publication metadata, use the List Publications endpoint.
+        :param loyalties_members_create_request_body: Provide details to whom the loyalty card should be assigned.     You can choose to either specify the exact loyalty card code that you want to publish from existin (non-assigned) codes, or choose not to specify a voucher code. If you choose not to specify a code in the request paylaod, then the system will choose the next available voucher code available to be assigned to a customer.   You can also include metadata in the request payload. This metadata will be assigned to the publication object, but will not be returned in the response to this endpoint. To see of publications (assignments of particular codes to customers) and publication metadata, use the [List Publications](/api-reference/publications/list-publications) endpoint.
         :type loyalties_members_create_request_body: LoyaltiesMembersCreateRequestBody
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -430,6 +433,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/members is deprecated.", DeprecationWarning)
 
         _param = self._add_member_serialize(
             campaign_id=campaign_id,
@@ -458,7 +462,7 @@ class LoyaltiesApi:
     def add_member_with_http_info(
         self,
         campaign_id: Annotated[StrictStr, Field(description="Unique campaign ID of the loyalty program.")],
-        loyalties_members_create_request_body: Annotated[Optional[LoyaltiesMembersCreateRequestBody], Field(description="Provide details to whom the loyalty card should be assigned.     You can choose to either specify the exact loyalty card code that you want to publish from existin (non-assigned) codes, or choose not to specify a voucher code. If you choose not to specify a code in the request paylaod, then the system will choose the next available voucher code available to be assigned to a customer.   You can also include metadata in the request payload. This metadata will be assigned to the publication object, but will not be returned in the response to this endpoint. To see of publications (assignments of particular codes to customers) and publication metadata, use the List Publications endpoint.")] = None,
+        loyalties_members_create_request_body: Annotated[Optional[LoyaltiesMembersCreateRequestBody], Field(description="Provide details to whom the loyalty card should be assigned.     You can choose to either specify the exact loyalty card code that you want to publish from existin (non-assigned) codes, or choose not to specify a voucher code. If you choose not to specify a code in the request paylaod, then the system will choose the next available voucher code available to be assigned to a customer.   You can also include metadata in the request payload. This metadata will be assigned to the publication object, but will not be returned in the response to this endpoint. To see of publications (assignments of particular codes to customers) and publication metadata, use the [List Publications](/api-reference/publications/list-publications) endpoint.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -472,13 +476,13 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersCreateResponseBody]:
-        """Add Member
+        """(Deprecated) Add Member
 
-        This method assigns a loyalty card to a customer. It selects a loyalty card suitable for publication, adds a publish entry, and returns the published voucher.   A voucher is suitable for publication when its active and hasnt been published yet.    📘 Auto-update campaign  In case you want to ensure the number of publishable codes increases automatically with the number of customers, you should use **auto-update** campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> This method assigns a loyalty card to a customer. It selects a [loyalty card](/api-reference/vouchers/get-voucher) suitable for publication, adds a publish entry, and returns the published voucher.   A voucher is suitable for publication when its active and hasnt been published yet.   <Note> <Badge color blue>Auto-update campaign</Badge> In case you want to ensure the number of publishable codes increases automatically with the number of customers, you should use **auto-update** campaign. </Note>
 
         :param campaign_id: Unique campaign ID of the loyalty program. (required)
         :type campaign_id: str
-        :param loyalties_members_create_request_body: Provide details to whom the loyalty card should be assigned.     You can choose to either specify the exact loyalty card code that you want to publish from existin (non-assigned) codes, or choose not to specify a voucher code. If you choose not to specify a code in the request paylaod, then the system will choose the next available voucher code available to be assigned to a customer.   You can also include metadata in the request payload. This metadata will be assigned to the publication object, but will not be returned in the response to this endpoint. To see of publications (assignments of particular codes to customers) and publication metadata, use the List Publications endpoint.
+        :param loyalties_members_create_request_body: Provide details to whom the loyalty card should be assigned.     You can choose to either specify the exact loyalty card code that you want to publish from existin (non-assigned) codes, or choose not to specify a voucher code. If you choose not to specify a code in the request paylaod, then the system will choose the next available voucher code available to be assigned to a customer.   You can also include metadata in the request payload. This metadata will be assigned to the publication object, but will not be returned in the response to this endpoint. To see of publications (assignments of particular codes to customers) and publication metadata, use the [List Publications](/api-reference/publications/list-publications) endpoint.
         :type loyalties_members_create_request_body: LoyaltiesMembersCreateRequestBody
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -501,6 +505,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/members is deprecated.", DeprecationWarning)
 
         _param = self._add_member_serialize(
             campaign_id=campaign_id,
@@ -529,7 +534,7 @@ class LoyaltiesApi:
     def add_member_without_preload_content(
         self,
         campaign_id: Annotated[StrictStr, Field(description="Unique campaign ID of the loyalty program.")],
-        loyalties_members_create_request_body: Annotated[Optional[LoyaltiesMembersCreateRequestBody], Field(description="Provide details to whom the loyalty card should be assigned.     You can choose to either specify the exact loyalty card code that you want to publish from existin (non-assigned) codes, or choose not to specify a voucher code. If you choose not to specify a code in the request paylaod, then the system will choose the next available voucher code available to be assigned to a customer.   You can also include metadata in the request payload. This metadata will be assigned to the publication object, but will not be returned in the response to this endpoint. To see of publications (assignments of particular codes to customers) and publication metadata, use the List Publications endpoint.")] = None,
+        loyalties_members_create_request_body: Annotated[Optional[LoyaltiesMembersCreateRequestBody], Field(description="Provide details to whom the loyalty card should be assigned.     You can choose to either specify the exact loyalty card code that you want to publish from existin (non-assigned) codes, or choose not to specify a voucher code. If you choose not to specify a code in the request paylaod, then the system will choose the next available voucher code available to be assigned to a customer.   You can also include metadata in the request payload. This metadata will be assigned to the publication object, but will not be returned in the response to this endpoint. To see of publications (assignments of particular codes to customers) and publication metadata, use the [List Publications](/api-reference/publications/list-publications) endpoint.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -543,13 +548,13 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Add Member
+        """(Deprecated) Add Member
 
-        This method assigns a loyalty card to a customer. It selects a loyalty card suitable for publication, adds a publish entry, and returns the published voucher.   A voucher is suitable for publication when its active and hasnt been published yet.    📘 Auto-update campaign  In case you want to ensure the number of publishable codes increases automatically with the number of customers, you should use **auto-update** campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> This method assigns a loyalty card to a customer. It selects a [loyalty card](/api-reference/vouchers/get-voucher) suitable for publication, adds a publish entry, and returns the published voucher.   A voucher is suitable for publication when its active and hasnt been published yet.   <Note> <Badge color blue>Auto-update campaign</Badge> In case you want to ensure the number of publishable codes increases automatically with the number of customers, you should use **auto-update** campaign. </Note>
 
         :param campaign_id: Unique campaign ID of the loyalty program. (required)
         :type campaign_id: str
-        :param loyalties_members_create_request_body: Provide details to whom the loyalty card should be assigned.     You can choose to either specify the exact loyalty card code that you want to publish from existin (non-assigned) codes, or choose not to specify a voucher code. If you choose not to specify a code in the request paylaod, then the system will choose the next available voucher code available to be assigned to a customer.   You can also include metadata in the request payload. This metadata will be assigned to the publication object, but will not be returned in the response to this endpoint. To see of publications (assignments of particular codes to customers) and publication metadata, use the List Publications endpoint.
+        :param loyalties_members_create_request_body: Provide details to whom the loyalty card should be assigned.     You can choose to either specify the exact loyalty card code that you want to publish from existin (non-assigned) codes, or choose not to specify a voucher code. If you choose not to specify a code in the request paylaod, then the system will choose the next available voucher code available to be assigned to a customer.   You can also include metadata in the request payload. This metadata will be assigned to the publication object, but will not be returned in the response to this endpoint. To see of publications (assignments of particular codes to customers) and publication metadata, use the [List Publications](/api-reference/publications/list-publications) endpoint.
         :type loyalties_members_create_request_body: LoyaltiesMembersCreateRequestBody
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -572,6 +577,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/members is deprecated.", DeprecationWarning)
 
         _param = self._add_member_serialize(
             campaign_id=campaign_id,
@@ -690,9 +696,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersPendingPointsBalanceResponseBody:
-        """Adjust Member Pending Points
+        """(Deprecated) Adjust Member Pending Points
 
-        Adjusts the pending points with a given ID. You can add or subtract the number of points. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Adjusts the pending points with a given ID. You can add or subtract the number of points. <Tip> <Badge color green>Configuring pending points</Badge> Pending points are configured as part of an earning rule with [POST Create earning rule](/api-reference/loyalties/create-earning-rule) or [PUT Update earning rule](/api-reference/loyalties/update-earning-rule). </Tip>
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -721,6 +727,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/members/{memberId}/pending-points/{pendingPointsId}/balance is deprecated.", DeprecationWarning)
 
         _param = self._adjust_member_pending_points_serialize(
             member_id=member_id,
@@ -765,9 +772,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersPendingPointsBalanceResponseBody]:
-        """Adjust Member Pending Points
+        """(Deprecated) Adjust Member Pending Points
 
-        Adjusts the pending points with a given ID. You can add or subtract the number of points. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Adjusts the pending points with a given ID. You can add or subtract the number of points. <Tip> <Badge color green>Configuring pending points</Badge> Pending points are configured as part of an earning rule with [POST Create earning rule](/api-reference/loyalties/create-earning-rule) or [PUT Update earning rule](/api-reference/loyalties/update-earning-rule). </Tip>
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -796,6 +803,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/members/{memberId}/pending-points/{pendingPointsId}/balance is deprecated.", DeprecationWarning)
 
         _param = self._adjust_member_pending_points_serialize(
             member_id=member_id,
@@ -840,9 +848,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Adjust Member Pending Points
+        """(Deprecated) Adjust Member Pending Points
 
-        Adjusts the pending points with a given ID. You can add or subtract the number of points. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Adjusts the pending points with a given ID. You can add or subtract the number of points. <Tip> <Badge color green>Configuring pending points</Badge> Pending points are configured as part of an earning rule with [POST Create earning rule](/api-reference/loyalties/create-earning-rule) or [PUT Update earning rule](/api-reference/loyalties/update-earning-rule). </Tip>
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -871,6 +879,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/members/{memberId}/pending-points/{pendingPointsId}/balance is deprecated.", DeprecationWarning)
 
         _param = self._adjust_member_pending_points_serialize(
             member_id=member_id,
@@ -992,9 +1001,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Cancel Member Pending Points
+        """(Deprecated) Cancel Member Pending Points
 
-        Cancel manually the pending points for the loyalty card. The pending points are determined by the pending point ID. Once canceled, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body and it returns an empty, 204, response. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Cancel manually the pending points for the loyalty card. The pending points are determined by the pending point ID. Once canceled, the pending point entry with that ID is not listed by the endpoints: List member ([with campaign ID](/api-reference/loyalties/list-member-pending-points-with-campaign-id), [without campaign ID](/api-reference/loyalties/list-member-pending-points)), [List campaign pending points](/api-reference/loyalties/list-campaign-pending-points). This **POST** method does not require a request body and it returns an empty, 204, response. <Tip> <Badge color green>Configuring pending points</Badge> Pending points are configured as part of an earning rule with [POST Create earning rule](/api-reference/loyalties/create-earning-rule) or [PUT Update earning rule](/api-reference/loyalties/update-earning-rule). </Tip>
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -1021,6 +1030,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/members/{memberId}/pending-points/{pendingPointsId}/cancel is deprecated.", DeprecationWarning)
 
         _param = self._cancel_member_pending_points_serialize(
             member_id=member_id,
@@ -1063,9 +1073,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Cancel Member Pending Points
+        """(Deprecated) Cancel Member Pending Points
 
-        Cancel manually the pending points for the loyalty card. The pending points are determined by the pending point ID. Once canceled, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body and it returns an empty, 204, response. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Cancel manually the pending points for the loyalty card. The pending points are determined by the pending point ID. Once canceled, the pending point entry with that ID is not listed by the endpoints: List member ([with campaign ID](/api-reference/loyalties/list-member-pending-points-with-campaign-id), [without campaign ID](/api-reference/loyalties/list-member-pending-points)), [List campaign pending points](/api-reference/loyalties/list-campaign-pending-points). This **POST** method does not require a request body and it returns an empty, 204, response. <Tip> <Badge color green>Configuring pending points</Badge> Pending points are configured as part of an earning rule with [POST Create earning rule](/api-reference/loyalties/create-earning-rule) or [PUT Update earning rule](/api-reference/loyalties/update-earning-rule). </Tip>
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -1092,6 +1102,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/members/{memberId}/pending-points/{pendingPointsId}/cancel is deprecated.", DeprecationWarning)
 
         _param = self._cancel_member_pending_points_serialize(
             member_id=member_id,
@@ -1134,9 +1145,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Cancel Member Pending Points
+        """(Deprecated) Cancel Member Pending Points
 
-        Cancel manually the pending points for the loyalty card. The pending points are determined by the pending point ID. Once canceled, the pending point entry with that ID is not listed by the endpoints: List member (with campaign ID, without campaign ID), List campaign pending points. This **POST** method does not require a request body and it returns an empty, 204, response. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Cancel manually the pending points for the loyalty card. The pending points are determined by the pending point ID. Once canceled, the pending point entry with that ID is not listed by the endpoints: List member ([with campaign ID](/api-reference/loyalties/list-member-pending-points-with-campaign-id), [without campaign ID](/api-reference/loyalties/list-member-pending-points)), [List campaign pending points](/api-reference/loyalties/list-campaign-pending-points). This **POST** method does not require a request body and it returns an empty, 204, response. <Tip> <Badge color green>Configuring pending points</Badge> Pending points are configured as part of an earning rule with [POST Create earning rule](/api-reference/loyalties/create-earning-rule) or [PUT Update earning rule](/api-reference/loyalties/update-earning-rule). </Tip>
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -1163,6 +1174,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/members/{memberId}/pending-points/{pendingPointsId}/cancel is deprecated.", DeprecationWarning)
 
         _param = self._cancel_member_pending_points_serialize(
             member_id=member_id,
@@ -1260,9 +1272,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[LoyaltiesEarningRulesCreateResponseBody]:
-        """Create Earning Rule
+        """(Deprecated) Create Earning Rule
 
-        Create earning rules for a loyalty campaign.  🚧 Maximum number of earning rules  You can create up to 100 earning rules per project. The limit can be customized for clients with a single-tenant setup.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Create earning rules for a loyalty campaign. <Warning> <Badge color yellow>Maximum number of earning rules</Badge> You can create up to 100 earning rules per project. The limit can be customized for clients with a single-tenant setup. </Warning>
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -1289,6 +1301,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/earning-rules is deprecated.", DeprecationWarning)
 
         _param = self._create_earning_rule_serialize(
             campaign_id=campaign_id,
@@ -1331,9 +1344,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[LoyaltiesEarningRulesCreateResponseBody]]:
-        """Create Earning Rule
+        """(Deprecated) Create Earning Rule
 
-        Create earning rules for a loyalty campaign.  🚧 Maximum number of earning rules  You can create up to 100 earning rules per project. The limit can be customized for clients with a single-tenant setup.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Create earning rules for a loyalty campaign. <Warning> <Badge color yellow>Maximum number of earning rules</Badge> You can create up to 100 earning rules per project. The limit can be customized for clients with a single-tenant setup. </Warning>
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -1360,6 +1373,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/earning-rules is deprecated.", DeprecationWarning)
 
         _param = self._create_earning_rule_serialize(
             campaign_id=campaign_id,
@@ -1402,9 +1416,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Create Earning Rule
+        """(Deprecated) Create Earning Rule
 
-        Create earning rules for a loyalty campaign.  🚧 Maximum number of earning rules  You can create up to 100 earning rules per project. The limit can be customized for clients with a single-tenant setup.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Create earning rules for a loyalty campaign. <Warning> <Badge color yellow>Maximum number of earning rules</Badge> You can create up to 100 earning rules per project. The limit can be customized for clients with a single-tenant setup. </Warning>
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -1431,6 +1445,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/earning-rules is deprecated.", DeprecationWarning)
 
         _param = self._create_earning_rule_serialize(
             campaign_id=campaign_id,
@@ -1549,9 +1564,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[LoyaltyTier]:
-        """Create loyalty tiers
+        """(Deprecated) Create loyalty tiers
 
-        Creates loyalty tiers for desired campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Creates loyalty tiers for desired campaign.
 
         :param campaign_id: Unique loyalty campaign ID or name. (required)
         :type campaign_id: str
@@ -1578,6 +1593,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/tiers is deprecated.", DeprecationWarning)
 
         _param = self._create_in_bulk_loyalty_tiers_serialize(
             campaign_id=campaign_id,
@@ -1620,9 +1636,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[LoyaltyTier]]:
-        """Create loyalty tiers
+        """(Deprecated) Create loyalty tiers
 
-        Creates loyalty tiers for desired campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Creates loyalty tiers for desired campaign.
 
         :param campaign_id: Unique loyalty campaign ID or name. (required)
         :type campaign_id: str
@@ -1649,6 +1665,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/tiers is deprecated.", DeprecationWarning)
 
         _param = self._create_in_bulk_loyalty_tiers_serialize(
             campaign_id=campaign_id,
@@ -1691,9 +1708,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Create loyalty tiers
+        """(Deprecated) Create loyalty tiers
 
-        Creates loyalty tiers for desired campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Creates loyalty tiers for desired campaign.
 
         :param campaign_id: Unique loyalty campaign ID or name. (required)
         :type campaign_id: str
@@ -1720,6 +1737,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/tiers is deprecated.", DeprecationWarning)
 
         _param = self._create_in_bulk_loyalty_tiers_serialize(
             campaign_id=campaign_id,
@@ -1837,9 +1855,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesCreateCampaignResponseBody:
-        """Create Loyalty Campaign
+        """(Deprecated) Create Loyalty Campaign
 
-        Creates a batch of loyalty cards aggregated in a single loyalty campaign. It also allows you to define a custom codes pattern.    📘 Global uniqueness  All codes are unique across the whole project. Voucherify wont allow to generate the same codes in any of your campaigns.  🚧 Asynchronous action!  This is an asynchronous action, you cant read or modify a newly created campaign until the code generation is completed. See creation_status field in the loyalty campaign object description.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Creates a batch of [loyalty cards](/api-reference/loyalties/get-member) aggregated in a single loyalty campaign. It also allows you to define a custom codes pattern.   <Note> <Badge color blue>Global uniqueness</Badge> All codes are unique across the whole project. Voucherify wont allow to generate the same codes in any of your campaigns. </Note> <Warning> <Badge color yellow>Asynchronous action!</Badge> This is an asynchronous action, you cant read or modify a newly created campaign until the code generation is completed. See creation_status field in the [loyalty campaign object](/api-reference/loyalties/loyalty-campaign-object) description. </Warning>
 
         :param loyalties_create_campaign_request_body: Specify the loyalty campaign details.
         :type loyalties_create_campaign_request_body: LoyaltiesCreateCampaignRequestBody
@@ -1864,6 +1882,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties is deprecated.", DeprecationWarning)
 
         _param = self._create_loyalty_program_serialize(
             loyalties_create_campaign_request_body=loyalties_create_campaign_request_body,
@@ -1904,9 +1923,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesCreateCampaignResponseBody]:
-        """Create Loyalty Campaign
+        """(Deprecated) Create Loyalty Campaign
 
-        Creates a batch of loyalty cards aggregated in a single loyalty campaign. It also allows you to define a custom codes pattern.    📘 Global uniqueness  All codes are unique across the whole project. Voucherify wont allow to generate the same codes in any of your campaigns.  🚧 Asynchronous action!  This is an asynchronous action, you cant read or modify a newly created campaign until the code generation is completed. See creation_status field in the loyalty campaign object description.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Creates a batch of [loyalty cards](/api-reference/loyalties/get-member) aggregated in a single loyalty campaign. It also allows you to define a custom codes pattern.   <Note> <Badge color blue>Global uniqueness</Badge> All codes are unique across the whole project. Voucherify wont allow to generate the same codes in any of your campaigns. </Note> <Warning> <Badge color yellow>Asynchronous action!</Badge> This is an asynchronous action, you cant read or modify a newly created campaign until the code generation is completed. See creation_status field in the [loyalty campaign object](/api-reference/loyalties/loyalty-campaign-object) description. </Warning>
 
         :param loyalties_create_campaign_request_body: Specify the loyalty campaign details.
         :type loyalties_create_campaign_request_body: LoyaltiesCreateCampaignRequestBody
@@ -1931,6 +1950,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties is deprecated.", DeprecationWarning)
 
         _param = self._create_loyalty_program_serialize(
             loyalties_create_campaign_request_body=loyalties_create_campaign_request_body,
@@ -1971,9 +1991,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Create Loyalty Campaign
+        """(Deprecated) Create Loyalty Campaign
 
-        Creates a batch of loyalty cards aggregated in a single loyalty campaign. It also allows you to define a custom codes pattern.    📘 Global uniqueness  All codes are unique across the whole project. Voucherify wont allow to generate the same codes in any of your campaigns.  🚧 Asynchronous action!  This is an asynchronous action, you cant read or modify a newly created campaign until the code generation is completed. See creation_status field in the loyalty campaign object description.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Creates a batch of [loyalty cards](/api-reference/loyalties/get-member) aggregated in a single loyalty campaign. It also allows you to define a custom codes pattern.   <Note> <Badge color blue>Global uniqueness</Badge> All codes are unique across the whole project. Voucherify wont allow to generate the same codes in any of your campaigns. </Note> <Warning> <Badge color yellow>Asynchronous action!</Badge> This is an asynchronous action, you cant read or modify a newly created campaign until the code generation is completed. See creation_status field in the [loyalty campaign object](/api-reference/loyalties/loyalty-campaign-object) description. </Warning>
 
         :param loyalties_create_campaign_request_body: Specify the loyalty campaign details.
         :type loyalties_create_campaign_request_body: LoyaltiesCreateCampaignRequestBody
@@ -1998,6 +2018,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties is deprecated.", DeprecationWarning)
 
         _param = self._create_loyalty_program_serialize(
             loyalties_create_campaign_request_body=loyalties_create_campaign_request_body,
@@ -2111,9 +2132,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesPointsExpirationExportCreateResponseBody:
-        """Export Loyalty Campaign Point Expiration
+        """(Deprecated) Export Loyalty Campaign Point Expiration
 
-        Schedule the generation of a point expiration CSV file for a particular campaign. It can list point buckets, which can have an ACTIVE or EXPIRED status.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Schedule the generation of a point expiration CSV file for a particular campaign. It can list point buckets, which can have an ACTIVE or EXPIRED status.
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
@@ -2140,6 +2161,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/points-expiration/export is deprecated.", DeprecationWarning)
 
         _param = self._create_points_expiration_export_serialize(
             campaign_id=campaign_id,
@@ -2182,9 +2204,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesPointsExpirationExportCreateResponseBody]:
-        """Export Loyalty Campaign Point Expiration
+        """(Deprecated) Export Loyalty Campaign Point Expiration
 
-        Schedule the generation of a point expiration CSV file for a particular campaign. It can list point buckets, which can have an ACTIVE or EXPIRED status.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Schedule the generation of a point expiration CSV file for a particular campaign. It can list point buckets, which can have an ACTIVE or EXPIRED status.
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
@@ -2211,6 +2233,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/points-expiration/export is deprecated.", DeprecationWarning)
 
         _param = self._create_points_expiration_export_serialize(
             campaign_id=campaign_id,
@@ -2253,9 +2276,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Export Loyalty Campaign Point Expiration
+        """(Deprecated) Export Loyalty Campaign Point Expiration
 
-        Schedule the generation of a point expiration CSV file for a particular campaign. It can list point buckets, which can have an ACTIVE or EXPIRED status.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Schedule the generation of a point expiration CSV file for a particular campaign. It can list point buckets, which can have an ACTIVE or EXPIRED status.
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
@@ -2282,6 +2305,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/points-expiration/export is deprecated.", DeprecationWarning)
 
         _param = self._create_points_expiration_export_serialize(
             campaign_id=campaign_id,
@@ -2399,9 +2423,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesRewardsCreateAssignmentResponseBody:
-        """Create Reward Assignment
+        """(Deprecated) Create Loyalty Campaign Reward Assignment
 
-        Add rewards to a loyalty campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Add rewards to a loyalty campaign.
 
         :param campaign_id: Unique campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -2428,6 +2452,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/rewards is deprecated.", DeprecationWarning)
 
         _param = self._create_reward_assignment1_serialize(
             campaign_id=campaign_id,
@@ -2470,9 +2495,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesRewardsCreateAssignmentResponseBody]:
-        """Create Reward Assignment
+        """(Deprecated) Create Loyalty Campaign Reward Assignment
 
-        Add rewards to a loyalty campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Add rewards to a loyalty campaign.
 
         :param campaign_id: Unique campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -2499,6 +2524,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/rewards is deprecated.", DeprecationWarning)
 
         _param = self._create_reward_assignment1_serialize(
             campaign_id=campaign_id,
@@ -2541,9 +2567,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Create Reward Assignment
+        """(Deprecated) Create Loyalty Campaign Reward Assignment
 
-        Add rewards to a loyalty campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Add rewards to a loyalty campaign.
 
         :param campaign_id: Unique campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -2570,6 +2596,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/rewards is deprecated.", DeprecationWarning)
 
         _param = self._create_reward_assignment1_serialize(
             campaign_id=campaign_id,
@@ -2688,9 +2715,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Delete Earning Rule
+        """(Deprecated) Delete Earning Rule
 
-        This method deletes an earning rule for a specific loyalty campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> This method deletes an earning rule for a specific loyalty campaign.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -2717,6 +2744,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("DELETE /v1/loyalties/{campaignId}/earning-rules/{earningRuleId} is deprecated.", DeprecationWarning)
 
         _param = self._delete_earning_rule_serialize(
             campaign_id=campaign_id,
@@ -2759,9 +2787,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Delete Earning Rule
+        """(Deprecated) Delete Earning Rule
 
-        This method deletes an earning rule for a specific loyalty campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> This method deletes an earning rule for a specific loyalty campaign.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -2788,6 +2816,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("DELETE /v1/loyalties/{campaignId}/earning-rules/{earningRuleId} is deprecated.", DeprecationWarning)
 
         _param = self._delete_earning_rule_serialize(
             campaign_id=campaign_id,
@@ -2830,9 +2859,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Delete Earning Rule
+        """(Deprecated) Delete Earning Rule
 
-        This method deletes an earning rule for a specific loyalty campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> This method deletes an earning rule for a specific loyalty campaign.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -2859,6 +2888,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("DELETE /v1/loyalties/{campaignId}/earning-rules/{earningRuleId} is deprecated.", DeprecationWarning)
 
         _param = self._delete_earning_rule_serialize(
             campaign_id=campaign_id,
@@ -2956,9 +2986,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesDeleteResponseBody:
-        """Delete Loyalty Campaign
+        """(Deprecated) Delete Loyalty Campaign
 
-        Deletes a loyalty campaign and all related loyalty cards. This action cannot be undone. Also, it immediately removes any redemptions on loyalty cards. If the force parameter is set to false or not set at all, the loyalty campaign and all related loyalty cards will be moved to the bin.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Deletes a loyalty campaign and all related loyalty cards. This action cannot be undone. Also, it immediately removes any redemptions on loyalty cards. If the force parameter is set to false or not set at all, the loyalty campaign and all related loyalty cards will be moved to [the bin](/api-reference/bin/list-bin-entries).
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -2985,6 +3015,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("DELETE /v1/loyalties/{campaignId} is deprecated.", DeprecationWarning)
 
         _param = self._delete_loyalty_program_serialize(
             campaign_id=campaign_id,
@@ -3027,9 +3058,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesDeleteResponseBody]:
-        """Delete Loyalty Campaign
+        """(Deprecated) Delete Loyalty Campaign
 
-        Deletes a loyalty campaign and all related loyalty cards. This action cannot be undone. Also, it immediately removes any redemptions on loyalty cards. If the force parameter is set to false or not set at all, the loyalty campaign and all related loyalty cards will be moved to the bin.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Deletes a loyalty campaign and all related loyalty cards. This action cannot be undone. Also, it immediately removes any redemptions on loyalty cards. If the force parameter is set to false or not set at all, the loyalty campaign and all related loyalty cards will be moved to [the bin](/api-reference/bin/list-bin-entries).
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -3056,6 +3087,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("DELETE /v1/loyalties/{campaignId} is deprecated.", DeprecationWarning)
 
         _param = self._delete_loyalty_program_serialize(
             campaign_id=campaign_id,
@@ -3098,9 +3130,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Delete Loyalty Campaign
+        """(Deprecated) Delete Loyalty Campaign
 
-        Deletes a loyalty campaign and all related loyalty cards. This action cannot be undone. Also, it immediately removes any redemptions on loyalty cards. If the force parameter is set to false or not set at all, the loyalty campaign and all related loyalty cards will be moved to the bin.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Deletes a loyalty campaign and all related loyalty cards. This action cannot be undone. Also, it immediately removes any redemptions on loyalty cards. If the force parameter is set to false or not set at all, the loyalty campaign and all related loyalty cards will be moved to [the bin](/api-reference/bin/list-bin-entries).
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -3127,6 +3159,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("DELETE /v1/loyalties/{campaignId} is deprecated.", DeprecationWarning)
 
         _param = self._delete_loyalty_program_serialize(
             campaign_id=campaign_id,
@@ -3233,9 +3266,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Delete Reward Assignment
+        """(Deprecated) Delete Campaign Reward Assignment
 
-        This method deletes a reward assignment for a particular loyalty campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> This method deletes a reward assignment for a particular loyalty campaign.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -3262,6 +3295,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("DELETE /v1/loyalties/{campaignId}/rewards/{assignmentId} is deprecated.", DeprecationWarning)
 
         _param = self._delete_reward_assignment1_serialize(
             campaign_id=campaign_id,
@@ -3304,9 +3338,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Delete Reward Assignment
+        """(Deprecated) Delete Campaign Reward Assignment
 
-        This method deletes a reward assignment for a particular loyalty campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> This method deletes a reward assignment for a particular loyalty campaign.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -3333,6 +3367,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("DELETE /v1/loyalties/{campaignId}/rewards/{assignmentId} is deprecated.", DeprecationWarning)
 
         _param = self._delete_reward_assignment1_serialize(
             campaign_id=campaign_id,
@@ -3375,9 +3410,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Delete Reward Assignment
+        """(Deprecated) Delete Campaign Reward Assignment
 
-        This method deletes a reward assignment for a particular loyalty campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> This method deletes a reward assignment for a particular loyalty campaign.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -3404,6 +3439,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("DELETE /v1/loyalties/{campaignId}/rewards/{assignmentId} is deprecated.", DeprecationWarning)
 
         _param = self._delete_reward_assignment1_serialize(
             campaign_id=campaign_id,
@@ -3501,9 +3537,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesEarningRulesDisableResponseBody:
-        """Disable Earning Rule
+        """(Deprecated) Disable Earning Rule
 
-        Disable an earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Disable an earning rule.
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
@@ -3530,6 +3566,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/earning-rules/{earningRuleId}/disable is deprecated.", DeprecationWarning)
 
         _param = self._disable_earning_rule_serialize(
             campaign_id=campaign_id,
@@ -3572,9 +3609,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesEarningRulesDisableResponseBody]:
-        """Disable Earning Rule
+        """(Deprecated) Disable Earning Rule
 
-        Disable an earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Disable an earning rule.
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
@@ -3601,6 +3638,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/earning-rules/{earningRuleId}/disable is deprecated.", DeprecationWarning)
 
         _param = self._disable_earning_rule_serialize(
             campaign_id=campaign_id,
@@ -3643,9 +3681,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Disable Earning Rule
+        """(Deprecated) Disable Earning Rule
 
-        Disable an earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Disable an earning rule.
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
@@ -3672,6 +3710,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/earning-rules/{earningRuleId}/disable is deprecated.", DeprecationWarning)
 
         _param = self._disable_earning_rule_serialize(
             campaign_id=campaign_id,
@@ -3776,9 +3815,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesEarningRulesEnableResponseBody:
-        """Enable Earning Rule
+        """(Deprecated) Enable Earning Rule
 
-        Enable an earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Enable an earning rule.
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
@@ -3805,6 +3844,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/earning-rules/{earningRuleId}/enable is deprecated.", DeprecationWarning)
 
         _param = self._enable_earning_rule_serialize(
             campaign_id=campaign_id,
@@ -3847,9 +3887,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesEarningRulesEnableResponseBody]:
-        """Enable Earning Rule
+        """(Deprecated) Enable Earning Rule
 
-        Enable an earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Enable an earning rule.
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
@@ -3876,6 +3916,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/earning-rules/{earningRuleId}/enable is deprecated.", DeprecationWarning)
 
         _param = self._enable_earning_rule_serialize(
             campaign_id=campaign_id,
@@ -3918,9 +3959,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Enable Earning Rule
+        """(Deprecated) Enable Earning Rule
 
-        Enable an earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Enable an earning rule.
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
@@ -3947,6 +3988,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/earning-rules/{earningRuleId}/enable is deprecated.", DeprecationWarning)
 
         _param = self._enable_earning_rule_serialize(
             campaign_id=campaign_id,
@@ -4051,9 +4093,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> CampaignsTransactionsExportCreateResponseBody:
-        """Export Loyalty Campaign Transactions
+        """(Deprecated) Export Loyalty Campaign Transactions
 
-        Export transactions is an asynchronous process that generates a CSV file with the data about or point movements on all loyalty cards in a given campaign. To export transactions: 1. In the export request, use parameters to select which fields will be exported, in what order, and which data will be filtered. 2. Use the returned id to track the export status with the GET Export method. 3. In the GET Export method, when the returned status field has the DONE value, the export file has been generated. 4. Use the URL in the result property to download the file. You must be logged to your Voucherify account on a given cluster in the browser to be able to download the file. An export request will almost always result in a single file being generated by the system. However, when the data volume is large, the system may split the results into multiple files. An example export file can look as follows:    👍 Export Campaign Transactions  This method works in the same way the POST Export Campaign Transactions does, but it is limited to loyalty campaigns only. The POST Export Campaign Transactions method can also export gift card campaign transactions.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Export transactions is an asynchronous process that generates a CSV file with the data about or point movements on all loyalty cards in a given campaign. To export transactions: 1. In the export request, use parameters to select which fields will be exported, in what order, and which data will be filtered. 2. Use the returned id to track the export status with the [GET Export](/api-reference/exports/get-export) method. 3. In the GET Export method, when the returned status field has the DONE value, the export file has been generated. 4. Use the URL in the result property to download the file. You must be logged to your Voucherify account on a given cluster in the browser to be able to download the file. An export request will almost always result in a single file being generated by the system. However, when the data volume is large, the system may split the results into multiple files. An example export file can look as follows:   <Tip> <Badge color green>Export Campaign Transactions</Badge> This method works in the same way the [POST Export Campaign Transactions](/api-reference/campaigns/export-campaign-transactions) does, but it is limited to loyalty campaigns only. The POST Export Campaign Transactions method can also export gift card campaign transactions. </Tip>
 
         :param campaign_id: You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. (required)
         :type campaign_id: str
@@ -4080,6 +4122,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/transactions/export is deprecated.", DeprecationWarning)
 
         _param = self._export_loyalty_campaign_transactions_serialize(
             campaign_id=campaign_id,
@@ -4122,9 +4165,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[CampaignsTransactionsExportCreateResponseBody]:
-        """Export Loyalty Campaign Transactions
+        """(Deprecated) Export Loyalty Campaign Transactions
 
-        Export transactions is an asynchronous process that generates a CSV file with the data about or point movements on all loyalty cards in a given campaign. To export transactions: 1. In the export request, use parameters to select which fields will be exported, in what order, and which data will be filtered. 2. Use the returned id to track the export status with the GET Export method. 3. In the GET Export method, when the returned status field has the DONE value, the export file has been generated. 4. Use the URL in the result property to download the file. You must be logged to your Voucherify account on a given cluster in the browser to be able to download the file. An export request will almost always result in a single file being generated by the system. However, when the data volume is large, the system may split the results into multiple files. An example export file can look as follows:    👍 Export Campaign Transactions  This method works in the same way the POST Export Campaign Transactions does, but it is limited to loyalty campaigns only. The POST Export Campaign Transactions method can also export gift card campaign transactions.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Export transactions is an asynchronous process that generates a CSV file with the data about or point movements on all loyalty cards in a given campaign. To export transactions: 1. In the export request, use parameters to select which fields will be exported, in what order, and which data will be filtered. 2. Use the returned id to track the export status with the [GET Export](/api-reference/exports/get-export) method. 3. In the GET Export method, when the returned status field has the DONE value, the export file has been generated. 4. Use the URL in the result property to download the file. You must be logged to your Voucherify account on a given cluster in the browser to be able to download the file. An export request will almost always result in a single file being generated by the system. However, when the data volume is large, the system may split the results into multiple files. An example export file can look as follows:   <Tip> <Badge color green>Export Campaign Transactions</Badge> This method works in the same way the [POST Export Campaign Transactions](/api-reference/campaigns/export-campaign-transactions) does, but it is limited to loyalty campaigns only. The POST Export Campaign Transactions method can also export gift card campaign transactions. </Tip>
 
         :param campaign_id: You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. (required)
         :type campaign_id: str
@@ -4151,6 +4194,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/transactions/export is deprecated.", DeprecationWarning)
 
         _param = self._export_loyalty_campaign_transactions_serialize(
             campaign_id=campaign_id,
@@ -4193,9 +4237,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Export Loyalty Campaign Transactions
+        """(Deprecated) Export Loyalty Campaign Transactions
 
-        Export transactions is an asynchronous process that generates a CSV file with the data about or point movements on all loyalty cards in a given campaign. To export transactions: 1. In the export request, use parameters to select which fields will be exported, in what order, and which data will be filtered. 2. Use the returned id to track the export status with the GET Export method. 3. In the GET Export method, when the returned status field has the DONE value, the export file has been generated. 4. Use the URL in the result property to download the file. You must be logged to your Voucherify account on a given cluster in the browser to be able to download the file. An export request will almost always result in a single file being generated by the system. However, when the data volume is large, the system may split the results into multiple files. An example export file can look as follows:    👍 Export Campaign Transactions  This method works in the same way the POST Export Campaign Transactions does, but it is limited to loyalty campaigns only. The POST Export Campaign Transactions method can also export gift card campaign transactions.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Export transactions is an asynchronous process that generates a CSV file with the data about or point movements on all loyalty cards in a given campaign. To export transactions: 1. In the export request, use parameters to select which fields will be exported, in what order, and which data will be filtered. 2. Use the returned id to track the export status with the [GET Export](/api-reference/exports/get-export) method. 3. In the GET Export method, when the returned status field has the DONE value, the export file has been generated. 4. Use the URL in the result property to download the file. You must be logged to your Voucherify account on a given cluster in the browser to be able to download the file. An export request will almost always result in a single file being generated by the system. However, when the data volume is large, the system may split the results into multiple files. An example export file can look as follows:   <Tip> <Badge color green>Export Campaign Transactions</Badge> This method works in the same way the [POST Export Campaign Transactions](/api-reference/campaigns/export-campaign-transactions) does, but it is limited to loyalty campaigns only. The POST Export Campaign Transactions method can also export gift card campaign transactions. </Tip>
 
         :param campaign_id: You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. (required)
         :type campaign_id: str
@@ -4222,6 +4266,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/transactions/export is deprecated.", DeprecationWarning)
 
         _param = self._export_loyalty_campaign_transactions_serialize(
             campaign_id=campaign_id,
@@ -4339,9 +4384,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersTransactionsExportCreateResponseBody:
-        """Export Loyalty Card Transactions
+        """(Deprecated) Export Loyalty Card Transactions
 
-        Export transactions that are associated with point movements on a loyalty card.   
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Export transactions that are associated with point movements on a loyalty card.   
 
         :param member_id: A unique code identifying the loyalty card that you are looking to export transaction data for. (required)
         :type member_id: str
@@ -4368,6 +4413,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/members/{memberId}/transactions/export is deprecated.", DeprecationWarning)
 
         _param = self._export_loyalty_card_transactions_serialize(
             member_id=member_id,
@@ -4410,9 +4456,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersTransactionsExportCreateResponseBody]:
-        """Export Loyalty Card Transactions
+        """(Deprecated) Export Loyalty Card Transactions
 
-        Export transactions that are associated with point movements on a loyalty card.   
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Export transactions that are associated with point movements on a loyalty card.   
 
         :param member_id: A unique code identifying the loyalty card that you are looking to export transaction data for. (required)
         :type member_id: str
@@ -4439,6 +4485,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/members/{memberId}/transactions/export is deprecated.", DeprecationWarning)
 
         _param = self._export_loyalty_card_transactions_serialize(
             member_id=member_id,
@@ -4481,9 +4528,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Export Loyalty Card Transactions
+        """(Deprecated) Export Loyalty Card Transactions
 
-        Export transactions that are associated with point movements on a loyalty card.   
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Export transactions that are associated with point movements on a loyalty card.   
 
         :param member_id: A unique code identifying the loyalty card that you are looking to export transaction data for. (required)
         :type member_id: str
@@ -4510,6 +4557,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/members/{memberId}/transactions/export is deprecated.", DeprecationWarning)
 
         _param = self._export_loyalty_card_transactions_serialize(
             member_id=member_id,
@@ -4628,9 +4676,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersTransactionsExportCreateResponseBody:
-        """Export Loyalty Card Transactions
+        """(Deprecated) Export Loyalty Card Transactions with campaign ID
 
-        Export transactions that are associated with point movements on a loyalty card.   
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Export transactions that are associated with point movements on a loyalty card.   
 
         :param campaign_id: A unique identifier of the loyalty campaign containing the voucher whose transactions you would like to export. (required)
         :type campaign_id: str
@@ -4659,6 +4707,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/members/{memberId}/transactions/export is deprecated.", DeprecationWarning)
 
         _param = self._export_loyalty_card_transactions1_serialize(
             campaign_id=campaign_id,
@@ -4703,9 +4752,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersTransactionsExportCreateResponseBody]:
-        """Export Loyalty Card Transactions
+        """(Deprecated) Export Loyalty Card Transactions with campaign ID
 
-        Export transactions that are associated with point movements on a loyalty card.   
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Export transactions that are associated with point movements on a loyalty card.   
 
         :param campaign_id: A unique identifier of the loyalty campaign containing the voucher whose transactions you would like to export. (required)
         :type campaign_id: str
@@ -4734,6 +4783,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/members/{memberId}/transactions/export is deprecated.", DeprecationWarning)
 
         _param = self._export_loyalty_card_transactions1_serialize(
             campaign_id=campaign_id,
@@ -4778,9 +4828,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Export Loyalty Card Transactions
+        """(Deprecated) Export Loyalty Card Transactions with campaign ID
 
-        Export transactions that are associated with point movements on a loyalty card.   
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Export transactions that are associated with point movements on a loyalty card.   
 
         :param campaign_id: A unique identifier of the loyalty campaign containing the voucher whose transactions you would like to export. (required)
         :type campaign_id: str
@@ -4809,6 +4859,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/members/{memberId}/transactions/export is deprecated.", DeprecationWarning)
 
         _param = self._export_loyalty_card_transactions1_serialize(
             campaign_id=campaign_id,
@@ -4930,9 +4981,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesEarningRulesGetResponseBody:
-        """Get Earning Rule
+        """(Deprecated) Get Earning Rule
 
-        Retrieves an earning rule assigned to a campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieves an earning rule assigned to a campaign.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -4959,6 +5010,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/earning-rules/{earningRuleId} is deprecated.", DeprecationWarning)
 
         _param = self._get_earning_rule_serialize(
             campaign_id=campaign_id,
@@ -5001,9 +5053,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesEarningRulesGetResponseBody]:
-        """Get Earning Rule
+        """(Deprecated) Get Earning Rule
 
-        Retrieves an earning rule assigned to a campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieves an earning rule assigned to a campaign.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -5030,6 +5082,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/earning-rules/{earningRuleId} is deprecated.", DeprecationWarning)
 
         _param = self._get_earning_rule_serialize(
             campaign_id=campaign_id,
@@ -5072,9 +5125,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get Earning Rule
+        """(Deprecated) Get Earning Rule
 
-        Retrieves an earning rule assigned to a campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieves an earning rule assigned to a campaign.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -5101,6 +5154,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/earning-rules/{earningRuleId} is deprecated.", DeprecationWarning)
 
         _param = self._get_earning_rule_serialize(
             campaign_id=campaign_id,
@@ -5204,9 +5258,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesGetCampaignResponseBody:
-        """Get Loyalty Campaign
+        """(Deprecated) Get Loyalty Campaign
 
-        Retrieve a specific loyalty campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve a specific loyalty campaign.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -5231,6 +5285,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId} is deprecated.", DeprecationWarning)
 
         _param = self._get_loyalty_program_serialize(
             campaign_id=campaign_id,
@@ -5271,9 +5326,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesGetCampaignResponseBody]:
-        """Get Loyalty Campaign
+        """(Deprecated) Get Loyalty Campaign
 
-        Retrieve a specific loyalty campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve a specific loyalty campaign.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -5298,6 +5353,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId} is deprecated.", DeprecationWarning)
 
         _param = self._get_loyalty_program_serialize(
             campaign_id=campaign_id,
@@ -5338,9 +5394,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get Loyalty Campaign
+        """(Deprecated) Get Loyalty Campaign
 
-        Retrieve a specific loyalty campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve a specific loyalty campaign.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -5365,6 +5421,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId} is deprecated.", DeprecationWarning)
 
         _param = self._get_loyalty_program_serialize(
             campaign_id=campaign_id,
@@ -5465,9 +5522,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesTiersGetResponseBody:
-        """Get Loyalty Tier
+        """(Deprecated) Get Loyalty Tier
 
-        Retrieve a loyalty tier from a loyalty campaign by the loyalty tier ID.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve a loyalty tier from a loyalty campaign by the loyalty tier ID.
 
         :param campaign_id: Unique loyalty campaign ID or name. (required)
         :type campaign_id: str
@@ -5494,6 +5551,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/tiers/{loyaltyTierId} is deprecated.", DeprecationWarning)
 
         _param = self._get_loyalty_tier_serialize(
             campaign_id=campaign_id,
@@ -5536,9 +5594,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesTiersGetResponseBody]:
-        """Get Loyalty Tier
+        """(Deprecated) Get Loyalty Tier
 
-        Retrieve a loyalty tier from a loyalty campaign by the loyalty tier ID.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve a loyalty tier from a loyalty campaign by the loyalty tier ID.
 
         :param campaign_id: Unique loyalty campaign ID or name. (required)
         :type campaign_id: str
@@ -5565,6 +5623,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/tiers/{loyaltyTierId} is deprecated.", DeprecationWarning)
 
         _param = self._get_loyalty_tier_serialize(
             campaign_id=campaign_id,
@@ -5607,9 +5666,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get Loyalty Tier
+        """(Deprecated) Get Loyalty Tier
 
-        Retrieve a loyalty tier from a loyalty campaign by the loyalty tier ID.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve a loyalty tier from a loyalty campaign by the loyalty tier ID.
 
         :param campaign_id: Unique loyalty campaign ID or name. (required)
         :type campaign_id: str
@@ -5636,6 +5695,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/tiers/{loyaltyTierId} is deprecated.", DeprecationWarning)
 
         _param = self._get_loyalty_tier_serialize(
             campaign_id=campaign_id,
@@ -5739,9 +5799,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersGetResponseBody:
-        """Get Member
+        """(Deprecated) Get Member
 
-        Retrieve loyalty card with the given member ID (i.e. voucher code).      📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to allow you to retrieve loyalty card details without having to provide the campaignId as a path parameter.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve loyalty card with the given member ID (i.e. voucher code).     <Note> <Badge color blue>Alternative endpoint</Badge> This endpoint is an alternative to this [endpoint](/api-reference/loyalties/get-member-with-campaign-id). The URL was re-designed to allow you to retrieve loyalty card details without having to provide the campaignId as a path parameter. </Note>
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -5766,6 +5826,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/members/{memberId} is deprecated.", DeprecationWarning)
 
         _param = self._get_member_serialize(
             member_id=member_id,
@@ -5806,9 +5867,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersGetResponseBody]:
-        """Get Member
+        """(Deprecated) Get Member
 
-        Retrieve loyalty card with the given member ID (i.e. voucher code).      📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to allow you to retrieve loyalty card details without having to provide the campaignId as a path parameter.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve loyalty card with the given member ID (i.e. voucher code).     <Note> <Badge color blue>Alternative endpoint</Badge> This endpoint is an alternative to this [endpoint](/api-reference/loyalties/get-member-with-campaign-id). The URL was re-designed to allow you to retrieve loyalty card details without having to provide the campaignId as a path parameter. </Note>
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -5833,6 +5894,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/members/{memberId} is deprecated.", DeprecationWarning)
 
         _param = self._get_member_serialize(
             member_id=member_id,
@@ -5873,9 +5935,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get Member
+        """(Deprecated) Get Member
 
-        Retrieve loyalty card with the given member ID (i.e. voucher code).      📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to allow you to retrieve loyalty card details without having to provide the campaignId as a path parameter.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve loyalty card with the given member ID (i.e. voucher code).     <Note> <Badge color blue>Alternative endpoint</Badge> This endpoint is an alternative to this [endpoint](/api-reference/loyalties/get-member-with-campaign-id). The URL was re-designed to allow you to retrieve loyalty card details without having to provide the campaignId as a path parameter. </Note>
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -5900,6 +5962,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/members/{memberId} is deprecated.", DeprecationWarning)
 
         _param = self._get_member_serialize(
             member_id=member_id,
@@ -6000,9 +6063,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersGetResponseBody:
-        """Get Member
+        """(Deprecated) Get Member with campaign ID
 
-        Retrieves the loyalty card with the given member ID (i.e. voucher code).
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieves the loyalty card with the given member ID (i.e. voucher code).
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -6029,6 +6092,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/members/{memberId} is deprecated.", DeprecationWarning)
 
         _param = self._get_member1_serialize(
             campaign_id=campaign_id,
@@ -6071,9 +6135,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersGetResponseBody]:
-        """Get Member
+        """(Deprecated) Get Member with campaign ID
 
-        Retrieves the loyalty card with the given member ID (i.e. voucher code).
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieves the loyalty card with the given member ID (i.e. voucher code).
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -6100,6 +6164,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/members/{memberId} is deprecated.", DeprecationWarning)
 
         _param = self._get_member1_serialize(
             campaign_id=campaign_id,
@@ -6142,9 +6207,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get Member
+        """(Deprecated) Get Member with campaign ID
 
-        Retrieves the loyalty card with the given member ID (i.e. voucher code).
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieves the loyalty card with the given member ID (i.e. voucher code).
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -6171,6 +6236,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/members/{memberId} is deprecated.", DeprecationWarning)
 
         _param = self._get_member1_serialize(
             campaign_id=campaign_id,
@@ -6275,9 +6341,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesRewardAssignmentsGetResponseBody:
-        """Get Reward Assignment
+        """(Deprecated) Get Campaign Reward Assignments
 
-        Retrieve specific reward assignment.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve specific reward assignment.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -6304,6 +6370,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/reward-assignments/{assignmentId} is deprecated.", DeprecationWarning)
 
         _param = self._get_reward_assignment1_serialize(
             campaign_id=campaign_id,
@@ -6346,9 +6413,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesRewardAssignmentsGetResponseBody]:
-        """Get Reward Assignment
+        """(Deprecated) Get Campaign Reward Assignments
 
-        Retrieve specific reward assignment.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve specific reward assignment.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -6375,6 +6442,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/reward-assignments/{assignmentId} is deprecated.", DeprecationWarning)
 
         _param = self._get_reward_assignment1_serialize(
             campaign_id=campaign_id,
@@ -6417,9 +6485,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get Reward Assignment
+        """(Deprecated) Get Campaign Reward Assignments
 
-        Retrieve specific reward assignment.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve specific reward assignment.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -6446,6 +6514,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/reward-assignments/{assignmentId} is deprecated.", DeprecationWarning)
 
         _param = self._get_reward_assignment1_serialize(
             campaign_id=campaign_id,
@@ -6550,9 +6619,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesRewardsGetResponseBody:
-        """Get Reward Assignment
+        """(Deprecated) Get Campaign Reward Assignment
 
-        Retrieve specific reward assignment.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. 
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve specific reward assignment. <Note> <Badge color blue>Alternative endpoint</Badge> This endpoint is an alternative to this [endpoint](/api-reference/loyalties/get-campaign-reward-assignments). </Note>
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -6579,6 +6648,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/rewards/{assignmentId} is deprecated.", DeprecationWarning)
 
         _param = self._get_reward_assignment2_serialize(
             campaign_id=campaign_id,
@@ -6621,9 +6691,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesRewardsGetResponseBody]:
-        """Get Reward Assignment
+        """(Deprecated) Get Campaign Reward Assignment
 
-        Retrieve specific reward assignment.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. 
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve specific reward assignment. <Note> <Badge color blue>Alternative endpoint</Badge> This endpoint is an alternative to this [endpoint](/api-reference/loyalties/get-campaign-reward-assignments). </Note>
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -6650,6 +6720,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/rewards/{assignmentId} is deprecated.", DeprecationWarning)
 
         _param = self._get_reward_assignment2_serialize(
             campaign_id=campaign_id,
@@ -6692,9 +6763,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get Reward Assignment
+        """(Deprecated) Get Campaign Reward Assignment
 
-        Retrieve specific reward assignment.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. 
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve specific reward assignment. <Note> <Badge color blue>Alternative endpoint</Badge> This endpoint is an alternative to this [endpoint](/api-reference/loyalties/get-campaign-reward-assignments). </Note>
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -6721,6 +6792,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/rewards/{assignmentId} is deprecated.", DeprecationWarning)
 
         _param = self._get_reward_assignment2_serialize(
             campaign_id=campaign_id,
@@ -6825,9 +6897,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesRewardAssignmentsRewardGetResponseBody:
-        """Get Reward Details
+        """(Deprecated) Get Reward Details
 
-        Get reward details in the context of a loyalty campaign and reward assignment ID.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Get reward details in the context of a loyalty campaign and reward assignment ID.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -6854,6 +6926,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/reward-assignments/{assignmentId}/reward is deprecated.", DeprecationWarning)
 
         _param = self._get_reward_details_serialize(
             campaign_id=campaign_id,
@@ -6896,9 +6969,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesRewardAssignmentsRewardGetResponseBody]:
-        """Get Reward Details
+        """(Deprecated) Get Reward Details
 
-        Get reward details in the context of a loyalty campaign and reward assignment ID.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Get reward details in the context of a loyalty campaign and reward assignment ID.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -6925,6 +6998,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/reward-assignments/{assignmentId}/reward is deprecated.", DeprecationWarning)
 
         _param = self._get_reward_details_serialize(
             campaign_id=campaign_id,
@@ -6967,9 +7041,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get Reward Details
+        """(Deprecated) Get Reward Details
 
-        Get reward details in the context of a loyalty campaign and reward assignment ID.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Get reward details in the context of a loyalty campaign and reward assignment ID.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -6996,6 +7070,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/reward-assignments/{assignmentId}/reward is deprecated.", DeprecationWarning)
 
         _param = self._get_reward_details_serialize(
             campaign_id=campaign_id,
@@ -7102,9 +7177,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesPendingPointsListResponseBody:
-        """List Campaign Pending Points
+        """(Deprecated) List Campaign Pending Points
 
-        Lists all pending points that are currently assigned to all loyalty cards in a campaign. Once the points are added to the card, the entry is no longer returned. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Lists all pending points that are currently assigned to all loyalty cards in a campaign. Once the points are added to the card, the entry is no longer returned. <Tip> <Badge color green>Configuring pending points</Badge> Pending points are configured as part of an earning rule with [POST Create earning rule](/api-reference/loyalties/create-earning-rule) or [PUT Update earning rule](/api-reference/loyalties/update-earning-rule). </Tip>
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -7135,6 +7210,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/pending-points is deprecated.", DeprecationWarning)
 
         _param = self._list_campaign_pending_points_serialize(
             campaign_id=campaign_id,
@@ -7181,9 +7257,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesPendingPointsListResponseBody]:
-        """List Campaign Pending Points
+        """(Deprecated) List Campaign Pending Points
 
-        Lists all pending points that are currently assigned to all loyalty cards in a campaign. Once the points are added to the card, the entry is no longer returned. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Lists all pending points that are currently assigned to all loyalty cards in a campaign. Once the points are added to the card, the entry is no longer returned. <Tip> <Badge color green>Configuring pending points</Badge> Pending points are configured as part of an earning rule with [POST Create earning rule](/api-reference/loyalties/create-earning-rule) or [PUT Update earning rule](/api-reference/loyalties/update-earning-rule). </Tip>
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -7214,6 +7290,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/pending-points is deprecated.", DeprecationWarning)
 
         _param = self._list_campaign_pending_points_serialize(
             campaign_id=campaign_id,
@@ -7260,9 +7337,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List Campaign Pending Points
+        """(Deprecated) List Campaign Pending Points
 
-        Lists all pending points that are currently assigned to all loyalty cards in a campaign. Once the points are added to the card, the entry is no longer returned. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Lists all pending points that are currently assigned to all loyalty cards in a campaign. Once the points are added to the card, the entry is no longer returned. <Tip> <Badge color green>Configuring pending points</Badge> Pending points are configured as part of an earning rule with [POST Create earning rule](/api-reference/loyalties/create-earning-rule) or [PUT Update earning rule](/api-reference/loyalties/update-earning-rule). </Tip>
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -7293,6 +7370,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/pending-points is deprecated.", DeprecationWarning)
 
         _param = self._list_campaign_pending_points_serialize(
             campaign_id=campaign_id,
@@ -7413,9 +7491,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesEarningRulesListResponseBody:
-        """List Earning Rules
+        """(Deprecated) List Earning Rules
 
-        Returns a list of all earning rules within a given campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Returns a list of all earning rules within a given campaign.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -7446,6 +7524,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/earning-rules is deprecated.", DeprecationWarning)
 
         _param = self._list_earning_rules_serialize(
             campaign_id=campaign_id,
@@ -7492,9 +7571,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesEarningRulesListResponseBody]:
-        """List Earning Rules
+        """(Deprecated) List Earning Rules
 
-        Returns a list of all earning rules within a given campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Returns a list of all earning rules within a given campaign.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -7525,6 +7604,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/earning-rules is deprecated.", DeprecationWarning)
 
         _param = self._list_earning_rules_serialize(
             campaign_id=campaign_id,
@@ -7571,9 +7651,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List Earning Rules
+        """(Deprecated) List Earning Rules
 
-        Returns a list of all earning rules within a given campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Returns a list of all earning rules within a given campaign.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -7604,6 +7684,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/earning-rules is deprecated.", DeprecationWarning)
 
         _param = self._list_earning_rules_serialize(
             campaign_id=campaign_id,
@@ -7725,9 +7806,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesTransactionsListResponseBody:
-        """List Loyalty Campaign Transactions
+        """(Deprecated) List Loyalty Campaign Transactions
 
-        Retrieves all transactions for the campaign with the given campaign ID or campaign name.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieves all transactions for the campaign with the given campaign ID or campaign name.
 
         :param campaign_id: You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. (required)
         :type campaign_id: str
@@ -7760,6 +7841,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/transactions is deprecated.", DeprecationWarning)
 
         _param = self._list_loyalty_campaign_transactions_serialize(
             campaign_id=campaign_id,
@@ -7808,9 +7890,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesTransactionsListResponseBody]:
-        """List Loyalty Campaign Transactions
+        """(Deprecated) List Loyalty Campaign Transactions
 
-        Retrieves all transactions for the campaign with the given campaign ID or campaign name.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieves all transactions for the campaign with the given campaign ID or campaign name.
 
         :param campaign_id: You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. (required)
         :type campaign_id: str
@@ -7843,6 +7925,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/transactions is deprecated.", DeprecationWarning)
 
         _param = self._list_loyalty_campaign_transactions_serialize(
             campaign_id=campaign_id,
@@ -7891,9 +7974,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List Loyalty Campaign Transactions
+        """(Deprecated) List Loyalty Campaign Transactions
 
-        Retrieves all transactions for the campaign with the given campaign ID or campaign name.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieves all transactions for the campaign with the given campaign ID or campaign name.
 
         :param campaign_id: You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value. (required)
         :type campaign_id: str
@@ -7926,6 +8009,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/transactions is deprecated.", DeprecationWarning)
 
         _param = self._list_loyalty_campaign_transactions_serialize(
             campaign_id=campaign_id,
@@ -8053,9 +8137,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersTransactionsListResponseBody:
-        """List Loyalty Card Transactions
+        """(Deprecated) List Loyalty Card Transactions
 
-        Retrieve transaction data related to point movements for a specific loyalty card.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve transaction data related to point movements for a specific loyalty card.
 
         :param member_id: A unique code identifying the loyalty card that you are looking to retrieve transaction data for. (required)
         :type member_id: str
@@ -8088,6 +8172,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/members/{memberId}/transactions is deprecated.", DeprecationWarning)
 
         _param = self._list_loyalty_card_transactions_serialize(
             member_id=member_id,
@@ -8136,9 +8221,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersTransactionsListResponseBody]:
-        """List Loyalty Card Transactions
+        """(Deprecated) List Loyalty Card Transactions
 
-        Retrieve transaction data related to point movements for a specific loyalty card.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve transaction data related to point movements for a specific loyalty card.
 
         :param member_id: A unique code identifying the loyalty card that you are looking to retrieve transaction data for. (required)
         :type member_id: str
@@ -8171,6 +8256,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/members/{memberId}/transactions is deprecated.", DeprecationWarning)
 
         _param = self._list_loyalty_card_transactions_serialize(
             member_id=member_id,
@@ -8219,9 +8305,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List Loyalty Card Transactions
+        """(Deprecated) List Loyalty Card Transactions
 
-        Retrieve transaction data related to point movements for a specific loyalty card.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve transaction data related to point movements for a specific loyalty card.
 
         :param member_id: A unique code identifying the loyalty card that you are looking to retrieve transaction data for. (required)
         :type member_id: str
@@ -8254,6 +8340,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/members/{memberId}/transactions is deprecated.", DeprecationWarning)
 
         _param = self._list_loyalty_card_transactions_serialize(
             member_id=member_id,
@@ -8382,9 +8469,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersTransactionsListResponseBody:
-        """List Loyalty Card Transactions
+        """(Deprecated) List Loyalty Card Transactions with campaign ID
 
-        Retrieve transaction data related to point movements for a specific loyalty card.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve transaction data related to point movements for a specific loyalty card.
 
         :param campaign_id: A unique identifier of the loyalty campaign containing the voucher whose transactions you would like to return. (required)
         :type campaign_id: str
@@ -8419,6 +8506,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/members/{memberId}/transactions is deprecated.", DeprecationWarning)
 
         _param = self._list_loyalty_card_transactions1_serialize(
             campaign_id=campaign_id,
@@ -8469,9 +8557,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersTransactionsListResponseBody]:
-        """List Loyalty Card Transactions
+        """(Deprecated) List Loyalty Card Transactions with campaign ID
 
-        Retrieve transaction data related to point movements for a specific loyalty card.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve transaction data related to point movements for a specific loyalty card.
 
         :param campaign_id: A unique identifier of the loyalty campaign containing the voucher whose transactions you would like to return. (required)
         :type campaign_id: str
@@ -8506,6 +8594,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/members/{memberId}/transactions is deprecated.", DeprecationWarning)
 
         _param = self._list_loyalty_card_transactions1_serialize(
             campaign_id=campaign_id,
@@ -8556,9 +8645,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List Loyalty Card Transactions
+        """(Deprecated) List Loyalty Card Transactions with campaign ID
 
-        Retrieve transaction data related to point movements for a specific loyalty card.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve transaction data related to point movements for a specific loyalty card.
 
         :param campaign_id: A unique identifier of the loyalty campaign containing the voucher whose transactions you would like to return. (required)
         :type campaign_id: str
@@ -8593,6 +8682,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/members/{memberId}/transactions is deprecated.", DeprecationWarning)
 
         _param = self._list_loyalty_card_transactions1_serialize(
             campaign_id=campaign_id,
@@ -8708,7 +8798,7 @@ class LoyaltiesApi:
         self,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
         page: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1.")] = None,
-        expand: Annotated[Optional[ParameterExpandListCampaigns], Field(description="Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.")] = None,
+        expand: Annotated[Optional[ParameterExpandListCampaigns], Field(description="Includes an expanded categories object in the response. If the [Areas and Stores](/orchestrate/areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.")] = None,
         order: Annotated[Optional[ParameterOrderListCampaigns], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
         _request_timeout: Union[
             None,
@@ -8723,15 +8813,15 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesListCampaignsResponseBody:
-        """List Loyalty Campaigns
+        """(Deprecated) List Loyalty Campaigns
 
-        Returns a list of your loyalty campaigns.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Returns a list of your loyalty campaigns.
 
         :param limit: Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.
         :type limit: int
         :param page: Which page of results to return. The lowest value is 1.
         :type page: int
-        :param expand: Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.
+        :param expand: Includes an expanded categories object in the response. If the [Areas and Stores](/orchestrate/areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.
         :type expand: ParameterExpandListCampaigns
         :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListCampaigns
@@ -8756,6 +8846,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties is deprecated.", DeprecationWarning)
 
         _param = self._list_loyalty_programs_serialize(
             limit=limit,
@@ -8787,7 +8878,7 @@ class LoyaltiesApi:
         self,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
         page: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1.")] = None,
-        expand: Annotated[Optional[ParameterExpandListCampaigns], Field(description="Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.")] = None,
+        expand: Annotated[Optional[ParameterExpandListCampaigns], Field(description="Includes an expanded categories object in the response. If the [Areas and Stores](/orchestrate/areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.")] = None,
         order: Annotated[Optional[ParameterOrderListCampaigns], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
         _request_timeout: Union[
             None,
@@ -8802,15 +8893,15 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesListCampaignsResponseBody]:
-        """List Loyalty Campaigns
+        """(Deprecated) List Loyalty Campaigns
 
-        Returns a list of your loyalty campaigns.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Returns a list of your loyalty campaigns.
 
         :param limit: Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.
         :type limit: int
         :param page: Which page of results to return. The lowest value is 1.
         :type page: int
-        :param expand: Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.
+        :param expand: Includes an expanded categories object in the response. If the [Areas and Stores](/orchestrate/areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.
         :type expand: ParameterExpandListCampaigns
         :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListCampaigns
@@ -8835,6 +8926,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties is deprecated.", DeprecationWarning)
 
         _param = self._list_loyalty_programs_serialize(
             limit=limit,
@@ -8866,7 +8958,7 @@ class LoyaltiesApi:
         self,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.")] = None,
         page: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Which page of results to return. The lowest value is 1.")] = None,
-        expand: Annotated[Optional[ParameterExpandListCampaigns], Field(description="Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.")] = None,
+        expand: Annotated[Optional[ParameterExpandListCampaigns], Field(description="Includes an expanded categories object in the response. If the [Areas and Stores](/orchestrate/areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.")] = None,
         order: Annotated[Optional[ParameterOrderListCampaigns], Field(description="Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
         _request_timeout: Union[
             None,
@@ -8881,15 +8973,15 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List Loyalty Campaigns
+        """(Deprecated) List Loyalty Campaigns
 
-        Returns a list of your loyalty campaigns.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Returns a list of your loyalty campaigns.
 
         :param limit: Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.
         :type limit: int
         :param page: Which page of results to return. The lowest value is 1.
         :type page: int
-        :param expand: Includes an expanded categories object in the response. If the [Areas and Stores](https://support.voucherify.io/article/623-areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.
+        :param expand: Includes an expanded categories object in the response. If the [Areas and Stores](/orchestrate/areas-and-stores) Enterprise feature is enabled, add access_settings_assignments to return assigned areas and stores.
         :type expand: ParameterExpandListCampaigns
         :param order: Sorts the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.
         :type order: ParameterOrderListCampaigns
@@ -8914,6 +9006,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties is deprecated.", DeprecationWarning)
 
         _param = self._list_loyalty_programs_serialize(
             limit=limit,
@@ -9036,9 +9129,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesTiersEarningRulesListResponseBody:
-        """List Loyalty Tier Earning Rules
+        """(Deprecated) List Loyalty Tier Earning Rules
 
-        Retrieve available earning rules for a given tier and the calculation method for earning points.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve available earning rules for a given tier and the calculation method for earning points.
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
@@ -9069,6 +9162,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/tiers/{loyaltyTierId}/earning-rules is deprecated.", DeprecationWarning)
 
         _param = self._list_loyalty_tier_earning_rules_serialize(
             campaign_id=campaign_id,
@@ -9115,9 +9209,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesTiersEarningRulesListResponseBody]:
-        """List Loyalty Tier Earning Rules
+        """(Deprecated) List Loyalty Tier Earning Rules
 
-        Retrieve available earning rules for a given tier and the calculation method for earning points.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve available earning rules for a given tier and the calculation method for earning points.
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
@@ -9148,6 +9242,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/tiers/{loyaltyTierId}/earning-rules is deprecated.", DeprecationWarning)
 
         _param = self._list_loyalty_tier_earning_rules_serialize(
             campaign_id=campaign_id,
@@ -9194,9 +9289,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List Loyalty Tier Earning Rules
+        """(Deprecated) List Loyalty Tier Earning Rules
 
-        Retrieve available earning rules for a given tier and the calculation method for earning points.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve available earning rules for a given tier and the calculation method for earning points.
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
@@ -9227,6 +9322,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/tiers/{loyaltyTierId}/earning-rules is deprecated.", DeprecationWarning)
 
         _param = self._list_loyalty_tier_earning_rules_serialize(
             campaign_id=campaign_id,
@@ -9343,9 +9439,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesTiersRewardsListResponseBody:
-        """List Loyalty Tier Rewards
+        """(Deprecated) List Loyalty Tier Rewards
 
-        Get available rewards for a given tier.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Get available rewards for a given tier.
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
@@ -9372,6 +9468,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/tiers/{loyaltyTierId}/rewards is deprecated.", DeprecationWarning)
 
         _param = self._list_loyalty_tier_rewards_serialize(
             campaign_id=campaign_id,
@@ -9414,9 +9511,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesTiersRewardsListResponseBody]:
-        """List Loyalty Tier Rewards
+        """(Deprecated) List Loyalty Tier Rewards
 
-        Get available rewards for a given tier.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Get available rewards for a given tier.
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
@@ -9443,6 +9540,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/tiers/{loyaltyTierId}/rewards is deprecated.", DeprecationWarning)
 
         _param = self._list_loyalty_tier_rewards_serialize(
             campaign_id=campaign_id,
@@ -9485,9 +9583,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List Loyalty Tier Rewards
+        """(Deprecated) List Loyalty Tier Rewards
 
-        Get available rewards for a given tier.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Get available rewards for a given tier.
 
         :param campaign_id: Unique campaign ID or name. (required)
         :type campaign_id: str
@@ -9514,6 +9612,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/tiers/{loyaltyTierId}/rewards is deprecated.", DeprecationWarning)
 
         _param = self._list_loyalty_tier_rewards_serialize(
             campaign_id=campaign_id,
@@ -9619,9 +9718,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesTiersListResponseBody:
-        """List Loyalty Tiers
+        """(Deprecated) List Loyalty Tiers
 
-        Retrieve a list of loyalty tiers which were added to the loyalty program.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve a list of loyalty tiers which were added to the loyalty program.
 
         :param campaign_id: Unique loyalty campaign ID or name. (required)
         :type campaign_id: str
@@ -9650,6 +9749,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/tiers is deprecated.", DeprecationWarning)
 
         _param = self._list_loyalty_tiers_serialize(
             campaign_id=campaign_id,
@@ -9694,9 +9794,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesTiersListResponseBody]:
-        """List Loyalty Tiers
+        """(Deprecated) List Loyalty Tiers
 
-        Retrieve a list of loyalty tiers which were added to the loyalty program.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve a list of loyalty tiers which were added to the loyalty program.
 
         :param campaign_id: Unique loyalty campaign ID or name. (required)
         :type campaign_id: str
@@ -9725,6 +9825,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/tiers is deprecated.", DeprecationWarning)
 
         _param = self._list_loyalty_tiers_serialize(
             campaign_id=campaign_id,
@@ -9769,9 +9870,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List Loyalty Tiers
+        """(Deprecated) List Loyalty Tiers
 
-        Retrieve a list of loyalty tiers which were added to the loyalty program.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve a list of loyalty tiers which were added to the loyalty program.
 
         :param campaign_id: Unique loyalty campaign ID or name. (required)
         :type campaign_id: str
@@ -9800,6 +9901,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/tiers is deprecated.", DeprecationWarning)
 
         _param = self._list_loyalty_tiers_serialize(
             campaign_id=campaign_id,
@@ -9914,9 +10016,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMemberActivityListResponseBody:
-        """List Member Activity
+        """(Deprecated) List Member Activity
 
-          📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to allow you to get member activities without having to provide the campaignId as a path parameter. Retrieves the list of activities for the given member ID related to a voucher and customer who is the holder of the voucher.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> <Note> <Badge color blue>Alternative endpoint</Badge> This endpoint is an alternative to this [endpoint](/api-reference/loyalties/list-member-activity-with-campaign-id). The URL was re-designed to allow you to get member activities without having to provide the campaignId as a path parameter. </Note> Retrieves the list of activities for the given member ID related to a voucher and customer who is the holder of the voucher.
 
         :param member_id: Unique loyalty card assigned to a particular customer. (required)
         :type member_id: str
@@ -9947,6 +10049,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/members/{memberId}/activity is deprecated.", DeprecationWarning)
 
         _param = self._list_member_activity_serialize(
             member_id=member_id,
@@ -9993,9 +10096,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMemberActivityListResponseBody]:
-        """List Member Activity
+        """(Deprecated) List Member Activity
 
-          📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to allow you to get member activities without having to provide the campaignId as a path parameter. Retrieves the list of activities for the given member ID related to a voucher and customer who is the holder of the voucher.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> <Note> <Badge color blue>Alternative endpoint</Badge> This endpoint is an alternative to this [endpoint](/api-reference/loyalties/list-member-activity-with-campaign-id). The URL was re-designed to allow you to get member activities without having to provide the campaignId as a path parameter. </Note> Retrieves the list of activities for the given member ID related to a voucher and customer who is the holder of the voucher.
 
         :param member_id: Unique loyalty card assigned to a particular customer. (required)
         :type member_id: str
@@ -10026,6 +10129,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/members/{memberId}/activity is deprecated.", DeprecationWarning)
 
         _param = self._list_member_activity_serialize(
             member_id=member_id,
@@ -10072,9 +10176,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List Member Activity
+        """(Deprecated) List Member Activity
 
-          📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to allow you to get member activities without having to provide the campaignId as a path parameter. Retrieves the list of activities for the given member ID related to a voucher and customer who is the holder of the voucher.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> <Note> <Badge color blue>Alternative endpoint</Badge> This endpoint is an alternative to this [endpoint](/api-reference/loyalties/list-member-activity-with-campaign-id). The URL was re-designed to allow you to get member activities without having to provide the campaignId as a path parameter. </Note> Retrieves the list of activities for the given member ID related to a voucher and customer who is the holder of the voucher.
 
         :param member_id: Unique loyalty card assigned to a particular customer. (required)
         :type member_id: str
@@ -10105,6 +10209,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/members/{memberId}/activity is deprecated.", DeprecationWarning)
 
         _param = self._list_member_activity_serialize(
             member_id=member_id,
@@ -10226,9 +10331,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMemberActivityListResponseBody:
-        """List Member Activity
+        """(Deprecated) List Member Activity with campaign ID
 
-        Retrieves the list of activities for the given member ID related to a voucher and customer who is the holder of the voucher.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieves the list of activities for the given member ID related to a voucher and customer who is the holder of the voucher.
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -10261,6 +10366,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/members/{memberId}/activity is deprecated.", DeprecationWarning)
 
         _param = self._list_member_activity1_serialize(
             campaign_id=campaign_id,
@@ -10309,9 +10415,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMemberActivityListResponseBody]:
-        """List Member Activity
+        """(Deprecated) List Member Activity with campaign ID
 
-        Retrieves the list of activities for the given member ID related to a voucher and customer who is the holder of the voucher.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieves the list of activities for the given member ID related to a voucher and customer who is the holder of the voucher.
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -10344,6 +10450,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/members/{memberId}/activity is deprecated.", DeprecationWarning)
 
         _param = self._list_member_activity1_serialize(
             campaign_id=campaign_id,
@@ -10392,9 +10499,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List Member Activity
+        """(Deprecated) List Member Activity with campaign ID
 
-        Retrieves the list of activities for the given member ID related to a voucher and customer who is the holder of the voucher.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieves the list of activities for the given member ID related to a voucher and customer who is the holder of the voucher.
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -10427,6 +10534,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/members/{memberId}/activity is deprecated.", DeprecationWarning)
 
         _param = self._list_member_activity1_serialize(
             campaign_id=campaign_id,
@@ -10548,9 +10656,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersTiersListResponseBody:
-        """List Member's Loyalty Tiers
+        """(Deprecated) List Member's Loyalty Tiers
 
-        Retrieve member tiers using the loyalty card ID.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve member tiers using the loyalty card ID.
 
         :param member_id: Unique loyalty card assigned to a particular customer. (required)
         :type member_id: str
@@ -10575,6 +10683,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/members/{memberId}/tiers is deprecated.", DeprecationWarning)
 
         _param = self._list_member_loyalty_tier_serialize(
             member_id=member_id,
@@ -10615,9 +10724,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersTiersListResponseBody]:
-        """List Member's Loyalty Tiers
+        """(Deprecated) List Member's Loyalty Tiers
 
-        Retrieve member tiers using the loyalty card ID.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve member tiers using the loyalty card ID.
 
         :param member_id: Unique loyalty card assigned to a particular customer. (required)
         :type member_id: str
@@ -10642,6 +10751,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/members/{memberId}/tiers is deprecated.", DeprecationWarning)
 
         _param = self._list_member_loyalty_tier_serialize(
             member_id=member_id,
@@ -10682,9 +10792,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List Member's Loyalty Tiers
+        """(Deprecated) List Member's Loyalty Tiers
 
-        Retrieve member tiers using the loyalty card ID.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve member tiers using the loyalty card ID.
 
         :param member_id: Unique loyalty card assigned to a particular customer. (required)
         :type member_id: str
@@ -10709,6 +10819,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/members/{memberId}/tiers is deprecated.", DeprecationWarning)
 
         _param = self._list_member_loyalty_tier_serialize(
             member_id=member_id,
@@ -10811,9 +10922,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersPendingPointsListResponseBody:
-        """List Member Pending Points
+        """(Deprecated) List Member Pending Points
 
-          📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to list member pending points without having to provide the campaignId as a path parameter. Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> <Note> <Badge color blue>Alternative endpoint</Badge> This endpoint is an alternative to this [endpoint](/api-reference/loyalties/list-member-pending-points-with-campaign-id). The URL was re-designed to list member pending points without having to provide the campaignId as a path parameter. </Note> Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned. <Tip> <Badge color green>Configuring pending points</Badge> Pending points are configured as part of an earning rule with [POST Create earning rule](/api-reference/loyalties/create-earning-rule) or [PUT Update earning rule](/api-reference/loyalties/update-earning-rule). </Tip>
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -10844,6 +10955,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/members/{memberId}/pending-points is deprecated.", DeprecationWarning)
 
         _param = self._list_member_pending_points_serialize(
             member_id=member_id,
@@ -10890,9 +11002,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersPendingPointsListResponseBody]:
-        """List Member Pending Points
+        """(Deprecated) List Member Pending Points
 
-          📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to list member pending points without having to provide the campaignId as a path parameter. Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> <Note> <Badge color blue>Alternative endpoint</Badge> This endpoint is an alternative to this [endpoint](/api-reference/loyalties/list-member-pending-points-with-campaign-id). The URL was re-designed to list member pending points without having to provide the campaignId as a path parameter. </Note> Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned. <Tip> <Badge color green>Configuring pending points</Badge> Pending points are configured as part of an earning rule with [POST Create earning rule](/api-reference/loyalties/create-earning-rule) or [PUT Update earning rule](/api-reference/loyalties/update-earning-rule). </Tip>
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -10923,6 +11035,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/members/{memberId}/pending-points is deprecated.", DeprecationWarning)
 
         _param = self._list_member_pending_points_serialize(
             member_id=member_id,
@@ -10969,9 +11082,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List Member Pending Points
+        """(Deprecated) List Member Pending Points
 
-          📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to list member pending points without having to provide the campaignId as a path parameter. Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> <Note> <Badge color blue>Alternative endpoint</Badge> This endpoint is an alternative to this [endpoint](/api-reference/loyalties/list-member-pending-points-with-campaign-id). The URL was re-designed to list member pending points without having to provide the campaignId as a path parameter. </Note> Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned. <Tip> <Badge color green>Configuring pending points</Badge> Pending points are configured as part of an earning rule with [POST Create earning rule](/api-reference/loyalties/create-earning-rule) or [PUT Update earning rule](/api-reference/loyalties/update-earning-rule). </Tip>
 
         :param member_id: Unique loyalty card code assigned to a particular customer. (required)
         :type member_id: str
@@ -11002,6 +11115,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/members/{memberId}/pending-points is deprecated.", DeprecationWarning)
 
         _param = self._list_member_pending_points_serialize(
             member_id=member_id,
@@ -11123,9 +11237,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersPendingPointsListResponseBody:
-        """List Member Pending Points
+        """(Deprecated) List Member Pending Points with campaign ID
 
-        Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned. <Tip> <Badge color green>Configuring pending points</Badge> Pending points are configured as part of an earning rule with [POST Create earning rule](/api-reference/loyalties/create-earning-rule) or [PUT Update earning rule](/api-reference/loyalties/update-earning-rule). </Tip>
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -11158,6 +11272,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/members/{memberId}/pending-points is deprecated.", DeprecationWarning)
 
         _param = self._list_member_pending_points1_serialize(
             campaign_id=campaign_id,
@@ -11206,9 +11321,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersPendingPointsListResponseBody]:
-        """List Member Pending Points
+        """(Deprecated) List Member Pending Points with campaign ID
 
-        Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned. <Tip> <Badge color green>Configuring pending points</Badge> Pending points are configured as part of an earning rule with [POST Create earning rule](/api-reference/loyalties/create-earning-rule) or [PUT Update earning rule](/api-reference/loyalties/update-earning-rule). </Tip>
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -11241,6 +11356,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/members/{memberId}/pending-points is deprecated.", DeprecationWarning)
 
         _param = self._list_member_pending_points1_serialize(
             campaign_id=campaign_id,
@@ -11289,9 +11405,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List Member Pending Points
+        """(Deprecated) List Member Pending Points with campaign ID
 
-        Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned. 👍 Configuring pending points Pending points are configured as part of an earning rule with POST Create earning rule or PUT Update earning rule.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Lists all pending points that are currently assigned to the loyalty card. Once the points are added to the card, the entry is no longer returned. <Tip> <Badge color green>Configuring pending points</Badge> Pending points are configured as part of an earning rule with [POST Create earning rule](/api-reference/loyalties/create-earning-rule) or [PUT Update earning rule](/api-reference/loyalties/update-earning-rule). </Tip>
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -11324,6 +11440,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/members/{memberId}/pending-points is deprecated.", DeprecationWarning)
 
         _param = self._list_member_pending_points1_serialize(
             campaign_id=campaign_id,
@@ -11446,9 +11563,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersRewardsListResponseBody:
-        """List Member Rewards
+        """(Deprecated) List Member Rewards
 
-        Retrieves the list of rewards that the given customer (identified by member_id, which is a loyalty card assigned to a particular customer) **can get in exchange for loyalty points**.   You can use the affordable_only parameter to limit the results to rewards that the customer can actually afford (only rewards whose price in points is not higher than the loyalty points balance on a loyalty card).   Please note that rewards that are disabled (i.e. set to Not Available in the Dashboard) for a given loyalty tier reward mapping will not be returned in this endpoint.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieves the list of rewards that the given customer (identified by member_id, which is a loyalty card assigned to a particular customer) **can get in exchange for loyalty points**.   You can use the affordable_only parameter to limit the results to rewards that the customer can actually afford (only rewards whose price in points is not higher than the loyalty points balance on a loyalty card).   Please note that rewards that are disabled (i.e. set to Not Available in the Dashboard) for a given loyalty tier reward mapping will not be returned in this endpoint.
 
         :param member_id: Unique loyalty card assigned to a particular customer. (required)
         :type member_id: str
@@ -11475,6 +11592,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/members/{memberId}/rewards is deprecated.", DeprecationWarning)
 
         _param = self._list_member_rewards_serialize(
             member_id=member_id,
@@ -11517,9 +11635,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersRewardsListResponseBody]:
-        """List Member Rewards
+        """(Deprecated) List Member Rewards
 
-        Retrieves the list of rewards that the given customer (identified by member_id, which is a loyalty card assigned to a particular customer) **can get in exchange for loyalty points**.   You can use the affordable_only parameter to limit the results to rewards that the customer can actually afford (only rewards whose price in points is not higher than the loyalty points balance on a loyalty card).   Please note that rewards that are disabled (i.e. set to Not Available in the Dashboard) for a given loyalty tier reward mapping will not be returned in this endpoint.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieves the list of rewards that the given customer (identified by member_id, which is a loyalty card assigned to a particular customer) **can get in exchange for loyalty points**.   You can use the affordable_only parameter to limit the results to rewards that the customer can actually afford (only rewards whose price in points is not higher than the loyalty points balance on a loyalty card).   Please note that rewards that are disabled (i.e. set to Not Available in the Dashboard) for a given loyalty tier reward mapping will not be returned in this endpoint.
 
         :param member_id: Unique loyalty card assigned to a particular customer. (required)
         :type member_id: str
@@ -11546,6 +11664,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/members/{memberId}/rewards is deprecated.", DeprecationWarning)
 
         _param = self._list_member_rewards_serialize(
             member_id=member_id,
@@ -11588,9 +11707,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List Member Rewards
+        """(Deprecated) List Member Rewards
 
-        Retrieves the list of rewards that the given customer (identified by member_id, which is a loyalty card assigned to a particular customer) **can get in exchange for loyalty points**.   You can use the affordable_only parameter to limit the results to rewards that the customer can actually afford (only rewards whose price in points is not higher than the loyalty points balance on a loyalty card).   Please note that rewards that are disabled (i.e. set to Not Available in the Dashboard) for a given loyalty tier reward mapping will not be returned in this endpoint.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieves the list of rewards that the given customer (identified by member_id, which is a loyalty card assigned to a particular customer) **can get in exchange for loyalty points**.   You can use the affordable_only parameter to limit the results to rewards that the customer can actually afford (only rewards whose price in points is not higher than the loyalty points balance on a loyalty card).   Please note that rewards that are disabled (i.e. set to Not Available in the Dashboard) for a given loyalty tier reward mapping will not be returned in this endpoint.
 
         :param member_id: Unique loyalty card assigned to a particular customer. (required)
         :type member_id: str
@@ -11617,6 +11736,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/members/{memberId}/rewards is deprecated.", DeprecationWarning)
 
         _param = self._list_member_rewards_serialize(
             member_id=member_id,
@@ -11730,9 +11850,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesListMembersResponseBody:
-        """List Members
+        """(Deprecated) List Members
 
-        Returns a list of your loyalty cards. The loyalty cards are sorted by creation date, with the most recent loyalty cards appearing first.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Returns a list of your loyalty cards. The loyalty cards are sorted by creation date, with the most recent loyalty cards appearing first.
 
         :param campaign_id: Unique campaign ID of the loyalty program. (required)
         :type campaign_id: str
@@ -11773,6 +11893,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/members is deprecated.", DeprecationWarning)
 
         _param = self._list_members_serialize(
             campaign_id=campaign_id,
@@ -11829,9 +11950,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesListMembersResponseBody]:
-        """List Members
+        """(Deprecated) List Members
 
-        Returns a list of your loyalty cards. The loyalty cards are sorted by creation date, with the most recent loyalty cards appearing first.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Returns a list of your loyalty cards. The loyalty cards are sorted by creation date, with the most recent loyalty cards appearing first.
 
         :param campaign_id: Unique campaign ID of the loyalty program. (required)
         :type campaign_id: str
@@ -11872,6 +11993,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/members is deprecated.", DeprecationWarning)
 
         _param = self._list_members_serialize(
             campaign_id=campaign_id,
@@ -11928,9 +12050,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List Members
+        """(Deprecated) List Members
 
-        Returns a list of your loyalty cards. The loyalty cards are sorted by creation date, with the most recent loyalty cards appearing first.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Returns a list of your loyalty cards. The loyalty cards are sorted by creation date, with the most recent loyalty cards appearing first.
 
         :param campaign_id: Unique campaign ID of the loyalty program. (required)
         :type campaign_id: str
@@ -11971,6 +12093,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/members is deprecated.", DeprecationWarning)
 
         _param = self._list_members_serialize(
             campaign_id=campaign_id,
@@ -12122,9 +12245,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersPointsExpirationListResponseBody:
-        """List Loyalty Card Point Expiration
+        """(Deprecated) List Loyalty Card Point Expiration
 
-        Retrieve loyalty point expiration buckets for a given loyalty card. Expired point buckets are not returned in this endpoint. You can use the Exports API to retrieve a list of both ACTIVE and EXPIRED point buckets.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve loyalty point expiration buckets for a given loyalty card. Expired point buckets are not returned in this endpoint. You can use the [Exports API](/api-reference/exports/create-export) to retrieve a list of both ACTIVE and EXPIRED point buckets.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -12155,6 +12278,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/members/{memberId}/points-expiration is deprecated.", DeprecationWarning)
 
         _param = self._list_points_expiration_serialize(
             campaign_id=campaign_id,
@@ -12201,9 +12325,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersPointsExpirationListResponseBody]:
-        """List Loyalty Card Point Expiration
+        """(Deprecated) List Loyalty Card Point Expiration
 
-        Retrieve loyalty point expiration buckets for a given loyalty card. Expired point buckets are not returned in this endpoint. You can use the Exports API to retrieve a list of both ACTIVE and EXPIRED point buckets.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve loyalty point expiration buckets for a given loyalty card. Expired point buckets are not returned in this endpoint. You can use the [Exports API](/api-reference/exports/create-export) to retrieve a list of both ACTIVE and EXPIRED point buckets.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -12234,6 +12358,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/members/{memberId}/points-expiration is deprecated.", DeprecationWarning)
 
         _param = self._list_points_expiration_serialize(
             campaign_id=campaign_id,
@@ -12280,9 +12405,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List Loyalty Card Point Expiration
+        """(Deprecated) List Loyalty Card Point Expiration
 
-        Retrieve loyalty point expiration buckets for a given loyalty card. Expired point buckets are not returned in this endpoint. You can use the Exports API to retrieve a list of both ACTIVE and EXPIRED point buckets.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Retrieve loyalty point expiration buckets for a given loyalty card. Expired point buckets are not returned in this endpoint. You can use the [Exports API](/api-reference/exports/create-export) to retrieve a list of both ACTIVE and EXPIRED point buckets.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -12313,6 +12438,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/members/{memberId}/points-expiration is deprecated.", DeprecationWarning)
 
         _param = self._list_points_expiration_serialize(
             campaign_id=campaign_id,
@@ -12431,9 +12557,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesRewardAssignmentsListResponseBody:
-        """List Reward Assignments
+        """(Deprecated) List Reward Assignments with campaign ID
 
-        Returns reward assignments from a given loyalty campaign.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to be more contextual to the type of data returned in the response.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Returns reward assignments from a given loyalty campaign. <Note> <Badge color blue>Alternative endpoint</Badge> This endpoint is an alternative to this [endpoint](/api-reference/loyalties/list-campaign-rewards). The URL was re-designed to be more contextual to the type of data returned in the response. </Note>
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -12464,6 +12590,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/reward-assignments is deprecated.", DeprecationWarning)
 
         _param = self._list_reward_assignments1_serialize(
             campaign_id=campaign_id,
@@ -12510,9 +12637,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesRewardAssignmentsListResponseBody]:
-        """List Reward Assignments
+        """(Deprecated) List Reward Assignments with campaign ID
 
-        Returns reward assignments from a given loyalty campaign.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to be more contextual to the type of data returned in the response.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Returns reward assignments from a given loyalty campaign. <Note> <Badge color blue>Alternative endpoint</Badge> This endpoint is an alternative to this [endpoint](/api-reference/loyalties/list-campaign-rewards). The URL was re-designed to be more contextual to the type of data returned in the response. </Note>
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -12543,6 +12670,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/reward-assignments is deprecated.", DeprecationWarning)
 
         _param = self._list_reward_assignments1_serialize(
             campaign_id=campaign_id,
@@ -12589,9 +12717,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List Reward Assignments
+        """(Deprecated) List Reward Assignments with campaign ID
 
-        Returns reward assignments from a given loyalty campaign.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to be more contextual to the type of data returned in the response.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Returns reward assignments from a given loyalty campaign. <Note> <Badge color blue>Alternative endpoint</Badge> This endpoint is an alternative to this [endpoint](/api-reference/loyalties/list-campaign-rewards). The URL was re-designed to be more contextual to the type of data returned in the response. </Note>
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -12622,6 +12750,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/reward-assignments is deprecated.", DeprecationWarning)
 
         _param = self._list_reward_assignments1_serialize(
             campaign_id=campaign_id,
@@ -12742,9 +12871,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesRewardsListAssignmentsResponseBody:
-        """List Reward Assignments
+        """(Deprecated) List Campaign Rewards
 
-        Returns active rewards from a given loyalty campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Returns active rewards from a given loyalty campaign.
 
         :param campaign_id: Unique campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -12775,6 +12904,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/rewards is deprecated.", DeprecationWarning)
 
         _param = self._list_reward_assignments2_serialize(
             campaign_id=campaign_id,
@@ -12821,9 +12951,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesRewardsListAssignmentsResponseBody]:
-        """List Reward Assignments
+        """(Deprecated) List Campaign Rewards
 
-        Returns active rewards from a given loyalty campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Returns active rewards from a given loyalty campaign.
 
         :param campaign_id: Unique campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -12854,6 +12984,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/rewards is deprecated.", DeprecationWarning)
 
         _param = self._list_reward_assignments2_serialize(
             campaign_id=campaign_id,
@@ -12900,9 +13031,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List Reward Assignments
+        """(Deprecated) List Campaign Rewards
 
-        Returns active rewards from a given loyalty campaign.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Returns active rewards from a given loyalty campaign.
 
         :param campaign_id: Unique campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -12933,6 +13064,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /v1/loyalties/{campaignId}/rewards is deprecated.", DeprecationWarning)
 
         _param = self._list_reward_assignments2_serialize(
             campaign_id=campaign_id,
@@ -13051,9 +13183,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersRedemptionRedeemResponseBody:
-        """Redeem Reward
+        """(Deprecated) Redeem Reward
 
-          📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to allow you to redeem a reward without having to provide the campaignId as a path parameter.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> <Note> <Badge color blue>Alternative endpoint</Badge> This endpoint is an alternative to this [endpoint](/api-reference/loyalties/redeem-reward-with-campaign-id). The URL was re-designed to allow you to redeem a reward without having to provide the campaignId as a path parameter. </Note>
 
         :param member_id: Unique loyalty card assigned to a particular customer. (required)
         :type member_id: str
@@ -13080,6 +13212,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/members/{memberId}/redemption is deprecated.", DeprecationWarning)
 
         _param = self._redeem_reward_serialize(
             member_id=member_id,
@@ -13122,9 +13255,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersRedemptionRedeemResponseBody]:
-        """Redeem Reward
+        """(Deprecated) Redeem Reward
 
-          📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to allow you to redeem a reward without having to provide the campaignId as a path parameter.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> <Note> <Badge color blue>Alternative endpoint</Badge> This endpoint is an alternative to this [endpoint](/api-reference/loyalties/redeem-reward-with-campaign-id). The URL was re-designed to allow you to redeem a reward without having to provide the campaignId as a path parameter. </Note>
 
         :param member_id: Unique loyalty card assigned to a particular customer. (required)
         :type member_id: str
@@ -13151,6 +13284,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/members/{memberId}/redemption is deprecated.", DeprecationWarning)
 
         _param = self._redeem_reward_serialize(
             member_id=member_id,
@@ -13193,9 +13327,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Redeem Reward
+        """(Deprecated) Redeem Reward
 
-          📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to allow you to redeem a reward without having to provide the campaignId as a path parameter.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> <Note> <Badge color blue>Alternative endpoint</Badge> This endpoint is an alternative to this [endpoint](/api-reference/loyalties/redeem-reward-with-campaign-id). The URL was re-designed to allow you to redeem a reward without having to provide the campaignId as a path parameter. </Note>
 
         :param member_id: Unique loyalty card assigned to a particular customer. (required)
         :type member_id: str
@@ -13222,6 +13356,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/members/{memberId}/redemption is deprecated.", DeprecationWarning)
 
         _param = self._redeem_reward_serialize(
             member_id=member_id,
@@ -13340,9 +13475,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersRedemptionRedeemResponseBody:
-        """Redeem Reward
+        """(Deprecated) Redeem Reward with campaign ID
 
-        Exchange points from a loyalty card for a specified reward. This API method returns an assigned award in the response. It means that if a requesting customer gets a coupon code with a discount for the next order, that discount code will be visible in response as part of the reward object definition.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Exchange points from a loyalty card for a specified reward. This API method returns an assigned award in the response. It means that if a requesting customer gets a coupon code with a discount for the next order, that discount code will be visible in response as part of the reward object definition.
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -13371,6 +13506,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/members/{memberId}/redemption is deprecated.", DeprecationWarning)
 
         _param = self._redeem_reward1_serialize(
             campaign_id=campaign_id,
@@ -13415,9 +13551,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersRedemptionRedeemResponseBody]:
-        """Redeem Reward
+        """(Deprecated) Redeem Reward with campaign ID
 
-        Exchange points from a loyalty card for a specified reward. This API method returns an assigned award in the response. It means that if a requesting customer gets a coupon code with a discount for the next order, that discount code will be visible in response as part of the reward object definition.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Exchange points from a loyalty card for a specified reward. This API method returns an assigned award in the response. It means that if a requesting customer gets a coupon code with a discount for the next order, that discount code will be visible in response as part of the reward object definition.
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -13446,6 +13582,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/members/{memberId}/redemption is deprecated.", DeprecationWarning)
 
         _param = self._redeem_reward1_serialize(
             campaign_id=campaign_id,
@@ -13490,9 +13627,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Redeem Reward
+        """(Deprecated) Redeem Reward with campaign ID
 
-        Exchange points from a loyalty card for a specified reward. This API method returns an assigned award in the response. It means that if a requesting customer gets a coupon code with a discount for the next order, that discount code will be visible in response as part of the reward object definition.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Exchange points from a loyalty card for a specified reward. This API method returns an assigned award in the response. It means that if a requesting customer gets a coupon code with a discount for the next order, that discount code will be visible in response as part of the reward object definition.
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -13521,6 +13658,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/members/{memberId}/redemption is deprecated.", DeprecationWarning)
 
         _param = self._redeem_reward1_serialize(
             campaign_id=campaign_id,
@@ -13643,9 +13781,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersTransfersCreateResponseBody:
-        """Transfer Loyalty Points
+        """(Deprecated) Transfer Loyalty Points
 
-        Transfer points between different loyalty cards which have holders. You need to provide the campaign ID and the loyalty card ID you want the points to be transferred to as path parameters in the URL. In the request body, you provide the loyalty cards you want the points to be transferred from and the number of points to transfer from each card. Transfer works only for loyalty cards that have holders, meaning they were published to customers.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Transfer points between different loyalty cards which have holders. Provide the campaign ID and the loyalty card ID you want the points to be transferred to as path parameters. In the request body, provide the loyalty cards you want the points to be transferred from and the number of points to transfer from each card. Transfer works only for loyalty cards that have holders, meaning the cards were published to customers. The transferred points expire according to the target program expiration rules.
 
         :param campaign_id: A unique identifier of the loyalty campaign containing the voucher to which the loyalty points will be sent (destination). (required)
         :type campaign_id: str
@@ -13674,6 +13812,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/members/{memberId}/transfers is deprecated.", DeprecationWarning)
 
         _param = self._transfer_points_serialize(
             campaign_id=campaign_id,
@@ -13718,9 +13857,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersTransfersCreateResponseBody]:
-        """Transfer Loyalty Points
+        """(Deprecated) Transfer Loyalty Points
 
-        Transfer points between different loyalty cards which have holders. You need to provide the campaign ID and the loyalty card ID you want the points to be transferred to as path parameters in the URL. In the request body, you provide the loyalty cards you want the points to be transferred from and the number of points to transfer from each card. Transfer works only for loyalty cards that have holders, meaning they were published to customers.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Transfer points between different loyalty cards which have holders. Provide the campaign ID and the loyalty card ID you want the points to be transferred to as path parameters. In the request body, provide the loyalty cards you want the points to be transferred from and the number of points to transfer from each card. Transfer works only for loyalty cards that have holders, meaning the cards were published to customers. The transferred points expire according to the target program expiration rules.
 
         :param campaign_id: A unique identifier of the loyalty campaign containing the voucher to which the loyalty points will be sent (destination). (required)
         :type campaign_id: str
@@ -13749,6 +13888,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/members/{memberId}/transfers is deprecated.", DeprecationWarning)
 
         _param = self._transfer_points_serialize(
             campaign_id=campaign_id,
@@ -13793,9 +13933,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Transfer Loyalty Points
+        """(Deprecated) Transfer Loyalty Points
 
-        Transfer points between different loyalty cards which have holders. You need to provide the campaign ID and the loyalty card ID you want the points to be transferred to as path parameters in the URL. In the request body, you provide the loyalty cards you want the points to be transferred from and the number of points to transfer from each card. Transfer works only for loyalty cards that have holders, meaning they were published to customers.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Transfer points between different loyalty cards which have holders. Provide the campaign ID and the loyalty card ID you want the points to be transferred to as path parameters. In the request body, provide the loyalty cards you want the points to be transferred from and the number of points to transfer from each card. Transfer works only for loyalty cards that have holders, meaning the cards were published to customers. The transferred points expire according to the target program expiration rules.
 
         :param campaign_id: A unique identifier of the loyalty campaign containing the voucher to which the loyalty points will be sent (destination). (required)
         :type campaign_id: str
@@ -13824,6 +13964,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/members/{memberId}/transfers is deprecated.", DeprecationWarning)
 
         _param = self._transfer_points_serialize(
             campaign_id=campaign_id,
@@ -13947,9 +14088,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesEarningRulesUpdateResponseBody:
-        """Update Earning Rule
+        """(Deprecated) Update Earning Rule
 
-        Update an earning rule definition.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Update an earning rule definition.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -13978,6 +14119,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("PUT /v1/loyalties/{campaignId}/earning-rules/{earningRuleId} is deprecated.", DeprecationWarning)
 
         _param = self._update_earning_rule_serialize(
             campaign_id=campaign_id,
@@ -14022,9 +14164,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesEarningRulesUpdateResponseBody]:
-        """Update Earning Rule
+        """(Deprecated) Update Earning Rule
 
-        Update an earning rule definition.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Update an earning rule definition.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -14053,6 +14195,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("PUT /v1/loyalties/{campaignId}/earning-rules/{earningRuleId} is deprecated.", DeprecationWarning)
 
         _param = self._update_earning_rule_serialize(
             campaign_id=campaign_id,
@@ -14097,9 +14240,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Update Earning Rule
+        """(Deprecated) Update Earning Rule
 
-        Update an earning rule definition.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Update an earning rule definition.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -14128,6 +14271,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("PUT /v1/loyalties/{campaignId}/earning-rules/{earningRuleId} is deprecated.", DeprecationWarning)
 
         _param = self._update_earning_rule_serialize(
             campaign_id=campaign_id,
@@ -14249,9 +14393,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersBalanceUpdateResponseBody:
-        """Adjust Loyalty Card Balance
+        """(Deprecated) Adjust Loyalty Card Balance
 
-        This method gives adds or removes balance to an existing loyalty card that is assigned to a holder. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to allow you to add or remove loyalty card balance without having to provide the campaignId as a path parameter.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> This method gives adds or removes balance to an existing loyalty card that is assigned to a holder. The removal of points will consume the points that expire the soonest.   <Warning> <Badge color yellow>Async Action</Badge> This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls. </Warning> <Note> <Badge color blue>Alternative endpoint</Badge> This endpoint is an alternative to this [endpoint](/api-reference/loyalties/adjust-loyalty-card-balance-with-campaign-id). The URL was re-designed to allow you to add or remove loyalty card balance without having to provide the campaignId as a path parameter. </Note>
 
         :param member_id: Unique loyalty card assigned to a particular customer. (required)
         :type member_id: str
@@ -14278,6 +14422,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/members/{memberId}/balance is deprecated.", DeprecationWarning)
 
         _param = self._update_loyalty_card_balance_serialize(
             member_id=member_id,
@@ -14320,9 +14465,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersBalanceUpdateResponseBody]:
-        """Adjust Loyalty Card Balance
+        """(Deprecated) Adjust Loyalty Card Balance
 
-        This method gives adds or removes balance to an existing loyalty card that is assigned to a holder. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to allow you to add or remove loyalty card balance without having to provide the campaignId as a path parameter.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> This method gives adds or removes balance to an existing loyalty card that is assigned to a holder. The removal of points will consume the points that expire the soonest.   <Warning> <Badge color yellow>Async Action</Badge> This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls. </Warning> <Note> <Badge color blue>Alternative endpoint</Badge> This endpoint is an alternative to this [endpoint](/api-reference/loyalties/adjust-loyalty-card-balance-with-campaign-id). The URL was re-designed to allow you to add or remove loyalty card balance without having to provide the campaignId as a path parameter. </Note>
 
         :param member_id: Unique loyalty card assigned to a particular customer. (required)
         :type member_id: str
@@ -14349,6 +14494,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/members/{memberId}/balance is deprecated.", DeprecationWarning)
 
         _param = self._update_loyalty_card_balance_serialize(
             member_id=member_id,
@@ -14391,9 +14537,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Adjust Loyalty Card Balance
+        """(Deprecated) Adjust Loyalty Card Balance
 
-        This method gives adds or removes balance to an existing loyalty card that is assigned to a holder. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.  📘 Alternative endpoint  This endpoint is an alternative to this endpoint. The URL was re-designed to allow you to add or remove loyalty card balance without having to provide the campaignId as a path parameter.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> This method gives adds or removes balance to an existing loyalty card that is assigned to a holder. The removal of points will consume the points that expire the soonest.   <Warning> <Badge color yellow>Async Action</Badge> This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls. </Warning> <Note> <Badge color blue>Alternative endpoint</Badge> This endpoint is an alternative to this [endpoint](/api-reference/loyalties/adjust-loyalty-card-balance-with-campaign-id). The URL was re-designed to allow you to add or remove loyalty card balance without having to provide the campaignId as a path parameter. </Note>
 
         :param member_id: Unique loyalty card assigned to a particular customer. (required)
         :type member_id: str
@@ -14420,6 +14566,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/members/{memberId}/balance is deprecated.", DeprecationWarning)
 
         _param = self._update_loyalty_card_balance_serialize(
             member_id=member_id,
@@ -14538,9 +14685,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesMembersBalanceUpdateResponseBody:
-        """Adjust Loyalty Card Balance
+        """(Deprecated) Adjust Loyalty Card Balance with campaign ID
 
-        This method adds or removes balance to an existing loyalty card that is assigned to a holder. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> This method adds or removes balance to an existing loyalty card that is assigned to a holder. The removal of points will consume the points that expire the soonest.   <Warning> <Badge color yellow>Async Action</Badge> This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls. </Warning>
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -14569,6 +14716,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/members/{memberId}/balance is deprecated.", DeprecationWarning)
 
         _param = self._update_loyalty_card_balance1_serialize(
             campaign_id=campaign_id,
@@ -14613,9 +14761,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesMembersBalanceUpdateResponseBody]:
-        """Adjust Loyalty Card Balance
+        """(Deprecated) Adjust Loyalty Card Balance with campaign ID
 
-        This method adds or removes balance to an existing loyalty card that is assigned to a holder. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> This method adds or removes balance to an existing loyalty card that is assigned to a holder. The removal of points will consume the points that expire the soonest.   <Warning> <Badge color yellow>Async Action</Badge> This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls. </Warning>
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -14644,6 +14792,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/members/{memberId}/balance is deprecated.", DeprecationWarning)
 
         _param = self._update_loyalty_card_balance1_serialize(
             campaign_id=campaign_id,
@@ -14688,9 +14837,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Adjust Loyalty Card Balance
+        """(Deprecated) Adjust Loyalty Card Balance with campaign ID
 
-        This method adds or removes balance to an existing loyalty card that is assigned to a holder. The removal of points will consume the points that expire the soonest.   >🚧 Async Action    This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> This method adds or removes balance to an existing loyalty card that is assigned to a holder. The removal of points will consume the points that expire the soonest.   <Warning> <Badge color yellow>Async Action</Badge> This is an async action. If you want to perform several add or remove loyalty card balance actions in a short time and their order matters, set up sufficient time-out between the calls. </Warning>
 
         :param campaign_id: Unique campaign ID. (required)
         :type campaign_id: str
@@ -14719,6 +14868,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v1/loyalties/{campaignId}/members/{memberId}/balance is deprecated.", DeprecationWarning)
 
         _param = self._update_loyalty_card_balance1_serialize(
             campaign_id=campaign_id,
@@ -14840,9 +14990,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesUpdateCampaignResponseBody:
-        """Update Loyalty Campaign
+        """(Deprecated) Update Loyalty Campaign
 
-        Updates a loyalty program.  Fields other than those specified in the allowed request body payload wont be modified (even if provided they are silently skipped). Any parameters not provided will be left unchanged.  This method will update the loyalty cards which have not been published or redeemed yet.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Updates a loyalty program.  Fields other than those specified in the allowed request body payload wont be modified (even if provided they are silently skipped). Any parameters not provided will be left unchanged.  This method will update the [loyalty cards](/api-reference/loyalties/get-member) which have not been published or redeemed yet.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -14869,6 +15019,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("PUT /v1/loyalties/{campaignId} is deprecated.", DeprecationWarning)
 
         _param = self._update_loyalty_program_serialize(
             campaign_id=campaign_id,
@@ -14911,9 +15062,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesUpdateCampaignResponseBody]:
-        """Update Loyalty Campaign
+        """(Deprecated) Update Loyalty Campaign
 
-        Updates a loyalty program.  Fields other than those specified in the allowed request body payload wont be modified (even if provided they are silently skipped). Any parameters not provided will be left unchanged.  This method will update the loyalty cards which have not been published or redeemed yet.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Updates a loyalty program.  Fields other than those specified in the allowed request body payload wont be modified (even if provided they are silently skipped). Any parameters not provided will be left unchanged.  This method will update the [loyalty cards](/api-reference/loyalties/get-member) which have not been published or redeemed yet.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -14940,6 +15091,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("PUT /v1/loyalties/{campaignId} is deprecated.", DeprecationWarning)
 
         _param = self._update_loyalty_program_serialize(
             campaign_id=campaign_id,
@@ -14982,9 +15134,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Update Loyalty Campaign
+        """(Deprecated) Update Loyalty Campaign
 
-        Updates a loyalty program.  Fields other than those specified in the allowed request body payload wont be modified (even if provided they are silently skipped). Any parameters not provided will be left unchanged.  This method will update the loyalty cards which have not been published or redeemed yet.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Updates a loyalty program.  Fields other than those specified in the allowed request body payload wont be modified (even if provided they are silently skipped). Any parameters not provided will be left unchanged.  This method will update the [loyalty cards](/api-reference/loyalties/get-member) which have not been published or redeemed yet.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -15011,6 +15163,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("PUT /v1/loyalties/{campaignId} is deprecated.", DeprecationWarning)
 
         _param = self._update_loyalty_program_serialize(
             campaign_id=campaign_id,
@@ -15129,9 +15282,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltiesRewardsUpdateAssignmentResponseBody:
-        """Update Reward Assignment
+        """(Deprecated) Update Campaign Reward Assignment
 
-        Updates rewards parameters, i.e. the points cost for the specific reward.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Updates rewards parameters, i.e. the points cost for the specific reward.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -15160,6 +15313,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("PUT /v1/loyalties/{campaignId}/rewards/{assignmentId} is deprecated.", DeprecationWarning)
 
         _param = self._update_reward_assignment1_serialize(
             campaign_id=campaign_id,
@@ -15204,9 +15358,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltiesRewardsUpdateAssignmentResponseBody]:
-        """Update Reward Assignment
+        """(Deprecated) Update Campaign Reward Assignment
 
-        Updates rewards parameters, i.e. the points cost for the specific reward.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Updates rewards parameters, i.e. the points cost for the specific reward.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -15235,6 +15389,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("PUT /v1/loyalties/{campaignId}/rewards/{assignmentId} is deprecated.", DeprecationWarning)
 
         _param = self._update_reward_assignment1_serialize(
             campaign_id=campaign_id,
@@ -15279,9 +15434,9 @@ class LoyaltiesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Update Reward Assignment
+        """(Deprecated) Update Campaign Reward Assignment
 
-        Updates rewards parameters, i.e. the points cost for the specific reward.
+        <Warning> <Badge color yellow>Legacy loyalty API</Badge> This endpoint belongs to the legacy loyalty API (/v1/loyalties). Voucherify will not develop new features for this API. However, critical issues may still receive fixes. For new integrations, use [Loyalty v2](/build/loyalty-overview). If you have questions, contact [Voucherify support](https://www.voucherify.io/contact-support Contact Voucherify support). </Warning> Updates rewards parameters, i.e. the points cost for the specific reward.
 
         :param campaign_id: The campaign ID or name of the loyalty campaign. You can either pass the campaign ID, which was assigned by Voucherify, or the name of the campaign as the path parameter value, e.g., Loyalty%20Campaign.  (required)
         :type campaign_id: str
@@ -15310,6 +15465,7 @@ class LoyaltiesApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("PUT /v1/loyalties/{campaignId}/rewards/{assignmentId} is deprecated.", DeprecationWarning)
 
         _param = self._update_reward_assignment1_serialize(
             campaign_id=campaign_id,

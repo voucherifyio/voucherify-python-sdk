@@ -34,7 +34,7 @@ class QualificationsRedeemableBase(BaseModel):
     """
     Data of single redeemable which was properly qualified.
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, description="Id of the redeemable.")
+    id: Optional[StrictStr] = Field(default=None, description="ID of the redeemable. For a voucher, it's its `code` value.")
     object: Optional[StrictStr] = Field(default=None, description="Object type of the redeemable.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the object was created. The value is shown in the ISO 8601 format.")
     result: Optional[RedeemableResult] = None

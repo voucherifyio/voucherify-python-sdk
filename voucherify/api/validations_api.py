@@ -58,7 +58,7 @@ class ValidationsApi:
     ) -> ValidationsValidateResponseBody:
         """Validate Stackable Discounts
 
-        Verify redeemables provided in the request. This method is designed for server side integration which means that it is accessible only through private keys.
+        Verify redeemables provided in the request. This method is designed for server side integration which means that it is accessible only through private keys. API keys with a Merchant role cant use this endpoint.
 
         :param validations_validate_request_body:
         :type validations_validate_request_body: ValidationsValidateRequestBody
@@ -125,7 +125,7 @@ class ValidationsApi:
     ) -> ApiResponse[ValidationsValidateResponseBody]:
         """Validate Stackable Discounts
 
-        Verify redeemables provided in the request. This method is designed for server side integration which means that it is accessible only through private keys.
+        Verify redeemables provided in the request. This method is designed for server side integration which means that it is accessible only through private keys. API keys with a Merchant role cant use this endpoint.
 
         :param validations_validate_request_body:
         :type validations_validate_request_body: ValidationsValidateRequestBody
@@ -192,7 +192,7 @@ class ValidationsApi:
     ) -> RESTResponseType:
         """Validate Stackable Discounts
 
-        Verify redeemables provided in the request. This method is designed for server side integration which means that it is accessible only through private keys.
+        Verify redeemables provided in the request. This method is designed for server side integration which means that it is accessible only through private keys. API keys with a Merchant role cant use this endpoint.
 
         :param validations_validate_request_body:
         :type validations_validate_request_body: ValidationsValidateRequestBody

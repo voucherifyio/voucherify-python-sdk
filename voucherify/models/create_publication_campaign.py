@@ -29,7 +29,7 @@ class CreatePublicationCampaign(BaseModel):
     Create publication with campaign.
     """ # noqa: E501
     name: Optional[StrictStr] = Field(default=None, description="Name of voucher's parent campaign or unique campaign ID that was assigned by Voucherify.")
-    count: Optional[Annotated[int, Field(le=20, strict=True, ge=1)]] = Field(default=None, description="Number of vouchers to be published to customer.")
+    count: Optional[Annotated[int, Field(le=50, strict=True, ge=1)]] = Field(default=None, description="Number of vouchers to be published to customer.")
     __properties: ClassVar[List[str]] = ["name", "count"]
 
     model_config = ConfigDict(

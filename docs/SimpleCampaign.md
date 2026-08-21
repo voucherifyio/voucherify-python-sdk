@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **id** | **str** | Campaign ID. | [optional] 
 **name** | **str** | Campaign name. | [optional] 
 **campaign_type** | **str** | Type of campaign. | [optional] 
-**type** | **str** | Defines whether the campaign can be updated with new vouchers after campaign creation or if the campaign consists of generic (standalone) voucherss.  - &#x60;AUTO_UPDATE&#x60;: the campaign is dynamic, i.e. vouchers will generate based on set criteria -  &#x60;STATIC&#x60;: vouchers need to be manually published - &#x60;STANDALONE&#x60;: campaign for single vouchers | [optional] 
+**type** | **str** | Defines whether the campaign can be updated with new vouchers after campaign creation or if the campaign consists of generic (standalone) vouchers.  - &#x60;AUTO_UPDATE&#x60;: the campaign is dynamic, i.e. vouchers will generate based on set criteria -  &#x60;STATIC&#x60;: vouchers need to be manually published - &#x60;STANDALONE&#x60;: campaign for single vouchers | [optional] 
 **is_referral_code** | **bool** | Flag indicating whether this voucher is a referral code; &#x60;true&#x60; for campaign type &#x60;REFERRAL_PROGRAM&#x60;. | [optional] 
 **voucher** | [**SimpleCampaignVoucher**](SimpleCampaignVoucher.md) |  | [optional] 
 **referral_program** | [**ReferralProgram**](ReferralProgram.md) |  | [optional] 
