@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 Add Promotion Tier From Template
 
-Creates a promotion tier out of a discount campaign template and adds it to an existing promotion campaign. To add a promotion tier to a campaign, you need to provide the name in the request and the campaign ID. Other fields are optional. If no other fields are sent, the configuration from the template will be used. You can send new values of the fields listed below to replace the settings saved in the template. However, you cannot assign an action or an existing validation rule or create a new one in the request. If the template has a validation rule, a new validation rule is always created for the promotion tier. When the promotion tier has been created, then you can: - [Update the validation rule](/api-reference/validation-rules/update-validation-rule), - [Unassign the validation rule](/api-reference/validation-rules/delete-validation-rule-assignment), - [Assign an existing validation rule](/api-reference/validation-rules/create-validation-rule-assignment).  👍 Promotion Tiers and Campaign Templates You can create a campaign template out of a promotion tier. Promotion tiers are converted to a discount campaign with the DISCOUNT_COUPON type. You can use this template to create: - [Discount campaign](/api-reference/templates/create-campaign-from-template) - [Promotion tier](/api-reference/templates/add-promotion-tier-from-template)  📘 Campaign Templates – Documentation Read the [Campaign Templates documentation](/build/campaign-templates) to learn more about this feature.
+Creates a promotion tier out of a discount campaign template and adds it to an existing promotion campaign. To add a promotion tier to a campaign, you need to provide the name in the request and the campaign ID. Other fields are optional. If no other fields are sent, the configuration from the template will be used. You can send new values of the fields listed below to replace the settings saved in the template. However, you cannot assign an action or an existing validation rule or create a new one in the request. If the template has a validation rule, a new validation rule is always created for the promotion tier. When the promotion tier has been created, then you can: - [Update the validation rule](/api-reference/validation-rules/update-validation-rule), - [Unassign the validation rule](/api-reference/validation-rules/delete-validation-rule-assignment), - [Assign an existing validation rule](/api-reference/validation-rules/create-validation-rule-assignment). <Tip> <Badge color green>Promotion Tiers and Campaign Templates</Badge> You can create a campaign template out of a promotion tier. Promotion tiers are converted to a discount campaign with the DISCOUNT_COUPON type. You can use this template to create: - [Discount campaign](/api-reference/templates/create-campaign-from-template) - [Promotion tier](/api-reference/templates/add-promotion-tier-from-template) </Tip> <Note> <Badge color blue>Campaign Templates – Documentation</Badge> Read the [Campaign Templates documentation](/build/campaign-templates) to learn more about this feature. </Note>
 
 ### Example
 
@@ -107,7 +107,7 @@ Name | Type | Description  | Notes
 
 Create Campaign From Template
 
-Creates a campaign out of a campaign template. To create a campaign, you need to provide the name in the request, while other fields are optional. If no other fields are sent, the configuration from the template will be used. You can send new values of the fields listed below to replace the settings saved in the template. However, you cannot assign an existing validation rule or create a new one in the request. If the template has a validation rule, a new validation rule is always created for the campaign. When the campaign has been created, then you can: - [Update the validation rule](/api-reference/validation-rules/update-validation-rule), - [Unassign the validation rule](/api-reference/validation-rules/delete-validation-rule-assignment), - [Assign an existing validation rule](/api-reference/validation-rules/create-validation-rules-assignments).  👍 Promotion Tiers and Campaign Templates You can create a campaign template out of a promotion tier. Promotion tiers are converted to a discount campaign with the DISCOUNT_COUPON type. You can use this template to create: - [Discount campaign](/api-reference/templates/create-campaign-from-template) - [Promotion tier](/api-reference/templates/add-promotion-tier-from-template)  📘 Campaign Templates – Documentation Read the [Campaign Templates documentation](/build/campaign-templates) to learn more about this feature.
+Creates a campaign out of a campaign template. To create a campaign, you need to provide the name in the request, while other fields are optional. If no other fields are sent, the configuration from the template will be used. You can send new values of the fields listed below to replace the settings saved in the template. However, you cannot assign an existing validation rule or create a new one in the request. If the template has a validation rule, a new validation rule is always created for the campaign. When the campaign has been created, then you can: - [Update the validation rule](/api-reference/validation-rules/update-validation-rule), - [Unassign the validation rule](/api-reference/validation-rules/delete-validation-rule-assignment), - [Assign an existing validation rule](/api-reference/validation-rules/create-validation-rules-assignments). <Tip> <Badge color green>Promotion Tiers and Campaign Templates</Badge> You can create a campaign template out of a promotion tier. Promotion tiers are converted to a discount campaign with the DISCOUNT_COUPON type. You can use this template to create: - [Discount campaign](/api-reference/templates/create-campaign-from-template) - [Promotion tier](/api-reference/templates/add-promotion-tier-from-template) </Tip> <Note> <Badge color blue>Campaign Templates – Documentation</Badge> Read the [Campaign Templates documentation](/build/campaign-templates) to learn more about this feature. </Note>
 
 ### Example
 
@@ -196,7 +196,7 @@ Name | Type | Description  | Notes
 
 Create Campaign Template
 
-Creates a template for a discount or gift campaign, or a promotion tier. A template stores campaign configuration **without** the following details: - Campaign name - Category - Code count The following elements are not supported by campaign templates: - Redeeming API keys - Redeeming users - Customer loyalty tier - Static segments  👍 Promotion Tiers and Campaign Templates You can create a campaign template out of a promotion tier. Promotion tiers are converted to a discount campaign with the DISCOUNT_COUPON type. You can use this template to create: - [Discount campaign](/api-reference/templates/create-campaign-from-template), - [Promotion tier](/api-reference/templates/add-promotion-tier-from-template).  📘 Campaign Templates – Documentation Read the [Campaign Templates documentation](/build/campaign-templates) to learn more about this feature.
+Creates a template for a discount or gift campaign, or a promotion tier. A template stores campaign configuration **without** the following details: - Campaign name - Category - Code count The following elements are not supported by campaign templates: - Redeeming API keys - Redeeming users - Customer loyalty tier - Static segments <Tip> <Badge color green>Promotion Tiers and Campaign Templates</Badge> You can create a campaign template out of a promotion tier. Promotion tiers are converted to a discount campaign with the DISCOUNT_COUPON type. You can use this template to create: - [Discount campaign](/api-reference/templates/create-campaign-from-template), - [Promotion tier](/api-reference/templates/add-promotion-tier-from-template). </Tip> <Note> <Badge color blue>Campaign Templates – Documentation</Badge> Read the [Campaign Templates documentation](/build/campaign-templates) to learn more about this feature. </Note>
 
 ### Example
 
@@ -283,7 +283,7 @@ Name | Type | Description  | Notes
 
 Delete Campaign Template
 
-Deletes the campaign template permanently.  📘 Campaign Templates – Documentation Read the [Campaign Templates documentation](/build/campaign-templates) to learn more about this feature.
+Deletes the campaign template permanently. <Note> <Badge color blue>Campaign Templates – Documentation</Badge> Read the [Campaign Templates documentation](/build/campaign-templates) to learn more about this feature. </Note>
 
 ### Example
 
@@ -366,7 +366,7 @@ void (empty response body)
 
 Get Campaign Template
 
-Retrieves a campaign template available in the project.  📘 Campaign Templates – Documentation Read the [Campaign Templates documentation](/build/campaign-templates) to learn more about this feature.
+Retrieves a campaign template available in the project. <Note> <Badge color blue>Campaign Templates – Documentation</Badge> Read the [Campaign Templates documentation](/build/campaign-templates) to learn more about this feature. </Note>
 
 ### Example
 
@@ -452,7 +452,7 @@ Name | Type | Description  | Notes
 
 List Campaign Templates
 
-Lists all campaign templates available in the project.  📘 Campaign Templates – Documentation Read the [Campaign Templates documentation](/build/campaign-templates) to learn more about this feature.
+Lists all campaign templates available in the project. <Note> <Badge color blue>Campaign Templates – Documentation</Badge> Read the [Campaign Templates documentation](/build/campaign-templates) to learn more about this feature. </Note>
 
 ### Example
 
@@ -548,7 +548,7 @@ Name | Type | Description  | Notes
 
 Update Campaign Template
 
-Updates the name or description of the campaign template.  📘 Campaign Templates – Documentation Read the [Campaign Templates documentation](/build/campaign-templates) to learn more about this feature.
+Updates the name or description of the campaign template. <Note> <Badge color blue>Campaign Templates – Documentation</Badge> Read the [Campaign Templates documentation](/build/campaign-templates) to learn more about this feature. </Note>
 
 ### Example
 
