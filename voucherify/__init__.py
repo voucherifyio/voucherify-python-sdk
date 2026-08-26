@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "6.1.0"
+__version__ = "6.1.1"
 
 # import apis into sdk package
 from voucherify.api.async_actions_api import AsyncActionsApi
