@@ -114,6 +114,11 @@ class ValidationRule(BaseModel):
         if self.name is None and "name" in self.model_fields_set:
             _dict['name'] = None
 
+        # set to None if error (nullable) is None
+        # and model_fields_set contains the field
+        if self.error is None and "error" in self.model_fields_set:
+            _dict['error'] = None
+
         # set to None if applicable_to (nullable) is None
         # and model_fields_set contains the field
         if self.applicable_to is None and "applicable_to" in self.model_fields_set:
