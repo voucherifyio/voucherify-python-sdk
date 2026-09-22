@@ -25,9 +25,9 @@ from typing_extensions import Self
 
 class ErrorError(BaseModel):
     """
-    Includes additional information about the error.
+    Includes the resolved custom validation-rule error message when one is configured.
     """ # noqa: E501
-    message: Optional[StrictStr] = Field(default=None, description="The message configured by the user in a validation rule.")
+    message: Optional[StrictStr] = Field(default=None, description="Resolved custom validation-rule error message for `options.language`, falling back to the Error Message Library default language. Present only when a custom message can be resolved.")
     __properties: ClassVar[List[str]] = ["message"]
 
     model_config = ConfigDict(

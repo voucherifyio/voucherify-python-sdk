@@ -20,15 +20,17 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
 class RedemptionsRedeemRequestBodyOptions(BaseModel):
     """
-    Configure parameters returned in the response.
+    Configure response expansion and the language of custom validation-rule error messages.
     """ # noqa: E501
     expand: Optional[List[StrictStr]] = Field(default=None, description="Expand array lets you configure params included in the response. Depending on the strings included in the array, the response will contain different details.   | **Expand Option** | **Response Body** | |:---|:---| | [\"order\"] | - Same response as fallback response (without an options object).<br />- Order data with calculated discounts are listed in each child redeemable object.<br />- Metadata not included for each discount type. | | [\"redeemable\"] | Expands redeemable objects by including `metadata` for each discount type. | | [\"order\", \"redeemable\"] | - Order data with calculated discounts are listed in each child redeemable object.<br />- Includes `metadata` for each discount type. | | [\"redeemable\", \"redemption\", \"category\"] | - Returns each discount type's `metadata` in each child redemption object.<br />- Returns redemption object `metadata`.<br />- Returns an expanded `categories` object, showing details about the category. |")
-    __properties: ClassVar[List[str]] = ["expand"]
+    language: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Selects the language for the custom validation-rule error message. Returns the message in this language when a validation rule fails. Falls back to the Error Message Library default language when omitted or when the requested language has no message. Omits the custom error when no message can be resolved.")
+    __properties: ClassVar[List[str]] = ["expand", "language"]
 
     @field_validator('expand')
     def expand_validate_enum(cls, value):
@@ -39,6 +41,16 @@ class RedemptionsRedeemRequestBodyOptions(BaseModel):
         for i in value:
             if i not in set(['order', 'redemption', 'redeemable', 'category']):
                 raise ValueError("each list item must be one of ('order', 'redemption', 'redeemable', 'category')")
+        return value
+
+    @field_validator('language')
+    def language_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if value is None:
+            return value
+
+        if not re.match(r"^[a-zA-Z]{2,3}(-[a-zA-Z]{2,4})?$", value):
+            raise ValueError(r"must validate the regular expression /^[a-zA-Z]{2,3}(-[a-zA-Z]{2,4})?$/")
         return value
 
     model_config = ConfigDict(
@@ -85,6 +97,11 @@ class RedemptionsRedeemRequestBodyOptions(BaseModel):
         if self.expand is None and "expand" in self.model_fields_set:
             _dict['expand'] = None
 
+        # set to None if language (nullable) is None
+        # and model_fields_set contains the field
+        if self.language is None and "language" in self.model_fields_set:
+            _dict['language'] = None
+
         return _dict
 
     @classmethod
@@ -97,7 +114,8 @@ class RedemptionsRedeemRequestBodyOptions(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "expand": obj.get("expand")
+            "expand": obj.get("expand"),
+            "language": obj.get("language")
         })
         return _obj
 

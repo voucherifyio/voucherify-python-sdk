@@ -67,8 +67,8 @@ class Export(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['voucher', 'redemption', 'customer', 'publication', 'order', 'points_expiration', 'voucher_transactions']):
-            raise ValueError("must be one of enum values ('voucher', 'redemption', 'customer', 'publication', 'order', 'points_expiration', 'voucher_transactions')")
+        if value not in set(['voucher', 'redemption', 'customer', 'publication', 'order', 'points_expiration', 'voucher_transactions', 'product', 'sku']):
+            raise ValueError("must be one of enum values ('voucher', 'redemption', 'customer', 'publication', 'order', 'points_expiration', 'voucher_transactions', 'product', 'sku')")
         return value
 
     model_config = ConfigDict(
