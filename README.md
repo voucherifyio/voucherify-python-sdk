@@ -118,7 +118,12 @@ This SDK is generated automatically from our [OpenAPI specification](https://git
 
 - **2026-08-26** - `6.1.1`
 FIXED:
-- `RedemptionRewardResultParametersCoin.exchange_ratio` (and related COIN reward models) typed as `float`/`number` (was `int` or `string` in OpenAPI). The API returns fractional COIN reward ratios (e.g. `0.01` for pay-with-points). `list_redemptions` and other endpoints could fail Pydantic deserialization on real project data.
+- `RewardsCreateRequestBodyParametersCoin.exchange_ratio` and `RewardsUpdateRequestBodyParametersCoin.exchange_ratio` typed as `float` (were `str`). `RedemptionRewardResultParametersCoin.exchange_ratio` was already `float` in `6.1.0`.
+
+ADDED:
+- `language` on `RedemptionsRedeemRequestBodyOptions` and `ValidationsValidateRequestBodyOptions`.
+- Product/sku export order and field values (`product_id`, `sku`, `price`, `image_url`, `attributes`, `currency`) on the export parameter models.
+- `ValidationRuleErrorLibrary`.
 
 - **2026-08-10** - `6.1.0`
 ADDED:
@@ -145,6 +150,7 @@ UPDATED:
   - `CreatePublicationCampaign.count` maximum raised from 20 to 50.
 
 FIXED:
+- `RedemptionRewardResultParametersCoin.exchange_ratio` was typed as `int`, but the API returns fractional COIN reward ratios (e.g. `0.01` for pay-with-points). `list_redemptions` and other endpoints could fail Pydantic deserialization on real project data.
 - `ValidationsRedeemableSkippedResultDetails.key` was missing `no_effect`, so deserializing a skipped redeemable with `"key": "no_effect"` raised `ValueError` and failed the entire `POST /v1/validations` or stackable `POST /v1/redemptions` response (when `redeemables_no_effect_rule` is `SKIP`, globally or via `no_effect_skip_categories`).
 - `Discount.effect` (and validation response discount models) were missing `ADD_SAME_ITEMS`, so unit-discount responses using that effect failed deserialization.
 
