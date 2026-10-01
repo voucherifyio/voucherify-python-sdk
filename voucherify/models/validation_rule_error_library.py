@@ -18,29 +18,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
-from voucherify.models.exports_create_request_body_parameters import ExportsCreateRequestBodyParameters
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
-class ExportsCreateRequestBody(BaseModel):
+class ValidationRuleErrorLibrary(BaseModel):
     """
-    ExportsCreateRequestBody
+    References an Error Message Library entry. Required when `mode` is `LIBRARY`. Must be omitted or `null` when `mode` is `MESSAGES`.
     """ # noqa: E501
-    exported_object: Optional[StrictStr] = None
-    parameters: Optional[ExportsCreateRequestBodyParameters] = None
-    __properties: ClassVar[List[str]] = ["exported_object", "parameters"]
-
-    @field_validator('exported_object')
-    def exported_object_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['voucher', 'redemption', 'customer', 'publication', 'order', 'points_expiration', 'voucher_transactions', 'product', 'sku']):
-            raise ValueError("must be one of enum values ('voucher', 'redemption', 'customer', 'publication', 'order', 'points_expiration', 'voucher_transactions', 'product', 'sku')")
-        return value
+    key: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Identifies the library message. Use a validation-rule name such as `order.amount`, or a custom attribute key such as `order.metadata.location`.")
+    __properties: ClassVar[List[str]] = ["key"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -60,7 +49,7 @@ class ExportsCreateRequestBody(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of ExportsCreateRequestBody from a JSON string"""
+        """Create an instance of ValidationRuleErrorLibrary from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -81,24 +70,16 @@ class ExportsCreateRequestBody(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of parameters
-        if self.parameters:
-            _dict['parameters'] = self.parameters.to_dict()
-        # set to None if exported_object (nullable) is None
+        # set to None if key (nullable) is None
         # and model_fields_set contains the field
-        if self.exported_object is None and "exported_object" in self.model_fields_set:
-            _dict['exported_object'] = None
-
-        # set to None if parameters (nullable) is None
-        # and model_fields_set contains the field
-        if self.parameters is None and "parameters" in self.model_fields_set:
-            _dict['parameters'] = None
+        if self.key is None and "key" in self.model_fields_set:
+            _dict['key'] = None
 
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ExportsCreateRequestBody from a dict"""
+        """Create an instance of ValidationRuleErrorLibrary from a dict"""
         if obj is None:
             return None
 
@@ -106,8 +87,7 @@ class ExportsCreateRequestBody(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "exported_object": obj.get("exported_object"),
-            "parameters": ExportsCreateRequestBodyParameters.from_dict(obj["parameters"]) if obj.get("parameters") is not None else None
+            "key": obj.get("key")
         })
         return _obj
 

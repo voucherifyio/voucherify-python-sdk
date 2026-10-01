@@ -338,7 +338,7 @@ class ProductCollectionsApi:
     ) -> None:
         """Delete Product Collection
 
-        This method deletes a product collection.
+        Deletes a product collection. <Warning>This endpoint performs database-heavy operations. It is not designed for highly frequent use.</Warning>
 
         :param product_collection_id: A unique product collection ID. (required)
         :type product_collection_id: str
@@ -405,7 +405,7 @@ class ProductCollectionsApi:
     ) -> ApiResponse[None]:
         """Delete Product Collection
 
-        This method deletes a product collection.
+        Deletes a product collection. <Warning>This endpoint performs database-heavy operations. It is not designed for highly frequent use.</Warning>
 
         :param product_collection_id: A unique product collection ID. (required)
         :type product_collection_id: str
@@ -472,7 +472,7 @@ class ProductCollectionsApi:
     ) -> RESTResponseType:
         """Delete Product Collection
 
-        This method deletes a product collection.
+        Deletes a product collection. <Warning>This endpoint performs database-heavy operations. It is not designed for highly frequent use.</Warning>
 
         :param product_collection_id: A unique product collection ID. (required)
         :type product_collection_id: str

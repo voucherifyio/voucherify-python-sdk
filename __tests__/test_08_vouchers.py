@@ -15,7 +15,7 @@ HAS_CREDENTIALS = (
 
 class TestVouchersSDK(unittest.TestCase):
 
-    delay = 2
+    delay = 10
     initial_balance = 1000
 
     def setUp(self):

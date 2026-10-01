@@ -63,7 +63,7 @@ class ExportsApi:
     ) -> ExportsCreateResponseBody:
         """Create Export
 
-        Create export object. The export can be any of the following types: voucher, redemption, publication, customer, order, points_expiration, voucher_transactions, product, or sku.   # Defaults If you only specify the object type in the request body without specifying the fields, the API will return the following fields per export object:   <Note> <Badge color blue>Date and time in the export API</Badge> The exported date and times are always provided in the UTC time zone. </Note> # Fetching particular data sets Using the parameters body parameter, you can narrow down which fields to export and how to filter the results. The fields are an array of strings containing the data that you would like to export. These fields define the headers in the CSV file. The array can be a combination of any of the following available fields: # Orders     # Vouchers        # Publications   # Redemptions    # Customers       # Points Expirations    # Gift Card Transactions    # Loyalty Card Transactions   
+        Create export object. The export can be any of the following types: voucher, redemption, publication, customer, order, points_expiration, voucher_transactions, product, or sku.   # Defaults If you only specify the object type in the request body without specifying the fields, the API will return the following fields per export object:   <Note> <Badge color blue>Date and time in the export API</Badge> The exported date and times are always provided in the UTC time zone. </Note> # Fetching particular data sets Using the parameters body parameter, you can narrow down which fields to export and how to filter the results. The fields are an array of strings containing the data that you would like to export. These fields define the headers in the CSV file. The array can be a combination of any of the following available fields: # Orders     # Vouchers        # Publications   # Redemptions    # Customers       # Points Expirations    # Gift Card Transactions    # Loyalty Card Transactions    # Products   # SKUs   
 
         :param exports_create_request_body: Specify the details of the export that you would like to create.
         :type exports_create_request_body: ExportsCreateRequestBody
@@ -130,7 +130,7 @@ class ExportsApi:
     ) -> ApiResponse[ExportsCreateResponseBody]:
         """Create Export
 
-        Create export object. The export can be any of the following types: voucher, redemption, publication, customer, order, points_expiration, voucher_transactions, product, or sku.   # Defaults If you only specify the object type in the request body without specifying the fields, the API will return the following fields per export object:   <Note> <Badge color blue>Date and time in the export API</Badge> The exported date and times are always provided in the UTC time zone. </Note> # Fetching particular data sets Using the parameters body parameter, you can narrow down which fields to export and how to filter the results. The fields are an array of strings containing the data that you would like to export. These fields define the headers in the CSV file. The array can be a combination of any of the following available fields: # Orders     # Vouchers        # Publications   # Redemptions    # Customers       # Points Expirations    # Gift Card Transactions    # Loyalty Card Transactions   
+        Create export object. The export can be any of the following types: voucher, redemption, publication, customer, order, points_expiration, voucher_transactions, product, or sku.   # Defaults If you only specify the object type in the request body without specifying the fields, the API will return the following fields per export object:   <Note> <Badge color blue>Date and time in the export API</Badge> The exported date and times are always provided in the UTC time zone. </Note> # Fetching particular data sets Using the parameters body parameter, you can narrow down which fields to export and how to filter the results. The fields are an array of strings containing the data that you would like to export. These fields define the headers in the CSV file. The array can be a combination of any of the following available fields: # Orders     # Vouchers        # Publications   # Redemptions    # Customers       # Points Expirations    # Gift Card Transactions    # Loyalty Card Transactions    # Products   # SKUs   
 
         :param exports_create_request_body: Specify the details of the export that you would like to create.
         :type exports_create_request_body: ExportsCreateRequestBody
@@ -197,7 +197,7 @@ class ExportsApi:
     ) -> RESTResponseType:
         """Create Export
 
-        Create export object. The export can be any of the following types: voucher, redemption, publication, customer, order, points_expiration, voucher_transactions, product, or sku.   # Defaults If you only specify the object type in the request body without specifying the fields, the API will return the following fields per export object:   <Note> <Badge color blue>Date and time in the export API</Badge> The exported date and times are always provided in the UTC time zone. </Note> # Fetching particular data sets Using the parameters body parameter, you can narrow down which fields to export and how to filter the results. The fields are an array of strings containing the data that you would like to export. These fields define the headers in the CSV file. The array can be a combination of any of the following available fields: # Orders     # Vouchers        # Publications   # Redemptions    # Customers       # Points Expirations    # Gift Card Transactions    # Loyalty Card Transactions   
+        Create export object. The export can be any of the following types: voucher, redemption, publication, customer, order, points_expiration, voucher_transactions, product, or sku.   # Defaults If you only specify the object type in the request body without specifying the fields, the API will return the following fields per export object:   <Note> <Badge color blue>Date and time in the export API</Badge> The exported date and times are always provided in the UTC time zone. </Note> # Fetching particular data sets Using the parameters body parameter, you can narrow down which fields to export and how to filter the results. The fields are an array of strings containing the data that you would like to export. These fields define the headers in the CSV file. The array can be a combination of any of the following available fields: # Orders     # Vouchers        # Publications   # Redemptions    # Customers       # Points Expirations    # Gift Card Transactions    # Loyalty Card Transactions    # Products   # SKUs   
 
         :param exports_create_request_body: Specify the details of the export that you would like to create.
         :type exports_create_request_body: ExportsCreateRequestBody
@@ -320,7 +320,7 @@ class ExportsApi:
     @validate_call
     def delete_export(
         self,
-        export_id: Annotated[StrictStr, Field(description="Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, or voucher_transactions.")],
+        export_id: Annotated[StrictStr, Field(description="Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, voucher_transactions, product, or sku.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -338,7 +338,7 @@ class ExportsApi:
 
         This method deletes a previously created export object.
 
-        :param export_id: Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, or voucher_transactions. (required)
+        :param export_id: Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, voucher_transactions, product, or sku. (required)
         :type export_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -387,7 +387,7 @@ class ExportsApi:
     @validate_call
     def delete_export_with_http_info(
         self,
-        export_id: Annotated[StrictStr, Field(description="Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, or voucher_transactions.")],
+        export_id: Annotated[StrictStr, Field(description="Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, voucher_transactions, product, or sku.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -405,7 +405,7 @@ class ExportsApi:
 
         This method deletes a previously created export object.
 
-        :param export_id: Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, or voucher_transactions. (required)
+        :param export_id: Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, voucher_transactions, product, or sku. (required)
         :type export_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -454,7 +454,7 @@ class ExportsApi:
     @validate_call
     def delete_export_without_preload_content(
         self,
-        export_id: Annotated[StrictStr, Field(description="Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, or voucher_transactions.")],
+        export_id: Annotated[StrictStr, Field(description="Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, voucher_transactions, product, or sku.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -472,7 +472,7 @@ class ExportsApi:
 
         This method deletes a previously created export object.
 
-        :param export_id: Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, or voucher_transactions. (required)
+        :param export_id: Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, voucher_transactions, product, or sku. (required)
         :type export_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -850,7 +850,7 @@ class ExportsApi:
     @validate_call
     def get_export(
         self,
-        export_id: Annotated[StrictStr, Field(description="Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, or voucher_transactions.")],
+        export_id: Annotated[StrictStr, Field(description="Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, voucher_transactions, product, or sku.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -868,7 +868,7 @@ class ExportsApi:
 
         Retrieves the URL of the downloadable file, which was generated via the [Create Export](/api-reference/exports/create-export) method.
 
-        :param export_id: Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, or voucher_transactions. (required)
+        :param export_id: Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, voucher_transactions, product, or sku. (required)
         :type export_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -917,7 +917,7 @@ class ExportsApi:
     @validate_call
     def get_export_with_http_info(
         self,
-        export_id: Annotated[StrictStr, Field(description="Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, or voucher_transactions.")],
+        export_id: Annotated[StrictStr, Field(description="Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, voucher_transactions, product, or sku.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -935,7 +935,7 @@ class ExportsApi:
 
         Retrieves the URL of the downloadable file, which was generated via the [Create Export](/api-reference/exports/create-export) method.
 
-        :param export_id: Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, or voucher_transactions. (required)
+        :param export_id: Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, voucher_transactions, product, or sku. (required)
         :type export_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -984,7 +984,7 @@ class ExportsApi:
     @validate_call
     def get_export_without_preload_content(
         self,
-        export_id: Annotated[StrictStr, Field(description="Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, or voucher_transactions.")],
+        export_id: Annotated[StrictStr, Field(description="Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, voucher_transactions, product, or sku.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1002,7 +1002,7 @@ class ExportsApi:
 
         Retrieves the URL of the downloadable file, which was generated via the [Create Export](/api-reference/exports/create-export) method.
 
-        :param export_id: Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, or voucher_transactions. (required)
+        :param export_id: Unique export object ID of previously created export. This object can be a: voucher, redemption, publication, customer, order, points_expiration, voucher_transactions, product, or sku. (required)
         :type export_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

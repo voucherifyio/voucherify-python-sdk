@@ -354,7 +354,7 @@ class CustomersApi:
     ) -> CustomersPermanentDeletionCreateResponseBody:
         """Delete Customer Permanently
 
-        The organization user can remove consumer data permanently from the Voucherify system by using this API method. It deletes all customer data and connected resources. It makes the customer profile forgotten by Voucherify.
+        The organization user can remove customer data permanently from the Voucherify system by using this API method. It deletes all customer data and connected resources. It makes the customer profile forgotten by Voucherify as per the GDPR.
 
         :param customer_id: A Voucherify customers id or source_id. (required)
         :type customer_id: str
@@ -421,7 +421,7 @@ class CustomersApi:
     ) -> ApiResponse[CustomersPermanentDeletionCreateResponseBody]:
         """Delete Customer Permanently
 
-        The organization user can remove consumer data permanently from the Voucherify system by using this API method. It deletes all customer data and connected resources. It makes the customer profile forgotten by Voucherify.
+        The organization user can remove customer data permanently from the Voucherify system by using this API method. It deletes all customer data and connected resources. It makes the customer profile forgotten by Voucherify as per the GDPR.
 
         :param customer_id: A Voucherify customers id or source_id. (required)
         :type customer_id: str
@@ -488,7 +488,7 @@ class CustomersApi:
     ) -> RESTResponseType:
         """Delete Customer Permanently
 
-        The organization user can remove consumer data permanently from the Voucherify system by using this API method. It deletes all customer data and connected resources. It makes the customer profile forgotten by Voucherify.
+        The organization user can remove customer data permanently from the Voucherify system by using this API method. It deletes all customer data and connected resources. It makes the customer profile forgotten by Voucherify as per the GDPR.
 
         :param customer_id: A Voucherify customers id or source_id. (required)
         :type customer_id: str
@@ -614,7 +614,7 @@ class CustomersApi:
     ) -> None:
         """Delete Customer
 
-        This method deletes a customer.
+        This method deletes a customer. The customer is permanently deleted. This means that a new customer with the same source_id can be created. <Note> <Badge color blue>GDPR compliance</Badge> This method does NOT delete all related data, including personal data, from Voucherify databases. To delete these records and fulfil the right to be forgotten in the sense of the GDPR, use the [Delete Customer Permanently](/api-reference/customers/delete-customer-permanently) endpoint or go to [Delete people data](/manage/team-settings#delete-people-data) in the Voucherify [Team settings](/manage/team-settings). </Note>
 
         :param customer_id: A Voucherify customers id or source_id. (required)
         :type customer_id: str
@@ -681,7 +681,7 @@ class CustomersApi:
     ) -> ApiResponse[None]:
         """Delete Customer
 
-        This method deletes a customer.
+        This method deletes a customer. The customer is permanently deleted. This means that a new customer with the same source_id can be created. <Note> <Badge color blue>GDPR compliance</Badge> This method does NOT delete all related data, including personal data, from Voucherify databases. To delete these records and fulfil the right to be forgotten in the sense of the GDPR, use the [Delete Customer Permanently](/api-reference/customers/delete-customer-permanently) endpoint or go to [Delete people data](/manage/team-settings#delete-people-data) in the Voucherify [Team settings](/manage/team-settings). </Note>
 
         :param customer_id: A Voucherify customers id or source_id. (required)
         :type customer_id: str
@@ -748,7 +748,7 @@ class CustomersApi:
     ) -> RESTResponseType:
         """Delete Customer
 
-        This method deletes a customer.
+        This method deletes a customer. The customer is permanently deleted. This means that a new customer with the same source_id can be created. <Note> <Badge color blue>GDPR compliance</Badge> This method does NOT delete all related data, including personal data, from Voucherify databases. To delete these records and fulfil the right to be forgotten in the sense of the GDPR, use the [Delete Customer Permanently](/api-reference/customers/delete-customer-permanently) endpoint or go to [Delete people data](/manage/team-settings#delete-people-data) in the Voucherify [Team settings](/manage/team-settings). </Note>
 
         :param customer_id: A Voucherify customers id or source_id. (required)
         :type customer_id: str

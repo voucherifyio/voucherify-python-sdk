@@ -112,9 +112,18 @@ This SDK is generated automatically from our [OpenAPI specification](https://git
 
 ## 🏷️ Link tags
 
-[OpenAPI generated from tag](https://github.com/voucherifyio/voucherify-openapi/tree/sdk-python-6.1.0).
+[OpenAPI generated from tag](https://github.com/voucherifyio/voucherify-openapi/tree/sdk-python-6.1.1).
 
 ## 📅 Changelog
+
+- **2026-08-26** - `6.1.1`
+FIXED:
+- `RewardsCreateRequestBodyParametersCoin.exchange_ratio` and `RewardsUpdateRequestBodyParametersCoin.exchange_ratio` typed as `float` (were `str`). `RedemptionRewardResultParametersCoin.exchange_ratio` was already `float` in `6.1.0`.
+
+ADDED:
+- `language` on `RedemptionsRedeemRequestBodyOptions` and `ValidationsValidateRequestBodyOptions`.
+- Product/sku export order and field values (`product_id`, `sku`, `price`, `image_url`, `attributes`, `currency`) on the export parameter models.
+- `ValidationRuleErrorLibrary`.
 
 - **2026-08-10** - `6.1.0`
 ADDED:
