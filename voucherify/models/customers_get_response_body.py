@@ -22,6 +22,7 @@ from datetime import date, datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from voucherify.models.customer_loyalty import CustomerLoyalty
+from voucherify.models.customer_loyalty_membership import CustomerLoyaltyMembership
 from voucherify.models.customer_referrals import CustomerReferrals
 from voucherify.models.customer_summary import CustomerSummary
 from voucherify.models.customers_get_response_body_address import CustomersGetResponseBodyAddress
@@ -37,6 +38,7 @@ class CustomersGetResponseBody(BaseModel):
     source_id: Optional[StrictStr] = Field(default=None, description="A unique identifier of the customer who validates a voucher. It can be a customer ID or email from a CRM system, database, or a third-party service. If you also pass a customer ID (unique ID assigned by Voucherify), the source ID will be ignored.")
     summary: Optional[CustomerSummary] = None
     loyalty: Optional[CustomerLoyalty] = None
+    loyalty_memberships: Optional[List[CustomerLoyaltyMembership]] = Field(default=None, description="List of Loyalty v2 program memberships for the customer. `null` when no memberships are stored.")
     referrals: Optional[CustomerReferrals] = None
     system_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Object used to store system metadata information.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the customer was created. The value is shown in the ISO 8601 format.")
@@ -51,7 +53,7 @@ class CustomersGetResponseBody(BaseModel):
     birthdate: Optional[date] = Field(default=None, description="Customer's birthdate; format YYYY-MM-DD.")
     address: Optional[CustomersGetResponseBodyAddress] = None
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="A set of custom key/value pairs that you can attach to a customer. The metadata object stores all custom attributes assigned to the customer. It can be useful for storing additional information about the customer in a structured format. This metadata can be used for validating whether the customer qualifies for a discount or it can be used in building customer segments.")
-    __properties: ClassVar[List[str]] = ["id", "source_id", "summary", "loyalty", "referrals", "system_metadata", "created_at", "updated_at", "assets", "object", "name", "description", "email", "phone", "birthday", "birthdate", "address", "metadata"]
+    __properties: ClassVar[List[str]] = ["id", "source_id", "summary", "loyalty", "loyalty_memberships", "referrals", "system_metadata", "created_at", "updated_at", "assets", "object", "name", "description", "email", "phone", "birthday", "birthdate", "address", "metadata"]
 
     @field_validator('object')
     def object_validate_enum(cls, value):
@@ -108,6 +110,13 @@ class CustomersGetResponseBody(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of loyalty
         if self.loyalty:
             _dict['loyalty'] = self.loyalty.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in loyalty_memberships (list)
+        _items = []
+        if self.loyalty_memberships:
+            for _item_loyalty_memberships in self.loyalty_memberships:
+                if _item_loyalty_memberships:
+                    _items.append(_item_loyalty_memberships.to_dict())
+            _dict['loyalty_memberships'] = _items
         # override the default output from pydantic by calling `to_dict()` of referrals
         if self.referrals:
             _dict['referrals'] = self.referrals.to_dict()
@@ -126,6 +135,11 @@ class CustomersGetResponseBody(BaseModel):
         # and model_fields_set contains the field
         if self.source_id is None and "source_id" in self.model_fields_set:
             _dict['source_id'] = None
+
+        # set to None if loyalty_memberships (nullable) is None
+        # and model_fields_set contains the field
+        if self.loyalty_memberships is None and "loyalty_memberships" in self.model_fields_set:
+            _dict['loyalty_memberships'] = None
 
         # set to None if system_metadata (nullable) is None
         # and model_fields_set contains the field
@@ -208,6 +222,7 @@ class CustomersGetResponseBody(BaseModel):
             "source_id": obj.get("source_id"),
             "summary": CustomerSummary.from_dict(obj["summary"]) if obj.get("summary") is not None else None,
             "loyalty": CustomerLoyalty.from_dict(obj["loyalty"]) if obj.get("loyalty") is not None else None,
+            "loyalty_memberships": [CustomerLoyaltyMembership.from_dict(_item) for _item in obj["loyalty_memberships"]] if obj.get("loyalty_memberships") is not None else None,
             "referrals": CustomerReferrals.from_dict(obj["referrals"]) if obj.get("referrals") is not None else None,
             "system_metadata": obj.get("system_metadata"),
             "created_at": obj.get("created_at"),

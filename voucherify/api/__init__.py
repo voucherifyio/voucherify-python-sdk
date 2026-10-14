@@ -9,6 +9,11 @@ from voucherify.api.client_side_api import ClientSideApi
 from voucherify.api.customers_api import CustomersApi
 from voucherify.api.events_api import EventsApi
 from voucherify.api.exports_api import ExportsApi
+from voucherify.api.lv2_benefits_api import LV2BenefitsApi
+from voucherify.api.lv2_earning_rules_api import LV2EarningRulesApi
+from voucherify.api.lv2_examine_api import LV2ExamineApi
+from voucherify.api.lv2_programs_api import LV2ProgramsApi
+from voucherify.api.lv2_rewards_api import LV2RewardsApi
 from voucherify.api.locations_api import LocationsApi
 from voucherify.api.loyalties_api import LoyaltiesApi
 from voucherify.api.management_api import ManagementApi

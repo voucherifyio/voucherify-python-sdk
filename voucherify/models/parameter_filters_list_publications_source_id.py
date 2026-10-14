@@ -26,7 +26,7 @@ from typing_extensions import Self
 
 class ParameterFiltersListPublicationsSourceId(BaseModel):
     """
-    Filter publications by source id.
+    Filter publications by source ID.
     """ # noqa: E501
     conditions: Optional[FilterConditionsString] = None
     __properties: ClassVar[List[str]] = ["conditions"]

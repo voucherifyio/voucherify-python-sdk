@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from voucherify.models.customer import Customer
 from voucherify.models.order import Order
 from voucherify.models.redemptions_redeem_request_body_options import RedemptionsRedeemRequestBodyOptions
@@ -33,7 +34,7 @@ class RedemptionsRedeemRequestBody(BaseModel):
     Response body schema for **POST** `v1/redemptions`.
     """ # noqa: E501
     options: Optional[RedemptionsRedeemRequestBodyOptions] = None
-    redeemables: Optional[List[RedemptionsRedeemRequestBodyRedeemablesItem]] = None
+    redeemables: Optional[Annotated[List[RedemptionsRedeemRequestBodyRedeemablesItem], Field(min_length=1, max_length=30)]] = Field(default=None, description="An array of redeemables. You can combine `voucher`(s) and `promotion_tier`(s). Alternatively, send one unique`promotion_stack` in the array. Each unique redeemable can be sent in one request only once.")
     order: Optional[Order] = None
     customer: Optional[Customer] = None
     session: Optional[Session] = None

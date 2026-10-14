@@ -1,6 +1,6 @@
 # ParameterFiltersListPublicationsRelatedObjectId
 
-Filter publications by related object id.
+Filter publications by related object ID.
 
 ## Properties
 

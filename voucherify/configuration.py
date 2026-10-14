@@ -448,6 +448,14 @@ conf = voucherify.Configuration(
                     'X-Management-Token',
                 ),
             }
+        if self.access_token is not None:
+            auth['bearerAuth'] = {
+                'type': 'bearer',
+                'in': 'header',
+                'format': 'JWT',
+                'key': 'Authorization',
+                'value': 'Bearer ' + self.access_token
+            }
         return auth
 
     def to_debug_report(self):
@@ -459,7 +467,7 @@ conf = voucherify.Configuration(
                "OS: {env}\n"\
                "Python Version: {pyversion}\n"\
                "Version of the API: v2018-08-01\n"\
-               "SDK Package Version: 6.1.1".\
+               "SDK Package Version: 6.2.0".\
                format(env=sys.platform, pyversion=sys.version)
 
     def get_host_settings(self):

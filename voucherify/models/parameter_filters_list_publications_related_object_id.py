@@ -26,7 +26,7 @@ from typing_extensions import Self
 
 class ParameterFiltersListPublicationsRelatedObjectId(BaseModel):
     """
-    Filter publications by related object id.
+    Filter publications by related object ID.
     """ # noqa: E501
     conditions: Optional[FilterConditionsString] = None
     __properties: ClassVar[List[str]] = ["conditions"]

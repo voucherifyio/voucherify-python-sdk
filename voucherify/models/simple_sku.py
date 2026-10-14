@@ -28,7 +28,7 @@ class SimpleSku(BaseModel):
     SimpleSku
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Unique sku ID.")
-    source_id: Optional[StrictStr] = Field(default=None, description="Sku source id.")
+    source_id: Optional[StrictStr] = Field(default=None, description="Sku source ID.")
     sku: Optional[StrictStr] = Field(default=None, description="Sku name.")
     __properties: ClassVar[List[str]] = ["id", "source_id", "sku"]
 
