@@ -30,7 +30,7 @@ class CustomerLoyaltyMembershipMember(BaseModel):
     Loyalty v2 member recorded on the customer membership.
     """ # noqa: E501
     id: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="Identifies the Loyalty v2 program member.")
-    status: Optional[StrictStr] = Field(default=None, description="Member status. List responses include only ACTIVE memberships. INACTIVE and DELETED remain so existing SDK callers keep compiling.")
+    status: Optional[StrictStr] = Field(default='ACTIVE', description="Member status. The value is `ACTIVE`.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing when the member was created. The value is shown in the ISO 8601 format.")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp representing when the member was updated. The value is shown in the ISO 8601 format. `null` when not set.")
     __properties: ClassVar[List[str]] = ["id", "status", "created_at", "updated_at"]
@@ -51,8 +51,8 @@ class CustomerLoyaltyMembershipMember(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['ACTIVE', 'INACTIVE', 'DELETED']):
-            raise ValueError("must be one of enum values ('ACTIVE', 'INACTIVE', 'DELETED')")
+        if value not in set(['ACTIVE']):
+            raise ValueError("must be one of enum values ('ACTIVE')")
         return value
 
     model_config = ConfigDict(
@@ -127,7 +127,7 @@ class CustomerLoyaltyMembershipMember(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
-            "status": obj.get("status"),
+            "status": obj.get("status") if obj.get("status") is not None else 'ACTIVE',
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at")
         })
