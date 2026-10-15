@@ -34,16 +34,16 @@ class CardPendingPointsBucket(BaseModel):
     card_definition_id: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="ID of the card definition of the card.")
     program_id: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="ID of the loyalty program.")
     member_id: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="ID of the member owning the card.")
+    card_type: Optional[StrictStr] = Field(default='INDIVIDUAL', description="Card type. Currently, only `INDIVIDUAL` is supported.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp when the bucket was created (ISO 8601).")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp when the bucket was last updated (ISO 8601), or `null`.")
     id: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="Unique pending point bucket ID.")
-    card_type: Optional[StrictStr] = Field(default='INDIVIDUAL', description="Card type.")
     points: Optional[CardPendingPointsBucketPoints] = None
     var_date: Optional[date] = Field(default=None, description="Scheduled activation date of the pending points (`YYYY-MM-DD`). For the `EVENT_BASED` type this is the cancellation deadline.", alias="date")
     type: Optional[StrictStr] = Field(default=None, description="Pending points activation type from the card definition.")
     status: Optional[StrictStr] = Field(default=None, description="Bucket status.")
     object: Optional[StrictStr] = Field(default='card_pending_points_bucket', description="Object type marker, always `card_pending_points_bucket`.")
-    __properties: ClassVar[List[str]] = ["card_id", "card_definition_id", "program_id", "member_id", "created_at", "updated_at", "id", "card_type", "points", "date", "type", "status", "object"]
+    __properties: ClassVar[List[str]] = ["card_id", "card_definition_id", "program_id", "member_id", "card_type", "created_at", "updated_at", "id", "points", "date", "type", "status", "object"]
 
     @field_validator('card_id')
     def card_id_validate_regular_expression(cls, value):
@@ -85,16 +85,6 @@ class CardPendingPointsBucket(BaseModel):
             raise ValueError(r"must validate the regular expression /^lmbr_[a-f0-9]+$/")
         return value
 
-    @field_validator('id')
-    def id_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if value is None:
-            return value
-
-        if not re.match(r"^lcppb_[a-f0-9]+$", value):
-            raise ValueError(r"must validate the regular expression /^lcppb_[a-f0-9]+$/")
-        return value
-
     @field_validator('card_type')
     def card_type_validate_enum(cls, value):
         """Validates the enum"""
@@ -103,6 +93,16 @@ class CardPendingPointsBucket(BaseModel):
 
         if value not in set(['INDIVIDUAL']):
             raise ValueError("must be one of enum values ('INDIVIDUAL')")
+        return value
+
+    @field_validator('id')
+    def id_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if value is None:
+            return value
+
+        if not re.match(r"^lcppb_[a-f0-9]+$", value):
+            raise ValueError(r"must validate the regular expression /^lcppb_[a-f0-9]+$/")
         return value
 
     @field_validator('type')
@@ -197,6 +197,11 @@ class CardPendingPointsBucket(BaseModel):
         if self.member_id is None and "member_id" in self.model_fields_set:
             _dict['member_id'] = None
 
+        # set to None if card_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.card_type is None and "card_type" in self.model_fields_set:
+            _dict['card_type'] = None
+
         # set to None if created_at (nullable) is None
         # and model_fields_set contains the field
         if self.created_at is None and "created_at" in self.model_fields_set:
@@ -211,11 +216,6 @@ class CardPendingPointsBucket(BaseModel):
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
             _dict['id'] = None
-
-        # set to None if card_type (nullable) is None
-        # and model_fields_set contains the field
-        if self.card_type is None and "card_type" in self.model_fields_set:
-            _dict['card_type'] = None
 
         # set to None if points (nullable) is None
         # and model_fields_set contains the field
@@ -258,10 +258,10 @@ class CardPendingPointsBucket(BaseModel):
             "card_definition_id": obj.get("card_definition_id"),
             "program_id": obj.get("program_id"),
             "member_id": obj.get("member_id"),
+            "card_type": obj.get("card_type") if obj.get("card_type") is not None else 'INDIVIDUAL',
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
             "id": obj.get("id"),
-            "card_type": obj.get("card_type") if obj.get("card_type") is not None else 'INDIVIDUAL',
             "points": CardPendingPointsBucketPoints.from_dict(obj["points"]) if obj.get("points") is not None else None,
             "date": obj.get("date"),
             "type": obj.get("type"),

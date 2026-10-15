@@ -1,6 +1,6 @@
 # LoyaltiesProgramsMembersCardsTransactionsListRequestQueryId
 
-ID filter conditions for card transaction IDs. At least one condition is required.
+ID conditions. Format `lctx_[a-f0-9]+`. At least one condition is required.
 
 ## Properties
 

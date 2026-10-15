@@ -31,7 +31,7 @@ class V2LoyaltiesProgramsMembersRewardsPurchasesListRequestQuery(BaseModel):
     """
     Request query schema for **GET** `/v2/loyalties/programs/{programId}/members/{memberId}/rewards/purchases`.
     """ # noqa: E501
-    junction: Optional[StrictStr] = Field(default=None, description="Logical junction between the field filters. Defaults to AND behavior.")
+    junction: Optional[StrictStr] = Field(default=None, description="Joins the field filters. Allowed values are `AND` and `OR`. Defaults to `AND`.")
     id: Optional[LoyaltiesProgramsMembersRewardsPurchasesListRequestQueryId] = None
     reward_id: Optional[LoyaltiesProgramsMembersRewardsPurchasesListRequestQueryRewardId] = None
     card_definition_id: Optional[LoyaltiesProgramsMembersRewardsPurchasesListRequestQueryCardDefinitionId] = None

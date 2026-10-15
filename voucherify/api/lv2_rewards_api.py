@@ -42,7 +42,7 @@ class LV2RewardsApi:
     @validate_call
     def get_reward(
         self,
-        reward_id: Annotated[str, Field(strict=True, description="Unique reward identifier, prefixed with lrew_.")],
+        reward_id: Annotated[str, Field(strict=True, description="Identifies the reward. Format lrew_[a-f0-9]+.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -60,7 +60,7 @@ class LV2RewardsApi:
 
         Returns a single reward by its ID.
 
-        :param reward_id: Unique reward identifier, prefixed with lrew_. (required)
+        :param reward_id: Identifies the reward. Format lrew_[a-f0-9]+. (required)
         :type reward_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -109,7 +109,7 @@ class LV2RewardsApi:
     @validate_call
     def get_reward_with_http_info(
         self,
-        reward_id: Annotated[str, Field(strict=True, description="Unique reward identifier, prefixed with lrew_.")],
+        reward_id: Annotated[str, Field(strict=True, description="Identifies the reward. Format lrew_[a-f0-9]+.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -127,7 +127,7 @@ class LV2RewardsApi:
 
         Returns a single reward by its ID.
 
-        :param reward_id: Unique reward identifier, prefixed with lrew_. (required)
+        :param reward_id: Identifies the reward. Format lrew_[a-f0-9]+. (required)
         :type reward_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -176,7 +176,7 @@ class LV2RewardsApi:
     @validate_call
     def get_reward_without_preload_content(
         self,
-        reward_id: Annotated[str, Field(strict=True, description="Unique reward identifier, prefixed with lrew_.")],
+        reward_id: Annotated[str, Field(strict=True, description="Identifies the reward. Format lrew_[a-f0-9]+.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -194,7 +194,7 @@ class LV2RewardsApi:
 
         Returns a single reward by its ID.
 
-        :param reward_id: Unique reward identifier, prefixed with lrew_. (required)
+        :param reward_id: Identifies the reward. Format lrew_[a-f0-9]+. (required)
         :type reward_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

@@ -42,7 +42,7 @@ class LV2EarningRulesApi:
     @validate_call
     def get_earning_rule(
         self,
-        earning_rule_id: Annotated[str, Field(strict=True, description="Earning rule ID.")],
+        earning_rule_id: Annotated[str, Field(strict=True, description="Identifies the earning rule. Format lern_[a-f0-9]+.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -60,7 +60,7 @@ class LV2EarningRulesApi:
 
         Returns a single earning rule by its ID.
 
-        :param earning_rule_id: Earning rule ID. (required)
+        :param earning_rule_id: Identifies the earning rule. Format lern_[a-f0-9]+. (required)
         :type earning_rule_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -109,7 +109,7 @@ class LV2EarningRulesApi:
     @validate_call
     def get_earning_rule_with_http_info(
         self,
-        earning_rule_id: Annotated[str, Field(strict=True, description="Earning rule ID.")],
+        earning_rule_id: Annotated[str, Field(strict=True, description="Identifies the earning rule. Format lern_[a-f0-9]+.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -127,7 +127,7 @@ class LV2EarningRulesApi:
 
         Returns a single earning rule by its ID.
 
-        :param earning_rule_id: Earning rule ID. (required)
+        :param earning_rule_id: Identifies the earning rule. Format lern_[a-f0-9]+. (required)
         :type earning_rule_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -176,7 +176,7 @@ class LV2EarningRulesApi:
     @validate_call
     def get_earning_rule_without_preload_content(
         self,
-        earning_rule_id: Annotated[str, Field(strict=True, description="Earning rule ID.")],
+        earning_rule_id: Annotated[str, Field(strict=True, description="Identifies the earning rule. Format lern_[a-f0-9]+.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -194,7 +194,7 @@ class LV2EarningRulesApi:
 
         Returns a single earning rule by its ID.
 
-        :param earning_rule_id: Earning rule ID. (required)
+        :param earning_rule_id: Identifies the earning rule. Format lern_[a-f0-9]+. (required)
         :type earning_rule_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

@@ -28,7 +28,7 @@ class RewardsReportListFilters(BaseModel):
     """
     Filters for program rewards reports.
     """ # noqa: E501
-    junction: Optional[StrictStr] = Field(default=None, description="Sets the logical junction between the field filters. Defaults to `AND`.")
+    junction: Optional[StrictStr] = Field(default=None, description="Joins the field filters. Allowed values are `AND` and `OR`. Defaults to `AND`.")
     reward_id: Optional[RewardsReportFilterRewardIdConditions] = None
     __properties: ClassVar[List[str]] = ["junction", "reward_id"]
 

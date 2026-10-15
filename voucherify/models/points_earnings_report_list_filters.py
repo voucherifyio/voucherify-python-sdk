@@ -21,7 +21,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from voucherify.models.earning_rule_id_filter_conditions import EarningRuleIdFilterConditions
-from voucherify.models.points_earnings_report_filter_card_definition_id_conditions import PointsEarningsReportFilterCardDefinitionIdConditions
+from voucherify.models.report_card_definition_id_filter_conditions import ReportCardDefinitionIdFilterConditions
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -29,9 +29,9 @@ class PointsEarningsReportListFilters(BaseModel):
     """
     Filters for program points-earnings reports.
     """ # noqa: E501
-    junction: Optional[StrictStr] = Field(default=None, description="Combines the field filters. Allowed values are `AND` and `OR`. Defaults to `AND`.")
+    junction: Optional[StrictStr] = Field(default=None, description="Joins the field filters. Allowed values are `AND` and `OR`. Defaults to `AND`.")
     earning_rule_id: Optional[EarningRuleIdFilterConditions] = None
-    card_definition_id: Optional[PointsEarningsReportFilterCardDefinitionIdConditions] = None
+    card_definition_id: Optional[ReportCardDefinitionIdFilterConditions] = None
     __properties: ClassVar[List[str]] = ["junction", "earning_rule_id", "card_definition_id"]
 
     @field_validator('junction')
@@ -108,7 +108,7 @@ class PointsEarningsReportListFilters(BaseModel):
         _obj = cls.model_validate({
             "junction": obj.get("junction"),
             "earning_rule_id": EarningRuleIdFilterConditions.from_dict(obj["earning_rule_id"]) if obj.get("earning_rule_id") is not None else None,
-            "card_definition_id": PointsEarningsReportFilterCardDefinitionIdConditions.from_dict(obj["card_definition_id"]) if obj.get("card_definition_id") is not None else None
+            "card_definition_id": ReportCardDefinitionIdFilterConditions.from_dict(obj["card_definition_id"]) if obj.get("card_definition_id") is not None else None
         })
         return _obj
 

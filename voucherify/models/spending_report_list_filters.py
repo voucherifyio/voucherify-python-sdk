@@ -20,7 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from voucherify.models.spending_report_filter_card_definition_id_conditions import SpendingReportFilterCardDefinitionIdConditions
+from voucherify.models.report_card_definition_id_filter_conditions import ReportCardDefinitionIdFilterConditions
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,8 +28,8 @@ class SpendingReportListFilters(BaseModel):
     """
     Filters for spending reports.
     """ # noqa: E501
-    junction: Optional[StrictStr] = Field(default=None, description="Sets the logical junction between field filters. Allowed values: `AND`, `OR`. Defaults to `AND`.")
-    card_definition_id: Optional[SpendingReportFilterCardDefinitionIdConditions] = None
+    junction: Optional[StrictStr] = Field(default=None, description="Joins the field filters. Allowed values are `AND` and `OR`. Defaults to `AND`.")
+    card_definition_id: Optional[ReportCardDefinitionIdFilterConditions] = None
     __properties: ClassVar[List[str]] = ["junction", "card_definition_id"]
 
     @field_validator('junction')
@@ -102,7 +102,7 @@ class SpendingReportListFilters(BaseModel):
 
         _obj = cls.model_validate({
             "junction": obj.get("junction"),
-            "card_definition_id": SpendingReportFilterCardDefinitionIdConditions.from_dict(obj["card_definition_id"]) if obj.get("card_definition_id") is not None else None
+            "card_definition_id": ReportCardDefinitionIdFilterConditions.from_dict(obj["card_definition_id"]) if obj.get("card_definition_id") is not None else None
         })
         return _obj
 

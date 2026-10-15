@@ -29,7 +29,7 @@ class TiersReportListFilters(BaseModel):
     """
     Filters for program tiers reports.
     """ # noqa: E501
-    junction: Optional[StrictStr] = Field(default=None, description="Joins the field filters. Allowed values: `AND`, `OR`. Defaults to `AND`.")
+    junction: Optional[StrictStr] = Field(default=None, description="Joins the field filters. Allowed values are `AND` and `OR`. Defaults to `AND`.")
     tier_structure_id: Optional[TiersReportFilterTierStructureIdConditions] = None
     tier_id: Optional[TiersReportFilterTierIdConditions] = None
     __properties: ClassVar[List[str]] = ["junction", "tier_structure_id", "tier_id"]

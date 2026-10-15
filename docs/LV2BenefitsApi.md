@@ -52,7 +52,7 @@ configuration.api_key['X-App-Token'] = os.environ["API_KEY"]
 with voucherify.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = voucherify.LV2BenefitsApi(api_client)
-    benefit_id = 'benefit_id_example' # str | Unique benefit ID, prefixed with lben_.
+    benefit_id = 'benefit_id_example' # str | Identifies the benefit. Format lben_[a-f0-9]+.
 
     try:
         # Get benefit
@@ -70,7 +70,7 @@ with voucherify.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **benefit_id** | **str**| Unique benefit ID, prefixed with lben_. | 
+ **benefit_id** | **str**| Identifies the benefit. Format lben_[a-f0-9]+. | 
 
 ### Return type
 

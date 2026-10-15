@@ -34,17 +34,17 @@ class CardPointsBucket(BaseModel):
     card_definition_id: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="ID of the card definition of the card.")
     program_id: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="ID of the loyalty program.")
     member_id: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="ID of the member owning the card.")
+    card_type: Optional[StrictStr] = Field(default='INDIVIDUAL', description="Card type. Currently, only `INDIVIDUAL` is supported.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp when the bucket was created (ISO 8601).")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp when the bucket was last updated (ISO 8601), or `null`.")
     id: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="Unique points expiration bucket ID.")
     customer_id: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="Voucherify ID of the customer owning the card.")
-    card_type: Optional[StrictStr] = Field(default='INDIVIDUAL', description="Card type. Currently, only `INDIVIDUAL` is supported.")
     points: Optional[CardPointsBucketPoints] = None
     expiration_date: Optional[date] = Field(default=None, description="Date when the points in the bucket expire (`YYYY-MM-DD`).")
     expiration_type: Optional[StrictStr] = Field(default=None, description="Points expiration type for the bucket. It can be inherited from the card definition or overridden by the earning rule.")
     status: Optional[StrictStr] = Field(default=None, description="Bucket status. For the List card expiring points buckets, returns only `ACTIVE` buckets.")
     object: Optional[StrictStr] = Field(default='card_points_bucket', description="Object type marker, always `card_points_bucket`.")
-    __properties: ClassVar[List[str]] = ["card_id", "card_definition_id", "program_id", "member_id", "created_at", "updated_at", "id", "customer_id", "card_type", "points", "expiration_date", "expiration_type", "status", "object"]
+    __properties: ClassVar[List[str]] = ["card_id", "card_definition_id", "program_id", "member_id", "card_type", "created_at", "updated_at", "id", "customer_id", "points", "expiration_date", "expiration_type", "status", "object"]
 
     @field_validator('card_id')
     def card_id_validate_regular_expression(cls, value):
@@ -86,6 +86,16 @@ class CardPointsBucket(BaseModel):
             raise ValueError(r"must validate the regular expression /^lmbr_[a-f0-9]+$/")
         return value
 
+    @field_validator('card_type')
+    def card_type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['INDIVIDUAL']):
+            raise ValueError("must be one of enum values ('INDIVIDUAL')")
+        return value
+
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
@@ -104,16 +114,6 @@ class CardPointsBucket(BaseModel):
 
         if not re.match(r"^cust_[a-zA-Z0-9]+", value):
             raise ValueError(r"must validate the regular expression /^cust_[a-zA-Z0-9]+/")
-        return value
-
-    @field_validator('card_type')
-    def card_type_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['INDIVIDUAL']):
-            raise ValueError("must be one of enum values ('INDIVIDUAL')")
         return value
 
     @field_validator('expiration_type')
@@ -208,6 +208,11 @@ class CardPointsBucket(BaseModel):
         if self.member_id is None and "member_id" in self.model_fields_set:
             _dict['member_id'] = None
 
+        # set to None if card_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.card_type is None and "card_type" in self.model_fields_set:
+            _dict['card_type'] = None
+
         # set to None if created_at (nullable) is None
         # and model_fields_set contains the field
         if self.created_at is None and "created_at" in self.model_fields_set:
@@ -227,11 +232,6 @@ class CardPointsBucket(BaseModel):
         # and model_fields_set contains the field
         if self.customer_id is None and "customer_id" in self.model_fields_set:
             _dict['customer_id'] = None
-
-        # set to None if card_type (nullable) is None
-        # and model_fields_set contains the field
-        if self.card_type is None and "card_type" in self.model_fields_set:
-            _dict['card_type'] = None
 
         # set to None if points (nullable) is None
         # and model_fields_set contains the field
@@ -274,11 +274,11 @@ class CardPointsBucket(BaseModel):
             "card_definition_id": obj.get("card_definition_id"),
             "program_id": obj.get("program_id"),
             "member_id": obj.get("member_id"),
+            "card_type": obj.get("card_type") if obj.get("card_type") is not None else 'INDIVIDUAL',
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
             "id": obj.get("id"),
             "customer_id": obj.get("customer_id"),
-            "card_type": obj.get("card_type") if obj.get("card_type") is not None else 'INDIVIDUAL',
             "points": CardPointsBucketPoints.from_dict(obj["points"]) if obj.get("points") is not None else None,
             "expiration_date": obj.get("expiration_date"),
             "expiration_type": obj.get("expiration_type"),

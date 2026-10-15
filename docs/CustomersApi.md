@@ -737,7 +737,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_customers**
-> CustomersListResponseBody list_customers(limit=limit, page=page, email=email, city=city, name=name, segment_id=segment_id, created_at_before=created_at_before, created_at_after=created_at_after, updated_at_before=updated_at_before, updated_at_after=updated_at_after, order=order, starting_after=starting_after)
+> CustomersListResponseBody list_customers(limit=limit, page=page, email=email, city=city, name=name, segment_id=segment_id, created_at_before=created_at_before, created_at_after=created_at_after, updated_at_before=updated_at_before, updated_at_after=updated_at_after, order=order, starting_after=starting_after, filters=filters)
 
 List Customers
 
@@ -794,10 +794,11 @@ with voucherify.ApiClient(configuration) as api_client:
     updated_at_after = '2013-10-20T19:20:30+01:00' # datetime | Filter customers by date customer was updated last time. (optional)
     order = voucherify.ParameterOrderListCustomers() # ParameterOrderListCustomers | This is a property that controls the sorting direction of the results. Sort the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order. (optional)
     starting_after = '2013-10-20T19:20:30+01:00' # datetime | A cursor for pagination. This is a date-time value that defines your place in the list based on created_at property from the customer object. For instance, if you make a list request and receive 100 objects, ending with an object created at 2020-05-24T13:43:09.024Z, your subsequent call can include starting_after 2020-05-24T13:43:09.024Z in order to fetch the next page of the list.   (optional)
+    filters = None # object | Filters customers by field conditions. Read [Advanced filters for fetching resources](/api-reference/listing#advanced-filters-for-fetching-resources) for examples. (optional)
 
     try:
         # List Customers
-        api_response = api_instance.list_customers(limit=limit, page=page, email=email, city=city, name=name, segment_id=segment_id, created_at_before=created_at_before, created_at_after=created_at_after, updated_at_before=updated_at_before, updated_at_after=updated_at_after, order=order, starting_after=starting_after)
+        api_response = api_instance.list_customers(limit=limit, page=page, email=email, city=city, name=name, segment_id=segment_id, created_at_before=created_at_before, created_at_after=created_at_after, updated_at_before=updated_at_before, updated_at_after=updated_at_after, order=order, starting_after=starting_after, filters=filters)
         print("The response of CustomersApi->list_customers:\n")
         pprint(api_response)
     except Exception as e:
@@ -823,6 +824,7 @@ Name | Type | Description  | Notes
  **updated_at_after** | **datetime**| Filter customers by date customer was updated last time. | [optional] 
  **order** | [**ParameterOrderListCustomers**](.md)| This is a property that controls the sorting direction of the results. Sort the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order. | [optional] 
  **starting_after** | **datetime**| A cursor for pagination. This is a date-time value that defines your place in the list based on created_at property from the customer object. For instance, if you make a list request and receive 100 objects, ending with an object created at 2020-05-24T13:43:09.024Z, your subsequent call can include starting_after 2020-05-24T13:43:09.024Z in order to fetch the next page of the list.   | [optional] 
+ **filters** | [**object**](.md)| Filters customers by field conditions. Read [Advanced filters for fetching resources](/api-reference/listing#advanced-filters-for-fetching-resources) for examples. | [optional] 
 
 ### Return type
 

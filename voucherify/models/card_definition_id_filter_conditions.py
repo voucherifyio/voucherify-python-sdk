@@ -26,7 +26,7 @@ from typing_extensions import Self
 
 class CardDefinitionIdFilterConditions(BaseModel):
     """
-    ID filter conditions for card definition IDs. At least one condition is required.
+    ID conditions. Format `lcdef_[a-f0-9]+`. At least one condition is required.
     """ # noqa: E501
     conditions: Optional[CardDefinitionIdFilterConditionsConditions] = None
     __properties: ClassVar[List[str]] = ["conditions"]

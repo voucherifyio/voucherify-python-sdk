@@ -29,7 +29,7 @@ class V2LoyaltiesProgramsMembersBenefitsTransactionsListRequestQuery(BaseModel):
     """
     Request query schema for **GET** `/v2/loyalties/programs/{programId}/members/{memberId}/benefits/transactions`.
     """ # noqa: E501
-    junction: Optional[StrictStr] = Field(default=None, description="Defines the logical junction between field filters. Allowed values: `AND`, `OR`. Defaults to `AND`.")
+    junction: Optional[StrictStr] = Field(default=None, description="Joins the field filters. Allowed values are `AND` and `OR`. Defaults to `AND`.")
     benefit_id: Optional[LoyaltiesProgramsMembersBenefitsTransactionsListRequestQueryBenefitId] = None
     created_at: Optional[TransactionFilterDateConditions] = None
     __properties: ClassVar[List[str]] = ["junction", "benefit_id", "created_at"]

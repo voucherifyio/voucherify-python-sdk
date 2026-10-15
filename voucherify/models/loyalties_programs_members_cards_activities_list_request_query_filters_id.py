@@ -26,7 +26,7 @@ from typing_extensions import Self
 
 class LoyaltiesProgramsMembersCardsActivitiesListRequestQueryFiltersId(BaseModel):
     """
-    ID filter conditions for card activity IDs. At least one condition is required.
+    ID conditions. Format `lacrd_[a-f0-9]+`. At least one condition is required.
     """ # noqa: E501
     conditions: Optional[LoyaltiesProgramsMembersCardsActivitiesListRequestQueryFiltersIdConditions] = None
     __properties: ClassVar[List[str]] = ["conditions"]

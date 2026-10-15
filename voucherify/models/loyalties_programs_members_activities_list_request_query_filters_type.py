@@ -26,7 +26,7 @@ from typing_extensions import Self
 
 class LoyaltiesProgramsMembersActivitiesListRequestQueryFiltersType(BaseModel):
     """
-    Enum filter conditions for member activity types. At least one condition is required.
+    Enum conditions. At least one condition is required.
     """ # noqa: E501
     conditions: Optional[LoyaltiesProgramsMembersActivitiesListRequestQueryFiltersTypeConditions] = None
     __properties: ClassVar[List[str]] = ["conditions"]

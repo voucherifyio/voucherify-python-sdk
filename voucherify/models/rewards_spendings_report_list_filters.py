@@ -20,10 +20,10 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from voucherify.models.report_card_definition_id_filter_conditions import ReportCardDefinitionIdFilterConditions
 from voucherify.models.rewards_report_filter_reward_id_conditions import RewardsReportFilterRewardIdConditions
 from voucherify.models.rewards_spendings_report_filter_cost_id_conditions import RewardsSpendingsReportFilterCostIdConditions
 from voucherify.models.rewards_spendings_report_filter_spending_id_conditions import RewardsSpendingsReportFilterSpendingIdConditions
-from voucherify.models.spending_report_filter_card_definition_id_conditions import SpendingReportFilterCardDefinitionIdConditions
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -31,9 +31,9 @@ class RewardsSpendingsReportListFilters(BaseModel):
     """
     Filters for program rewards spendings reports.
     """ # noqa: E501
-    junction: Optional[StrictStr] = Field(default=None, description="Sets the logical junction between the field filters. Defaults to `AND`.")
+    junction: Optional[StrictStr] = Field(default=None, description="Joins the field filters. Allowed values are `AND` and `OR`. Defaults to `AND`.")
     reward_id: Optional[RewardsReportFilterRewardIdConditions] = None
-    card_definition_id: Optional[SpendingReportFilterCardDefinitionIdConditions] = None
+    card_definition_id: Optional[ReportCardDefinitionIdFilterConditions] = None
     cost_id: Optional[RewardsSpendingsReportFilterCostIdConditions] = None
     spending_id: Optional[RewardsSpendingsReportFilterSpendingIdConditions] = None
     __properties: ClassVar[List[str]] = ["junction", "reward_id", "card_definition_id", "cost_id", "spending_id"]
@@ -118,7 +118,7 @@ class RewardsSpendingsReportListFilters(BaseModel):
         _obj = cls.model_validate({
             "junction": obj.get("junction"),
             "reward_id": RewardsReportFilterRewardIdConditions.from_dict(obj["reward_id"]) if obj.get("reward_id") is not None else None,
-            "card_definition_id": SpendingReportFilterCardDefinitionIdConditions.from_dict(obj["card_definition_id"]) if obj.get("card_definition_id") is not None else None,
+            "card_definition_id": ReportCardDefinitionIdFilterConditions.from_dict(obj["card_definition_id"]) if obj.get("card_definition_id") is not None else None,
             "cost_id": RewardsSpendingsReportFilterCostIdConditions.from_dict(obj["cost_id"]) if obj.get("cost_id") is not None else None,
             "spending_id": RewardsSpendingsReportFilterSpendingIdConditions.from_dict(obj["spending_id"]) if obj.get("spending_id") is not None else None
         })

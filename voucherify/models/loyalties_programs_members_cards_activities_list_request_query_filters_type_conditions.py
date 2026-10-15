@@ -27,10 +27,10 @@ class LoyaltiesProgramsMembersCardsActivitiesListRequestQueryFiltersTypeConditio
     """
     LoyaltiesProgramsMembersCardsActivitiesListRequestQueryFiltersTypeConditions
     """ # noqa: E501
-    var_is: Optional[StrictStr] = Field(default=None, description="Value equals. Single value or an array with exactly one value.", alias="$is")
-    is_not: Optional[StrictStr] = Field(default=None, description="Value does not equal. Single value or an array with exactly one value.", alias="$is_not")
-    var_in: Optional[StrictStr] = Field(default=None, description="Value is one of. Single value or an array of 1-10 values.", alias="$in")
-    not_in: Optional[StrictStr] = Field(default=None, description="Value is not one of. Single value or an array of 1-10 values.", alias="$not_in")
+    var_is: Optional[StrictStr] = Field(default=None, description="Matches one value. A string or a one-element array.", alias="$is")
+    is_not: Optional[StrictStr] = Field(default=None, description="Excludes one value. A string or a one-element array.", alias="$is_not")
+    var_in: Optional[StrictStr] = Field(default=None, description="Matches any of the values. A string or an array of 1 to 10 values.", alias="$in")
+    not_in: Optional[StrictStr] = Field(default=None, description="Excludes any of the values. A string or an array of 1 to 10 values.", alias="$not_in")
     __properties: ClassVar[List[str]] = ["$is", "$is_not", "$in", "$not_in"]
 
     @field_validator('var_is')

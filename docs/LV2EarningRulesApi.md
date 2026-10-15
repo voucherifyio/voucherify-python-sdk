@@ -52,7 +52,7 @@ configuration.api_key['X-App-Token'] = os.environ["API_KEY"]
 with voucherify.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = voucherify.LV2EarningRulesApi(api_client)
-    earning_rule_id = 'earning_rule_id_example' # str | Earning rule ID.
+    earning_rule_id = 'earning_rule_id_example' # str | Identifies the earning rule. Format lern_[a-f0-9]+.
 
     try:
         # Get earning rule
@@ -70,7 +70,7 @@ with voucherify.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **earning_rule_id** | **str**| Earning rule ID. | 
+ **earning_rule_id** | **str**| Identifies the earning rule. Format lern_[a-f0-9]+. | 
 
 ### Return type
 

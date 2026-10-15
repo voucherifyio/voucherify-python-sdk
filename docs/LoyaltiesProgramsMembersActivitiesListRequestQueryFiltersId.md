@@ -1,6 +1,6 @@
 # LoyaltiesProgramsMembersActivitiesListRequestQueryFiltersId
 
-ID filter conditions for member activity IDs. At least one condition is required.
+ID conditions. Format `lambr_[a-f0-9]+`. At least one condition is required.
 
 ## Properties
 

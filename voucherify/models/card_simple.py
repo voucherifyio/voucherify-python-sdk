@@ -32,26 +32,16 @@ class CardSimple(BaseModel):
     """
     A loyalty card in its simple representation, as embedded in member responses.
     """ # noqa: E501
+    id: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="Identifies the card.")
+    card_definition_id: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="Identifies the card definition.")
     card_type: Optional[StrictStr] = Field(default='INDIVIDUAL', description="Card type. Currently only `INDIVIDUAL` is supported.")
+    code: Optional[StrictStr] = Field(default=None, description="Human-readable card code. Card code generation is asynchronous - this field is `null` right after member creation and is populated shortly after, once the background code generation completes.")
     lifetime_bucket: Optional[CardLifetimeBucket] = None
     balance: Optional[CardBalance] = None
-    id: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="Unique Voucherify ID of the card.")
-    card_definition_id: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="Unique Voucherify ID of the card definition the card was created from.")
-    code: Optional[StrictStr] = Field(default=None, description="Human-readable card code. Card code generation is asynchronous - this field is `null` right after member creation and is populated shortly after, once the background code generation completes.")
+    object: Optional[StrictStr] = Field(default='card', description="Object type. Always `card`.")
     next_expiration: Optional[CardNextExpiration] = None
     next_activation: Optional[CardNextActivation] = None
-    object: Optional[StrictStr] = Field(default='card', description="Object type marker, always `card`.")
-    __properties: ClassVar[List[str]] = ["card_type", "lifetime_bucket", "balance", "id", "card_definition_id", "code", "next_expiration", "next_activation", "object"]
-
-    @field_validator('card_type')
-    def card_type_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['INDIVIDUAL']):
-            raise ValueError("must be one of enum values ('INDIVIDUAL')")
-        return value
+    __properties: ClassVar[List[str]] = ["id", "card_definition_id", "card_type", "code", "lifetime_bucket", "balance", "object", "next_expiration", "next_activation"]
 
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
@@ -71,6 +61,16 @@ class CardSimple(BaseModel):
 
         if not re.match(r"^lcdef_[a-f0-9]+$", value):
             raise ValueError(r"must validate the regular expression /^lcdef_[a-f0-9]+$/")
+        return value
+
+    @field_validator('card_type')
+    def card_type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['INDIVIDUAL']):
+            raise ValueError("must be one of enum values ('INDIVIDUAL')")
         return value
 
     @field_validator('object')
@@ -134,11 +134,6 @@ class CardSimple(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of next_activation
         if self.next_activation:
             _dict['next_activation'] = self.next_activation.to_dict()
-        # set to None if card_type (nullable) is None
-        # and model_fields_set contains the field
-        if self.card_type is None and "card_type" in self.model_fields_set:
-            _dict['card_type'] = None
-
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -148,6 +143,11 @@ class CardSimple(BaseModel):
         # and model_fields_set contains the field
         if self.card_definition_id is None and "card_definition_id" in self.model_fields_set:
             _dict['card_definition_id'] = None
+
+        # set to None if card_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.card_type is None and "card_type" in self.model_fields_set:
+            _dict['card_type'] = None
 
         # set to None if code (nullable) is None
         # and model_fields_set contains the field
@@ -171,15 +171,15 @@ class CardSimple(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "card_type": obj.get("card_type") if obj.get("card_type") is not None else 'INDIVIDUAL',
-            "lifetime_bucket": CardLifetimeBucket.from_dict(obj["lifetime_bucket"]) if obj.get("lifetime_bucket") is not None else None,
-            "balance": CardBalance.from_dict(obj["balance"]) if obj.get("balance") is not None else None,
             "id": obj.get("id"),
             "card_definition_id": obj.get("card_definition_id"),
+            "card_type": obj.get("card_type") if obj.get("card_type") is not None else 'INDIVIDUAL',
             "code": obj.get("code"),
+            "lifetime_bucket": CardLifetimeBucket.from_dict(obj["lifetime_bucket"]) if obj.get("lifetime_bucket") is not None else None,
+            "balance": CardBalance.from_dict(obj["balance"]) if obj.get("balance") is not None else None,
+            "object": obj.get("object") if obj.get("object") is not None else 'card',
             "next_expiration": CardNextExpiration.from_dict(obj["next_expiration"]) if obj.get("next_expiration") is not None else None,
-            "next_activation": CardNextActivation.from_dict(obj["next_activation"]) if obj.get("next_activation") is not None else None,
-            "object": obj.get("object") if obj.get("object") is not None else 'card'
+            "next_activation": CardNextActivation.from_dict(obj["next_activation"]) if obj.get("next_activation") is not None else None
         })
         return _obj
 

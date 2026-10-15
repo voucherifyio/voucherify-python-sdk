@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **source_id** | **str** | A unique identifier of the customer who validates a voucher. It can be a customer ID or email from a CRM system, database, or a third-party service. If you also pass a customer ID (unique ID assigned by Voucherify), the source ID will be ignored. | [optional] 
 **summary** | [**CustomerSummary**](CustomerSummary.md) |  | [optional] 
 **loyalty** | [**CustomerLoyalty**](CustomerLoyalty.md) |  | [optional] 
-**loyalty_memberships** | [**List[CustomerLoyaltyMembership]**](CustomerLoyaltyMembership.md) | List of Loyalty v2 program memberships for the customer. &#x60;null&#x60; when no memberships are stored. | [optional] 
+**loyalty_memberships** | [**List[CustomerLoyaltyMembership]**](CustomerLoyaltyMembership.md) | List of Loyalty v2 program memberships for the customer. Lists only existing &#x60;ACTIVE&#x60; memberships. &#x60;null&#x60; when no memberships are stored. Absent or &#x60;null&#x60; for &#x60;v1/orders&#x60; and &#x60;v1/publications&#x60; endpoints and events. | [optional] 
 **referrals** | [**CustomerReferrals**](CustomerReferrals.md) |  | [optional] 
 **system_metadata** | **object** | Object used to store system metadata information. | [optional] 
 **created_at** | **datetime** | Timestamp representing the date and time when the customer was created. The value is shown in the ISO 8601 format. | [optional] 

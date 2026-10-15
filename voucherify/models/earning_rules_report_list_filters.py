@@ -28,7 +28,7 @@ class EarningRulesReportListFilters(BaseModel):
     """
     Filters for program earning-rules reports.
     """ # noqa: E501
-    junction: Optional[StrictStr] = Field(default=None, description="Logical junction between the field filters. Defaults to AND behavior.")
+    junction: Optional[StrictStr] = Field(default=None, description="Joins the field filters. Allowed values are `AND` and `OR`. Defaults to `AND`.")
     earning_rule_id: Optional[EarningRuleIdFilterConditions] = None
     __properties: ClassVar[List[str]] = ["junction", "earning_rule_id"]
 

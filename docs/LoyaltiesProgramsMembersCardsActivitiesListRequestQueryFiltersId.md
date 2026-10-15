@@ -1,6 +1,6 @@
 # LoyaltiesProgramsMembersCardsActivitiesListRequestQueryFiltersId
 
-ID filter conditions for card activity IDs. At least one condition is required.
+ID conditions. Format `lacrd_[a-f0-9]+`. At least one condition is required.
 
 ## Properties
 

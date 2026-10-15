@@ -30,7 +30,7 @@ class CustomerLoyaltyMembershipMember(BaseModel):
     Loyalty v2 member recorded on the customer membership.
     """ # noqa: E501
     id: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="Identifies the Loyalty v2 program member.")
-    status: Optional[StrictStr] = Field(default=None, description="Member status.")
+    status: Optional[StrictStr] = Field(default=None, description="Member status. List responses include only ACTIVE memberships. INACTIVE and DELETED remain so existing SDK callers keep compiling.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing when the member was created. The value is shown in the ISO 8601 format.")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp representing when the member was updated. The value is shown in the ISO 8601 format. `null` when not set.")
     __properties: ClassVar[List[str]] = ["id", "status", "created_at", "updated_at"]

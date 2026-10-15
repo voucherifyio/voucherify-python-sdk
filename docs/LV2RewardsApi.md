@@ -52,7 +52,7 @@ configuration.api_key['X-App-Token'] = os.environ["API_KEY"]
 with voucherify.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = voucherify.LV2RewardsApi(api_client)
-    reward_id = 'reward_id_example' # str | Unique reward identifier, prefixed with lrew_.
+    reward_id = 'reward_id_example' # str | Identifies the reward. Format lrew_[a-f0-9]+.
 
     try:
         # Get reward by ID
@@ -70,7 +70,7 @@ with voucherify.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **reward_id** | **str**| Unique reward identifier, prefixed with lrew_. | 
+ **reward_id** | **str**| Identifies the reward. Format lrew_[a-f0-9]+. | 
 
 ### Return type
 

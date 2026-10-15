@@ -42,7 +42,7 @@ class LV2BenefitsApi:
     @validate_call
     def get_benefit(
         self,
-        benefit_id: Annotated[str, Field(strict=True, description="Unique benefit ID, prefixed with lben_.")],
+        benefit_id: Annotated[str, Field(strict=True, description="Identifies the benefit. Format lben_[a-f0-9]+.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -60,7 +60,7 @@ class LV2BenefitsApi:
 
         Returns a single benefit by its ID.
 
-        :param benefit_id: Unique benefit ID, prefixed with lben_. (required)
+        :param benefit_id: Identifies the benefit. Format lben_[a-f0-9]+. (required)
         :type benefit_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -109,7 +109,7 @@ class LV2BenefitsApi:
     @validate_call
     def get_benefit_with_http_info(
         self,
-        benefit_id: Annotated[str, Field(strict=True, description="Unique benefit ID, prefixed with lben_.")],
+        benefit_id: Annotated[str, Field(strict=True, description="Identifies the benefit. Format lben_[a-f0-9]+.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -127,7 +127,7 @@ class LV2BenefitsApi:
 
         Returns a single benefit by its ID.
 
-        :param benefit_id: Unique benefit ID, prefixed with lben_. (required)
+        :param benefit_id: Identifies the benefit. Format lben_[a-f0-9]+. (required)
         :type benefit_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -176,7 +176,7 @@ class LV2BenefitsApi:
     @validate_call
     def get_benefit_without_preload_content(
         self,
-        benefit_id: Annotated[str, Field(strict=True, description="Unique benefit ID, prefixed with lben_.")],
+        benefit_id: Annotated[str, Field(strict=True, description="Identifies the benefit. Format lben_[a-f0-9]+.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -194,7 +194,7 @@ class LV2BenefitsApi:
 
         Returns a single benefit by its ID.
 
-        :param benefit_id: Unique benefit ID, prefixed with lben_. (required)
+        :param benefit_id: Identifies the benefit. Format lben_[a-f0-9]+. (required)
         :type benefit_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

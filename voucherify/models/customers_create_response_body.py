@@ -38,7 +38,7 @@ class CustomersCreateResponseBody(BaseModel):
     source_id: Optional[StrictStr] = Field(default=None, description="A unique identifier of the customer who validates a voucher. It can be a customer ID or email from a CRM system, database, or a third-party service. If you also pass a customer ID (unique ID assigned by Voucherify), the source ID will be ignored.")
     summary: Optional[CustomerSummary] = None
     loyalty: Optional[CustomerLoyalty] = None
-    loyalty_memberships: Optional[List[CustomerLoyaltyMembership]] = Field(default=None, description="List of Loyalty v2 program memberships for the customer. `null` when no memberships are stored.")
+    loyalty_memberships: Optional[List[CustomerLoyaltyMembership]] = Field(default=None, description="List of Loyalty v2 program memberships for the customer. Lists only existing `ACTIVE` memberships. `null` when no memberships are stored. Absent or `null` for `v1/orders` and `v1/publications` endpoints and events.")
     referrals: Optional[CustomerReferrals] = None
     system_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Object used to store system metadata information.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the customer was created. The value is shown in the ISO 8601 format.")

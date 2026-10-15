@@ -120,6 +120,8 @@ This SDK is generated automatically from our [OpenAPI specification](https://git
 ADDED:
 - Loyalty v2 API methods for members, memberships, cards, examine, reports, and related non-WIP reads under `/v2/loyalties`.
 - `loyalty_memberships` on customer summary models.
+- Optional `filters` query parameter on list customers.
+- Customer loyalty membership responses list only `ACTIVE` memberships. The status enum still includes `INACTIVE` and `DELETED`.
 - **2026-08-26** - `6.1.1`
 FIXED:
 - `RewardsCreateRequestBodyParametersCoin.exchange_ratio` and `RewardsUpdateRequestBodyParametersCoin.exchange_ratio` typed as `float` (were `str`). `RedemptionRewardResultParametersCoin.exchange_ratio` was already `float` in `6.1.0`.
@@ -2123,8 +2125,6 @@ Class | Method | HTTP request | Description
  - [ParameterVoucherTypeListPublications](docs/ParameterVoucherTypeListPublications.md)
  - [ParametersFiltersListCampaignTransactions](docs/ParametersFiltersListCampaignTransactions.md)
  - [PointsEarningsReportDailyEntry](docs/PointsEarningsReportDailyEntry.md)
- - [PointsEarningsReportFilterCardDefinitionIdConditions](docs/PointsEarningsReportFilterCardDefinitionIdConditions.md)
- - [PointsEarningsReportFilterCardDefinitionIdConditionsConditions](docs/PointsEarningsReportFilterCardDefinitionIdConditionsConditions.md)
  - [PointsEarningsReportListFilters](docs/PointsEarningsReportListFilters.md)
  - [PointsEarningsReportSummaryEntry](docs/PointsEarningsReportSummaryEntry.md)
  - [PointsExpirationTypes](docs/PointsExpirationTypes.md)
@@ -2394,6 +2394,8 @@ Class | Method | HTTP request | Description
  - [Referrer](docs/Referrer.md)
  - [ReferrerAddress](docs/ReferrerAddress.md)
  - [ReferrerId](docs/ReferrerId.md)
+ - [ReportCardDefinitionIdFilterConditions](docs/ReportCardDefinitionIdFilterConditions.md)
+ - [ReportCardDefinitionIdFilterConditionsConditions](docs/ReportCardDefinitionIdFilterConditionsConditions.md)
  - [ResourceTypes](docs/ResourceTypes.md)
  - [Reward](docs/Reward.md)
  - [RewardAssignment](docs/RewardAssignment.md)
@@ -2499,8 +2501,6 @@ Class | Method | HTTP request | Description
  - [SkusImportCsvCreateResponseBody](docs/SkusImportCsvCreateResponseBody.md)
  - [SkusListForProduct](docs/SkusListForProduct.md)
  - [SpendingReportDailyEntry](docs/SpendingReportDailyEntry.md)
- - [SpendingReportFilterCardDefinitionIdConditions](docs/SpendingReportFilterCardDefinitionIdConditions.md)
- - [SpendingReportFilterCardDefinitionIdConditionsConditions](docs/SpendingReportFilterCardDefinitionIdConditionsConditions.md)
  - [SpendingReportListFilters](docs/SpendingReportListFilters.md)
  - [SpendingReportSummaryEntry](docs/SpendingReportSummaryEntry.md)
  - [StackingRules](docs/StackingRules.md)
