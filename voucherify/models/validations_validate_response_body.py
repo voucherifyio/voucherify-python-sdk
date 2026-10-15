@@ -35,7 +35,7 @@ class ValidationsValidateResponseBody(BaseModel):
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the validation, assigned by Voucherify.")
     valid: Optional[StrictBool] = Field(default=None, description="The result of the validation. It takes all of the redeemables into account and returns a `false` if at least one redeemable is inapplicable. Returns `true` if all redeemables are applicable.")
-    redeemables: Optional[List[ValidationsValidateResponseBodyRedeemablesItem]] = None
+    redeemables: Optional[List[ValidationsValidateResponseBodyRedeemablesItem]] = Field(default=None, description="Lists validation results of each redeemable. If  `redeemables_application_mode` is `PARTIAL` in the `stacking_rules` object, all redeemables here will be `APPLICABLE`. Read more in [the Stacking rules article](/orchestrate/stacking-rules).")
     skipped_redeemables: Optional[List[ValidationsRedeemableSkipped]] = Field(default=None, description="Lists validation results of each skipped redeemable.")
     inapplicable_redeemables: Optional[List[ValidationsRedeemableInapplicable]] = Field(default=None, description="Lists validation results of each inapplicable redeemable.")
     order: Optional[ValidationsValidateResponseBodyOrder] = None

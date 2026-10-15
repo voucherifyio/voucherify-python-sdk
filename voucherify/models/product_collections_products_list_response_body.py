@@ -30,7 +30,7 @@ class ProductCollectionsProductsListResponseBody(BaseModel):
     """ # noqa: E501
     object: Optional[StrictStr] = Field(default='list', description="The type of the object represented by JSON. This object stores information about products and SKUs.")
     data_ref: Optional[StrictStr] = Field(default='data', description="Identifies the name of the JSON property that contains the array of products and SKUs.")
-    data: Optional[List[ProductCollectionsProductsListResponseBodyDataItem]] = None
+    data: Optional[List[ProductCollectionsProductsListResponseBodyDataItem]] = Field(default=None, description="A dictionary that contains an array of products and SKUs.")
     total: Optional[StrictInt] = Field(default=None, description="Total number of products & SKUs in the product collection.")
     __properties: ClassVar[List[str]] = ["object", "data_ref", "data", "total"]
 

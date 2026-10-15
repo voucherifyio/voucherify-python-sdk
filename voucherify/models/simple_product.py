@@ -28,7 +28,7 @@ class SimpleProduct(BaseModel):
     SimpleProduct
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Unique product ID.")
-    source_id: Optional[StrictStr] = Field(default=None, description="Product source id.")
+    source_id: Optional[StrictStr] = Field(default=None, description="Product source ID.")
     name: Optional[StrictStr] = Field(default=None, description="Product name.")
     __properties: ClassVar[List[str]] = ["id", "source_id", "name"]
 

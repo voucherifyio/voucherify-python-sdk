@@ -31,7 +31,7 @@ class ReferralsMembersHoldersListResponseBody(BaseModel):
     object: Optional[StrictStr] = Field(default='list', description="The type of the object represented by JSON. This object stores information about redeemables holders")
     data_ref: Optional[StrictStr] = Field(default='data', description="Identifies the name of the JSON property that contains the array of holders.")
     data: Optional[List[RedeemableHolder]] = Field(default=None, description="A dictionary that contains an array of holders.")
-    total: Optional[StrictInt] = Field(default=None, description="Total number of holders assigned to the redeemable.")
+    total: Optional[StrictInt] = Field(default=None, description="Total number of results returned on this page.")
     has_more: Optional[StrictBool] = Field(default=None, description="As query results are always limited (by the limit parameter), the `has_more` flag indicates if there are more records for given filter parameters. This lets you know if you can run another request with a `starting_after_id` query or a different limit to get more records returned in the results.")
     more_starting_after: Optional[StrictStr] = Field(default=None, description="Returns an ID that can be used to return another page of results. Use the ID in the `starting_after_id` query parameter to display another page of the results occuring after the field with that ID.")
     __properties: ClassVar[List[str]] = ["object", "data_ref", "data", "total", "has_more", "more_starting_after"]

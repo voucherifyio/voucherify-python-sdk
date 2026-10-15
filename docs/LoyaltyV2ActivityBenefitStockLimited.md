@@ -1,0 +1,13 @@
+# LoyaltyV2ActivityBenefitStockLimited
+
+Limited stock configuration.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**quantity** | **int** | Available Remaining stock quantity. For responses, updates with each benefit purchase. | [optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
