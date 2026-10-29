@@ -36,37 +36,50 @@ class TestLoyaltyV2SDK(unittest.TestCase):
         cls.customers_api = voucherifyClient.CustomersApi(cls.api_client)
         cls.orders_api = voucherifyClient.OrdersApi(cls.api_client)
 
-        cls.fixture_ctx = fixture.setup()
+        try:
+            cls.fixture_ctx = fixture.setup()
 
-        cls.customer = cls.customers_api.create_customer(
-            voucherifyClient.CustomersCreateRequestBody(
-                source_id=f"lv2_customer_{cls.fixture_ctx.suffix}",
-                name="Loyalty v2 Python SDK test",
+            cls.customer = cls.customers_api.create_customer(
+                voucherifyClient.CustomersCreateRequestBody(
+                    source_id=f"lv2_customer_{cls.fixture_ctx.suffix}",
+                    name="Loyalty v2 Python SDK test",
+                )
             )
-        )
 
-        created = cls.programs_api.create_program_member(
-            cls.fixture_ctx.program_id,
-            voucherifyClient.V2LoyaltiesProgramsMembersCreateRequestBody(
-                customer_identification={
-                    "type": "customer_id",
-                    "customer_id": cls.customer.id,
-                    "customer_source_id": None,
-                }
-            ),
-        )
-        cls.member_id = created.id
-        cls.member = cls.programs_api.get_program_member(
-            cls.fixture_ctx.program_id, cls.member_id
-        )
-        cls.primary_card_id = cls._resolve_primary_card_id(
-            cls.member.cards, cls.fixture_ctx.card_definition_id
-        )
+            created = cls.programs_api.create_program_member(
+                cls.fixture_ctx.program_id,
+                voucherifyClient.V2LoyaltiesProgramsMembersCreateRequestBody(
+                    customer_identification={
+                        "type": "customer_id",
+                        "customer_id": cls.customer.id,
+                        "customer_source_id": None,
+                    }
+                ),
+            )
+            cls.member_id = created.id
+            cls.member = cls.programs_api.get_program_member(
+                cls.fixture_ctx.program_id, cls.member_id
+            )
+            cls.primary_card_id = cls._resolve_primary_card_id(
+                cls.member.cards, cls.fixture_ctx.card_definition_id
+            )
+        except Exception:
+            cls._cleanup_resources()
+            raise
 
     @classmethod
     def tearDownClass(cls):
+        cls._cleanup_resources()
+
+    @classmethod
+    def _cleanup_resources(cls):
+        """Always-run cleanup: member/customer via SDK, then HTTP fixture teardown."""
         try:
-            if cls.fixture_ctx is not None and cls.member_id is not None:
+            if (
+                getattr(cls, "fixture_ctx", None) is not None
+                and getattr(cls, "member_id", None) is not None
+                and getattr(cls, "programs_api", None) is not None
+            ):
                 cls._ignore_api(
                     "deactivate_program_member",
                     lambda: cls.programs_api.deactivate_program_member(
@@ -79,12 +92,15 @@ class TestLoyaltyV2SDK(unittest.TestCase):
                         cls.fixture_ctx.program_id, cls.member_id
                     ),
                 )
-            if cls.customer is not None:
+            if (
+                getattr(cls, "customer", None) is not None
+                and getattr(cls, "customers_api", None) is not None
+            ):
                 cls._ignore_api(
                     "delete_customer",
                     lambda: cls.customers_api.delete_customer(cls.customer.id),
                 )
-            if cls.fixture_ctx is not None:
+            if getattr(cls, "fixture_ctx", None) is not None:
                 fixture.teardown(cls.fixture_ctx)
         finally:
             cls.fixture_ctx = None

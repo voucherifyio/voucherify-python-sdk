@@ -179,47 +179,66 @@ def setup() -> LoyaltyV2Context:
     )
 
 
-def _ignore(label: str, action: Callable[[], Any]) -> None:
+def _ignore(label: str, action: Callable[[], Any]) -> bool:
+    """Run cleanup action. Returns True on success / 404; False when skipped after error."""
     try:
         action()
+        return True
     except http.LoyaltyV2HttpError as exc:
         if exc.status == 404:
-            return
+            return True
         print(f"Loyalty v2 teardown {label}: {exc}")
+        return False
+
+
+def _delete_after_deactivate(
+    label: str,
+    deactivate: Optional[Callable[[], Any]],
+    delete: Callable[[], Any],
+) -> None:
+    if deactivate is not None:
+        _ignore(f"deactivate_{label}", deactivate)
+    if not _ignore(f"delete_{label}", delete) and deactivate is not None:
+        # Delete rejected (e.g. 423); leave deactivated and do not fail the suite.
+        _ignore(f"deactivate_{label}_after_delete_reject", deactivate)
 
 
 def teardown(ctx: Optional[LoyaltyV2Context]) -> None:
+    """
+    Cleanup order that avoids 423 on card definitions:
+    1. Deactivate + delete program (drops assignments)
+    2. Deactivate + delete earning rule and reward
+    3. Delete card definitions
+    """
     if ctx is None:
         return
 
     if ctx.program_id:
-        _ignore("deactivate_program", lambda: http.deactivate_program(ctx.program_id))
-        _ignore("delete_program", lambda: http.delete_program(ctx.program_id))
+        _delete_after_deactivate(
+            "program",
+            lambda: http.deactivate_program(ctx.program_id),
+            lambda: http.delete_program(ctx.program_id),
+        )
 
     if ctx.earning_rule_id:
-        _ignore(
-            "deactivate_earning_rule",
+        _delete_after_deactivate(
+            "earning_rule",
             lambda: http.deactivate_earning_rule(ctx.earning_rule_id),
+            lambda: http.delete_earning_rule(ctx.earning_rule_id),
         )
     if ctx.reward_id:
-        _ignore(
-            "deactivate_reward",
+        _delete_after_deactivate(
+            "reward",
             lambda: http.deactivate_reward(ctx.reward_id),
+            lambda: http.delete_reward(ctx.reward_id),
         )
 
     time.sleep(0.5)
 
-    if ctx.earning_rule_id:
-        _ignore(
-            "delete_earning_rule",
-            lambda: http.delete_earning_rule(ctx.earning_rule_id),
-        )
-    if ctx.reward_id:
-        _ignore("delete_reward", lambda: http.delete_reward(ctx.reward_id))
-
     for card_id in (ctx.card_definition_id, ctx.reward_card_definition_id):
         if card_id:
-            _ignore(
-                "delete_card_definition",
+            _delete_after_deactivate(
+                "card_definition",
+                None,
                 lambda card_id=card_id: http.delete_card_definition(card_id),
             )
