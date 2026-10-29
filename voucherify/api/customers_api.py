@@ -19,7 +19,7 @@ from typing_extensions import Annotated
 
 from datetime import datetime
 from pydantic import Field, StrictBytes, StrictStr
-from typing import Any, Dict, List, Optional, Union
+from typing import List, Optional, Union
 from typing_extensions import Annotated
 from voucherify.models.customers_activity_list_response_body import CustomersActivityListResponseBody
 from voucherify.models.customers_create_request_body import CustomersCreateRequestBody
@@ -2415,7 +2415,6 @@ class CustomersApi:
         updated_at_after: Annotated[Optional[datetime], Field(description="Filter customers by date customer was updated last time.")] = None,
         order: Annotated[Optional[ParameterOrderListCustomers], Field(description="This is a property that controls the sorting direction of the results. Sort the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
         starting_after: Annotated[Optional[datetime], Field(description="A cursor for pagination. This is a date-time value that defines your place in the list based on created_at property from the customer object. For instance, if you make a list request and receive 100 objects, ending with an object created at 2020-05-24T13:43:09.024Z, your subsequent call can include starting_after 2020-05-24T13:43:09.024Z in order to fetch the next page of the list.  ")] = None,
-        filters: Annotated[Optional[Dict[str, Dict[str, Any]]], Field(description="Filters customers by field conditions. Read [Advanced filters for fetching resources](/api-reference/listing#advanced-filters-for-fetching-resources) for examples.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2457,8 +2456,6 @@ class CustomersApi:
         :type order: ParameterOrderListCustomers
         :param starting_after: A cursor for pagination. This is a date-time value that defines your place in the list based on created_at property from the customer object. For instance, if you make a list request and receive 100 objects, ending with an object created at 2020-05-24T13:43:09.024Z, your subsequent call can include starting_after 2020-05-24T13:43:09.024Z in order to fetch the next page of the list.  
         :type starting_after: datetime
-        :param filters: Filters customers by field conditions. Read [Advanced filters for fetching resources](/api-reference/listing#advanced-filters-for-fetching-resources) for examples.
-        :type filters: object
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2494,7 +2491,6 @@ class CustomersApi:
             updated_at_after=updated_at_after,
             order=order,
             starting_after=starting_after,
-            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2530,7 +2526,6 @@ class CustomersApi:
         updated_at_after: Annotated[Optional[datetime], Field(description="Filter customers by date customer was updated last time.")] = None,
         order: Annotated[Optional[ParameterOrderListCustomers], Field(description="This is a property that controls the sorting direction of the results. Sort the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
         starting_after: Annotated[Optional[datetime], Field(description="A cursor for pagination. This is a date-time value that defines your place in the list based on created_at property from the customer object. For instance, if you make a list request and receive 100 objects, ending with an object created at 2020-05-24T13:43:09.024Z, your subsequent call can include starting_after 2020-05-24T13:43:09.024Z in order to fetch the next page of the list.  ")] = None,
-        filters: Annotated[Optional[Dict[str, Dict[str, Any]]], Field(description="Filters customers by field conditions. Read [Advanced filters for fetching resources](/api-reference/listing#advanced-filters-for-fetching-resources) for examples.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2572,8 +2567,6 @@ class CustomersApi:
         :type order: ParameterOrderListCustomers
         :param starting_after: A cursor for pagination. This is a date-time value that defines your place in the list based on created_at property from the customer object. For instance, if you make a list request and receive 100 objects, ending with an object created at 2020-05-24T13:43:09.024Z, your subsequent call can include starting_after 2020-05-24T13:43:09.024Z in order to fetch the next page of the list.  
         :type starting_after: datetime
-        :param filters: Filters customers by field conditions. Read [Advanced filters for fetching resources](/api-reference/listing#advanced-filters-for-fetching-resources) for examples.
-        :type filters: object
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2609,7 +2602,6 @@ class CustomersApi:
             updated_at_after=updated_at_after,
             order=order,
             starting_after=starting_after,
-            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2645,7 +2637,6 @@ class CustomersApi:
         updated_at_after: Annotated[Optional[datetime], Field(description="Filter customers by date customer was updated last time.")] = None,
         order: Annotated[Optional[ParameterOrderListCustomers], Field(description="This is a property that controls the sorting direction of the results. Sort the results using one of the filtering options, where the dash - preceding a sorting option means sorting in a descending order.")] = None,
         starting_after: Annotated[Optional[datetime], Field(description="A cursor for pagination. This is a date-time value that defines your place in the list based on created_at property from the customer object. For instance, if you make a list request and receive 100 objects, ending with an object created at 2020-05-24T13:43:09.024Z, your subsequent call can include starting_after 2020-05-24T13:43:09.024Z in order to fetch the next page of the list.  ")] = None,
-        filters: Annotated[Optional[Dict[str, Dict[str, Any]]], Field(description="Filters customers by field conditions. Read [Advanced filters for fetching resources](/api-reference/listing#advanced-filters-for-fetching-resources) for examples.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2687,8 +2678,6 @@ class CustomersApi:
         :type order: ParameterOrderListCustomers
         :param starting_after: A cursor for pagination. This is a date-time value that defines your place in the list based on created_at property from the customer object. For instance, if you make a list request and receive 100 objects, ending with an object created at 2020-05-24T13:43:09.024Z, your subsequent call can include starting_after 2020-05-24T13:43:09.024Z in order to fetch the next page of the list.  
         :type starting_after: datetime
-        :param filters: Filters customers by field conditions. Read [Advanced filters for fetching resources](/api-reference/listing#advanced-filters-for-fetching-resources) for examples.
-        :type filters: object
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2724,7 +2713,6 @@ class CustomersApi:
             updated_at_after=updated_at_after,
             order=order,
             starting_after=starting_after,
-            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2755,7 +2743,6 @@ class CustomersApi:
         updated_at_after,
         order,
         starting_after,
-        filters,
         _request_auth,
         _content_type,
         _headers,
@@ -2868,10 +2855,6 @@ class CustomersApi:
                 )
             else:
                 _query_params.append(('starting_after', starting_after))
-            
-        if filters is not None:
-            
-            _query_params.append(('filters', filters))
             
         # process the header parameters
         # process the form parameters

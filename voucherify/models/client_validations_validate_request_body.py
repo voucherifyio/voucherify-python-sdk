@@ -20,7 +20,6 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
 from voucherify.models.client_validations_validate_request_body_options import ClientValidationsValidateRequestBodyOptions
 from voucherify.models.client_validations_validate_request_body_redeemables_item import ClientValidationsValidateRequestBodyRedeemablesItem
 from voucherify.models.customer import Customer
@@ -34,7 +33,7 @@ class ClientValidationsValidateRequestBody(BaseModel):
     Request body schema for **POST** `v1/validations`.
     """ # noqa: E501
     options: Optional[ClientValidationsValidateRequestBodyOptions] = None
-    redeemables: Optional[Annotated[List[ClientValidationsValidateRequestBodyRedeemablesItem], Field(min_length=1, max_length=30)]] = Field(default=None, description="An array of redeemables. You can combine `voucher`(s) and `promotion_tier`(s). Alternatively, send one unique`promotion_stack` in the array. Each unique redeemable can be sent in one request only once.")
+    redeemables: Optional[List[ClientValidationsValidateRequestBodyRedeemablesItem]] = Field(default=None, description="An array of redeemables. You can combine `voucher`(s) and `promotion_tier`(s). Alternatively, send one unique`promotion_stack` in the array. Each unique redeemable can be sent in one request only once.")
     order: Optional[Order] = None
     customer: Optional[Customer] = None
     session: Optional[Session] = None
