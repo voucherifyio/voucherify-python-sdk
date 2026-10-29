@@ -3,6 +3,7 @@ import os
 import sys
 import time
 import unittest
+from datetime import date, timedelta
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../"))
 sys.path.insert(0, os.path.dirname(__file__))
@@ -29,6 +30,9 @@ class TestLoyaltyV2SDK(unittest.TestCase):
     def setUpClass(cls):
         cls.api_client = voucherifyClient.ApiClient(spec_utils.configuration)
         cls.programs_api = voucherifyClient.LV2ProgramsApi(cls.api_client)
+        cls.examine_api = voucherifyClient.LV2ExamineApi(cls.api_client)
+        cls.earning_rules_api = voucherifyClient.LV2EarningRulesApi(cls.api_client)
+        cls.rewards_api = voucherifyClient.LV2RewardsApi(cls.api_client)
         cls.customers_api = voucherifyClient.CustomersApi(cls.api_client)
         cls.orders_api = voucherifyClient.OrdersApi(cls.api_client)
 
@@ -276,6 +280,71 @@ class TestLoyaltyV2SDK(unittest.TestCase):
                 )
             ),
         )
+
+    def test_06_examine_and_reports_via_sdk(self):
+        identification = voucherifyClient.ExamineCustomerIdentification(
+            type="member_id",
+            member_id=self.member_id,
+        )
+        earning_rules_body = (
+            voucherifyClient.LoyaltiesExamineEarningRulesExamineRequestBody(
+                trigger=voucherifyClient.LoyaltiesExamineEarningRulesExamineRequestBodyTrigger(
+                    type="SPECIFIC",
+                    specific=voucherifyClient.LoyaltiesExamineEarningRulesExamineRequestBodyTriggerSpecific(
+                        event="customer.order.paid",
+                    ),
+                ),
+                customer_identification=identification,
+                customer_order_paid=voucherifyClient.LoyaltiesExamineEarningRulesExamineRequestBodyCustomerOrderPaid(
+                    order=voucherifyClient.LoyaltiesExamineEarningRulesExamineRequestBodyOrder(
+                        amount=5000,
+                    )
+                ),
+            )
+        )
+        self.assertIsNotNone(
+            self.examine_api.examine_earning_rules(earning_rules_body)
+        )
+
+        rewards_body = voucherifyClient.LoyaltiesExamineRewardsExamineRequestBody(
+            customer_identification=identification,
+        )
+        self.assertIsNotNone(self.examine_api.examine_rewards(rewards_body))
+
+        members_summary = self.programs_api.list_program_members_summary_reports(
+            self.fixture_ctx.program_id
+        )
+        self.assertIsNotNone(members_summary.data)
+
+        rewards_summary = self.programs_api.list_program_rewards_summary_reports(
+            self.fixture_ctx.program_id
+        )
+        self.assertIsNotNone(rewards_summary.data)
+
+        end_date = date.today()
+        start_date = end_date - timedelta(days=1)
+        members_daily = self.programs_api.list_program_members_daily_reports(
+            self.fixture_ctx.program_id, start_date, end_date, "day"
+        )
+        self.assertIsNotNone(members_daily.data)
+
+        card_daily = self.programs_api.list_member_card_daily_reports(
+            self.fixture_ctx.program_id,
+            self.member_id,
+            self.primary_card_id,
+            start_date,
+            end_date,
+            "day",
+        )
+        self.assertIsNotNone(card_daily.data)
+
+        earning_rule = self.earning_rules_api.get_earning_rule(
+            self.fixture_ctx.earning_rule_id
+        )
+        self.assertEqual(earning_rule.id, self.fixture_ctx.earning_rule_id)
+
+        reward = self.rewards_api.get_reward(self.fixture_ctx.reward_id)
+        self.assertEqual(reward.id, self.fixture_ctx.reward_id)
 
 
 if __name__ == "__main__":
