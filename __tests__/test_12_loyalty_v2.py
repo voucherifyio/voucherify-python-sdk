@@ -1,5 +1,7 @@
+import json
 import os
 import sys
+import time
 import unittest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../"))
@@ -28,6 +30,7 @@ class TestLoyaltyV2SDK(unittest.TestCase):
         cls.api_client = voucherifyClient.ApiClient(spec_utils.configuration)
         cls.programs_api = voucherifyClient.LV2ProgramsApi(cls.api_client)
         cls.customers_api = voucherifyClient.CustomersApi(cls.api_client)
+        cls.orders_api = voucherifyClient.OrdersApi(cls.api_client)
 
         cls.fixture_ctx = fixture.setup()
 
@@ -158,6 +161,121 @@ class TestLoyaltyV2SDK(unittest.TestCase):
             self.member.cards, self.fixture_ctx.card_definition_id
         )
         self.assertTrue(self.primary_card_id.startswith("lcrd_"))
+
+    def test_03_adjust_card_points_and_list_transactions(self):
+        self.programs_api.adjust_card_points(
+            self.fixture_ctx.program_id,
+            self.member_id,
+            self.primary_card_id,
+            voucherifyClient.V2LoyaltiesProgramsMembersCardsPointsAdjustRequestBody(
+                points=100,
+                reason="python sdk loyalty v2 e2e",
+            ),
+        )
+
+        time.sleep(3)
+
+        type(self).member = self.programs_api.get_program_member(
+            self.fixture_ctx.program_id, self.member_id
+        )
+        primary = None
+        for entry in self.member.cards or []:
+            if entry.card and entry.card.id == self.primary_card_id:
+                primary = entry
+                break
+        self.assertIsNotNone(primary)
+        self.assertIsNotNone(primary.card.balance)
+        self.assertGreater(primary.card.balance.points or 0, 0)
+
+        transactions = self.programs_api.list_card_transactions(
+            self.fixture_ctx.program_id,
+            self.member_id,
+            self.primary_card_id,
+        )
+        self.assertTrue(transactions.data)
+
+    def test_04_create_member_order_payment_dry_run(self):
+        order = self.orders_api.create_order(
+            voucherifyClient.OrdersCreateRequestBody(
+                amount=2500,
+                source_id=f"lv2_order_{self.fixture_ctx.suffix}",
+                customer=voucherifyClient.Customer(id=self.customer.id),
+            )
+        )
+        self.assertTrue(order.id.startswith("ord_"))
+
+        self.programs_api.create_member_order_payment(
+            self.fixture_ctx.program_id,
+            self.member_id,
+            voucherifyClient.V2LoyaltiesProgramsMembersOrdersPaymentsCreateRequestBody(
+                card_id=self.primary_card_id,
+                order=voucherifyClient.OrderPaymentOrder(id=order.id),
+                payment_limit=voucherifyClient.LoyaltiesProgramsMembersOrdersPaymentsCreateRequestBodyLimit(
+                    type="CARD_BALANCE"
+                ),
+                mode="DRY_RUN",
+            ),
+        )
+
+        listed = self.programs_api.list_member_order_payments(
+            self.fixture_ctx.program_id, self.member_id
+        )
+        self.assertIsNotNone(listed)
+
+    def test_05_purchase_member_reward_and_refund(self):
+        self.programs_api.purchase_member_reward(
+            self.fixture_ctx.program_id,
+            self.member_id,
+            voucherifyClient.V2LoyaltiesProgramsMembersRewardsPurchasesCreateRequestBody(
+                reward_id=self.fixture_ctx.reward_id,
+                mode="DRY_RUN",
+            ),
+        )
+
+        # Generated transaction model types card_transaction_id as object; live API
+        # returns a string. Read raw JSON so the suite does not depend on that bug.
+        raw = self.programs_api.purchase_member_reward_without_preload_content(
+            self.fixture_ctx.program_id,
+            self.member_id,
+            voucherifyClient.V2LoyaltiesProgramsMembersRewardsPurchasesCreateRequestBody(
+                reward_id=self.fixture_ctx.reward_id,
+                mode="TRANSACTION",
+            ),
+        )
+        purchase = json.loads(raw.data.decode("utf-8"))
+        self.assertIsNotNone(purchase)
+        reward_transaction_id = (purchase.get("transaction") or {}).get("id")
+        self.assertIsNotNone(reward_transaction_id)
+
+        approved_row = None
+        for _ in range(15):
+            time.sleep(1)
+            listed = self.programs_api.list_member_reward_purchases(
+                self.fixture_ctx.program_id, self.member_id
+            )
+            rows = listed.data or []
+            self.assertTrue(rows)
+            for row in rows:
+                if row.id == reward_transaction_id and row.status == "APPROVED":
+                    approved_row = row
+                    break
+            if approved_row is None and rows and rows[0].status == "APPROVED":
+                approved_row = rows[0]
+            if approved_row is not None:
+                break
+
+        self.assertIsNotNone(approved_row)
+        refund_id = approved_row.id or reward_transaction_id
+        self.programs_api.refund_reward_purchase(
+            self.fixture_ctx.program_id,
+            refund_id,
+            voucherifyClient.V2LoyaltiesProgramsRewardsPurchasesRefundRequestBody(
+                policies=voucherifyClient.RewardPurchaseRefundPolicies(
+                    refund="ALLOW",
+                    stock="DEFAULT",
+                )
+            ),
+        )
 
 
 if __name__ == "__main__":
