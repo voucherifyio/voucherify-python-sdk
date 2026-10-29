@@ -30,7 +30,7 @@ class PublicationsListResponseBody(BaseModel):
     """ # noqa: E501
     object: Optional[StrictStr] = Field(default='list', description="The type of the object represented by JSON. This object stores information about publications in a dictionary.")
     data_ref: Optional[StrictStr] = Field(default='publications', description="Identifies the name of the attribute that contains the array of publications.")
-    publications: Optional[List[PublicationsListResponseBodyPublicationsItem]] = Field(default=None, description="Response schema model for publishing vouchers to a specific customer.")
+    publications: Optional[List[PublicationsListResponseBodyPublicationsItem]] = Field(default=None, description="Contains array of publication objects, voucher object will be simplified.")
     total: Optional[StrictInt] = Field(default=None, description="Total number of publications.")
     __properties: ClassVar[List[str]] = ["object", "data_ref", "publications", "total"]
 

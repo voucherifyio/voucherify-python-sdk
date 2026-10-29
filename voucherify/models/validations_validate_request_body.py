@@ -33,7 +33,7 @@ class ValidationsValidateRequestBody(BaseModel):
     Request body schema for **POST** `v1/validations`.
     """ # noqa: E501
     options: Optional[ValidationsValidateRequestBodyOptions] = None
-    redeemables: Optional[List[ValidationsValidateRequestBodyRedeemablesItem]] = None
+    redeemables: Optional[List[ValidationsValidateRequestBodyRedeemablesItem]] = Field(default=None, description="An array of redeemables. You can combine `voucher`(s) and `promotion_tier`(s). Alternatively, send one unique`promotion_stack` in the array. Each unique redeemable can be sent in one request only once.")
     order: Optional[Order] = None
     customer: Optional[Customer] = None
     session: Optional[Session] = None

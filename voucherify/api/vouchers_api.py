@@ -3289,7 +3289,7 @@ class VouchersApi:
     ) -> None:
         """Release Validation Session
 
-        Manually release a validation session that has been set up for the voucher. This method undoes the actions that are explained in the [Locking validation session](/guides/locking-validation-session) guide.  <Note> <Badge color blue>Release session in the Dashboard</Badge> You can also use the [Validations Manager](/optimize/validations-and-redemptions#sessions) in the Dashboard to unlock sessions. </Note>
+        Manually release the validation session lock for the voucher in the path. This undoes the lock described in the [Locking validation session](/guides/locking-validation-session) guide for that voucher only. If several redeemables were locked with the same session key (for example in a stackable validation), this call removes the lock for the path voucher only. Other redeemables that still use the same session key stay locked. A session-released event is recorded only for the unlocked voucher, and only when a lock was actually removed. Calling this endpoint again when the voucher no longer has that session lock still returns 204 and does not create another session-released event. <Note> <Badge color blue>Release session in the Dashboard</Badge> On a redeemables details **Validations** tab, **Release session** unlocks only that redeemable (same scope as this endpoint). To unlock the session for every redeemable that still holds the key, use **Redemptions** > **Sessions**. See [Validations and redemptions](/optimize/validations-and-redemptions#sessions). </Note>
 
         :param code: A **code** that identifies the voucher or a unique voucher ID assigned by Voucherify. (required)
         :type code: str
@@ -3360,7 +3360,7 @@ class VouchersApi:
     ) -> ApiResponse[None]:
         """Release Validation Session
 
-        Manually release a validation session that has been set up for the voucher. This method undoes the actions that are explained in the [Locking validation session](/guides/locking-validation-session) guide.  <Note> <Badge color blue>Release session in the Dashboard</Badge> You can also use the [Validations Manager](/optimize/validations-and-redemptions#sessions) in the Dashboard to unlock sessions. </Note>
+        Manually release the validation session lock for the voucher in the path. This undoes the lock described in the [Locking validation session](/guides/locking-validation-session) guide for that voucher only. If several redeemables were locked with the same session key (for example in a stackable validation), this call removes the lock for the path voucher only. Other redeemables that still use the same session key stay locked. A session-released event is recorded only for the unlocked voucher, and only when a lock was actually removed. Calling this endpoint again when the voucher no longer has that session lock still returns 204 and does not create another session-released event. <Note> <Badge color blue>Release session in the Dashboard</Badge> On a redeemables details **Validations** tab, **Release session** unlocks only that redeemable (same scope as this endpoint). To unlock the session for every redeemable that still holds the key, use **Redemptions** > **Sessions**. See [Validations and redemptions](/optimize/validations-and-redemptions#sessions). </Note>
 
         :param code: A **code** that identifies the voucher or a unique voucher ID assigned by Voucherify. (required)
         :type code: str
@@ -3431,7 +3431,7 @@ class VouchersApi:
     ) -> RESTResponseType:
         """Release Validation Session
 
-        Manually release a validation session that has been set up for the voucher. This method undoes the actions that are explained in the [Locking validation session](/guides/locking-validation-session) guide.  <Note> <Badge color blue>Release session in the Dashboard</Badge> You can also use the [Validations Manager](/optimize/validations-and-redemptions#sessions) in the Dashboard to unlock sessions. </Note>
+        Manually release the validation session lock for the voucher in the path. This undoes the lock described in the [Locking validation session](/guides/locking-validation-session) guide for that voucher only. If several redeemables were locked with the same session key (for example in a stackable validation), this call removes the lock for the path voucher only. Other redeemables that still use the same session key stay locked. A session-released event is recorded only for the unlocked voucher, and only when a lock was actually removed. Calling this endpoint again when the voucher no longer has that session lock still returns 204 and does not create another session-released event. <Note> <Badge color blue>Release session in the Dashboard</Badge> On a redeemables details **Validations** tab, **Release session** unlocks only that redeemable (same scope as this endpoint). To unlock the session for every redeemable that still holds the key, use **Redemptions** > **Sessions**. See [Validations and redemptions](/optimize/validations-and-redemptions#sessions). </Note>
 
         :param code: A **code** that identifies the voucher or a unique voucher ID assigned by Voucherify. (required)
         :type code: str

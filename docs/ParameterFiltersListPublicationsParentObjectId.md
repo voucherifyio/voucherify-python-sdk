@@ -1,6 +1,6 @@
 # ParameterFiltersListPublicationsParentObjectId
 
-Filter publications by parent object id.
+Filter publications by parent object ID.
 
 ## Properties
 
