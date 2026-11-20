@@ -18,17 +18,32 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
+from voucherify.models.validation_rule_error_library import ValidationRuleErrorLibrary
 from typing import Optional, Set
 from typing_extensions import Self
 
 class ValidationRuleError(BaseModel):
     """
-    Contains the error message returned from API when validation / redemption fails to meet requirements of defined rules.
+    Defines the custom error returned when validation or redemption fails this rule. Use legacy `message`, `mode: MESSAGES` with per-language `messages`, or `mode: LIBRARY` with a library `key`. `MESSAGES` and `LIBRARY` are mutually exclusive. At validation or redemption time the API resolves this object to a single `{ message }` using `options.language`.
     """ # noqa: E501
-    message: Optional[StrictStr] = Field(default=None, description="The error message returned from API when validation / redemption fails to meet requirements of defined rules.")
-    __properties: ClassVar[List[str]] = ["message"]
+    message: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Legacy single-language error message. Used when `mode` is omitted. In `MESSAGES` mode, used when neither the requested language nor the default language has a translation.")
+    mode: Optional[StrictStr] = Field(default=None, description="Selects how the custom error is defined. `MESSAGES` stores per-language text in `messages`. `LIBRARY` references an Error Message Library entry in `library`. Omit `mode` to use the legacy `message` field only.")
+    messages: Optional[Dict[str, Any]] = Field(default=None, description="Per-language custom messages keyed by language code (`en`, `pl`, `en-US`). Required when `mode` is `MESSAGES`. Must be omitted or `null` when `mode` is `LIBRARY`.")
+    library: Optional[ValidationRuleErrorLibrary] = None
+    __properties: ClassVar[List[str]] = ["message", "mode", "messages", "library"]
+
+    @field_validator('mode')
+    def mode_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['MESSAGES', 'LIBRARY']):
+            raise ValueError("must be one of enum values ('MESSAGES', 'LIBRARY')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -69,10 +84,23 @@ class ValidationRuleError(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of library
+        if self.library:
+            _dict['library'] = self.library.to_dict()
         # set to None if message (nullable) is None
         # and model_fields_set contains the field
         if self.message is None and "message" in self.model_fields_set:
             _dict['message'] = None
+
+        # set to None if mode (nullable) is None
+        # and model_fields_set contains the field
+        if self.mode is None and "mode" in self.model_fields_set:
+            _dict['mode'] = None
+
+        # set to None if messages (nullable) is None
+        # and model_fields_set contains the field
+        if self.messages is None and "messages" in self.model_fields_set:
+            _dict['messages'] = None
 
         return _dict
 
@@ -86,7 +114,10 @@ class ValidationRuleError(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "message": obj.get("message")
+            "message": obj.get("message"),
+            "mode": obj.get("mode"),
+            "messages": obj.get("messages"),
+            "library": ValidationRuleErrorLibrary.from_dict(obj["library"]) if obj.get("library") is not None else None
         })
         return _obj
 
