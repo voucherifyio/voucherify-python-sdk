@@ -32,7 +32,7 @@ from typing_extensions import Self
 
 class LoyaltiesEarningRulesUpdateRequestBody(BaseModel):
     """
-    LoyaltiesEarningRulesUpdateRequestBody
+    Request body for updating an earning rule in a **legacy loyalty** campaign (`PUT /v1/loyalties/{campaignId}/earning-rules/{earningRuleId}`).
     """ # noqa: E501
     validation_rule_id: Optional[StrictStr] = Field(default=None, description="A unique validation rule identifier assigned by the Voucherify API. The validation rule is verified before points are added to the balance.")
     loyalty: Optional[LoyaltiesEarningRulesUpdateRequestBodyLoyalty] = None

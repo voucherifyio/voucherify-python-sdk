@@ -30,7 +30,7 @@ class LoyaltiesTiersListResponseBody(BaseModel):
     """ # noqa: E501
     object: Optional[StrictStr] = Field(default='list', description="The type of the object represented by JSON. This object stores information about loyalty tiers in a dictionary.")
     data_ref: Optional[StrictStr] = Field(default='data', description="Identifies the name of the attribute that contains the array of loyalty tier objects.")
-    data: Optional[List[LoyaltyTier]] = Field(default=None, description="This is an object representing a loyalty tier. Loyalty tiers are used to create a loyalty program with different levels of membership and varied earning rules and rewards based on customer's tiers.")
+    data: Optional[List[LoyaltyTier]] = Field(default=None, description="This is an object representing a loyalty tier. Loyalty tiers are used in a **legacy loyalty** campaign with different levels of membership and varied earning rules and rewards based on the customer's tiers.")
     total: Optional[StrictInt] = Field(default=None, description="Total number of loyalty tier objects.")
     __properties: ClassVar[List[str]] = ["object", "data_ref", "data", "total"]
 

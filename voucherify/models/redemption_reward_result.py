@@ -46,7 +46,7 @@ class RedemptionRewardResult(BaseModel):
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp in ISO 8601 format indicating when the reward was updated.")
     parameters: Optional[RedemptionRewardResultParameters] = None
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="A set of custom key/value pairs that you can attach to a reward. The metadata object stores all custom attributes assigned to the reward.")
-    type: Optional[StrictStr] = Field(default=None, description="Reward type.")
+    type: Optional[StrictStr] = Field(default=None, description="Reward type. `LOYALTY_POINTS` credits points on a `v2/loyalties` (loyalty hub) card (for example from a referral tier).")
     __properties: ClassVar[List[str]] = ["customer", "assignment_id", "voucher", "product", "sku", "loyalty_tier_id", "id", "name", "object", "created_at", "updated_at", "parameters", "metadata", "type"]
 
     @field_validator('object')
@@ -65,8 +65,8 @@ class RedemptionRewardResult(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['CAMPAIGN', 'COIN', 'MATERIAL']):
-            raise ValueError("must be one of enum values ('CAMPAIGN', 'COIN', 'MATERIAL')")
+        if value not in set(['CAMPAIGN', 'COIN', 'MATERIAL', 'LOYALTY_POINTS']):
+            raise ValueError("must be one of enum values ('CAMPAIGN', 'COIN', 'MATERIAL', 'LOYALTY_POINTS')")
         return value
 
     model_config = ConfigDict(

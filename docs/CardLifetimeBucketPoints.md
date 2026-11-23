@@ -18,6 +18,8 @@ Name | Type | Description | Notes
 **returned** | **float** | Total returned points (by returning a purchased reward). | [optional] [default to 0]
 **locked** | **float** | Total locked points (by locking a purchased reward). | [optional] [default to 0]
 **unlocked** | **float** | Total unlocked points (by unlocking a purchased reward). | [optional] [default to 0]
+**referrer_earned** | **float** | Total points credited as a referrer from a &#x60;LOYALTY_POINTS&#x60; referral reward. Already included in &#x60;total&#x60;, not in &#x60;earned&#x60;. | [optional] [default to 0]
+**referee_earned** | **float** | Total points credited as a referee from a &#x60;LOYALTY_POINTS&#x60; referral reward. Already included in &#x60;total&#x60;, not in &#x60;earned&#x60;. | [optional] [default to 0]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

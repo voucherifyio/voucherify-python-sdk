@@ -32,7 +32,7 @@ from typing_extensions import Self
 
 class LoyaltyMember(BaseModel):
     """
-    This is an object representing a loyalty member.
+    **Legacy loyalty.** This is an object representing a loyalty member.
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Assigned by the Voucherify API, identifies the voucher.")
     code: Optional[StrictStr] = Field(default=None, description="A code that identifies a voucher. Pattern can use all letters of the English alphabet, Arabic numerals, and special characters.")

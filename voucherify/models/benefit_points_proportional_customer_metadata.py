@@ -26,7 +26,7 @@ from typing_extensions import Self
 
 class BenefitPointsProportionalCustomerMetadata(BaseModel):
     """
-    Metadata-based ratio definition - `value` points for every `every` units of the metadata property.
+    Metadata-based ratio definition. `value` points for every `every` units of the metadata property.
     """ # noqa: E501
     every: Optional[Annotated[int, Field(le=9007199254740991, strict=True, ge=1)]] = Field(default=None, description="Unit step of the metadata property value for which `value` points are granted.")
     value: Optional[Union[Annotated[float, Field(le=9007199254740991, strict=True, ge=0)], Annotated[int, Field(le=2147483647, strict=True, ge=0)]]] = Field(default=None, description="Number of points granted per `every` units.")

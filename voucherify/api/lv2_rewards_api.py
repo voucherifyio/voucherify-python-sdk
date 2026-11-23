@@ -58,7 +58,7 @@ class LV2RewardsApi:
     ) -> V2LoyaltiesRewardsGetResponseBody:
         """Get reward by ID
 
-        Returns a single reward by its ID.
+        Returns a single reward by its ID. A successful call records no activity.
 
         :param reward_id: Identifies the reward. Format lrew_[a-f0-9]+. (required)
         :type reward_id: str
@@ -125,7 +125,7 @@ class LV2RewardsApi:
     ) -> ApiResponse[V2LoyaltiesRewardsGetResponseBody]:
         """Get reward by ID
 
-        Returns a single reward by its ID.
+        Returns a single reward by its ID. A successful call records no activity.
 
         :param reward_id: Identifies the reward. Format lrew_[a-f0-9]+. (required)
         :type reward_id: str
@@ -192,7 +192,7 @@ class LV2RewardsApi:
     ) -> RESTResponseType:
         """Get reward by ID
 
-        Returns a single reward by its ID.
+        Returns a single reward by its ID. A successful call records no activity.
 
         :param reward_id: Identifies the reward. Format lrew_[a-f0-9]+. (required)
         :type reward_id: str

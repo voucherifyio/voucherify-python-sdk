@@ -25,7 +25,7 @@ from typing_extensions import Self
 
 class LoyaltiesEarningRulesCreateRequestBodyItemSegment(BaseModel):
     """
-    Contains the ID of a customer segment. **Required** for the `customer.segment.entered` option in `event`.
+    Contains the ID of a customer segment. Required for the `customer.segment.entered` option in `event`.
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Contains a unique identifier of a customer segment. Assigned by the Voucherify API.")
     __properties: ClassVar[List[str]] = ["id"]

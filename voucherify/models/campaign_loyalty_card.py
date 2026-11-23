@@ -26,7 +26,7 @@ from typing_extensions import Self
 
 class CampaignLoyaltyCard(BaseModel):
     """
-    Schema model for a campaign loyalty card.
+    Schema model for a campaign loyalty card (**legacy loyalty**).
     """ # noqa: E501
     points: Optional[StrictInt] = Field(default=None, description="The initial number of points to assign to the loyalty card. This is the current loyalty card score i.e. the number of loyalty points on the card.")
     expiration_rules: Optional[CampaignLoyaltyCardExpirationRules] = None

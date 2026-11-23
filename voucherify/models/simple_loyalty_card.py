@@ -25,7 +25,7 @@ from typing_extensions import Self
 
 class SimpleLoyaltyCard(BaseModel):
     """
-    Simplified loyalty card data.
+    Simplified legacy loyalty card data.
     """ # noqa: E501
     points: Optional[StrictInt] = Field(default=None, description="Total number of points added to the loyalty card over its lifespan.")
     balance: Optional[StrictInt] = Field(default=None, description="Points available for reward redemption. This is calculated as follows: `balance` = `points` - `expired_points` - `subtracted_points` - `redemption.redeemed_points`.")

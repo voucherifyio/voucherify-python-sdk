@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from voucherify.models.rewards_create_request_body_attributes import RewardsCreateRequestBodyAttributes
 from voucherify.models.rewards_create_request_body_parameters import RewardsCreateRequestBodyParameters
@@ -30,11 +30,22 @@ class RewardsCreateRequestBody(BaseModel):
     RewardsCreateRequestBody
     """ # noqa: E501
     name: Optional[StrictStr] = Field(default=None, description="Reward name.")
+    type: Optional[StrictStr] = None
     parameters: Optional[RewardsCreateRequestBodyParameters] = None
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the reward. A set of key/value pairs that you can attach to a reward object. It can be useful for storing additional information about the reward in a structured format.")
     stock: Optional[StrictInt] = Field(default=None, description="The number of units of the product that you want to share as a reward. Use this parameter to code a stock-taking logic.")
     attributes: Optional[RewardsCreateRequestBodyAttributes] = None
-    __properties: ClassVar[List[str]] = ["name", "parameters", "metadata", "stock", "attributes"]
+    __properties: ClassVar[List[str]] = ["name", "type", "parameters", "metadata", "stock", "attributes"]
+
+    @field_validator('type')
+    def type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['CAMPAIGN', 'MATERIAL', 'COIN', 'LOYALTY_POINTS']):
+            raise ValueError("must be one of enum values ('CAMPAIGN', 'MATERIAL', 'COIN', 'LOYALTY_POINTS')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -86,6 +97,11 @@ class RewardsCreateRequestBody(BaseModel):
         if self.name is None and "name" in self.model_fields_set:
             _dict['name'] = None
 
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['type'] = None
+
         # set to None if parameters (nullable) is None
         # and model_fields_set contains the field
         if self.parameters is None and "parameters" in self.model_fields_set:
@@ -119,6 +135,7 @@ class RewardsCreateRequestBody(BaseModel):
 
         _obj = cls.model_validate({
             "name": obj.get("name"),
+            "type": obj.get("type"),
             "parameters": RewardsCreateRequestBodyParameters.from_dict(obj["parameters"]) if obj.get("parameters") is not None else None,
             "metadata": obj.get("metadata"),
             "stock": obj.get("stock"),

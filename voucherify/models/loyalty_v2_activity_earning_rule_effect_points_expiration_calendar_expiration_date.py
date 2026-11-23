@@ -28,8 +28,8 @@ class LoyaltyV2ActivityEarningRuleEffectPointsExpirationCalendarExpirationDate(B
     """
     A calendar expiration date. The maximum `day` depends on `month`: 29 for February (month 2), 30 for April/June/September/November (4, 6, 9, 11), 31 for the remaining months. The API validates field combinations that this schema does not express.
     """ # noqa: E501
-    day: Optional[Annotated[int, Field(le=31, strict=True, ge=1)]] = Field(default=None, description="Day of month (1-31; validated against the month length).")
-    month: Optional[Annotated[int, Field(le=12, strict=True, ge=1)]] = Field(default=None, description="Month number (1-12).")
+    day: Optional[Annotated[int, Field(le=31, strict=True, ge=1)]] = Field(default=None, description="Day of month (1–31; validated against the month length).")
+    month: Optional[Annotated[int, Field(le=12, strict=True, ge=1)]] = Field(default=None, description="Month number (1–12).")
     __properties: ClassVar[List[str]] = ["day", "month"]
 
     model_config = ConfigDict(

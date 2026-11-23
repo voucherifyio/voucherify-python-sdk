@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **updated_at** | **str** |  | [optional] 
 **parameters** | [**MemberActivityDataRedemptionRewardParameters**](MemberActivityDataRedemptionRewardParameters.md) |  | [optional] 
 **metadata** | **object** | A set of custom key/value pairs that you can attach to a reward. The metadata object stores all custom attributes assigned to the reward. | [optional] 
-**type** | **str** | Reward type. | [optional] 
+**type** | **str** | Reward type. &#x60;LOYALTY_POINTS&#x60; credits points on a &#x60;v2/loyalties&#x60; (loyalty hub) card (for example from a referral tier). | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

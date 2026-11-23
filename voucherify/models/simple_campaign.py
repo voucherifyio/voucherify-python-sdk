@@ -39,7 +39,7 @@ class SimpleCampaign(BaseModel):
     voucher: Optional[SimpleCampaignVoucher] = None
     referral_program: Optional[ReferralProgram] = None
     auto_join: Optional[StrictBool] = Field(default=None, description="Indicates whether customers will be able to auto-join the campaign if any earning rule is fulfilled.")
-    join_once: Optional[StrictBool] = Field(default=None, description="If this value is set to `true`, customers will be able to join the campaign only once. It is always `false` for generic (standalone) vouchers campaigns and it cannot be changed in them. It is always `true` for loyalty campaigns and it cannot be changed in them.")
+    join_once: Optional[StrictBool] = Field(default=None, description="If this value is set to `true`, customers will be able to join the campaign only once. It is always `false` for generic (standalone) vouchers campaigns and it cannot be changed in them. It is always `true` for **legacy loyalty** campaigns and it cannot be changed in them.")
     active: Optional[StrictBool] = Field(default=None, description="Indicates whether the campaign is active.")
     category_id: Optional[StrictStr] = Field(default=None, description="The unique category ID that this campaign belongs to.")
     category: Optional[StrictStr] = Field(default=None, description="Unique category name.")

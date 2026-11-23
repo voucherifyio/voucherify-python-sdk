@@ -28,7 +28,7 @@ class LoyaltyV2ActivityBenefitStockLimited(BaseModel):
     """
     Limited stock configuration.
     """ # noqa: E501
-    quantity: Optional[Annotated[int, Field(le=9007199254740991, strict=True, ge=0)]] = Field(default=None, description="Available Remaining stock quantity. For responses, updates with each benefit purchase.")
+    quantity: Optional[Annotated[int, Field(le=9007199254740991, strict=True, ge=0)]] = Field(default=None, description="Remaining stock quantity. On create, this is the starting quantity. Each benefit purchase decreases it by one.")
     __properties: ClassVar[List[str]] = ["quantity"]
 
     model_config = ConfigDict(

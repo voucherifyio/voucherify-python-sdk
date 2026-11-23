@@ -27,7 +27,7 @@ from typing_extensions import Self
 
 class LoyaltiesLoyaltyTierReward(BaseModel):
     """
-    This is an object representing a loyalty tier reward.
+    **Legacy loyalty.** This is an object representing a loyalty tier reward.
     """ # noqa: E501
     reward: Reward
     assignment: RewardAssignment

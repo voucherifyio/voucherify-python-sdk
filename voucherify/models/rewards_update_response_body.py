@@ -36,7 +36,7 @@ class RewardsUpdateResponseBody(BaseModel):
     redeemed: Optional[StrictInt] = Field(default=None, description="Defines the number of already invoked (successful) reward redemptions. ")
     attributes: Optional[RewardsUpdateResponseBodyAttributes] = None
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="The metadata object stores all custom attributes assigned to the reward. A set of key/value pairs that you can attach to a reward object. It can be useful for storing additional information about the reward in a structured format.")
-    type: Optional[StrictStr] = Field(default=None, description="Reward type.")
+    type: Optional[StrictStr] = Field(default=None, description="Reward type. `LOYALTY_POINTS` credits points on a `v2/loyalties` (loyalty hub) card (for example from a referral tier).")
     parameters: Optional[RewardType] = None
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the reward was created. The value is shown in the ISO 8601 format.")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the reward was updated. The value is shown in the ISO 8601 format.")
@@ -49,8 +49,8 @@ class RewardsUpdateResponseBody(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['CAMPAIGN', 'COIN', 'MATERIAL']):
-            raise ValueError("must be one of enum values ('CAMPAIGN', 'COIN', 'MATERIAL')")
+        if value not in set(['CAMPAIGN', 'COIN', 'MATERIAL', 'LOYALTY_POINTS']):
+            raise ValueError("must be one of enum values ('CAMPAIGN', 'COIN', 'MATERIAL', 'LOYALTY_POINTS')")
         return value
 
     @field_validator('object')

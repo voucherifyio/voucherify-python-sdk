@@ -1,6 +1,6 @@
 # LoyaltiesLoyaltyTierReward
 
-This is an object representing a loyalty tier reward.
+**Legacy loyalty.** This is an object representing a loyalty tier reward.
 
 ## Properties
 

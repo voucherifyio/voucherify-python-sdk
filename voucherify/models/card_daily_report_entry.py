@@ -29,7 +29,7 @@ class CardDailyReportEntry(BaseModel):
     Aggregated card points statistics for one period. Each field sums the operations of one kind recorded in the period. All numeric fields default to 0.
     """ # noqa: E501
     var_date: Optional[date] = Field(default=None, description="Identifies the start of the truncated aggregation period (`YYYY-MM-DD`). For `week` this is Monday. For `month` this is the first day. For `quarter` this is the quarter start.", alias="date")
-    points_total: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Points credited to the card in the period. Sums `points_earned`, `points_added`, and `points_purchased`. Points spent, expired, subtracted, refunded, returned, or reversed are not deducted.")
+    points_total: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Points credited to the card in the period. Sums `points_earned`, `points_added`, `points_purchased`, `referrer_points_earned`, and `referee_points_earned`. Points spent, expired, subtracted, refunded, returned, or reversed are not deducted.")
     points_earned: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Points earned through earning rules in the period. Includes pending points activated in the period.")
     points_added: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Points added manually in the period.")
     points_purchased: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Points purchased (e.g. via loyalty-card-points rewards) in the period.")
@@ -41,11 +41,13 @@ class CardDailyReportEntry(BaseModel):
     points_returned: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Points returned in the period.")
     points_locked: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Points locked in the period.")
     points_unlocked: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Points unlocked in the period. Includes points released when a spending transaction is approved (also counted in `points_spent`) or rejected.")
+    referrer_points_earned: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Points credited from referral referrer awards in the period (`REFERRER_POINTS_EARNED` card transactions, for example a `LOYALTY_POINTS` reward assigned to a referrer tier). Also counted in `points_total`. Not counted in `points_earned`.")
+    referee_points_earned: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Points credited from referral referee awards in the period (`REFEREE_POINTS_EARNED` card transactions, for example a `LOYALTY_POINTS` reward assigned to a referee tier). Also counted in `points_total`. Not counted in `points_earned`.")
     pending_points_total: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Pending points added in the period. Activated and canceled pending points are not deducted.")
     pending_points_activated: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Pending points activated in the period. Also counted in `points_earned` and `points_total`.")
     pending_points_canceled: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Pending points canceled in the period.")
     object: Optional[StrictStr] = Field(default='card_daily_report', description="Object type marker. Always `card_daily_report`.")
-    __properties: ClassVar[List[str]] = ["date", "points_total", "points_earned", "points_added", "points_purchased", "points_purchased_reversed", "points_subtracted", "points_expired", "points_spent", "points_refunded", "points_returned", "points_locked", "points_unlocked", "pending_points_total", "pending_points_activated", "pending_points_canceled", "object"]
+    __properties: ClassVar[List[str]] = ["date", "points_total", "points_earned", "points_added", "points_purchased", "points_purchased_reversed", "points_subtracted", "points_expired", "points_spent", "points_refunded", "points_returned", "points_locked", "points_unlocked", "referrer_points_earned", "referee_points_earned", "pending_points_total", "pending_points_activated", "pending_points_canceled", "object"]
 
     @field_validator('object')
     def object_validate_enum(cls, value):
@@ -161,6 +163,16 @@ class CardDailyReportEntry(BaseModel):
         if self.points_unlocked is None and "points_unlocked" in self.model_fields_set:
             _dict['points_unlocked'] = None
 
+        # set to None if referrer_points_earned (nullable) is None
+        # and model_fields_set contains the field
+        if self.referrer_points_earned is None and "referrer_points_earned" in self.model_fields_set:
+            _dict['referrer_points_earned'] = None
+
+        # set to None if referee_points_earned (nullable) is None
+        # and model_fields_set contains the field
+        if self.referee_points_earned is None and "referee_points_earned" in self.model_fields_set:
+            _dict['referee_points_earned'] = None
+
         # set to None if pending_points_total (nullable) is None
         # and model_fields_set contains the field
         if self.pending_points_total is None and "pending_points_total" in self.model_fields_set:
@@ -206,6 +218,8 @@ class CardDailyReportEntry(BaseModel):
             "points_returned": obj.get("points_returned"),
             "points_locked": obj.get("points_locked"),
             "points_unlocked": obj.get("points_unlocked"),
+            "referrer_points_earned": obj.get("referrer_points_earned"),
+            "referee_points_earned": obj.get("referee_points_earned"),
             "pending_points_total": obj.get("pending_points_total"),
             "pending_points_activated": obj.get("pending_points_activated"),
             "pending_points_canceled": obj.get("pending_points_canceled"),

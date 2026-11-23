@@ -29,7 +29,7 @@ class RewardsAssignmentsCreateRequestBodyParametersLoyalty(BaseModel):
     Defines the equivalent points value of the reward.
     """ # noqa: E501
     points: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="Number of points that will be subtracted from the loyalty card points balance if the reward is redeemed. Must be positive integer.")
-    auto_redeem: Optional[StrictBool] = Field(default=None, description="Determines if the reward is redeemed automatically when the customer reaches the sufficient number of points to redeem it. Value `true` means that the automatic reward redemption is active. Only one reward can be set to be redeemed automatically in a loyalty campaign, i.e. only one can have the value `true`.")
+    auto_redeem: Optional[StrictBool] = Field(default=None, description="Determines if the reward is redeemed automatically when the customer reaches the sufficient number of points to redeem it. Value `true` means that the automatic reward redemption is active. Only one reward can be set to be redeemed automatically in a **legacy loyalty** campaign, i.e. only one can have the value `true`.")
     __properties: ClassVar[List[str]] = ["points", "auto_redeem"]
 
     model_config = ConfigDict(

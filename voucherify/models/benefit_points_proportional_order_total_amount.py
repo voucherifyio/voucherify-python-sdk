@@ -26,7 +26,7 @@ from typing_extensions import Self
 
 class BenefitPointsProportionalOrderTotalAmount(BaseModel):
     """
-    Ratio definition - `value` points for every `every` units.
+    Ratio definition. `value` points for every `every` units.
     """ # noqa: E501
     every: Optional[Annotated[int, Field(le=9007199254740991, strict=True, ge=1)]] = Field(default=None, description="Unit step (e.g. order amount in cents) for which `value` points are granted.")
     value: Optional[Union[Annotated[float, Field(le=9007199254740991, strict=True, ge=0)], Annotated[int, Field(le=2147483647, strict=True, ge=0)]]] = Field(default=None, description="Number of points granted per `every` units.")

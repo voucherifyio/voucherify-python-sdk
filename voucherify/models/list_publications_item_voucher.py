@@ -33,7 +33,7 @@ class ListPublicationsItemVoucher(BaseModel):
     object: Optional[StrictStr] = Field(default='voucher', description="The type of the object represented by JSON.")
     campaign: Optional[StrictStr] = Field(default=None, description="Campaign name")
     gift: Optional[Gift] = None
-    loyalty_card: Optional[Dict[str, Any]] = Field(default=None, description="Defines the loyalty card details.")
+    loyalty_card: Optional[Dict[str, Any]] = Field(default=None, description="Defines the legacy loyalty card details.")
     discount: Optional[Discount] = None
     is_referral_code: Optional[StrictBool] = Field(default=None, description="Flag indicating whether this voucher is a referral code; `true` for campaign type `REFERRAL_PROGRAM`.")
     __properties: ClassVar[List[str]] = ["code", "object", "campaign", "gift", "loyalty_card", "discount", "is_referral_code"]

@@ -1,6 +1,6 @@
 # LoyaltyCampaignVoucher
 
-Schema model for a campaign voucher.
+**Legacy loyalty.** Schema model for a campaign voucher.
 
 ## Properties
 

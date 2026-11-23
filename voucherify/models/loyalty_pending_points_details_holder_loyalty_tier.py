@@ -25,7 +25,7 @@ from typing_extensions import Self
 
 class LoyaltyPendingPointsDetailsHolderLoyaltyTier(BaseModel):
     """
-    Loyalty tier of the loyalty card holder at the moment when the transaction occurred. The loyalty tier is the tier in which the holder was at the moment pending points were created.
+    Legacy loyalty tier of the loyalty card holder at the moment when the transaction occurred. The loyalty tier is the tier in which the holder was at the moment pending points were created.
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the loyalty tier, assigned by Voucherify.")
     name: Optional[StrictStr] = Field(default=None, description="User-defined name of the loyalty tier.")

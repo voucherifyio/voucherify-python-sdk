@@ -30,7 +30,7 @@ class LoyaltiesListMembersResponseBody(BaseModel):
     """ # noqa: E501
     object: Optional[StrictStr] = Field(default='list', description="The type of the object represented by JSON. This object stores information about members in a dictionary.")
     data_ref: Optional[StrictStr] = Field(default='vouchers', description="Identifies the name of the attribute that contains the array of voucher objects.")
-    vouchers: Optional[List[LoyaltyMember]] = Field(default=None, description="Contains array of voucher objects representing loyalty cards, in other words, loyalty program members.")
+    vouchers: Optional[List[LoyaltyMember]] = Field(default=None, description="Contains an array of voucher objects representing loyalty cards (legacy loyalty campaign members).")
     total: Optional[StrictInt] = Field(default=None, description="Total number of voucher objects.")
     __properties: ClassVar[List[str]] = ["object", "data_ref", "vouchers", "total"]
 

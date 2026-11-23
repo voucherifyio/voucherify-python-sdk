@@ -25,7 +25,7 @@ from typing_extensions import Self
 
 class CustomerSummaryRedemptionsLoyaltyCard(BaseModel):
     """
-    Summary of loyalty points.
+    Summary of loyalty points (**legacy loyalty**).
     """ # noqa: E501
     redeemed_points: Optional[StrictInt] = Field(default=None, description="Total number of loyalty points redeemed by the customer.")
     points_to_go: Optional[StrictInt] = Field(default=None, description="Sum of remaining available point balance across all loyalty cards.")

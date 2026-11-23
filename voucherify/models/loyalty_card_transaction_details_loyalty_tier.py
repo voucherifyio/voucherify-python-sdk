@@ -25,7 +25,7 @@ from typing_extensions import Self
 
 class LoyaltyCardTransactionDetailsLoyaltyTier(BaseModel):
     """
-    Contains information about the loyalty tier that is mapped for the earning rule and used in the transaction.
+    Contains information about the legacy loyalty tier that is mapped for the earning rule and used in the transaction.
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the loyalty tier, assigned by Voucherify.")
     name: Optional[StrictStr] = Field(default=None, description="User-defined name of the loyalty tier.")
