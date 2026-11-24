@@ -1,6 +1,6 @@
 # VouchersEnableResponseBodyLoyaltyCard
 
-Object representing loyalty card parameters. Child attributes are present only if `type` is `LOYALTY_CARD`. Defaults to `null`.
+Object representing legacy loyalty card parameters. Child attributes are present only if `type` is `LOYALTY_CARD`. Defaults to `null`.
 
 ## Properties
 

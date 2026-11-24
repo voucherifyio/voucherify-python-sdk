@@ -29,7 +29,7 @@ from typing_extensions import Self
 
 class LoyaltyTier(BaseModel):
     """
-    LoyaltyTier
+    Loyalty tier within a **legacy loyalty** campaign.
     """ # noqa: E501
     name: Optional[StrictStr] = Field(default=None, description="Loyalty Tier name.")
     earning_rules: Optional[Dict[str, Any]] = Field(default=None, description="Contains a list of earning rule IDs and their points mapping for the given earning rule.")

@@ -26,10 +26,10 @@ from typing_extensions import Self
 
 class LoyaltyV2ActivityEarningRuleEffectPointsExpirationRollingExpirationRounding(BaseModel):
     """
-    `value` is the month (1-12). Required when `type` is `END_OF_PARTICULAR_MONTH`. Absent for other rounding types. The API validates field combinations that this schema does not express.
+    `value` is the month (1–12). Required when `type` is `END_OF_PARTICULAR_MONTH`. Absent for other rounding types. The API validates field combinations that this schema does not express.
     """ # noqa: E501
     type: Optional[StrictStr] = Field(default=None, description="Rounding type.")
-    value: Optional[Annotated[int, Field(le=12, strict=True, ge=1)]] = Field(default=None, description="Month number (1-12). Present only when `type` is `END_OF_PARTICULAR_MONTH`.")
+    value: Optional[Annotated[int, Field(le=12, strict=True, ge=1)]] = Field(default=None, description="Month number (1–12). Present only when `type` is `END_OF_PARTICULAR_MONTH`.")
     __properties: ClassVar[List[str]] = ["type", "value"]
 
     @field_validator('type')

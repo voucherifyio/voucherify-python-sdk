@@ -1,5 +1,6 @@
 # LoyaltiesTransferPoints
 
+Request body for transferring points between **legacy loyalty** cards.
 
 ## Properties
 

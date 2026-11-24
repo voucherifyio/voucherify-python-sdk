@@ -25,7 +25,7 @@ from typing_extensions import Self
 
 class LoyaltiesTransferPoints(BaseModel):
     """
-    LoyaltiesTransferPoints
+    Request body for transferring points between **legacy loyalty** cards.
     """ # noqa: E501
     code: Optional[StrictStr] = Field(default=None, description="Unique loyalty card code from which the user wants to transfer loyalty points (source).")
     points: Optional[StrictInt] = Field(default=None, description="The number of loyalty points that the user wants to transfer to another loyalty card. The number of points cannot be higher than the current balance on the loyalty card (source).")

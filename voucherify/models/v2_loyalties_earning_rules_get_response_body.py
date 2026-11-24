@@ -37,7 +37,7 @@ class V2LoyaltiesEarningRulesGetResponseBody(BaseModel):
     """ # noqa: E501
     id: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="Earning rule ID (`lern_...`).")
     name: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Earning rule name.")
-    status: Optional[StrictStr] = Field(default=None, description="Current status. `DELETED` also exists internally but deleted rules are excluded from API reads.")
+    status: Optional[StrictStr] = Field(default=None, description="Current status. `DELETED` is returned only by the delete operation.")
     earnings: Optional[Annotated[List[EarningRuleEarning], Field(min_length=1)]] = Field(default=None, description="Earning definitions of the rule. Contains at least one earning.")
     trigger: EarningRuleTrigger
     error: Optional[LoyaltyV2ActivityEarningRuleError] = None
@@ -68,8 +68,8 @@ class V2LoyaltiesEarningRulesGetResponseBody(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['DRAFT', 'ACTIVE', 'INACTIVE']):
-            raise ValueError("must be one of enum values ('DRAFT', 'ACTIVE', 'INACTIVE')")
+        if value not in set(['DRAFT', 'ACTIVE', 'INACTIVE', 'DELETED']):
+            raise ValueError("must be one of enum values ('DRAFT', 'ACTIVE', 'INACTIVE', 'DELETED')")
         return value
 
     @field_validator('object')

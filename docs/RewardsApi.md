@@ -21,7 +21,7 @@ Method | HTTP request | Description
 
 Create Reward
 
-Create a new reward.
+Create a new reward. Use this endpoint for campaign-linked rewards (referral campaigns and **legacy loyalty**) and for LOYALTY_POINTS rewards that credit a v2/loyalties (loyalty hub) card from a referral tier. For Loyalty hub program rewards (a different resource), use POST /v2/loyalties/rewards.
 
 ### Example
 
@@ -108,7 +108,7 @@ Name | Type | Description  | Notes
 
 Create Reward Assignment
 
-Assigns a reward to a specified loyalty campaign.
+Assigns a reward to a related object. For **legacy loyalty** and digital or material rewards, send campaign with a loyalty or referral campaign ID. For a LOYALTY_POINTS reward (credits a v2/loyalties (loyalty hub) card), send related_object_type referral_tier and related_object_id set to the referral tier ID. A LOYALTY_POINTS reward cannot be assigned to a campaign. Assigning it with campaign (or any non-referral_tier related object) returns 400 with invalid_related_to. POST /v1/loyalties/{campaignId}/rewards also cannot assign a LOYALTY_POINTS reward to a campaign. For Loyalty hub program rewards, use /v2/loyalties reward endpoints.
 
 ### Example
 
@@ -150,7 +150,7 @@ with voucherify.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = voucherify.RewardsApi(api_client)
     reward_id = 'reward_id_example' # str | A unique reward ID.
-    rewards_assignments_create_request_body = {"campaign":"camp_OTuGGP90PivbvROsRvfM65El","parameters":{"loyalty":{"points":39}}} # RewardsAssignmentsCreateRequestBody | Provide the campaign ID of the campaign to which the reward is to be assigned and define the cost of the reward in terms of loyalty points. (optional)
+    rewards_assignments_create_request_body = {"campaign":"camp_OTuGGP90PivbvROsRvfM65El","parameters":{"loyalty":{"points":39}}} # RewardsAssignmentsCreateRequestBody | For digital, material, and pay-with-points rewards, provide the campaign ID and, when required, the loyalty points cost. For a LOYALTY_POINTS reward, provide related_object_type referral_tier and the referral tier ID. (optional)
 
     try:
         # Create Reward Assignment
@@ -169,7 +169,7 @@ with voucherify.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **reward_id** | **str**| A unique reward ID. | 
- **rewards_assignments_create_request_body** | [**RewardsAssignmentsCreateRequestBody**](RewardsAssignmentsCreateRequestBody.md)| Provide the campaign ID of the campaign to which the reward is to be assigned and define the cost of the reward in terms of loyalty points. | [optional] 
+ **rewards_assignments_create_request_body** | [**RewardsAssignmentsCreateRequestBody**](RewardsAssignmentsCreateRequestBody.md)| For digital, material, and pay-with-points rewards, provide the campaign ID and, when required, the loyalty points cost. For a LOYALTY_POINTS reward, provide related_object_type referral_tier and the referral tier ID. | [optional] 
 
 ### Return type
 
@@ -620,7 +620,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**2XX** | Returns a dictionary of reward assignment objects. Each object contains information regarding the resource to which the reward was assigned and the cost in loyalty points for the reward. |  -  |
+**2XX** | Returns a dictionary of reward assignment objects. Each object contains information regarding the resource to which the reward was assigned and the cost in loyalty points for the reward (**legacy loyalty** or referral campaigns). |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -629,7 +629,7 @@ Name | Type | Description  | Notes
 
 List Rewards
 
-Retrieve rewards.
+Retrieve campaign-linked rewards (referral campaigns and **legacy loyalty**). For Loyalty hub rewards, use GET /v2/loyalties/rewards.
 
 ### Example
 

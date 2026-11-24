@@ -29,7 +29,7 @@ class V2LoyaltiesBenefitsGetResponseBodyPoints(BaseModel):
     Fixed points effect - adds a fixed amount of points to a card of the given card definition.
     """ # noqa: E501
     value: Optional[Annotated[int, Field(le=9007199254740991, strict=True, ge=0)]] = Field(default=None, description="Number of points to add.")
-    card_definition_id: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="ID of the card definition whose cards receive the points. The card definition must exist and be `ACTIVE`.")
+    card_definition_id: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="ID of the card definition whose cards receive the points. The card definition must exist. Creating with `status: ACTIVE`, or updating with this object, requires an `ACTIVE` card definition.")
     __properties: ClassVar[List[str]] = ["value", "card_definition_id"]
 
     @field_validator('card_definition_id')

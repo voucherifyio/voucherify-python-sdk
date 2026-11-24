@@ -39,7 +39,9 @@ class CardLifetimeBucketPoints(BaseModel):
     returned: Optional[Union[StrictFloat, StrictInt]] = Field(default=0, description="Total returned points (by returning a purchased reward).")
     locked: Optional[Union[StrictFloat, StrictInt]] = Field(default=0, description="Total locked points (by locking a purchased reward).")
     unlocked: Optional[Union[StrictFloat, StrictInt]] = Field(default=0, description="Total unlocked points (by unlocking a purchased reward).")
-    __properties: ClassVar[List[str]] = ["total", "earned", "added", "purchased", "purchased_reversed", "subtracted", "expired", "spent", "refunded", "returned", "locked", "unlocked"]
+    referrer_earned: Optional[Union[StrictFloat, StrictInt]] = Field(default=0, description="Total points credited as a referrer from a `LOYALTY_POINTS` referral reward. Already included in `total`, not in `earned`.")
+    referee_earned: Optional[Union[StrictFloat, StrictInt]] = Field(default=0, description="Total points credited as a referee from a `LOYALTY_POINTS` referral reward. Already included in `total`, not in `earned`.")
+    __properties: ClassVar[List[str]] = ["total", "earned", "added", "purchased", "purchased_reversed", "subtracted", "expired", "spent", "refunded", "returned", "locked", "unlocked", "referrer_earned", "referee_earned"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -140,6 +142,16 @@ class CardLifetimeBucketPoints(BaseModel):
         if self.unlocked is None and "unlocked" in self.model_fields_set:
             _dict['unlocked'] = None
 
+        # set to None if referrer_earned (nullable) is None
+        # and model_fields_set contains the field
+        if self.referrer_earned is None and "referrer_earned" in self.model_fields_set:
+            _dict['referrer_earned'] = None
+
+        # set to None if referee_earned (nullable) is None
+        # and model_fields_set contains the field
+        if self.referee_earned is None and "referee_earned" in self.model_fields_set:
+            _dict['referee_earned'] = None
+
         return _dict
 
     @classmethod
@@ -163,7 +175,9 @@ class CardLifetimeBucketPoints(BaseModel):
             "refunded": obj.get("refunded") if obj.get("refunded") is not None else 0,
             "returned": obj.get("returned") if obj.get("returned") is not None else 0,
             "locked": obj.get("locked") if obj.get("locked") is not None else 0,
-            "unlocked": obj.get("unlocked") if obj.get("unlocked") is not None else 0
+            "unlocked": obj.get("unlocked") if obj.get("unlocked") is not None else 0,
+            "referrer_earned": obj.get("referrer_earned") if obj.get("referrer_earned") is not None else 0,
+            "referee_earned": obj.get("referee_earned") if obj.get("referee_earned") is not None else 0
         })
         return _obj
 

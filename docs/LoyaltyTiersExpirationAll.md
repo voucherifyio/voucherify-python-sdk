@@ -1,6 +1,6 @@
 # LoyaltyTiersExpirationAll
 
-Defines the Loyalty Tiers Expiration.
+**Legacy loyalty.** Defines the Loyalty Tiers Expiration.
 
 ## Properties
 

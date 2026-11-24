@@ -33,7 +33,7 @@ class V2LoyaltiesBenefitsGetResponseBody(BaseModel):
     Response body schema for **GET** `/v2/loyalties/benefits/{benefitId}`.
     """ # noqa: E501
     id: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="Unique benefit ID, prefixed with `lben_`.")
-    name: Optional[StrictStr] = Field(default=None, description="Benefit name, unique within the project.")
+    name: Optional[StrictStr] = Field(default=None, description="Benefit name.")
     type: Optional[StrictStr] = Field(default=None, description="Benefit type.")
     status: Optional[StrictStr] = Field(default=None, description="Current benefit status. `DELETED` appears only in the response of the delete endpoint and in activity snapshots.")
     stock: Optional[V2LoyaltiesBenefitsGetResponseBodyStock] = None

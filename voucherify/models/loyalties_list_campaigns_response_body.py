@@ -26,7 +26,7 @@ from typing_extensions import Self
 
 class LoyaltiesListCampaignsResponseBody(BaseModel):
     """
-    Response body schema for **Get** `/loyalties`.
+    **Legacy loyalty.** Response body schema for **Get** `/loyalties`.
     """ # noqa: E501
     object: Optional[StrictStr] = Field(default='list', description="The type of the object represented by JSON. This object stores information about loyalty campaigns in a dictionary.")
     data_ref: Optional[StrictStr] = Field(default='campaigns', description="Identifies the name of the attribute that contains the array of loyalty campaign objects.")

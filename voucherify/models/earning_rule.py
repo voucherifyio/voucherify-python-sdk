@@ -35,7 +35,7 @@ from typing_extensions import Self
 
 class EarningRule(BaseModel):
     """
-    EarningRule
+    Earning rule for a **legacy loyalty** campaign. For Loyalty hub earning rules, see `/v2/loyalties/earning-rules`.
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Assigned by the Voucherify API, identifies the earning rule object.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the earning rule was created. The value is shown in the ISO 8601 format.")

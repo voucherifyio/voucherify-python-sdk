@@ -502,7 +502,7 @@ with voucherify.ApiClient(configuration) as api_client:
     start_date = '2013-10-20T19:20:30+01:00' # datetime | Timestamp representing the date and time which results must begin on. Represented in ISO 8601 format. (optional)
     end_date = '2013-10-20T19:20:30+01:00' # datetime | Timestamp representing the date and time which results must end on. Represented in ISO 8601 format. (optional)
     campaign_id = 'campaign_id_example' # str | Requests only events related to specific campaign identified by its ID. (optional)
-    campaign_type = voucherify.ParameterCampaignType() # ParameterCampaignType | Filters related customers activity for the selected campaign types. Allowed values:  DISCOUNT_COUPONS, REFERRAL_PROGRAM, GIFT_VOUCHERS, PROMOTION, LOYALTY_PROGRAM. (optional)
+    campaign_type = voucherify.ParameterCampaignType() # ParameterCampaignType | Filters related customers activity for the selected campaign types. Allowed values:  DISCOUNT_COUPONS, REFERRAL_PROGRAM, GIFT_VOUCHERS, PROMOTION, LOYALTY_PROGRAM. LOYALTY_PROGRAM is the campaign type for **legacy loyalty** (loyalty card campaigns), not v2/loyalties programs. (optional)
     category = voucherify.ParameterActivityCategory() # ParameterActivityCategory | Filters activities for actions or effects. Allowed values:  ACTION, EFFECT. (optional)
     type = voucherify.ParameterCustomerEvent() # ParameterCustomerEvent | Event name of the customer event. (optional)
 
@@ -529,7 +529,7 @@ Name | Type | Description  | Notes
  **start_date** | **datetime**| Timestamp representing the date and time which results must begin on. Represented in ISO 8601 format. | [optional] 
  **end_date** | **datetime**| Timestamp representing the date and time which results must end on. Represented in ISO 8601 format. | [optional] 
  **campaign_id** | **str**| Requests only events related to specific campaign identified by its ID. | [optional] 
- **campaign_type** | [**ParameterCampaignType**](.md)| Filters related customers activity for the selected campaign types. Allowed values:  DISCOUNT_COUPONS, REFERRAL_PROGRAM, GIFT_VOUCHERS, PROMOTION, LOYALTY_PROGRAM. | [optional] 
+ **campaign_type** | [**ParameterCampaignType**](.md)| Filters related customers activity for the selected campaign types. Allowed values:  DISCOUNT_COUPONS, REFERRAL_PROGRAM, GIFT_VOUCHERS, PROMOTION, LOYALTY_PROGRAM. LOYALTY_PROGRAM is the campaign type for **legacy loyalty** (loyalty card campaigns), not v2/loyalties programs. | [optional] 
  **category** | [**ParameterActivityCategory**](.md)| Filters activities for actions or effects. Allowed values:  ACTION, EFFECT. | [optional] 
  **type** | [**ParameterCustomerEvent**](.md)| Event name of the customer event. | [optional] 
 

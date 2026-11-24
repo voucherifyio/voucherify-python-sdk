@@ -70,7 +70,7 @@ class RewardsApi:
     ) -> RewardsCreateResponseBody:
         """Create Reward
 
-        Create a new reward.
+        Create a new reward. Use this endpoint for campaign-linked rewards (referral campaigns and **legacy loyalty**) and for LOYALTY_POINTS rewards that credit a v2/loyalties (loyalty hub) card from a referral tier. For Loyalty hub program rewards (a different resource), use POST /v2/loyalties/rewards.
 
         :param rewards_create_request_body: Define parameters of the new reward.
         :type rewards_create_request_body: RewardsCreateRequestBody
@@ -137,7 +137,7 @@ class RewardsApi:
     ) -> ApiResponse[RewardsCreateResponseBody]:
         """Create Reward
 
-        Create a new reward.
+        Create a new reward. Use this endpoint for campaign-linked rewards (referral campaigns and **legacy loyalty**) and for LOYALTY_POINTS rewards that credit a v2/loyalties (loyalty hub) card from a referral tier. For Loyalty hub program rewards (a different resource), use POST /v2/loyalties/rewards.
 
         :param rewards_create_request_body: Define parameters of the new reward.
         :type rewards_create_request_body: RewardsCreateRequestBody
@@ -204,7 +204,7 @@ class RewardsApi:
     ) -> RESTResponseType:
         """Create Reward
 
-        Create a new reward.
+        Create a new reward. Use this endpoint for campaign-linked rewards (referral campaigns and **legacy loyalty**) and for LOYALTY_POINTS rewards that credit a v2/loyalties (loyalty hub) card from a referral tier. For Loyalty hub program rewards (a different resource), use POST /v2/loyalties/rewards.
 
         :param rewards_create_request_body: Define parameters of the new reward.
         :type rewards_create_request_body: RewardsCreateRequestBody
@@ -328,7 +328,7 @@ class RewardsApi:
     def create_reward_assignment(
         self,
         reward_id: Annotated[StrictStr, Field(description="A unique reward ID.")],
-        rewards_assignments_create_request_body: Annotated[Optional[RewardsAssignmentsCreateRequestBody], Field(description="Provide the campaign ID of the campaign to which the reward is to be assigned and define the cost of the reward in terms of loyalty points.")] = None,
+        rewards_assignments_create_request_body: Annotated[Optional[RewardsAssignmentsCreateRequestBody], Field(description="For digital, material, and pay-with-points rewards, provide the campaign ID and, when required, the loyalty points cost. For a LOYALTY_POINTS reward, provide related_object_type referral_tier and the referral tier ID.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -344,11 +344,11 @@ class RewardsApi:
     ) -> RewardsAssignmentsCreateResponseBody:
         """Create Reward Assignment
 
-        Assigns a reward to a specified loyalty campaign.
+        Assigns a reward to a related object. For **legacy loyalty** and digital or material rewards, send campaign with a loyalty or referral campaign ID. For a LOYALTY_POINTS reward (credits a v2/loyalties (loyalty hub) card), send related_object_type referral_tier and related_object_id set to the referral tier ID. A LOYALTY_POINTS reward cannot be assigned to a campaign. Assigning it with campaign (or any non-referral_tier related object) returns 400 with invalid_related_to. POST /v1/loyalties/{campaignId}/rewards also cannot assign a LOYALTY_POINTS reward to a campaign. For Loyalty hub program rewards, use /v2/loyalties reward endpoints.
 
         :param reward_id: A unique reward ID. (required)
         :type reward_id: str
-        :param rewards_assignments_create_request_body: Provide the campaign ID of the campaign to which the reward is to be assigned and define the cost of the reward in terms of loyalty points.
+        :param rewards_assignments_create_request_body: For digital, material, and pay-with-points rewards, provide the campaign ID and, when required, the loyalty points cost. For a LOYALTY_POINTS reward, provide related_object_type referral_tier and the referral tier ID.
         :type rewards_assignments_create_request_body: RewardsAssignmentsCreateRequestBody
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -399,7 +399,7 @@ class RewardsApi:
     def create_reward_assignment_with_http_info(
         self,
         reward_id: Annotated[StrictStr, Field(description="A unique reward ID.")],
-        rewards_assignments_create_request_body: Annotated[Optional[RewardsAssignmentsCreateRequestBody], Field(description="Provide the campaign ID of the campaign to which the reward is to be assigned and define the cost of the reward in terms of loyalty points.")] = None,
+        rewards_assignments_create_request_body: Annotated[Optional[RewardsAssignmentsCreateRequestBody], Field(description="For digital, material, and pay-with-points rewards, provide the campaign ID and, when required, the loyalty points cost. For a LOYALTY_POINTS reward, provide related_object_type referral_tier and the referral tier ID.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -415,11 +415,11 @@ class RewardsApi:
     ) -> ApiResponse[RewardsAssignmentsCreateResponseBody]:
         """Create Reward Assignment
 
-        Assigns a reward to a specified loyalty campaign.
+        Assigns a reward to a related object. For **legacy loyalty** and digital or material rewards, send campaign with a loyalty or referral campaign ID. For a LOYALTY_POINTS reward (credits a v2/loyalties (loyalty hub) card), send related_object_type referral_tier and related_object_id set to the referral tier ID. A LOYALTY_POINTS reward cannot be assigned to a campaign. Assigning it with campaign (or any non-referral_tier related object) returns 400 with invalid_related_to. POST /v1/loyalties/{campaignId}/rewards also cannot assign a LOYALTY_POINTS reward to a campaign. For Loyalty hub program rewards, use /v2/loyalties reward endpoints.
 
         :param reward_id: A unique reward ID. (required)
         :type reward_id: str
-        :param rewards_assignments_create_request_body: Provide the campaign ID of the campaign to which the reward is to be assigned and define the cost of the reward in terms of loyalty points.
+        :param rewards_assignments_create_request_body: For digital, material, and pay-with-points rewards, provide the campaign ID and, when required, the loyalty points cost. For a LOYALTY_POINTS reward, provide related_object_type referral_tier and the referral tier ID.
         :type rewards_assignments_create_request_body: RewardsAssignmentsCreateRequestBody
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -470,7 +470,7 @@ class RewardsApi:
     def create_reward_assignment_without_preload_content(
         self,
         reward_id: Annotated[StrictStr, Field(description="A unique reward ID.")],
-        rewards_assignments_create_request_body: Annotated[Optional[RewardsAssignmentsCreateRequestBody], Field(description="Provide the campaign ID of the campaign to which the reward is to be assigned and define the cost of the reward in terms of loyalty points.")] = None,
+        rewards_assignments_create_request_body: Annotated[Optional[RewardsAssignmentsCreateRequestBody], Field(description="For digital, material, and pay-with-points rewards, provide the campaign ID and, when required, the loyalty points cost. For a LOYALTY_POINTS reward, provide related_object_type referral_tier and the referral tier ID.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -486,11 +486,11 @@ class RewardsApi:
     ) -> RESTResponseType:
         """Create Reward Assignment
 
-        Assigns a reward to a specified loyalty campaign.
+        Assigns a reward to a related object. For **legacy loyalty** and digital or material rewards, send campaign with a loyalty or referral campaign ID. For a LOYALTY_POINTS reward (credits a v2/loyalties (loyalty hub) card), send related_object_type referral_tier and related_object_id set to the referral tier ID. A LOYALTY_POINTS reward cannot be assigned to a campaign. Assigning it with campaign (or any non-referral_tier related object) returns 400 with invalid_related_to. POST /v1/loyalties/{campaignId}/rewards also cannot assign a LOYALTY_POINTS reward to a campaign. For Loyalty hub program rewards, use /v2/loyalties reward endpoints.
 
         :param reward_id: A unique reward ID. (required)
         :type reward_id: str
-        :param rewards_assignments_create_request_body: Provide the campaign ID of the campaign to which the reward is to be assigned and define the cost of the reward in terms of loyalty points.
+        :param rewards_assignments_create_request_body: For digital, material, and pay-with-points rewards, provide the campaign ID and, when required, the loyalty points cost. For a LOYALTY_POINTS reward, provide related_object_type referral_tier and the referral tier ID.
         :type rewards_assignments_create_request_body: RewardsAssignmentsCreateRequestBody
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1983,7 +1983,7 @@ class RewardsApi:
     ) -> RewardsListResponseBody:
         """List Rewards
 
-        Retrieve rewards.
+        Retrieve campaign-linked rewards (referral campaigns and **legacy loyalty**). For Loyalty hub rewards, use GET /v2/loyalties/rewards.
 
         :param limit: Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.
         :type limit: int
@@ -2058,7 +2058,7 @@ class RewardsApi:
     ) -> ApiResponse[RewardsListResponseBody]:
         """List Rewards
 
-        Retrieve rewards.
+        Retrieve campaign-linked rewards (referral campaigns and **legacy loyalty**). For Loyalty hub rewards, use GET /v2/loyalties/rewards.
 
         :param limit: Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.
         :type limit: int
@@ -2133,7 +2133,7 @@ class RewardsApi:
     ) -> RESTResponseType:
         """List Rewards
 
-        Retrieve rewards.
+        Retrieve campaign-linked rewards (referral campaigns and **legacy loyalty**). For Loyalty hub rewards, use GET /v2/loyalties/rewards.
 
         :param limit: Limits the number of objects to be returned. The limit can range between 1 and 100 items. If no limit is set, it returns 10 items.
         :type limit: int

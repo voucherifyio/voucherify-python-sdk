@@ -22,6 +22,7 @@ from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
 from voucherify.models.rewards_create_request_body_parameters_campaign import RewardsCreateRequestBodyParametersCampaign
 from voucherify.models.rewards_create_request_body_parameters_coin import RewardsCreateRequestBodyParametersCoin
+from voucherify.models.rewards_create_request_body_parameters_loyalty_points import RewardsCreateRequestBodyParametersLoyaltyPoints
 from voucherify.models.rewards_create_request_body_parameters_product import RewardsCreateRequestBodyParametersProduct
 from typing import Optional, Set
 from typing_extensions import Self
@@ -33,7 +34,8 @@ class RewardsCreateRequestBodyParameters(BaseModel):
     campaign: Optional[RewardsCreateRequestBodyParametersCampaign] = None
     product: Optional[RewardsCreateRequestBodyParametersProduct] = None
     coin: Optional[RewardsCreateRequestBodyParametersCoin] = None
-    __properties: ClassVar[List[str]] = ["campaign", "product", "coin"]
+    loyalty_points: Optional[RewardsCreateRequestBodyParametersLoyaltyPoints] = None
+    __properties: ClassVar[List[str]] = ["campaign", "product", "coin", "loyalty_points"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,6 +85,9 @@ class RewardsCreateRequestBodyParameters(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of coin
         if self.coin:
             _dict['coin'] = self.coin.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of loyalty_points
+        if self.loyalty_points:
+            _dict['loyalty_points'] = self.loyalty_points.to_dict()
         # set to None if campaign (nullable) is None
         # and model_fields_set contains the field
         if self.campaign is None and "campaign" in self.model_fields_set:
@@ -98,6 +103,11 @@ class RewardsCreateRequestBodyParameters(BaseModel):
         if self.coin is None and "coin" in self.model_fields_set:
             _dict['coin'] = None
 
+        # set to None if loyalty_points (nullable) is None
+        # and model_fields_set contains the field
+        if self.loyalty_points is None and "loyalty_points" in self.model_fields_set:
+            _dict['loyalty_points'] = None
+
         return _dict
 
     @classmethod
@@ -112,7 +122,8 @@ class RewardsCreateRequestBodyParameters(BaseModel):
         _obj = cls.model_validate({
             "campaign": RewardsCreateRequestBodyParametersCampaign.from_dict(obj["campaign"]) if obj.get("campaign") is not None else None,
             "product": RewardsCreateRequestBodyParametersProduct.from_dict(obj["product"]) if obj.get("product") is not None else None,
-            "coin": RewardsCreateRequestBodyParametersCoin.from_dict(obj["coin"]) if obj.get("coin") is not None else None
+            "coin": RewardsCreateRequestBodyParametersCoin.from_dict(obj["coin"]) if obj.get("coin") is not None else None,
+            "loyalty_points": RewardsCreateRequestBodyParametersLoyaltyPoints.from_dict(obj["loyalty_points"]) if obj.get("loyalty_points") is not None else None
         })
         return _obj
 

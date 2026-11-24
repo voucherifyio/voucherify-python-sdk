@@ -58,7 +58,7 @@ class LV2EarningRulesApi:
     ) -> V2LoyaltiesEarningRulesGetResponseBody:
         """Get earning rule
 
-        Returns a single earning rule by its ID.
+        Returns a single earning rule by its ID. A successful call records no activity.
 
         :param earning_rule_id: Identifies the earning rule. Format lern_[a-f0-9]+. (required)
         :type earning_rule_id: str
@@ -125,7 +125,7 @@ class LV2EarningRulesApi:
     ) -> ApiResponse[V2LoyaltiesEarningRulesGetResponseBody]:
         """Get earning rule
 
-        Returns a single earning rule by its ID.
+        Returns a single earning rule by its ID. A successful call records no activity.
 
         :param earning_rule_id: Identifies the earning rule. Format lern_[a-f0-9]+. (required)
         :type earning_rule_id: str
@@ -192,7 +192,7 @@ class LV2EarningRulesApi:
     ) -> RESTResponseType:
         """Get earning rule
 
-        Returns a single earning rule by its ID.
+        Returns a single earning rule by its ID. A successful call records no activity.
 
         :param earning_rule_id: Identifies the earning rule. Format lern_[a-f0-9]+. (required)
         :type earning_rule_id: str

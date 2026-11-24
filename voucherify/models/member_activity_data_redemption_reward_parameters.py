@@ -22,6 +22,7 @@ from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
 from voucherify.models.member_activity_data_redemption_reward_parameters_campaign import MemberActivityDataRedemptionRewardParametersCampaign
 from voucherify.models.member_activity_data_redemption_reward_parameters_coin import MemberActivityDataRedemptionRewardParametersCoin
+from voucherify.models.member_activity_data_redemption_reward_parameters_loyalty_points import MemberActivityDataRedemptionRewardParametersLoyaltyPoints
 from voucherify.models.member_activity_data_redemption_reward_parameters_product import MemberActivityDataRedemptionRewardParametersProduct
 from typing import Optional, Set
 from typing_extensions import Self
@@ -33,7 +34,8 @@ class MemberActivityDataRedemptionRewardParameters(BaseModel):
     campaign: Optional[MemberActivityDataRedemptionRewardParametersCampaign] = None
     coin: Optional[MemberActivityDataRedemptionRewardParametersCoin] = None
     product: Optional[MemberActivityDataRedemptionRewardParametersProduct] = None
-    __properties: ClassVar[List[str]] = ["campaign", "coin", "product"]
+    loyalty_points: Optional[MemberActivityDataRedemptionRewardParametersLoyaltyPoints] = None
+    __properties: ClassVar[List[str]] = ["campaign", "coin", "product", "loyalty_points"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,6 +85,9 @@ class MemberActivityDataRedemptionRewardParameters(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of product
         if self.product:
             _dict['product'] = self.product.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of loyalty_points
+        if self.loyalty_points:
+            _dict['loyalty_points'] = self.loyalty_points.to_dict()
         # set to None if campaign (nullable) is None
         # and model_fields_set contains the field
         if self.campaign is None and "campaign" in self.model_fields_set:
@@ -98,6 +103,11 @@ class MemberActivityDataRedemptionRewardParameters(BaseModel):
         if self.product is None and "product" in self.model_fields_set:
             _dict['product'] = None
 
+        # set to None if loyalty_points (nullable) is None
+        # and model_fields_set contains the field
+        if self.loyalty_points is None and "loyalty_points" in self.model_fields_set:
+            _dict['loyalty_points'] = None
+
         return _dict
 
     @classmethod
@@ -112,7 +122,8 @@ class MemberActivityDataRedemptionRewardParameters(BaseModel):
         _obj = cls.model_validate({
             "campaign": MemberActivityDataRedemptionRewardParametersCampaign.from_dict(obj["campaign"]) if obj.get("campaign") is not None else None,
             "coin": MemberActivityDataRedemptionRewardParametersCoin.from_dict(obj["coin"]) if obj.get("coin") is not None else None,
-            "product": MemberActivityDataRedemptionRewardParametersProduct.from_dict(obj["product"]) if obj.get("product") is not None else None
+            "product": MemberActivityDataRedemptionRewardParametersProduct.from_dict(obj["product"]) if obj.get("product") is not None else None,
+            "loyalty_points": MemberActivityDataRedemptionRewardParametersLoyaltyPoints.from_dict(obj["loyalty_points"]) if obj.get("loyalty_points") is not None else None
         })
         return _obj
 

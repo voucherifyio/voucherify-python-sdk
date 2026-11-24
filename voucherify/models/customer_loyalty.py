@@ -25,11 +25,11 @@ from typing_extensions import Self
 
 class CustomerLoyalty(BaseModel):
     """
-    CustomerLoyalty
+    Summary of the customer's **legacy loyalty** activity: points on loyalty cards and referred customers. Loyalty hub memberships are listed separately under `loyalty_memberships` on the customer object.
     """ # noqa: E501
-    points: Optional[StrictInt] = Field(default=None, description="Customer's loyalty points minus expired for all loyalty cards which the customer has.")
+    points: Optional[StrictInt] = Field(default=None, description="Customer's loyalty points minus expired points for all loyalty cards (**legacy loyalty**) which the customer has.")
     referred_customers: Optional[StrictInt] = Field(default=None, description="Total number of customers referred by the customer.")
-    campaigns: Optional[Dict[str, Any]] = Field(default=None, description="Contains campaigns with details about point balances and how many customers were referred by the customer.")
+    campaigns: Optional[Dict[str, Any]] = Field(default=None, description="Contains **legacy loyalty** and referral campaigns with details about point balances and how many customers were referred by the customer.")
     __properties: ClassVar[List[str]] = ["points", "referred_customers", "campaigns"]
 
     model_config = ConfigDict(

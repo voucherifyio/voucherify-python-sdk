@@ -27,8 +27,8 @@ class ManagementProjectsUsersAssignRequestBody(BaseModel):
     """
     ManagementProjectsUsersAssignRequestBody
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier of the user who will be assigned to the project. It can be found in Team Settings > Team > Edit member. **Required** with the `role` string.  Do **not** use with the `login` string.")
-    login: Optional[StrictStr] = Field(default=None, description="The login data of the user who will be assigned to the project. **Required** with the `role` string.  Do **not** use with the `id` string.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier of the user who will be assigned to the project. It can be found in Team Settings > Team > Edit member. Required with the `role` string.  Do **not** use with the `login` string.")
+    login: Optional[StrictStr] = Field(default=None, description="The login data of the user who will be assigned to the project. Required with the `role` string.  Do **not** use with the `id` string.")
     role: Optional[StrictStr] = Field(default=None, description="The role of the user to be added. It can be one of the following predefined roles: `ADMIN`, `USER`, `VIEWER`, `MERCHANT`, or an ID of a custom role.")
     __properties: ClassVar[List[str]] = ["id", "login", "role"]
 

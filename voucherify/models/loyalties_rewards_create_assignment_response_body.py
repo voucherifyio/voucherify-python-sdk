@@ -34,8 +34,8 @@ class LoyaltiesRewardsCreateAssignmentResponseBody(BaseModel):
     created_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the reward assignment was created. The value is shown in the ISO 8601 format.")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp representing the date and time when the reward assignment was updated. The value is shown in the ISO 8601 format.")
     object: Optional[StrictStr] = Field(default='reward_assignment', description="The type of the object represented by the JSON. This object stores information about the reward assignment.")
-    related_object_id: Optional[StrictStr] = Field(default=None, description="Related object ID to which the reward was assigned.")
-    related_object_type: Optional[StrictStr] = Field(default='campaign', description="Related object type to which the reward was assigned.")
+    related_object_id: Optional[StrictStr] = Field(default=None, description="Related object ID to which the reward was assigned. For `related_object_type` `campaign`, this is the campaign ID. For `referral_tier`, this is the referral tier ID.")
+    related_object_type: Optional[StrictStr] = Field(default='campaign', description="Related object type to which the reward was assigned. Use `campaign` for **legacy loyalty** campaign rewards. Use `referral_tier` for `LOYALTY_POINTS` rewards that credit a `v2/loyalties` (loyalty hub) card from a referral tier. A `LOYALTY_POINTS` reward can only be assigned to a referral tier.")
     parameters: Optional[LoyaltiesRewardsCreateAssignmentResponseBodyParameters] = None
     __properties: ClassVar[List[str]] = ["id", "reward_id", "created_at", "updated_at", "object", "related_object_id", "related_object_type", "parameters"]
 
@@ -55,8 +55,8 @@ class LoyaltiesRewardsCreateAssignmentResponseBody(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['campaign']):
-            raise ValueError("must be one of enum values ('campaign')")
+        if value not in set(['campaign', 'referral_tier']):
+            raise ValueError("must be one of enum values ('campaign', 'referral_tier')")
         return value
 
     model_config = ConfigDict(

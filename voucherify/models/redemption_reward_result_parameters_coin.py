@@ -25,10 +25,10 @@ from typing_extensions import Self
 
 class RedemptionRewardResultParametersCoin(BaseModel):
     """
-    Defines the ratio by mapping the number of loyalty points in `points_ratio` to a predefined cash amount in `exchange_ratio`.
+    Defines the ratio by mapping the number of loyalty points (**legacy loyalty**) in `points_ratio` to a predefined cash amount in `exchange_ratio`.
     """ # noqa: E501
     exchange_ratio: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The cash equivalent of the points defined in the `points_ratio` property.")
-    points_ratio: Optional[StrictInt] = Field(default=None, description="The number of loyalty points that will map to the predefined cash amount defined by the `exchange_ratio` property.")
+    points_ratio: Optional[StrictInt] = Field(default=None, description="The number of loyalty points (**legacy loyalty**) that will map to the predefined cash amount defined by the `exchange_ratio` property.")
     __properties: ClassVar[List[str]] = ["exchange_ratio", "points_ratio"]
 
     model_config = ConfigDict(

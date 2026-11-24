@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from voucherify.models.rewards_assignments_create_request_body_parameters import RewardsAssignmentsCreateRequestBodyParameters
 from typing import Optional, Set
@@ -29,9 +29,21 @@ class RewardsAssignmentsCreateRequestBody(BaseModel):
     RewardsAssignmentsCreateRequestBody
     """ # noqa: E501
     campaign: Optional[StrictStr] = Field(default=None, description="The campaign ID of the campaign to which the reward is to be assigned.")
+    related_object_type: Optional[StrictStr] = None
     parameters: Optional[RewardsAssignmentsCreateRequestBodyParameters] = None
     validation_rules: Optional[List[StrictStr]] = None
-    __properties: ClassVar[List[str]] = ["campaign", "parameters", "validation_rules"]
+    related_object_id: Optional[StrictStr] = Field(default=None, description="Unique referral tier ID, assigned by Voucherify.")
+    __properties: ClassVar[List[str]] = ["campaign", "related_object_type", "parameters", "validation_rules", "related_object_id"]
+
+    @field_validator('related_object_type')
+    def related_object_type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['campaign', 'referral_tier']):
+            raise ValueError("must be one of enum values ('campaign', 'referral_tier')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -80,6 +92,11 @@ class RewardsAssignmentsCreateRequestBody(BaseModel):
         if self.campaign is None and "campaign" in self.model_fields_set:
             _dict['campaign'] = None
 
+        # set to None if related_object_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.related_object_type is None and "related_object_type" in self.model_fields_set:
+            _dict['related_object_type'] = None
+
         # set to None if parameters (nullable) is None
         # and model_fields_set contains the field
         if self.parameters is None and "parameters" in self.model_fields_set:
@@ -89,6 +106,11 @@ class RewardsAssignmentsCreateRequestBody(BaseModel):
         # and model_fields_set contains the field
         if self.validation_rules is None and "validation_rules" in self.model_fields_set:
             _dict['validation_rules'] = None
+
+        # set to None if related_object_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.related_object_id is None and "related_object_id" in self.model_fields_set:
+            _dict['related_object_id'] = None
 
         return _dict
 
@@ -103,8 +125,10 @@ class RewardsAssignmentsCreateRequestBody(BaseModel):
 
         _obj = cls.model_validate({
             "campaign": obj.get("campaign"),
+            "related_object_type": obj.get("related_object_type"),
             "parameters": RewardsAssignmentsCreateRequestBodyParameters.from_dict(obj["parameters"]) if obj.get("parameters") is not None else None,
-            "validation_rules": obj.get("validation_rules")
+            "validation_rules": obj.get("validation_rules"),
+            "related_object_id": obj.get("related_object_id")
         })
         return _obj
 

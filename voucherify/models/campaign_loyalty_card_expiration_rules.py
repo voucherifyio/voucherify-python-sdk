@@ -26,7 +26,7 @@ from typing_extensions import Self
 
 class CampaignLoyaltyCardExpirationRules(BaseModel):
     """
-    Defines the loyalty point expiration rule. This expiration rule applies when there are no `expiration_rules` defined for an earning rule.
+    Defines the loyalty point expiration rule (**legacy loyalty**). This expiration rule applies when there are no `expiration_rules` defined for an earning rule.
     """ # noqa: E501
     period_type: Optional[StrictStr] = Field(default=None, description="Type of period. Can be set for `MONTH` or `FIXED_DAY_OF_YEAR`. `MONTH` requires the `period_value` field. `FIXED_DAY_OF_YEAR` requires the `fixed_month` and `fixed_day` fields.")
     period_value: Optional[StrictInt] = Field(default=None, description="Value of the period. Required for the `period_type: MONTH`.")

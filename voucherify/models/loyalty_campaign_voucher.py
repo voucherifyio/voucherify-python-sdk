@@ -31,7 +31,7 @@ from typing_extensions import Self
 
 class LoyaltyCampaignVoucher(BaseModel):
     """
-    Schema model for a campaign voucher.
+    **Legacy loyalty.** Schema model for a campaign voucher.
     """ # noqa: E501
     type: Optional[StrictStr] = Field(default='LOYALTY_CARD', description="Type of voucher.")
     loyalty_card: Optional[CampaignLoyaltyCard] = None

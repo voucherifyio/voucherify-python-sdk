@@ -1391,7 +1391,7 @@ class CustomersApi:
         start_date: Annotated[Optional[datetime], Field(description="Timestamp representing the date and time which results must begin on. Represented in ISO 8601 format.")] = None,
         end_date: Annotated[Optional[datetime], Field(description="Timestamp representing the date and time which results must end on. Represented in ISO 8601 format.")] = None,
         campaign_id: Annotated[Optional[StrictStr], Field(description="Requests only events related to specific campaign identified by its ID.")] = None,
-        campaign_type: Annotated[Optional[ParameterCampaignType], Field(description="Filters related customers activity for the selected campaign types. Allowed values:  DISCOUNT_COUPONS, REFERRAL_PROGRAM, GIFT_VOUCHERS, PROMOTION, LOYALTY_PROGRAM.")] = None,
+        campaign_type: Annotated[Optional[ParameterCampaignType], Field(description="Filters related customers activity for the selected campaign types. Allowed values:  DISCOUNT_COUPONS, REFERRAL_PROGRAM, GIFT_VOUCHERS, PROMOTION, LOYALTY_PROGRAM. LOYALTY_PROGRAM is the campaign type for **legacy loyalty** (loyalty card campaigns), not v2/loyalties programs.")] = None,
         category: Annotated[Optional[ParameterActivityCategory], Field(description="Filters activities for actions or effects. Allowed values:  ACTION, EFFECT.")] = None,
         type: Annotated[Optional[ParameterCustomerEvent], Field(description="Event name of the customer event.")] = None,
         _request_timeout: Union[
@@ -1425,7 +1425,7 @@ class CustomersApi:
         :type end_date: datetime
         :param campaign_id: Requests only events related to specific campaign identified by its ID.
         :type campaign_id: str
-        :param campaign_type: Filters related customers activity for the selected campaign types. Allowed values:  DISCOUNT_COUPONS, REFERRAL_PROGRAM, GIFT_VOUCHERS, PROMOTION, LOYALTY_PROGRAM.
+        :param campaign_type: Filters related customers activity for the selected campaign types. Allowed values:  DISCOUNT_COUPONS, REFERRAL_PROGRAM, GIFT_VOUCHERS, PROMOTION, LOYALTY_PROGRAM. LOYALTY_PROGRAM is the campaign type for **legacy loyalty** (loyalty card campaigns), not v2/loyalties programs.
         :type campaign_type: ParameterCampaignType
         :param category: Filters activities for actions or effects. Allowed values:  ACTION, EFFECT.
         :type category: ParameterActivityCategory
@@ -1494,7 +1494,7 @@ class CustomersApi:
         start_date: Annotated[Optional[datetime], Field(description="Timestamp representing the date and time which results must begin on. Represented in ISO 8601 format.")] = None,
         end_date: Annotated[Optional[datetime], Field(description="Timestamp representing the date and time which results must end on. Represented in ISO 8601 format.")] = None,
         campaign_id: Annotated[Optional[StrictStr], Field(description="Requests only events related to specific campaign identified by its ID.")] = None,
-        campaign_type: Annotated[Optional[ParameterCampaignType], Field(description="Filters related customers activity for the selected campaign types. Allowed values:  DISCOUNT_COUPONS, REFERRAL_PROGRAM, GIFT_VOUCHERS, PROMOTION, LOYALTY_PROGRAM.")] = None,
+        campaign_type: Annotated[Optional[ParameterCampaignType], Field(description="Filters related customers activity for the selected campaign types. Allowed values:  DISCOUNT_COUPONS, REFERRAL_PROGRAM, GIFT_VOUCHERS, PROMOTION, LOYALTY_PROGRAM. LOYALTY_PROGRAM is the campaign type for **legacy loyalty** (loyalty card campaigns), not v2/loyalties programs.")] = None,
         category: Annotated[Optional[ParameterActivityCategory], Field(description="Filters activities for actions or effects. Allowed values:  ACTION, EFFECT.")] = None,
         type: Annotated[Optional[ParameterCustomerEvent], Field(description="Event name of the customer event.")] = None,
         _request_timeout: Union[
@@ -1528,7 +1528,7 @@ class CustomersApi:
         :type end_date: datetime
         :param campaign_id: Requests only events related to specific campaign identified by its ID.
         :type campaign_id: str
-        :param campaign_type: Filters related customers activity for the selected campaign types. Allowed values:  DISCOUNT_COUPONS, REFERRAL_PROGRAM, GIFT_VOUCHERS, PROMOTION, LOYALTY_PROGRAM.
+        :param campaign_type: Filters related customers activity for the selected campaign types. Allowed values:  DISCOUNT_COUPONS, REFERRAL_PROGRAM, GIFT_VOUCHERS, PROMOTION, LOYALTY_PROGRAM. LOYALTY_PROGRAM is the campaign type for **legacy loyalty** (loyalty card campaigns), not v2/loyalties programs.
         :type campaign_type: ParameterCampaignType
         :param category: Filters activities for actions or effects. Allowed values:  ACTION, EFFECT.
         :type category: ParameterActivityCategory
@@ -1597,7 +1597,7 @@ class CustomersApi:
         start_date: Annotated[Optional[datetime], Field(description="Timestamp representing the date and time which results must begin on. Represented in ISO 8601 format.")] = None,
         end_date: Annotated[Optional[datetime], Field(description="Timestamp representing the date and time which results must end on. Represented in ISO 8601 format.")] = None,
         campaign_id: Annotated[Optional[StrictStr], Field(description="Requests only events related to specific campaign identified by its ID.")] = None,
-        campaign_type: Annotated[Optional[ParameterCampaignType], Field(description="Filters related customers activity for the selected campaign types. Allowed values:  DISCOUNT_COUPONS, REFERRAL_PROGRAM, GIFT_VOUCHERS, PROMOTION, LOYALTY_PROGRAM.")] = None,
+        campaign_type: Annotated[Optional[ParameterCampaignType], Field(description="Filters related customers activity for the selected campaign types. Allowed values:  DISCOUNT_COUPONS, REFERRAL_PROGRAM, GIFT_VOUCHERS, PROMOTION, LOYALTY_PROGRAM. LOYALTY_PROGRAM is the campaign type for **legacy loyalty** (loyalty card campaigns), not v2/loyalties programs.")] = None,
         category: Annotated[Optional[ParameterActivityCategory], Field(description="Filters activities for actions or effects. Allowed values:  ACTION, EFFECT.")] = None,
         type: Annotated[Optional[ParameterCustomerEvent], Field(description="Event name of the customer event.")] = None,
         _request_timeout: Union[
@@ -1631,7 +1631,7 @@ class CustomersApi:
         :type end_date: datetime
         :param campaign_id: Requests only events related to specific campaign identified by its ID.
         :type campaign_id: str
-        :param campaign_type: Filters related customers activity for the selected campaign types. Allowed values:  DISCOUNT_COUPONS, REFERRAL_PROGRAM, GIFT_VOUCHERS, PROMOTION, LOYALTY_PROGRAM.
+        :param campaign_type: Filters related customers activity for the selected campaign types. Allowed values:  DISCOUNT_COUPONS, REFERRAL_PROGRAM, GIFT_VOUCHERS, PROMOTION, LOYALTY_PROGRAM. LOYALTY_PROGRAM is the campaign type for **legacy loyalty** (loyalty card campaigns), not v2/loyalties programs.
         :type campaign_type: ParameterCampaignType
         :param category: Filters activities for actions or effects. Allowed values:  ACTION, EFFECT.
         :type category: ParameterActivityCategory

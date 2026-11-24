@@ -25,7 +25,7 @@ from typing_extensions import Self
 
 class LoyaltiesEarningRulesCreateRequestBodyItemCustomEvent(BaseModel):
     """
-    Contains the schema id of a custom event. **Required** for the custom event option in `event`.
+    Contains the schema ID of a custom event. Required for the custom event option in `event`.
     """ # noqa: E501
     schema_id: Optional[StrictStr] = Field(default=None, description="Contains a unique identifier of a custom event schema. Assigned by the Voucherify API.")
     __properties: ClassVar[List[str]] = ["schema_id"]

@@ -58,7 +58,7 @@ class LV2BenefitsApi:
     ) -> V2LoyaltiesBenefitsGetResponseBody:
         """Get benefit
 
-        Returns a single benefit by its ID.
+        Returns a single benefit by its ID. A successful call records no activity.
 
         :param benefit_id: Identifies the benefit. Format lben_[a-f0-9]+. (required)
         :type benefit_id: str
@@ -125,7 +125,7 @@ class LV2BenefitsApi:
     ) -> ApiResponse[V2LoyaltiesBenefitsGetResponseBody]:
         """Get benefit
 
-        Returns a single benefit by its ID.
+        Returns a single benefit by its ID. A successful call records no activity.
 
         :param benefit_id: Identifies the benefit. Format lben_[a-f0-9]+. (required)
         :type benefit_id: str
@@ -192,7 +192,7 @@ class LV2BenefitsApi:
     ) -> RESTResponseType:
         """Get benefit
 
-        Returns a single benefit by its ID.
+        Returns a single benefit by its ID. A successful call records no activity.
 
         :param benefit_id: Identifies the benefit. Format lben_[a-f0-9]+. (required)
         :type benefit_id: str

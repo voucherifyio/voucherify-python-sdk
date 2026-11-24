@@ -26,7 +26,7 @@ from typing_extensions import Self
 
 class VouchersCreateResponseBodyLoyaltyCard(BaseModel):
     """
-    Object representing loyalty card parameters. Child attributes are present only if `type` is `LOYALTY_CARD`. Defaults to `null`.
+    Object representing legacy loyalty card parameters. Child attributes are present only if `type` is `LOYALTY_CARD`. Defaults to `null`.
     """ # noqa: E501
     points: Optional[StrictInt] = Field(default=None, description="Total number of points added to the loyalty card over its lifespan.")
     balance: Optional[StrictInt] = Field(default=None, description="Points available for reward redemption. This is calculated as follows: `balance` = `points` - `expired_points` - `subtracted_points` - `redemption.redeemed_points`.")
